@@ -233,9 +233,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="Fluid.cpp" />
+    <ClCompile Include="FluidParticle.cpp" />
+    <ClCompile Include="FluidSimulation.cpp" />
     <ClCompile Include="Level1.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="MyMath.cpp" />
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -245,8 +249,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="Fluid.h" />
+    <ClInclude Include="FluidParticle.h" />
+    <ClInclude Include="FluidSimulation.h" />
     <ClInclude Include="Level1.h" />
     <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="MyMath.h" />
     <ClInclude Include="Player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

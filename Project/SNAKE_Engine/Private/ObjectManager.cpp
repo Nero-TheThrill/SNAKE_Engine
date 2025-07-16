@@ -98,7 +98,7 @@ void ObjectManager::EraseDeadObjects(const EngineContext& engineContext)
 
 void ObjectManager::DrawAll(const EngineContext& engineContext, Camera2D* camera)
 {
-    std::cout << objects.size() << std::endl;
+    //std::cout << objects.size() << std::endl;
     std::vector<GameObject*> visibleObjects;
     FrustumCuller::CullVisible(*camera, allRawPtrs, visibleObjects,glm::vec2(engineContext.windowManager->GetWidth(), engineContext.windowManager->GetHeight()));
     using ShaderMap = std::map<Shader*, std::map<InstanceBatchKey, std::vector<GameObject*>>>;
@@ -194,9 +194,14 @@ void ObjectManager::SubmitRenderMap(const EngineContext& engineContext, Camera2D
                 {
                     engineContext.renderManager->Submit([=]() mutable {
                         std::vector<glm::mat4> transforms;
+                        std::vector<glm::vec4> colors;
                         transforms.reserve(batch.size());
+                        colors.reserve(batch.size());
                         for (auto* obj : batch)
                             transforms.push_back(obj->GetTransform2DMatrix());
+
+                        for (auto* obj : batch)
+                            colors.push_back(obj->GetColor());
 
                         Material* material = key.material;
                         Shader* currentShader = material->GetShader();
@@ -218,6 +223,7 @@ void ObjectManager::SubmitRenderMap(const EngineContext& engineContext, Camera2D
 
                         key.mesh->BindVAO();
                         material->UpdateInstanceBuffer(transforms);
+                        material->UpdateInstanceBuffer(colors);
                         key.mesh->DrawInstanced(static_cast<GLsizei>(transforms.size()));
 
                         material->UnBind();

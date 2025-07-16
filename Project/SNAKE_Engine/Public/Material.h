@@ -40,7 +40,7 @@ public:
      *
      * @param _shader Pointer to the shader program this material uses.
      */
-    Material(Shader* _shader) : shader(_shader), instanceVBO(0), isInstancingEnabled(false) {}
+    Material(Shader* _shader) : shader(_shader), instanceVBO{ 0 }, isInstancingEnabled(false) {}
 
     /**
      * @brief Binds a texture to a named uniform slot in the shader.
@@ -151,6 +151,7 @@ private:
      * @param transforms Array of model matrices for each instance.
      */
     void UpdateInstanceBuffer(const std::vector<glm::mat4>& transforms) const;
+    void UpdateInstanceBuffer(const std::vector<glm::vec4>& vec4s) const;
 
     /**
      * @brief Returns the shader used by this material.
@@ -163,6 +164,6 @@ private:
     std::unordered_map<std::string, Texture*> textures;
     std::unordered_map<std::string, UniformValue> uniforms;
 
-    GLuint instanceVBO;
+    GLuint instanceVBO[2];
     bool isInstancingEnabled;
 };

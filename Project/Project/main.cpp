@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "Debug.h"
-#include "MainMenu.h"
+#include "FluidSimulation.h"
 #include "Engine.h"
 #ifdef _DEBUG
 //#include<vld.h>//TODO: remove this and directories before release (VC++ Directories -> Include Directories & Library Directories)
@@ -25,7 +25,7 @@ int main(int argc, char* argv[])
     }
 
 
-    snakeEngine.GetEngineContext().stateManager->ChangeState(std::make_unique<MainMenu>());
+    snakeEngine.GetEngineContext().stateManager->ChangeState(std::make_unique<FluidSimulation>());
 
     snakeEngine.Run();
 

@@ -172,6 +172,9 @@ public:
      */
     [[nodiscard]] Transform2D& GetTransform2D() { return transform2D; }
 
+    [[nodiscard]] glm::vec4& GetColor() { return color; }
+
+    glm::vec4 color;
 protected:
     bool isAlive = true;
     bool isVisible = true;

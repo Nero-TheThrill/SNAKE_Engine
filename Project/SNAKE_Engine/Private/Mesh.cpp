@@ -44,9 +44,10 @@ Mesh::~Mesh()
     if (vao) glDeleteVertexArrays(1, &vao);
 }
 
-void Mesh::SetupInstanceAttributes(GLuint instanceVBO) const
+void Mesh::SetupInstanceAttributes(GLuint instanceVBO[]) const
 {
-    glVertexArrayVertexBuffer(vao, 1, instanceVBO, 0, sizeof(glm::mat4));
+    glVertexArrayVertexBuffer(vao, 1, instanceVBO[0], 0, sizeof(glm::mat4));
+
     for (int i = 0; i < 4; i++)
     {
         GLuint loc = 2 + i;
@@ -54,8 +55,14 @@ void Mesh::SetupInstanceAttributes(GLuint instanceVBO) const
         glVertexArrayAttribFormat(vao, loc, 4, GL_FLOAT, GL_FALSE, sizeof(glm::vec4) * i);
         glVertexArrayAttribBinding(vao, loc, 1);
     }
-
     glVertexArrayBindingDivisor(vao, 1, 1);
+
+    glVertexArrayVertexBuffer(vao, 2, instanceVBO[1], 0, sizeof(glm::vec4));
+    GLuint loc = 6;
+    glEnableVertexArrayAttrib(vao, loc);
+    glVertexArrayAttribFormat(vao, loc, 4, GL_FLOAT, GL_FALSE, 0);
+    glVertexArrayAttribBinding(vao, loc, 2);
+    glVertexArrayBindingDivisor(vao, 2, 1);
 }
 
 

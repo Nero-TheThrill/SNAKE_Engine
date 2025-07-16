@@ -63,7 +63,7 @@ private:
      *
      * @param instanceVBO OpenGL buffer holding instance matrix data.
      */
-    void SetupInstanceAttributes(GLuint instanceVBO) const;
+    void SetupInstanceAttributes(GLuint instanceVBO[]) const;
 
     /**
      * @brief Draws the mesh using either glDrawArrays or glDrawElements.

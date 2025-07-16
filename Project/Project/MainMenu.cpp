@@ -1,6 +1,5 @@
 #include "MainMenu.h"
 #include <iostream>
-#include "../ThirdParty/glad/gl.h"
 
 #include "Debug.h"
 #include "Level1.h"
@@ -11,6 +10,7 @@ void MainMenu::Load(const EngineContext& engineContext)
 {
     SNAKE_LOG("[MainMenu] load called");
 
+
     engineContext.renderManager->RegisterMesh("default", std::vector<float>{
         -0.5f, -0.5f, 0.f, 0.f, 0.f, // vertex 0
             0.5f, -0.5f, 0.f, 1.f, 0.f, // vertex 1
@@ -18,6 +18,7 @@ void MainMenu::Load(const EngineContext& engineContext)
             -0.5f, 0.5f, 0.f, 0.f, 1.f  // vertex 3
     }, std::vector<unsigned int>{0, 1, 2,
         2, 3, 0});
+
     static std::vector<float> starVertices = {
         // pos         // uv (mapped to [0, 1])
          0.0f,  0.5f, 0.0f,   0.5f, 1.0f,  // top
@@ -42,6 +43,7 @@ void MainMenu::Load(const EngineContext& engineContext)
         7, 8, 9,
         9, 0, 1
     };
+
     engineContext.renderManager->RegisterMesh("star", starVertices, starIndices);
 
     TextureSettings ts;
@@ -102,19 +104,13 @@ void MainMenu::Draw(const EngineContext& engineContext)
     rm.SetViewport(0, 0, engineContext.windowManager->GetWidth(), engineContext.windowManager->GetHeight());
     cameraManager.SetActiveCamera("main");
     objectManager.DrawAll(engineContext, cameraManager.GetActiveCamera());
-    rm.FlushDrawCommands();
 
     rm.ClearBackground(10, 10, 200, 200, glm::vec4(0.3, 0.3, 1, 0));
     rm.SetViewport(10, 10, 200, 200);
-    rm.FlushDrawCommands();
 
     cameraManager.SetActiveCamera("minimap");
     cameraManager.SetScreenSize("minimap", 200, 200);
     objectManager.DrawObjectsWithTag(engineContext, cameraManager.GetActiveCamera(), "bullet");
-    rm.FlushDrawCommands();
-
-    rm.SetViewport(0, 0, engineContext.windowManager->GetWidth(), engineContext.windowManager->GetHeight());
-    rm.FlushDrawCommands();
 }
 
 

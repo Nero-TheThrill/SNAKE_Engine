@@ -24,8 +24,15 @@ void Material::UnBind() const
 
 void Material::UpdateInstanceBuffer(const std::vector<glm::mat4>& transforms) const
 {
-    glBindBuffer(GL_ARRAY_BUFFER, instanceVBO);
-    glBufferData(GL_ARRAY_BUFFER, transforms.size() * sizeof(glm::mat4), transforms.data(), GL_DYNAMIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, instanceVBO[0]);
+    glBufferData(GL_ARRAY_BUFFER, transforms.size() * sizeof(glm::mat4), transforms.data(), GL_DYNAMIC_DRAW);    
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void Material::UpdateInstanceBuffer(const std::vector<glm::vec4>& vec4s) const
+{
+    glBindBuffer(GL_ARRAY_BUFFER, instanceVBO[1]);
+    glBufferData(GL_ARRAY_BUFFER, vec4s.size() * sizeof(glm::vec4), vec4s.data(), GL_DYNAMIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
@@ -45,8 +52,8 @@ void Material::EnableInstancing(bool enable, Mesh* mesh)
         isInstancingEnabled = enable;
         if (mesh)
         {
-            if (!instanceVBO)
-                glGenBuffers(1, &instanceVBO);
+            if (!instanceVBO[0])
+                glGenBuffers(2, instanceVBO);
             mesh->SetupInstanceAttributes(instanceVBO);
         }
     }
