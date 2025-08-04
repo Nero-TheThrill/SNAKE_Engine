@@ -1,0 +1,88 @@
+\doxysection{Animation.\+h}
+\hypertarget{_animation_8h_source}{}\label{_animation_8h_source}\index{Project/SNAKE\_Engine/Public/Animation.h@{Project/SNAKE\_Engine/Public/Animation.h}}
+\mbox{\hyperlink{_animation_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00001}00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}vec2.hpp"{}}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_texture_8h}{Texture.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00006}\mbox{\hyperlink{struct_sprite_frame}{00006}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_sprite_frame}{SpriteFrame}}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00007}00007\ \{}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00008}\mbox{\hyperlink{struct_sprite_frame_a664f4e5144e2577acd35c8c8e1d60a5f}{00008}}\ \ \ \ \ glm::vec2\ \mbox{\hyperlink{struct_sprite_frame_a664f4e5144e2577acd35c8c8e1d60a5f}{uvTopLeft}};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00009}\mbox{\hyperlink{struct_sprite_frame_acceeda89842d01cc0a6a042c37d0eeb1}{00009}}\ \ \ \ \ glm::vec2\ \mbox{\hyperlink{struct_sprite_frame_acceeda89842d01cc0a6a042c37d0eeb1}{uvBottomRight}};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00010}\mbox{\hyperlink{struct_sprite_frame_a35d1b1e3cd586985e36e3e0286757721}{00010}}\ \ \ \ \ glm::ivec2\ \mbox{\hyperlink{struct_sprite_frame_a35d1b1e3cd586985e36e3e0286757721}{pixelSize}};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00011}\mbox{\hyperlink{struct_sprite_frame_ab73f8b723cf751ae293bcfe7cef58739}{00011}}\ \ \ \ \ glm::ivec2\ \mbox{\hyperlink{struct_sprite_frame_ab73f8b723cf751ae293bcfe7cef58739}{offset}};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00012}00012\ \};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00014}\mbox{\hyperlink{struct_sprite_clip}{00014}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_sprite_clip}{SpriteClip}}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00015}00015\ \{}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00016}\mbox{\hyperlink{struct_sprite_clip_a64edc4b888946923170ee69fc00a75b3}{00016}}\ \ \ \ \ std::vector<int>\ \mbox{\hyperlink{struct_sprite_clip_a64edc4b888946923170ee69fc00a75b3}{frameIndices}};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00017}\mbox{\hyperlink{struct_sprite_clip_a523b8e6b2ae91841db8d0a695af55728}{00017}}\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct_sprite_clip_a523b8e6b2ae91841db8d0a695af55728}{frameDuration}};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00018}\mbox{\hyperlink{struct_sprite_clip_a0f0f0cf07d19607cef868cbd1090dbaf}{00018}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_sprite_clip_a0f0f0cf07d19607cef868cbd1090dbaf}{looping}};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00019}00019\ \};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00035}\mbox{\hyperlink{class_sprite_sheet}{00035}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_sprite_sheet_adc4338e1d81369932f37c8bb8e17f3f8}{SpriteSheet}}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00036}00036\ \{}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00038}00038\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00051}00051\ \ \ \ \ \mbox{\hyperlink{class_sprite_sheet_adc4338e1d81369932f37c8bb8e17f3f8}{SpriteSheet}}(\mbox{\hyperlink{class_texture}{Texture}}*\ texture\_,\ \textcolor{keywordtype}{int}\ frameW,\ \textcolor{keywordtype}{int}\ frameH);}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00065}00065\ \ \ \ \ [[nodiscard]]\ glm::vec2\ \mbox{\hyperlink{class_sprite_sheet_a2052999ec8fce40951d4df88118d908a}{GetUVOffset}}(\textcolor{keywordtype}{int}\ frameIndex)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00076}00076\ \ \ \ \ [[nodiscard]]\ glm::vec2\ \mbox{\hyperlink{class_sprite_sheet_a5ff75353185084b8624ee771d10a590a}{GetUVScale}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00087}\mbox{\hyperlink{class_sprite_sheet_a6895f8f4de5332b429bdb3bbc8774943}{00087}}\ \ \ \ \ [[nodiscard]]\ \mbox{\hyperlink{class_texture}{Texture}}*\ \mbox{\hyperlink{class_sprite_sheet_a6895f8f4de5332b429bdb3bbc8774943}{GetTexture}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_sprite_sheet_adfc63d5429102f4267dea33179c3ba38}{texture}};\ \}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00097}00097\ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_sprite_sheet_acc6bb35d4dc6fce692316cb745be99cf}{GetFrameCount}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00112}00112\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_sprite_sheet_a0656d33c5b84e8b82abb34a7107ca823}{AddClip}}(\textcolor{keyword}{const}\ std::string\&\ name,\ \textcolor{keyword}{const}\ std::vector<int>\&\ frames,\ \textcolor{keywordtype}{float}\ frameDuration,\ \textcolor{keywordtype}{bool}\ looping=\textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00124}00124\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_sprite_clip}{SpriteClip}}*\ \mbox{\hyperlink{class_sprite_sheet_aaa4e33b8d39dc2f9b714a1d4152e5271}{GetClip}}(\textcolor{keyword}{const}\ std::string\&\ name)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00125}00125\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00126}00126\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00127}\mbox{\hyperlink{class_sprite_sheet_acffd1f788437a4d1be0c8606d0905b5d}{00127}}\ \ \ \ \ std::unordered\_map<std::string,\ SpriteClip>\ \mbox{\hyperlink{class_sprite_sheet_acffd1f788437a4d1be0c8606d0905b5d}{animationClips}};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00128}\mbox{\hyperlink{class_sprite_sheet_adfc63d5429102f4267dea33179c3ba38}{00128}}\ \ \ \ \ \mbox{\hyperlink{class_texture}{Texture}}*\ \mbox{\hyperlink{class_sprite_sheet_adfc63d5429102f4267dea33179c3ba38}{texture}};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00129}\mbox{\hyperlink{class_sprite_sheet_a02e1cd2d1df28243fd98a811c78a585f}{00129}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_sprite_sheet_a3b5d96c0fc1d7d50d1098bda06e6e506}{frameWidth}},\ \mbox{\hyperlink{class_sprite_sheet_a02e1cd2d1df28243fd98a811c78a585f}{frameHeight}};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00130}\mbox{\hyperlink{class_sprite_sheet_a79d8b4d9cbeafaa3a12b37b6d3129553}{00130}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_sprite_sheet_a79d8b4d9cbeafaa3a12b37b6d3129553}{columns}},\ \mbox{\hyperlink{class_sprite_sheet_afdfca9f9fdf266b89cd7ec84f967996b}{rows}};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00131}\mbox{\hyperlink{class_sprite_sheet_ac72c784429b5ef63acc06f181e8ced20}{00131}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_sprite_sheet_a761c9a859e1095423a6c143d4ec13ca1}{texWidth}}\ =\ 0,\ \mbox{\hyperlink{class_sprite_sheet_ac72c784429b5ef63acc06f181e8ced20}{texHeight}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00132}00132\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00133}\mbox{\hyperlink{class_sprite_sheet_a27ca8f909b155bc0c630ecba9927f704}{00133}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_sprite_sheet_a27ca8f909b155bc0c630ecba9927f704}{flipUV\_X}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00134}\mbox{\hyperlink{class_sprite_sheet_add5883b0e807cabfa77edb84bcce8cf6}{00134}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_sprite_sheet_add5883b0e807cabfa77edb84bcce8cf6}{flipUV\_Y}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00135}00135\ \};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00136}00136\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00137}00137\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00154}\mbox{\hyperlink{class_sprite_animator}{00154}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_sprite_animator_a67de66a8bb6d95c356e1384c87cf359f}{SpriteAnimator}}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00155}00155\ \{}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00156}00156\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00170}00170\ \ \ \ \ \mbox{\hyperlink{class_sprite_animator_a67de66a8bb6d95c356e1384c87cf359f}{SpriteAnimator}}(\mbox{\hyperlink{class_sprite_sheet}{SpriteSheet}}*\ sheet\_,\ \textcolor{keywordtype}{float}\ frameTime\_,\ \textcolor{keywordtype}{bool}\ loop\_\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00171}00171\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00186}00186\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_sprite_animator_af2935db4720fc2387d34796559412404}{PlayClip}}(\textcolor{keywordtype}{int}\ start,\ \textcolor{keywordtype}{int}\ end,\ \textcolor{keywordtype}{bool}\ loop\_\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00187}00187\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00200}00200\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_sprite_animator_af2935db4720fc2387d34796559412404}{PlayClip}}(\textcolor{keyword}{const}\ std::string\&\ clipName);}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00201}00201\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00219}00219\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_sprite_animator_a23f9880b2fdbbd23fe48f25526cafb07}{Update}}(\textcolor{keywordtype}{float}\ dt);}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00220}00220\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00230}00230\ \ \ \ \ [[nodiscard]]\ glm::vec2\ \mbox{\hyperlink{class_sprite_animator_a8128f7ba56f5127ee553411395eb3256}{GetUVOffset}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00231}00231\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00241}00241\ \ \ \ \ [[nodiscard]]\ glm::vec2\ \mbox{\hyperlink{class_sprite_animator_aabc0ec5b983de02c99eaf51b4fefc3b5}{GetUVScale}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00242}00242\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00248}\mbox{\hyperlink{class_sprite_animator_a0b81f72271d4317d88ba9e235cca8f1c}{00248}}\ \ \ \ \ [[nodiscard]]\ \mbox{\hyperlink{class_texture}{Texture}}*\ \mbox{\hyperlink{class_sprite_animator_a0b81f72271d4317d88ba9e235cca8f1c}{GetTexture}}()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_sprite_animator_ac69e0d3cdfccaaf0952a68cc67501ed7}{sheet}}-\/>GetTexture();\}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00249}00249\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00255}\mbox{\hyperlink{class_sprite_animator_ac1f67603f393000a573dff1308e1245f}{00255}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_sprite_animator_ac1f67603f393000a573dff1308e1245f}{SetFrame}}(\textcolor{keywordtype}{int}\ frame)\ \{\ \mbox{\hyperlink{class_sprite_animator_add19e00a74d70def2375d6fa40605b8e}{currentFrame}}\ =\ frame;\ \}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00256}00256\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00262}\mbox{\hyperlink{class_sprite_animator_adb6d3704d6333f420d16bb2e2e7b5855}{00262}}\ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_sprite_animator_adb6d3704d6333f420d16bb2e2e7b5855}{GetCurrentFrame}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_sprite_animator_add19e00a74d70def2375d6fa40605b8e}{currentFrame}};\ \}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00263}00263\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00264}00264\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00265}\mbox{\hyperlink{class_sprite_animator_ac69e0d3cdfccaaf0952a68cc67501ed7}{00265}}\ \ \ \ \ \mbox{\hyperlink{class_sprite_sheet}{SpriteSheet}}*\ \mbox{\hyperlink{class_sprite_animator_ac69e0d3cdfccaaf0952a68cc67501ed7}{sheet}};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00266}\mbox{\hyperlink{class_sprite_animator_ad6c488dd70434014d2d203482e188a93}{00266}}\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_sprite_animator_ad6c488dd70434014d2d203482e188a93}{frameTime}};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00267}\mbox{\hyperlink{class_sprite_animator_abc34368dd943697e8657a68c554329fe}{00267}}\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_sprite_animator_abc34368dd943697e8657a68c554329fe}{elapsed}}\ =\ 0.0f;}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00268}\mbox{\hyperlink{class_sprite_animator_add19e00a74d70def2375d6fa40605b8e}{00268}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_sprite_animator_add19e00a74d70def2375d6fa40605b8e}{currentFrame}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00269}\mbox{\hyperlink{class_sprite_animator_af0127d4a6d5804580ed0bdc749e48fe6}{00269}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_sprite_animator_af0127d4a6d5804580ed0bdc749e48fe6}{startFrame}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00270}\mbox{\hyperlink{class_sprite_animator_ac7766936f67b1e7bd0d031d3d53c087c}{00270}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_sprite_animator_ac7766936f67b1e7bd0d031d3d53c087c}{endFrame}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00271}\mbox{\hyperlink{class_sprite_animator_a0de89a6edb4094e019640ee24e21d626}{00271}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_sprite_animator_a0de89a6edb4094e019640ee24e21d626}{loop}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00272}\mbox{\hyperlink{class_sprite_animator_a3b0b375da67fba82d5767da746200ba2}{00272}}\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_sprite_clip}{SpriteClip}}*\ \mbox{\hyperlink{class_sprite_animator_a3b0b375da67fba82d5767da746200ba2}{playingClip}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00273}\mbox{\hyperlink{class_sprite_animator_ae4b7c71c1e14cb5fb6b430ed58ae5bfd}{00273}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_sprite_animator_ae4b7c71c1e14cb5fb6b430ed58ae5bfd}{clipFrameIndex}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00274}00274\ \};}
+
+\end{DoxyCode}

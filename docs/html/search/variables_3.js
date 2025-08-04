@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['fpstimer_0',['fpsTimer',['../struct_engine_timer.html#ae752c69abc5d400019e704aeb49683c1',1,'EngineTimer']]],
-  ['framecount_1',['frameCount',['../struct_engine_timer.html#a760c4494a8697985fcaf45888ba21a47',1,'EngineTimer']]],
-  ['frustumculler_2',['FrustumCuller',['../class_game_object.html#af37f4e97869db69de7a08dfb863f19b4',1,'GameObject']]]
+  ['debuglinemap_0',['debugLineMap',['../class_render_manager.html#a352022713056e30b4f0df779a9e086cc',1,'RenderManager']]],
+  ['debuglineshader_1',['debugLineShader',['../class_render_manager.html#ad145558e8d901f8e973d56b4659a3ac9',1,'RenderManager']]],
+  ['debuglinevao_2',['debugLineVAO',['../class_render_manager.html#a266dbe35bee57f3e38c681a900c6eaf8',1,'RenderManager']]],
+  ['debuglinevbo_3',['debugLineVBO',['../class_render_manager.html#a19a8f6d0d22b7315692ecbaa3380856c',1,'RenderManager']]]
 ];

@@ -1,0 +1,95 @@
+\doxysection{Text\+Instance Struct Reference}
+\hypertarget{struct_text_instance}{}\label{struct_text_instance}\index{TextInstance@{TextInstance}}
+
+
+Holds font and text content for rendering.  
+
+
+
+
+{\ttfamily \#include $<$Text\+Object.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{struct_text_instance_ab47b24247b1607ba43bf9d84da6cf400}{Get\+Cache\+Key}} () const
+\begin{DoxyCompactList}\small\item\em Generates a cache key based on the current text content. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_font}{Font}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_text_instance_a24aa49c4382cc386917dd5add02c0e8f}{font}} = nullptr
+\item 
+std\+::string \mbox{\hyperlink{struct_text_instance_a023baf061b0a91453e3c9abf64d1a230}{text}} = "{}"{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Holds font and text content for rendering. 
+
+\doxylink{struct_text_instance}{Text\+Instance} stores the font pointer and the actual UTF-\/8 text string to be displayed. It is used by \doxylink{class_text_object}{Text\+Object} to track what text to render and how it should be processed for mesh generation and alignment.
+
+The \doxylink{struct_text_instance_ab47b24247b1607ba43bf9d84da6cf400}{Get\+Cache\+Key()} function is used internally to generate a key for caching text meshes. 
+
+Definition at line \mbox{\hyperlink{_text_object_8h_source_l00020}{20}} of file \mbox{\hyperlink{_text_object_8h_source}{Text\+Object.\+h}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{struct_text_instance_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_text_instance_ab47b24247b1607ba43bf9d84da6cf400}\index{TextInstance@{TextInstance}!GetCacheKey@{GetCacheKey}}
+\index{GetCacheKey@{GetCacheKey}!TextInstance@{TextInstance}}
+\doxysubsubsection{\texorpdfstring{GetCacheKey()}{GetCacheKey()}}
+{\footnotesize\ttfamily \label{struct_text_instance_ab47b24247b1607ba43bf9d84da6cf400} 
+std\+::string Text\+Instance\+::\+Get\+Cache\+Key (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Generates a cache key based on the current text content. 
+
+Returns a string key derived from the current UTF-\/8 text content, used to store or retrieve generated mesh data from the internal cache.
+
+\begin{DoxyReturn}{Returns}
+Cache key string. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_text_object_8h_source_l00033}{33}} of file \mbox{\hyperlink{_text_object_8h_source}{Text\+Object.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00034\ \ \ \ \ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}|"{}}\ +\ \mbox{\hyperlink{struct_text_instance_a023baf061b0a91453e3c9abf64d1a230}{text}};}
+\DoxyCodeLine{00036\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+\label{doc-variable-members}
+\Hypertarget{struct_text_instance_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_text_instance_a24aa49c4382cc386917dd5add02c0e8f}\index{TextInstance@{TextInstance}!font@{font}}
+\index{font@{font}!TextInstance@{TextInstance}}
+\doxysubsubsection{\texorpdfstring{font}{font}}
+{\footnotesize\ttfamily \label{struct_text_instance_a24aa49c4382cc386917dd5add02c0e8f} 
+\mbox{\hyperlink{class_font}{Font}}\texorpdfstring{$\ast$}{*} Text\+Instance\+::font = nullptr}
+
+
+
+Definition at line \mbox{\hyperlink{_text_object_8h_source_l00022}{22}} of file \mbox{\hyperlink{_text_object_8h_source}{Text\+Object.\+h}}.
+
+\Hypertarget{struct_text_instance_a023baf061b0a91453e3c9abf64d1a230}\index{TextInstance@{TextInstance}!text@{text}}
+\index{text@{text}!TextInstance@{TextInstance}}
+\doxysubsubsection{\texorpdfstring{text}{text}}
+{\footnotesize\ttfamily \label{struct_text_instance_a023baf061b0a91453e3c9abf64d1a230} 
+std\+::string Text\+Instance\+::text = "{}"{}}
+
+
+
+Definition at line \mbox{\hyperlink{_text_object_8h_source_l00023}{23}} of file \mbox{\hyperlink{_text_object_8h_source}{Text\+Object.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Project/\+SNAKE\+\_\+\+Engine/\+Public/\mbox{\hyperlink{_text_object_8h}{Text\+Object.\+h}}\end{DoxyCompactItemize}

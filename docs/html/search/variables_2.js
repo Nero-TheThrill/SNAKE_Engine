@@ -1,6 +1,20 @@
 var searchData=
 [
-  ['ebo_0',['ebo',['../class_mesh.html#a17bb0f1901ce2f3bc62e7d6d2ca9e2f7',1,'Mesh']]],
-  ['engine_1',['engine',['../struct_engine_context.html#ad9836cdfc607ba27f100f5e0e892987f',1,'EngineContext']]],
-  ['enginecontext_2',['engineContext',['../class_s_n_a_k_e___engine.html#aee0757b5b1d709f1da33ea5fc9b7bf18',1,'SNAKE_Engine']]]
+  ['cameramanager_0',['cameraManager',['../class_game_state.html#a8791f5177bdd9959553a98bac8cf092b',1,'GameState']]],
+  ['cameramap_1',['cameraMap',['../class_camera_manager.html#a766512f18ed65d79f35fe37b9846ae14',1,'CameraManager']]],
+  ['cellsize_2',['cellSize',['../class_spatial_hash_grid.html#af3d8a474161e4f52e06fadd344cfe891',1,'SpatialHashGrid']]],
+  ['channels_3',['channels',['../class_texture.html#a69c58068e4b82a86d24e8c797705d515',1,'Texture']]],
+  ['circlecollider_4',['CircleCollider',['../class_collider.html#a12cf416c51b48e672ffdfe63e6118f22',1,'Collider::CircleCollider'],['../class_a_a_b_b_collider.html#a4090be2a3f0d7745dbaee9c8e23e327f',1,'AABBCollider::CircleCollider']]],
+  ['clipframeindex_5',['clipFrameIndex',['../class_sprite_animator.html#ae4b7c71c1e14cb5fb6b430ed58ae5bfd',1,'SpriteAnimator']]],
+  ['collider_6',['collider',['../class_object.html#a4b6e56f7a8f6d8dae69cb029cb6e5bd7',1,'Object']]],
+  ['collisioncategory_7',['collisionCategory',['../class_object.html#aca82263c28421c17cb204ae27492d3e2',1,'Object']]],
+  ['collisiongroupregistry_8',['collisionGroupRegistry',['../class_object_manager.html#a697bf14420d66f3c4d88b68cf58bc6e3',1,'ObjectManager']]],
+  ['collisionmask_9',['collisionMask',['../class_object.html#a8b9f93c681a4d64d8ad30ea03b85c9a0',1,'Object']]],
+  ['color_10',['color',['../class_object.html#a3d1a20796927cc278a924836c14cf48a',1,'Object::color'],['../struct_line_instance.html#ae499492ef256243e41402daadbca4a9c',1,'LineInstance::color']]],
+  ['columns_11',['columns',['../class_sprite_sheet.html#a79d8b4d9cbeafaa3a12b37b6d3129553',1,'SpriteSheet']]],
+  ['currentbit_12',['currentBit',['../class_collision_group_registry.html#a56e97b092b3b9a4872dc4ad796d00443',1,'CollisionGroupRegistry']]],
+  ['currentframe_13',['currentFrame',['../class_sprite_animator.html#add19e00a74d70def2375d6fa40605b8e',1,'SpriteAnimator']]],
+  ['currentkeystate_14',['currentKeyState',['../class_input_manager.html#aefae2af7e4cb8d8dca2b3e400cfd066b',1,'InputManager']]],
+  ['currentmousestate_15',['currentMouseState',['../class_input_manager.html#a9d9751f5b8375e4ca8322b4429fb624c',1,'InputManager']]],
+  ['currentstate_16',['currentState',['../class_state_manager.html#a23b9db8ba856509ed476ed1144247b83',1,'StateManager']]]
 ];

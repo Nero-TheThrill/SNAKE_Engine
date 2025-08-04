@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['shaderstage_0',['ShaderStage',['../_shader_8h.html#a22fa67f5720e9bfbd075bd088285c531',1,'Shader.h']]]
+  ['inputkey_0',['InputKey',['../_input_manager_8h.html#a3a1ad9c72a28e97d9440d4cf7072b6d9',1,'InputManager.h']]],
+  ['inputmousebutton_1',['InputMouseButton',['../_input_manager_8h.html#a9c815d6db08987254ee690c41c2a1ff8',1,'InputManager.h']]]
 ];

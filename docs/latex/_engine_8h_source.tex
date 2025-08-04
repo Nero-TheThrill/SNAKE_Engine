@@ -2,29 +2,33 @@
 \hypertarget{_engine_8h_source}{}\label{_engine_8h_source}\index{Project/SNAKE\_Engine/Public/Engine.h@{Project/SNAKE\_Engine/Public/Engine.h}}
 \mbox{\hyperlink{_engine_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00001}00001\ \textcolor{preprocessor}{\#pragma\ once}}
-\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00002}00002\ }
-\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00014}00014\ }
-\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00015}00015\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_s_n_a_k_e___engine_8h}{SNAKE\_Engine.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00016}00016\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_game_state_8h}{GameState.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00017}00017\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_engine_context_8h}{EngineContext.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00018}00018\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_input_manager_8h}{InputManager.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00019}00019\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_window_manager_8h}{WindowManager.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00020}00020\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_state_manager_8h}{StateManager.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00021}00021\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_object_manager_8h}{ObjectManager.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00022}00022\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_render_manager_8h}{RenderManager.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00023}00023\ }
-\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00024}00024\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_texture_8h}{Texture.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00025}00025\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_shader_8h}{Shader.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00026}00026\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_transform_8h}{Transform.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00027}00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_material_8h}{Material.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00028}00028\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_mesh_8h}{Mesh.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00029}00029\ }
-\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00030}00030\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_engine_timer_8h}{EngineTimer.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00031}00031\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_camera_manager_8h}{CameraManager.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00032}00032\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_camera2_d_8h}{Camera2D.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00033}00033\ }
-\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00034}00034\ \textcolor{preprocessor}{\#include\ "{}../ThirdParty/glm/glm.hpp"{}}}
-\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00035}00035\ \textcolor{preprocessor}{\#include\ "{}../ThirdParty/glm/gtc/matrix\_transform.hpp"{}}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00001}00001\ \textcolor{preprocessor}{\#pragma\ once}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00024}00024\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_s_n_a_k_e___engine_8h}{SNAKE\_Engine.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00025}00025\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_game_state_8h}{GameState.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00026}00026\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_engine_context_8h}{EngineContext.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00027}00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_input_manager_8h}{InputManager.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00028}00028\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_window_manager_8h}{WindowManager.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00029}00029\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_state_manager_8h}{StateManager.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00030}00030\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_object_manager_8h}{ObjectManager.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00031}00031\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_render_manager_8h}{RenderManager.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00032}00032\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_sound_manager_8h}{SoundManager.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00033}00033\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_camera_manager_8h}{CameraManager.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00035}00035\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_texture_8h}{Texture.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00036}00036\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_shader_8h}{Shader.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00037}00037\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_transform_8h}{Transform.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00038}00038\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_material_8h}{Material.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00039}00039\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_mesh_8h}{Mesh.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00040}00040\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_object_8h}{Object.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00041}00041\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_text_object_8h}{TextObject.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00042}00042\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_game_object_8h}{GameObject.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00043}00043\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_font_8h}{Font.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00045}00045\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_engine_timer_8h}{EngineTimer.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00047}00047\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_camera2_d_8h}{Camera2D.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00049}00049\ \textcolor{preprocessor}{\#include\ "{}glm.hpp"{}}}
+\DoxyCodeLine{\Hypertarget{_engine_8h_source_l00050}00050\ \textcolor{preprocessor}{\#include\ "{}gtc/matrix\_transform.hpp"{}}}
 
 \end{DoxyCode}

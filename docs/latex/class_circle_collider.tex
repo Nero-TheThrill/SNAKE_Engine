@@ -1,0 +1,572 @@
+\doxysection{Circle\+Collider Class Reference}
+\hypertarget{class_circle_collider}{}\label{class_circle_collider}\index{CircleCollider@{CircleCollider}}
+
+
+A circular 2D collider component.  
+
+
+
+
+{\ttfamily \#include $<$Collider.\+h$>$}
+
+Inheritance diagram for Circle\+Collider\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_circle_collider}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_circle_collider_a597cd7fc15521b49b7bda1476caaadb4}{Circle\+Collider}} (\mbox{\hyperlink{class_object}{Object}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{class_collider_ae661027024ee407d042b8672625da377}{owner}}, float size)
+\begin{DoxyCompactList}\small\item\em Constructs a circle collider with the specified diameter. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_circle_collider_a5679b18c3379fb6303c1f41288a4a5b7}{Get\+Radius}} () const
+\begin{DoxyCompactList}\small\item\em Returns the currently scaled radius of the circle. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_circle_collider_a8bcc2d7586a3380e55317e7671c52d94}{Get\+Size}} () const
+\begin{DoxyCompactList}\small\item\em Returns the full diameter of the circle. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_circle_collider_add83b7e1b2eb124b5d065bf96ea4dcd3}{Set\+Radius}} (float r)
+\begin{DoxyCompactList}\small\item\em Sets the base radius of the circle collider. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_circle_collider_a4fa87c8b2fb9204f9d5e9d47dc3a44bc}{Check\+Point\+Collision}} (const glm\+::vec2 \&point) const override
+\begin{DoxyCompactList}\small\item\em Checks if a given point is inside the circle collider. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_collider}{Collider}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_collider_a02af0adc54359eddcd786735e7d0ce5b}{Collider}} ()=delete
+\item 
+\mbox{\hyperlink{class_collider_a5a49c6e929279578b12e7d1c60c50c75}{Collider}} (\mbox{\hyperlink{class_object}{Object}} \texorpdfstring{$\ast$}{*}owner\+\_\+)
+\begin{DoxyCompactList}\small\item\em Constructs a collider and binds it to the specified owner object. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{class_collider_a7b43c72a6424d8c11dec965d166953d3}{\texorpdfstring{$\sim$}{\string~}\+Collider}} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor for the \doxylink{class_collider}{Collider} base class. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_collider_abcbc7a880210f872f2704035940f243c}{Set\+Use\+Transform\+Scale}} (bool use)
+\begin{DoxyCompactList}\small\item\em Enables or disables transform scaling for this collider. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_collider_a9f9dd44c772f34a84789018f59df905a}{Is\+Using\+Transform\+Scale}} () const
+\begin{DoxyCompactList}\small\item\em Checks whether transform scaling is enabled for this collider. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_collider_a41b2de089e3faf27bd0ac87d923f9203}{Set\+World\+Position}} (const glm\+::vec2 \&pos)
+\begin{DoxyCompactList}\small\item\em Sets the world-\/space center position of the collider. \end{DoxyCompactList}\item 
+const glm\+::vec2 \& \mbox{\hyperlink{class_collider_a46820df1f15ac4124525f6f0fe7667ff}{Get\+World\+Position}} () const
+\begin{DoxyCompactList}\small\item\em Returns the current world-\/space center position of the collider. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_collider_8h_a7f138e75fc3cc79e825c39e040690395}{Collider\+Type}} \mbox{\hyperlink{class_circle_collider_ac2513ad483f0fc9789afe8e25f4797c1}{Get\+Type}} () const override
+\begin{DoxyCompactList}\small\item\em Identifies this collider as a circle shape. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_circle_collider_afc46297adb83cfaab9487e89d7a25298}{Get\+Bounding\+Radius}} () const override
+\begin{DoxyCompactList}\small\item\em Returns the outer radius used for bounding sphere checks. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_circle_collider_a9598b67bc72342284318d19f3c0cf35b}{Check\+Collision}} (const \mbox{\hyperlink{class_collider}{Collider}} \texorpdfstring{$\ast$}{*}other) const override
+\begin{DoxyCompactList}\small\item\em Checks collision with another collider using double dispatch. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_circle_collider_a69a051ea02a260f7b5c46cb76058cbe5}{Dispatch\+Against}} (const \mbox{\hyperlink{class_circle_collider}{Circle\+Collider}} \&other) const override
+\begin{DoxyCompactList}\small\item\em Performs precise collision detection between two circle colliders. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_circle_collider_a951f365eb24e6e1a286bc7c518e8ab46}{Dispatch\+Against}} (const \mbox{\hyperlink{class_a_a_b_b_collider}{AABBCollider}} \&other) const override
+\begin{DoxyCompactList}\small\item\em Performs precise collision detection between a circle and an AABB. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_circle_collider_a8f00aeea30fb3ffb45ebbcaab0d96fdd}{Sync\+With\+Transform\+Scale}} () override
+\begin{DoxyCompactList}\small\item\em Recalculates the scaled radius based on the owner\textquotesingle{}s transform scale. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_circle_collider_ae67885becfba36118e3ed5fc7a35d252}{Draw\+Debug}} (\mbox{\hyperlink{class_render_manager}{Render\+Manager}} \texorpdfstring{$\ast$}{*}rm, \mbox{\hyperlink{class_camera2_d}{Camera2D}} \texorpdfstring{$\ast$}{*}cam, const glm\+::vec4 \&color) const override
+\begin{DoxyCompactList}\small\item\em Renders the circle collider for debug visualization. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+friend \mbox{\hyperlink{class_circle_collider_a1444c449e346513260829327c9617db4}{AABBCollider}}
+\item 
+friend \mbox{\hyperlink{class_circle_collider_a8e1da083b202d4fcfe9f3650b0412ccb}{Spatial\+Hash\+Grid}}
+\item 
+float \mbox{\hyperlink{class_circle_collider_a9ec4c0b866383ac3d9e81afd3fba7d5b}{base\+Radius}} = 0.\+5f
+\item 
+float \mbox{\hyperlink{class_circle_collider_a5309cb556ef23c1eba1c9ffbddffe1d0}{scaled\+Radius}} = 0.\+5f
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_collider}{Collider}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_object}{Object}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_collider_a1a1c25108da499b666799d7e8d4c2d5b}{Get\+Owner}} () const
+\begin{DoxyCompactList}\small\item\em Returns the object that owns this collider. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_collider}{Collider}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_object}{Object}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_collider_ae661027024ee407d042b8672625da377}{owner}}
+\item 
+bool \mbox{\hyperlink{class_collider_a10c23d55e50b048078cddb0f806d5731}{use\+Transform\+Scale}} = true
+\item 
+glm\+::vec2 \mbox{\hyperlink{class_collider_a537ce5f2dcb47a34bbdb3afd308ed4f9}{world\+Position}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A circular 2D collider component. 
+
+\doxylink{class_circle_collider}{Circle\+Collider} is a concrete subclass of \doxylink{class_collider}{Collider} representing a circle shape. It stores both base radius and scaled radius, and supports scaling via transform.
+
+It provides collision resolution against both Circle and AABB shapes. The center of the collider is world-\/aligned based on the owning object\textquotesingle{}s transform.
+
+\begin{DoxyNote}{Note}
+Used internally by \doxylink{class_object_manager}{Object\+Manager}. Do not instantiate directly. 
+\end{DoxyNote}
+
+
+Definition at line \mbox{\hyperlink{_collider_8h_source_l00243}{243}} of file \mbox{\hyperlink{_collider_8h_source}{Collider.\+h}}.
+
+
+
+\label{doc-constructors}
+\Hypertarget{class_circle_collider_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_circle_collider_a597cd7fc15521b49b7bda1476caaadb4}\index{CircleCollider@{CircleCollider}!CircleCollider@{CircleCollider}}
+\index{CircleCollider@{CircleCollider}!CircleCollider@{CircleCollider}}
+\doxysubsubsection{\texorpdfstring{CircleCollider()}{CircleCollider()}}
+{\footnotesize\ttfamily \label{class_circle_collider_a597cd7fc15521b49b7bda1476caaadb4} 
+Circle\+Collider\+::\+Circle\+Collider (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_object}{Object}} \texorpdfstring{$\ast$}{*}}]{owner}{, }\item[{float}]{size}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructs a circle collider with the specified diameter. 
+
+Initializes the collider using the given size value (diameter), and computes the base radius as size / 2. The scaled radius is also initialized to the same value and updated later if transform scaling is enabled.
+
+
+\begin{DoxyParams}{Parameters}
+{\em owner} & Pointer to the \doxylink{class_object}{Object} that owns this collider. \\
+\hline
+{\em size} & Diameter of the circle in world units (not radius). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_collider_8h_source_l00259}{259}} of file \mbox{\hyperlink{_collider_8h_source}{Collider.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{class_collider_a02af0adc54359eddcd786735e7d0ce5b}{Collider}}(\mbox{\hyperlink{class_collider_ae661027024ee407d042b8672625da377}{owner}}),\ \mbox{\hyperlink{class_circle_collider_a9ec4c0b866383ac3d9e81afd3fba7d5b}{baseRadius}}(size/2.f),\ \mbox{\hyperlink{class_circle_collider_a5309cb556ef23c1eba1c9ffbddffe1d0}{scaledRadius}}(size/2.f)\ \{}
+\DoxyCodeLine{00261\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+\label{doc-func-members}
+\Hypertarget{class_circle_collider_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_circle_collider_a9598b67bc72342284318d19f3c0cf35b}\index{CircleCollider@{CircleCollider}!CheckCollision@{CheckCollision}}
+\index{CheckCollision@{CheckCollision}!CircleCollider@{CircleCollider}}
+\doxysubsubsection{\texorpdfstring{CheckCollision()}{CheckCollision()}}
+{\footnotesize\ttfamily \label{class_circle_collider_a9598b67bc72342284318d19f3c0cf35b} 
+bool Circle\+Collider\+::\+Check\+Collision (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_collider}{Collider}} \texorpdfstring{$\ast$}{*}}]{other}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [nodiscard]}, {\ttfamily [override]}, {\ttfamily [private]}, {\ttfamily [virtual]}}
+
+
+
+Checks collision with another collider using double dispatch. 
+
+This function overrides \doxylink{class_collider_a41660505ae4b413d3d4b004162857426}{Collider\+::\+Check\+Collision()} and dispatches to the appropriate \doxylink{class_circle_collider_a69a051ea02a260f7b5c46cb76058cbe5}{Dispatch\+Against()} overload based on the other collider\textquotesingle{}s type.
+
+Supports Circle-\/vs-\/\+Circle and Circle-\/vs-\/\+AABB collision detection.
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & Pointer to the other collider. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if collision is detected; false otherwise. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_collider_a41660505ae4b413d3d4b004162857426}{Collider}}.
+
+
+
+Definition at line \mbox{\hyperlink{_collider_8cpp_source_l00033}{33}} of file \mbox{\hyperlink{_collider_8cpp_source}{Collider.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00034\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordflow}{return}\ other-\/>\mbox{\hyperlink{class_collider_a6b1071065ccb7ddfc1ff8340a89246d7}{DispatchAgainst}}(*\textcolor{keyword}{this});}
+\DoxyCodeLine{00036\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_circle_collider_a4fa87c8b2fb9204f9d5e9d47dc3a44bc}\index{CircleCollider@{CircleCollider}!CheckPointCollision@{CheckPointCollision}}
+\index{CheckPointCollision@{CheckPointCollision}!CircleCollider@{CircleCollider}}
+\doxysubsubsection{\texorpdfstring{CheckPointCollision()}{CheckPointCollision()}}
+{\footnotesize\ttfamily \label{class_circle_collider_a4fa87c8b2fb9204f9d5e9d47dc3a44bc} 
+bool Circle\+Collider\+::\+Check\+Point\+Collision (\begin{DoxyParamCaption}\item[{const glm\+::vec2 \&}]{point}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [nodiscard]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Checks if a given point is inside the circle collider. 
+
+Calculates the distance between the point and the circle\textquotesingle{}s center. If the distance is less than or equal to the scaled radius, a collision is detected.
+
+Used for mouse picking, hit tests, etc.
+
+
+\begin{DoxyParams}{Parameters}
+{\em point} & World-\/space position to test. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if point is inside the circle; false otherwise. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_collider_a96da52831351800d25be94893cfaddf0}{Collider}}.
+
+
+
+Definition at line \mbox{\hyperlink{_collider_8cpp_source_l00061}{61}} of file \mbox{\hyperlink{_collider_8cpp_source}{Collider.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00062\ \{}
+\DoxyCodeLine{00063\ \ \ \ \ glm::vec2\ center\ =\ \mbox{\hyperlink{class_collider_ae661027024ee407d042b8672625da377}{owner}}-\/>GetWorldPosition();}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{float}\ distSqr\ =\ glm::dot(center\ -\/\ point,\ center\ -\/\ point);}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordflow}{return}\ distSqr\ <=\ \mbox{\hyperlink{class_circle_collider_a5679b18c3379fb6303c1f41288a4a5b7}{GetRadius}}()\ *\ \mbox{\hyperlink{class_circle_collider_a5679b18c3379fb6303c1f41288a4a5b7}{GetRadius}}();}
+\DoxyCodeLine{00066\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_circle_collider_a951f365eb24e6e1a286bc7c518e8ab46}\index{CircleCollider@{CircleCollider}!DispatchAgainst@{DispatchAgainst}}
+\index{DispatchAgainst@{DispatchAgainst}!CircleCollider@{CircleCollider}}
+\doxysubsubsection{\texorpdfstring{DispatchAgainst()}{DispatchAgainst()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_circle_collider_a951f365eb24e6e1a286bc7c518e8ab46} 
+bool Circle\+Collider\+::\+Dispatch\+Against (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_a_a_b_b_collider}{AABBCollider}} \&}]{other}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [nodiscard]}, {\ttfamily [override]}, {\ttfamily [private]}, {\ttfamily [virtual]}}
+
+
+
+Performs precise collision detection between a circle and an AABB. 
+
+Projects the circle center onto the nearest point on the AABB boundary, then checks whether the distance to that point is within the circle\textquotesingle{}s radius.
+
+Called during double dispatch by the \doxylink{class_a_a_b_b_collider}{AABBCollider}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & The \doxylink{class_a_a_b_b_collider}{AABBCollider} to test against. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the shapes intersect; false otherwise. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_collider_ae6038e89a98d8b252f143ddbc960a484}{Collider}}.
+
+
+
+Definition at line \mbox{\hyperlink{_collider_8cpp_source_l00048}{48}} of file \mbox{\hyperlink{_collider_8cpp_source}{Collider.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00049\ \{}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordflow}{return}\ other.\mbox{\hyperlink{class_a_a_b_b_collider_a22a432aea0dae3f7683c338db68f5846}{DispatchAgainst}}(*\textcolor{keyword}{this});}
+\DoxyCodeLine{00051\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_circle_collider_a69a051ea02a260f7b5c46cb76058cbe5}\index{CircleCollider@{CircleCollider}!DispatchAgainst@{DispatchAgainst}}
+\index{DispatchAgainst@{DispatchAgainst}!CircleCollider@{CircleCollider}}
+\doxysubsubsection{\texorpdfstring{DispatchAgainst()}{DispatchAgainst()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_circle_collider_a69a051ea02a260f7b5c46cb76058cbe5} 
+bool Circle\+Collider\+::\+Dispatch\+Against (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_circle_collider}{Circle\+Collider}} \&}]{other}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [nodiscard]}, {\ttfamily [override]}, {\ttfamily [private]}, {\ttfamily [virtual]}}
+
+
+
+Performs precise collision detection between two circle colliders. 
+
+Compares the distance between the two circle centers to the sum of their radii. If the distance is less than or equal to the combined radii, a collision is detected.
+
+This is called by the other collider through double dispatch.
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & The other \doxylink{class_circle_collider}{Circle\+Collider} to test against. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the circles intersect; false otherwise. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_collider_a6b1071065ccb7ddfc1ff8340a89246d7}{Collider}}.
+
+
+
+Definition at line \mbox{\hyperlink{_collider_8cpp_source_l00038}{38}} of file \mbox{\hyperlink{_collider_8cpp_source}{Collider.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00039\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ glm::vec2\ a\ =\ \mbox{\hyperlink{class_collider_ae661027024ee407d042b8672625da377}{owner}}-\/>GetWorldPosition();}
+\DoxyCodeLine{00041\ \ \ \ \ glm::vec2\ b\ =\ other.\mbox{\hyperlink{class_collider_a1a1c25108da499b666799d7e8d4c2d5b}{GetOwner}}()-\/>\mbox{\hyperlink{class_object_a4c708099448203abe3182c8b0ae340ce}{GetWorldPosition}}();}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{float}\ distSqr\ =\ glm::length2(a\ -\/\ b);}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{float}\ rSum\ =\ \mbox{\hyperlink{class_circle_collider_a5679b18c3379fb6303c1f41288a4a5b7}{GetRadius}}()\ +\ other.\mbox{\hyperlink{class_circle_collider_a5679b18c3379fb6303c1f41288a4a5b7}{GetRadius}}();}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordflow}{return}\ distSqr\ <=\ rSum\ *\ rSum;}
+\DoxyCodeLine{00046\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_circle_collider_ae67885becfba36118e3ed5fc7a35d252}\index{CircleCollider@{CircleCollider}!DrawDebug@{DrawDebug}}
+\index{DrawDebug@{DrawDebug}!CircleCollider@{CircleCollider}}
+\doxysubsubsection{\texorpdfstring{DrawDebug()}{DrawDebug()}}
+{\footnotesize\ttfamily \label{class_circle_collider_ae67885becfba36118e3ed5fc7a35d252} 
+void Circle\+Collider\+::\+Draw\+Debug (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_render_manager}{Render\+Manager}} \texorpdfstring{$\ast$}{*}}]{rm}{, }\item[{\mbox{\hyperlink{class_camera2_d}{Camera2D}} \texorpdfstring{$\ast$}{*}}]{cam}{, }\item[{const glm\+::vec4 \&}]{color}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [private]}, {\ttfamily [virtual]}}
+
+
+
+Renders the circle collider for debug visualization. 
+
+Uses the \doxylink{class_render_manager}{Render\+Manager} to draw a circle outline at the collider\textquotesingle{}s world position. The radius used is the scaled\+Radius. Only visible if debug rendering is enabled.
+
+
+\begin{DoxyParams}{Parameters}
+{\em rm} & Pointer to the \doxylink{class_render_manager}{Render\+Manager} handling the draw call. \\
+\hline
+{\em cam} & Active camera for converting world-\/to-\/screen space. \\
+\hline
+{\em color} & Optional RGBA color (default\+: red). \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_collider_a222e52491ae094943420952fd3182c90}{Collider}}.
+
+
+
+Definition at line \mbox{\hyperlink{_collider_8cpp_source_l00068}{68}} of file \mbox{\hyperlink{_collider_8cpp_source}{Collider.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00069\ \{}
+\DoxyCodeLine{00070\ \ \ \ \ glm::vec2\ center\ =\ \mbox{\hyperlink{class_collider_ae661027024ee407d042b8672625da377}{owner}}-\/>GetWorldPosition();}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{float}\ r\ =\ \mbox{\hyperlink{class_circle_collider_a5679b18c3379fb6303c1f41288a4a5b7}{GetRadius}}();}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ segments\ =\ 20;}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ angleStep\ =\ glm::two\_pi<float>()\ /\ segments;}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ segments;\ ++i)}
+\DoxyCodeLine{00076\ \ \ \ \ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ angleA\ =\ i\ *\ angleStep;}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ angleB\ =\ (i\ +\ 1)\ *\ angleStep;}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ glm::vec2\ a\ =\ center\ +\ r\ *\ glm::vec2(std::cos(angleA),\ std::sin(angleA));}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ glm::vec2\ b\ =\ center\ +\ r\ *\ glm::vec2(std::cos(angleB),\ std::sin(angleB));}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ rm-\/>\mbox{\hyperlink{class_render_manager_a30299b0394f71c9ac4d924a24addbf26}{DrawDebugLine}}(a,\ b,\ cam,\ color);}
+\DoxyCodeLine{00084\ \ \ \ \ \}}
+\DoxyCodeLine{00085\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_circle_collider_afc46297adb83cfaab9487e89d7a25298}\index{CircleCollider@{CircleCollider}!GetBoundingRadius@{GetBoundingRadius}}
+\index{GetBoundingRadius@{GetBoundingRadius}!CircleCollider@{CircleCollider}}
+\doxysubsubsection{\texorpdfstring{GetBoundingRadius()}{GetBoundingRadius()}}
+{\footnotesize\ttfamily \label{class_circle_collider_afc46297adb83cfaab9487e89d7a25298} 
+float Circle\+Collider\+::\+Get\+Bounding\+Radius (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [nodiscard]}, {\ttfamily [override]}, {\ttfamily [private]}, {\ttfamily [virtual]}}
+
+
+
+Returns the outer radius used for bounding sphere checks. 
+
+For a circle collider, the bounding radius is simply the current scaled radius. This value is used for fast early-\/out collision rejection.
+
+\begin{DoxyReturn}{Returns}
+Bounding radius in world units. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_collider_a62c9c123b9a68da3b6eb13c718ccaa27}{Collider}}.
+
+
+
+Definition at line \mbox{\hyperlink{_collider_8cpp_source_l00028}{28}} of file \mbox{\hyperlink{_collider_8cpp_source}{Collider.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00029\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_circle_collider_a5679b18c3379fb6303c1f41288a4a5b7}{GetRadius}}();}
+\DoxyCodeLine{00031\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_circle_collider_a5679b18c3379fb6303c1f41288a4a5b7}\index{CircleCollider@{CircleCollider}!GetRadius@{GetRadius}}
+\index{GetRadius@{GetRadius}!CircleCollider@{CircleCollider}}
+\doxysubsubsection{\texorpdfstring{GetRadius()}{GetRadius()}}
+{\footnotesize\ttfamily \label{class_circle_collider_a5679b18c3379fb6303c1f41288a4a5b7} 
+float Circle\+Collider\+::\+Get\+Radius (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [nodiscard]}}
+
+
+
+Returns the currently scaled radius of the circle. 
+
+This value reflects any transform scaling if enabled. Otherwise, it equals the base radius.
+
+\begin{DoxyReturn}{Returns}
+Radius in world units. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_collider_8cpp_source_l00010}{10}} of file \mbox{\hyperlink{_collider_8cpp_source}{Collider.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00011\ \{}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_collider_a10c23d55e50b048078cddb0f806d5731}{useTransformScale}}\ ?\ \mbox{\hyperlink{class_circle_collider_a9ec4c0b866383ac3d9e81afd3fba7d5b}{baseRadius}}\ *\ std::max(glm::abs(\mbox{\hyperlink{class_collider_ae661027024ee407d042b8672625da377}{owner}}-\/>GetWorldScale().x),\ glm::abs(\mbox{\hyperlink{class_collider_ae661027024ee407d042b8672625da377}{owner}}-\/>GetWorldScale().y)):\ \mbox{\hyperlink{class_circle_collider_a5309cb556ef23c1eba1c9ffbddffe1d0}{scaledRadius}};}
+\DoxyCodeLine{00013\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_circle_collider_a8bcc2d7586a3380e55317e7671c52d94}\index{CircleCollider@{CircleCollider}!GetSize@{GetSize}}
+\index{GetSize@{GetSize}!CircleCollider@{CircleCollider}}
+\doxysubsubsection{\texorpdfstring{GetSize()}{GetSize()}}
+{\footnotesize\ttfamily \label{class_circle_collider_a8bcc2d7586a3380e55317e7671c52d94} 
+float Circle\+Collider\+::\+Get\+Size (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [nodiscard]}}
+
+
+
+Returns the full diameter of the circle. 
+
+Equivalent to \doxylink{class_circle_collider_a5679b18c3379fb6303c1f41288a4a5b7}{Get\+Radius()} \texorpdfstring{$\ast$}{*} 2. This represents the full width of the circle.
+
+\begin{DoxyReturn}{Returns}
+Diameter in world units. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_collider_8cpp_source_l00015}{15}} of file \mbox{\hyperlink{_collider_8cpp_source}{Collider.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_circle_collider_a5679b18c3379fb6303c1f41288a4a5b7}{GetRadius}}()\ *\ 2.f;}
+\DoxyCodeLine{00018\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_circle_collider_ac2513ad483f0fc9789afe8e25f4797c1}\index{CircleCollider@{CircleCollider}!GetType@{GetType}}
+\index{GetType@{GetType}!CircleCollider@{CircleCollider}}
+\doxysubsubsection{\texorpdfstring{GetType()}{GetType()}}
+{\footnotesize\ttfamily \label{class_circle_collider_ac2513ad483f0fc9789afe8e25f4797c1} 
+\mbox{\hyperlink{_collider_8h_a7f138e75fc3cc79e825c39e040690395}{Collider\+Type}} Circle\+Collider\+::\+Get\+Type (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [nodiscard]}, {\ttfamily [override]}, {\ttfamily [private]}, {\ttfamily [virtual]}}
+
+
+
+Identifies this collider as a circle shape. 
+
+This function overrides \doxylink{class_collider_a677c9e05fcee3ef2ed94998dc5f2458d}{Collider\+::\+Get\+Type()} and always returns \doxylink{_collider_8h_a7f138e75fc3cc79e825c39e040690395a30954d90085f6eaaf5817917fc5fecb3}{Collider\+Type\+::\+Circle}. Used internally for dispatching and filtering by collider shape.
+
+\begin{DoxyReturn}{Returns}
+\doxylink{_collider_8h_a7f138e75fc3cc79e825c39e040690395a30954d90085f6eaaf5817917fc5fecb3}{Collider\+Type\+::\+Circle} 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_collider_a677c9e05fcee3ef2ed94998dc5f2458d}{Collider}}.
+
+
+
+Definition at line \mbox{\hyperlink{_collider_8h_source_l00318}{318}} of file \mbox{\hyperlink{_collider_8h_source}{Collider.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00318\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{_collider_8h_a7f138e75fc3cc79e825c39e040690395a30954d90085f6eaaf5817917fc5fecb3}{ColliderType::Circle}};\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_circle_collider_add83b7e1b2eb124b5d065bf96ea4dcd3}\index{CircleCollider@{CircleCollider}!SetRadius@{SetRadius}}
+\index{SetRadius@{SetRadius}!CircleCollider@{CircleCollider}}
+\doxysubsubsection{\texorpdfstring{SetRadius()}{SetRadius()}}
+{\footnotesize\ttfamily \label{class_circle_collider_add83b7e1b2eb124b5d065bf96ea4dcd3} 
+void Circle\+Collider\+::\+Set\+Radius (\begin{DoxyParamCaption}\item[{float}]{r}{}\end{DoxyParamCaption})}
+
+
+
+Sets the base radius of the circle collider. 
+
+Updates the base\+Radius to the given value and resets the scaled\+Radius to match. If transform scaling is enabled, the scaled\+Radius will be recalculated later.
+
+
+\begin{DoxyParams}{Parameters}
+{\em r} & New radius to assign. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_collider_8cpp_source_l00020}{20}} of file \mbox{\hyperlink{_collider_8cpp_source}{Collider.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00021\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{class_circle_collider_a9ec4c0b866383ac3d9e81afd3fba7d5b}{baseRadius}}\ =\ r;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{class_collider_a10c23d55e50b048078cddb0f806d5731}{useTransformScale}})}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_circle_collider_a5309cb556ef23c1eba1c9ffbddffe1d0}{scaledRadius}}\ =\ r;}
+\DoxyCodeLine{00026\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_circle_collider_a8f00aeea30fb3ffb45ebbcaab0d96fdd}\index{CircleCollider@{CircleCollider}!SyncWithTransformScale@{SyncWithTransformScale}}
+\index{SyncWithTransformScale@{SyncWithTransformScale}!CircleCollider@{CircleCollider}}
+\doxysubsubsection{\texorpdfstring{SyncWithTransformScale()}{SyncWithTransformScale()}}
+{\footnotesize\ttfamily \label{class_circle_collider_a8f00aeea30fb3ffb45ebbcaab0d96fdd} 
+void Circle\+Collider\+::\+Sync\+With\+Transform\+Scale (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [private]}, {\ttfamily [virtual]}}
+
+
+
+Recalculates the scaled radius based on the owner\textquotesingle{}s transform scale. 
+
+If transform scaling is enabled, this function multiplies the base radius by the owner\textquotesingle{}s uniform scale to update the scaled\+Radius field. Otherwise, scaled\+Radius is set equal to base\+Radius.
+
+Called automatically each frame during collider updates. 
+
+Implements \mbox{\hyperlink{class_collider_a188380ff8ece20474e86a662f995887e}{Collider}}.
+
+
+
+Definition at line \mbox{\hyperlink{_collider_8cpp_source_l00053}{53}} of file \mbox{\hyperlink{_collider_8cpp_source}{Collider.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00054\ \{}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{class_collider_a10c23d55e50b048078cddb0f806d5731}{useTransformScale}})\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{float}\ scale\ =\ std::max(glm::abs(\mbox{\hyperlink{class_collider_ae661027024ee407d042b8672625da377}{owner}}-\/>GetWorldScale().x),glm::abs(\mbox{\hyperlink{class_collider_ae661027024ee407d042b8672625da377}{owner}}-\/>GetWorldScale().y));}
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{class_circle_collider_a5309cb556ef23c1eba1c9ffbddffe1d0}{scaledRadius}}\ =\ \mbox{\hyperlink{class_circle_collider_a9ec4c0b866383ac3d9e81afd3fba7d5b}{baseRadius}}\ *\ scale;}
+\DoxyCodeLine{00059\ \}}
+
+\end{DoxyCode}
+
+
+\label{doc-variable-members}
+\Hypertarget{class_circle_collider_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_circle_collider_a1444c449e346513260829327c9617db4}\index{CircleCollider@{CircleCollider}!AABBCollider@{AABBCollider}}
+\index{AABBCollider@{AABBCollider}!CircleCollider@{CircleCollider}}
+\doxysubsubsection{\texorpdfstring{AABBCollider}{AABBCollider}}
+{\footnotesize\ttfamily \label{class_circle_collider_a1444c449e346513260829327c9617db4} 
+friend Circle\+Collider\+::\+AABBCollider\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_collider_8h_source_l00245}{245}} of file \mbox{\hyperlink{_collider_8h_source}{Collider.\+h}}.
+
+\Hypertarget{class_circle_collider_a9ec4c0b866383ac3d9e81afd3fba7d5b}\index{CircleCollider@{CircleCollider}!baseRadius@{baseRadius}}
+\index{baseRadius@{baseRadius}!CircleCollider@{CircleCollider}}
+\doxysubsubsection{\texorpdfstring{baseRadius}{baseRadius}}
+{\footnotesize\ttfamily \label{class_circle_collider_a9ec4c0b866383ac3d9e81afd3fba7d5b} 
+float Circle\+Collider\+::base\+Radius = 0.\+5f\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_collider_8h_source_l00398}{398}} of file \mbox{\hyperlink{_collider_8h_source}{Collider.\+h}}.
+
+\Hypertarget{class_circle_collider_a5309cb556ef23c1eba1c9ffbddffe1d0}\index{CircleCollider@{CircleCollider}!scaledRadius@{scaledRadius}}
+\index{scaledRadius@{scaledRadius}!CircleCollider@{CircleCollider}}
+\doxysubsubsection{\texorpdfstring{scaledRadius}{scaledRadius}}
+{\footnotesize\ttfamily \label{class_circle_collider_a5309cb556ef23c1eba1c9ffbddffe1d0} 
+float Circle\+Collider\+::scaled\+Radius = 0.\+5f\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_collider_8h_source_l00399}{399}} of file \mbox{\hyperlink{_collider_8h_source}{Collider.\+h}}.
+
+\Hypertarget{class_circle_collider_a8e1da083b202d4fcfe9f3650b0412ccb}\index{CircleCollider@{CircleCollider}!SpatialHashGrid@{SpatialHashGrid}}
+\index{SpatialHashGrid@{SpatialHashGrid}!CircleCollider@{CircleCollider}}
+\doxysubsubsection{\texorpdfstring{SpatialHashGrid}{SpatialHashGrid}}
+{\footnotesize\ttfamily \label{class_circle_collider_a8e1da083b202d4fcfe9f3650b0412ccb} 
+friend Circle\+Collider\+::\+Spatial\+Hash\+Grid\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_collider_8h_source_l00246}{246}} of file \mbox{\hyperlink{_collider_8h_source}{Collider.\+h}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Project/\+SNAKE\+\_\+\+Engine/\+Public/\mbox{\hyperlink{_collider_8h}{Collider.\+h}}\item 
+Project/\+SNAKE\+\_\+\+Engine/\+Private/\mbox{\hyperlink{_collider_8cpp}{Collider.\+cpp}}\end{DoxyCompactItemize}

@@ -8,6 +8,7 @@ var searchData=
   ['windowmanager_2ecpp_5',['WindowManager.cpp',['../_window_manager_8cpp.html',1,'']]],
   ['windowmanager_2eh_6',['WindowManager.h',['../_window_manager_8h.html',1,'']]],
   ['windowwidth_7',['windowWidth',['../class_window_manager.html#a42b88c6c3ab344ca4cb29d7e79892af5',1,'WindowManager']]],
-  ['wraps_8',['wrapS',['../struct_texture_settings.html#a3b54cb18a7fd881b2f7e01d1dd29db3a',1,'TextureSettings']]],
-  ['wrapt_9',['wrapT',['../struct_texture_settings.html#a89e689b4de2e7f2a7c856d091a19632c',1,'TextureSettings']]]
+  ['worldposition_8',['worldPosition',['../class_collider.html#a537ce5f2dcb47a34bbdb3afd308ed4f9',1,'Collider']]],
+  ['wraps_9',['wrapS',['../struct_texture_settings.html#a3b54cb18a7fd881b2f7e01d1dd29db3a',1,'TextureSettings']]],
+  ['wrapt_10',['wrapT',['../struct_texture_settings.html#a89e689b4de2e7f2a7c856d091a19632c',1,'TextureSettings']]]
 ];

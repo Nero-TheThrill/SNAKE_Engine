@@ -1,6 +1,10 @@
 var class_input_manager =
 [
     [ "InputManager", "class_input_manager.html#a8be46886da639b26d67181c29dab6d6c", null ],
+    [ "GetMousePos", "class_input_manager.html#a67fc23629ffc128363f074a549f38ee4", null ],
+    [ "GetMouseWorldPos", "class_input_manager.html#a55e789665aa293ce52e768d959ff27c1", null ],
+    [ "GetMouseWorldX", "class_input_manager.html#a507dcf0711e211639d929454177b9374", null ],
+    [ "GetMouseWorldY", "class_input_manager.html#a3611627023a950f1efd20b9da37b499a", null ],
     [ "GetMouseX", "class_input_manager.html#a8f4ceefa11add4aacea601d3e14700b2", null ],
     [ "GetMouseY", "class_input_manager.html#ac5d47f48a3f8de45be9310e28fe926ec", null ],
     [ "Init", "class_input_manager.html#a222eea359d455ca0517bde4f74536754", null ],
@@ -10,6 +14,7 @@ var class_input_manager =
     [ "IsMouseButtonDown", "class_input_manager.html#adb20eaed0386dab5239202ea0022e313", null ],
     [ "IsMouseButtonPressed", "class_input_manager.html#a9d4212a5b4b4485a9e5934930ab4de2a", null ],
     [ "IsMouseButtonReleased", "class_input_manager.html#a1adf3a1c58a545d0721479bbbedf81c3", null ],
+    [ "Reset", "class_input_manager.html#a92319ec0b9f5eff3fd9a2e22a434a3a1", null ],
     [ "Update", "class_input_manager.html#aa5480931dba2720e7d80dd00a53adae0", null ],
     [ "currentKeyState", "class_input_manager.html#aefae2af7e4cb8d8dca2b3e400cfd066b", null ],
     [ "currentMouseState", "class_input_manager.html#a9d9751f5b8375e4ca8322b4429fb624c", null ],

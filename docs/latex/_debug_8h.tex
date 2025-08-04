@@ -2,44 +2,105 @@
 \hypertarget{_debug_8h}{}\label{_debug_8h}\index{Project/SNAKE\_Engine/Public/Debug.h@{Project/SNAKE\_Engine/Public/Debug.h}}
 
 
-Simple logging macros for debug output.  
+Logging and debugging macro definitions for the SNAKE engine.  
 
 
 {\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$cstring$>$}\newline
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
+\#define \mbox{\hyperlink{_debug_8h_a2b8f69460b5c5f6f47a2b7b58d45be93}{SNAKE\+\_\+\+DEBUG}}
+\item 
+\#define \mbox{\hyperlink{_debug_8h_a02bf97919d013eefc3cc5e7ba1b021c2}{SKIP\+\_\+\+LOG}}
+\item 
+\#define \mbox{\hyperlink{_debug_8h_ae6c8c7ea0855fa30c69727012ac2f508}{SKIP\+\_\+\+WRN}}
+\item 
+\#define \mbox{\hyperlink{_debug_8h_a8de29f7c8bbf1a81cc6e71ac602032d3}{FILENAME}}~(strrchr(\+\_\+\+\_\+\+FILE\+\_\+\+\_\+, \textquotesingle{}\textbackslash{}\textbackslash{}\textquotesingle{}) ? strrchr(\+\_\+\+\_\+\+FILE\+\_\+\+\_\+, \textquotesingle{}\textbackslash{}\textbackslash{}\textquotesingle{}) + 1 \+: \+\_\+\+\_\+\+FILE\+\_\+\+\_\+)
+\item 
 \#define \mbox{\hyperlink{_debug_8h_a781ebc1f48f84958e0e53b493206116b}{SNAKE\+\_\+\+LOG}}(x)
 \item 
-\#define \mbox{\hyperlink{_debug_8h_a4bea2ba782ca7e8f40195f8827c71ecf}{SNAKE\+\_\+\+ERR}}(x)
-\item 
 \#define \mbox{\hyperlink{_debug_8h_a76dcc2dada341abb94ed74214eca553a}{SNAKE\+\_\+\+WRN}}(x)
+\item 
+\#define \mbox{\hyperlink{_debug_8h_a4bea2ba782ca7e8f40195f8827c71ecf}{SNAKE\+\_\+\+ERR}}(x)
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-Simple logging macros for debug output. 
+Logging and debugging macro definitions for the SNAKE engine. 
 
-Defines macros for logging messages to the console. These macros automatically include the filename and line number, and are only enabled in debug builds ({\ttfamily \+\_\+\+DEBUG} is defined).
+This file defines macros for standardized logging output in debug builds, including\+:
+\begin{DoxyItemize}
+\item SNAKE\+\_\+\+LOG\+: general purpose log messages
+\item SNAKE\+\_\+\+WRN\+: warning messages
+\item SNAKE\+\_\+\+ERR\+: error messages
+\end{DoxyItemize}
 
-In release mode, all macros are compiled out with no overhead.
+Logging macros include the filename and line number of the call site. You can selectively disable specific levels of output by defining\+:
+\begin{DoxyItemize}
+\item SKIP\+\_\+\+LOG\+: disables SNAKE\+\_\+\+LOG
+\item SKIP\+\_\+\+WRN\+: disables SNAKE\+\_\+\+WRN
+\item SKIP\+\_\+\+ERR\+: disables SNAKE\+\_\+\+ERR
+\end{DoxyItemize}
 
-Usage\+: 
+These macros are no-\/ops in builds unless SNAKE\+\_\+\+DEBUG is defined.
+
+Example usage\+: 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\mbox{\hyperlink{_debug_8h_a781ebc1f48f84958e0e53b493206116b}{SNAKE\_LOG}}(\textcolor{stringliteral}{"{}Initialized\ OK"{}});}
-\DoxyCodeLine{\mbox{\hyperlink{_debug_8h_a4bea2ba782ca7e8f40195f8827c71ecf}{SNAKE\_ERR}}(\textcolor{stringliteral}{"{}Failed\ to\ load\ texture"{}});}
-\DoxyCodeLine{\mbox{\hyperlink{_debug_8h_a76dcc2dada341abb94ed74214eca553a}{SNAKE\_WRN}}(\textcolor{stringliteral}{"{}FPS\ dropped\ below\ 30"{}});}
+\DoxyCodeLine{\mbox{\hyperlink{_debug_8h_a781ebc1f48f84958e0e53b493206116b}{SNAKE\_LOG}}(\textcolor{stringliteral}{"{}Game\ started"{}});}
+\DoxyCodeLine{\mbox{\hyperlink{_debug_8h_a76dcc2dada341abb94ed74214eca553a}{SNAKE\_WRN}}(\textcolor{stringliteral}{"{}Invalid\ tag\ used"{}});}
+\DoxyCodeLine{\mbox{\hyperlink{_debug_8h_a4bea2ba782ca7e8f40195f8827c71ecf}{SNAKE\_ERR}}(\textcolor{stringliteral}{"{}Failed\ to\ load\ shader"{}});}
 
 \end{DoxyCode}
-
-
-Example output\+: \mbox{[}LOG\mbox{]} My\+File.\+cpp\+:42 -\/ Initialized OK 
+ 
 
 Definition in file \mbox{\hyperlink{_debug_8h_source}{Debug.\+h}}.
 
 
 
+\label{doc-define-members}
+\Hypertarget{_debug_8h_doc-define-members}
 \doxysubsection{Macro Definition Documentation}
+\Hypertarget{_debug_8h_a8de29f7c8bbf1a81cc6e71ac602032d3}\index{Debug.h@{Debug.h}!FILENAME@{FILENAME}}
+\index{FILENAME@{FILENAME}!Debug.h@{Debug.h}}
+\doxysubsubsection{\texorpdfstring{FILENAME}{FILENAME}}
+{\footnotesize\ttfamily \label{_debug_8h_a8de29f7c8bbf1a81cc6e71ac602032d3} 
+\#define FILENAME~(strrchr(\+\_\+\+\_\+\+FILE\+\_\+\+\_\+, \textquotesingle{}\textbackslash{}\textbackslash{}\textquotesingle{}) ? strrchr(\+\_\+\+\_\+\+FILE\+\_\+\+\_\+, \textquotesingle{}\textbackslash{}\textbackslash{}\textquotesingle{}) + 1 \+: \+\_\+\+\_\+\+FILE\+\_\+\+\_\+)}
+
+
+
+Definition at line \mbox{\hyperlink{_debug_8h_source_l00039}{39}} of file \mbox{\hyperlink{_debug_8h_source}{Debug.\+h}}.
+
+\Hypertarget{_debug_8h_a02bf97919d013eefc3cc5e7ba1b021c2}\index{Debug.h@{Debug.h}!SKIP\_LOG@{SKIP\_LOG}}
+\index{SKIP\_LOG@{SKIP\_LOG}!Debug.h@{Debug.h}}
+\doxysubsubsection{\texorpdfstring{SKIP\_LOG}{SKIP\_LOG}}
+{\footnotesize\ttfamily \label{_debug_8h_a02bf97919d013eefc3cc5e7ba1b021c2} 
+\#define SKIP\+\_\+\+LOG}
+
+
+
+Definition at line \mbox{\hyperlink{_debug_8h_source_l00007}{7}} of file \mbox{\hyperlink{_debug_8h_source}{Debug.\+h}}.
+
+\Hypertarget{_debug_8h_ae6c8c7ea0855fa30c69727012ac2f508}\index{Debug.h@{Debug.h}!SKIP\_WRN@{SKIP\_WRN}}
+\index{SKIP\_WRN@{SKIP\_WRN}!Debug.h@{Debug.h}}
+\doxysubsubsection{\texorpdfstring{SKIP\_WRN}{SKIP\_WRN}}
+{\footnotesize\ttfamily \label{_debug_8h_ae6c8c7ea0855fa30c69727012ac2f508} 
+\#define SKIP\+\_\+\+WRN}
+
+
+
+Definition at line \mbox{\hyperlink{_debug_8h_source_l00008}{8}} of file \mbox{\hyperlink{_debug_8h_source}{Debug.\+h}}.
+
+\Hypertarget{_debug_8h_a2b8f69460b5c5f6f47a2b7b58d45be93}\index{Debug.h@{Debug.h}!SNAKE\_DEBUG@{SNAKE\_DEBUG}}
+\index{SNAKE\_DEBUG@{SNAKE\_DEBUG}!Debug.h@{Debug.h}}
+\doxysubsubsection{\texorpdfstring{SNAKE\_DEBUG}{SNAKE\_DEBUG}}
+{\footnotesize\ttfamily \label{_debug_8h_a2b8f69460b5c5f6f47a2b7b58d45be93} 
+\#define SNAKE\+\_\+\+DEBUG}
+
+
+
+Definition at line \mbox{\hyperlink{_debug_8h_source_l00006}{6}} of file \mbox{\hyperlink{_debug_8h_source}{Debug.\+h}}.
+
 \Hypertarget{_debug_8h_a4bea2ba782ca7e8f40195f8827c71ecf}\index{Debug.h@{Debug.h}!SNAKE\_ERR@{SNAKE\_ERR}}
 \index{SNAKE\_ERR@{SNAKE\_ERR}!Debug.h@{Debug.h}}
 \doxysubsubsection{\texorpdfstring{SNAKE\_ERR}{SNAKE\_ERR}}
@@ -48,12 +109,12 @@ Definition in file \mbox{\hyperlink{_debug_8h_source}{Debug.\+h}}.
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keywordflow}{do}\ \{\}\ \textcolor{keywordflow}{while}\ (0)}
+\DoxyCodeLine{std::cerr\ <<\ \textcolor{stringliteral}{"{}[ERR]\ "{}}\ <<\ \mbox{\hyperlink{_debug_8h_a8de29f7c8bbf1a81cc6e71ac602032d3}{FILENAME}}\ <<\ \textcolor{stringliteral}{"{}:"{}}\ <<\ \_\_LINE\_\_\ <<\ \textcolor{stringliteral}{"{}\ -\/\ "{}}\ <<\ x\ <<\ std::endl}
 
 \end{DoxyCode}
 
 
-Definition at line \mbox{\hyperlink{_debug_8h_source_l00053}{53}} of file \mbox{\hyperlink{_debug_8h_source}{Debug.\+h}}.
+Definition at line \mbox{\hyperlink{_debug_8h_source_l00054}{54}} of file \mbox{\hyperlink{_debug_8h_source}{Debug.\+h}}.
 
 \Hypertarget{_debug_8h_a781ebc1f48f84958e0e53b493206116b}\index{Debug.h@{Debug.h}!SNAKE\_LOG@{SNAKE\_LOG}}
 \index{SNAKE\_LOG@{SNAKE\_LOG}!Debug.h@{Debug.h}}
@@ -63,12 +124,12 @@ Definition at line \mbox{\hyperlink{_debug_8h_source_l00053}{53}} of file \mbox{
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keywordflow}{do}\ \{\}\ \textcolor{keywordflow}{while}\ (0)}
+\DoxyCodeLine{\textcolor{keywordflow}{do}\ \{\}\ \textcolor{keywordflow}{while}(0)}
 
 \end{DoxyCode}
 
 
-Definition at line \mbox{\hyperlink{_debug_8h_source_l00052}{52}} of file \mbox{\hyperlink{_debug_8h_source}{Debug.\+h}}.
+Definition at line \mbox{\hyperlink{_debug_8h_source_l00044}{44}} of file \mbox{\hyperlink{_debug_8h_source}{Debug.\+h}}.
 
 \Hypertarget{_debug_8h_a76dcc2dada341abb94ed74214eca553a}\index{Debug.h@{Debug.h}!SNAKE\_WRN@{SNAKE\_WRN}}
 \index{SNAKE\_WRN@{SNAKE\_WRN}!Debug.h@{Debug.h}}
@@ -78,10 +139,10 @@ Definition at line \mbox{\hyperlink{_debug_8h_source_l00052}{52}} of file \mbox{
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keywordflow}{do}\ \{\}\ \textcolor{keywordflow}{while}\ (0)}
+\DoxyCodeLine{\textcolor{keywordflow}{do}\ \{\}\ \textcolor{keywordflow}{while}(0)}
 
 \end{DoxyCode}
 
 
-Definition at line \mbox{\hyperlink{_debug_8h_source_l00054}{54}} of file \mbox{\hyperlink{_debug_8h_source}{Debug.\+h}}.
+Definition at line \mbox{\hyperlink{_debug_8h_source_l00050}{50}} of file \mbox{\hyperlink{_debug_8h_source}{Debug.\+h}}.
 

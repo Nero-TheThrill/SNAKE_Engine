@@ -3,6 +3,7 @@ var class_shader =
     [ "Shader", "class_shader.html#a0d654ebaca4e0555197c0724c6d30610", null ],
     [ "~Shader", "class_shader.html#aff01df87e8a102f270b5b135a295e59d", null ],
     [ "AttachFromFile", "class_shader.html#a3c3f209170f257de08119a1a1735e042", null ],
+    [ "AttachFromSource", "class_shader.html#a0d836fa1c3ca251bc7035dfa2ea83b20", null ],
     [ "CheckSupportsInstancing", "class_shader.html#a146efb0490cd023c6e6f332317357393", null ],
     [ "CompileShader", "class_shader.html#ab291bb28e453118aaa10d21e0bdf4606", null ],
     [ "GetProgramID", "class_shader.html#a42e83255c9c5851bf48c0c207a0f086c", null ],

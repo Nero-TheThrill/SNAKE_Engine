@@ -1,0 +1,534 @@
+\doxysection{Collider Class Reference}
+\hypertarget{class_collider}{}\label{class_collider}\index{Collider@{Collider}}
+
+
+Base class for all 2D collider shapes (circle, AABB) used in collision detection.  
+
+
+
+
+{\ttfamily \#include $<$Collider.\+h$>$}
+
+Inheritance diagram for Collider\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_collider}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_collider_a02af0adc54359eddcd786735e7d0ce5b}{Collider}} ()=delete
+\item 
+\mbox{\hyperlink{class_collider_a5a49c6e929279578b12e7d1c60c50c75}{Collider}} (\mbox{\hyperlink{class_object}{Object}} \texorpdfstring{$\ast$}{*}owner\+\_\+)
+\begin{DoxyCompactList}\small\item\em Constructs a collider and binds it to the specified owner object. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{class_collider_a7b43c72a6424d8c11dec965d166953d3}{\texorpdfstring{$\sim$}{\string~}\+Collider}} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor for the \doxylink{class_collider}{Collider} base class. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_collider_abcbc7a880210f872f2704035940f243c}{Set\+Use\+Transform\+Scale}} (bool use)
+\begin{DoxyCompactList}\small\item\em Enables or disables transform scaling for this collider. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_collider_a9f9dd44c772f34a84789018f59df905a}{Is\+Using\+Transform\+Scale}} () const
+\begin{DoxyCompactList}\small\item\em Checks whether transform scaling is enabled for this collider. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_collider_a41b2de089e3faf27bd0ac87d923f9203}{Set\+World\+Position}} (const glm\+::vec2 \&pos)
+\begin{DoxyCompactList}\small\item\em Sets the world-\/space center position of the collider. \end{DoxyCompactList}\item 
+const glm\+::vec2 \& \mbox{\hyperlink{class_collider_a46820df1f15ac4124525f6f0fe7667ff}{Get\+World\+Position}} () const
+\begin{DoxyCompactList}\small\item\em Returns the current world-\/space center position of the collider. \end{DoxyCompactList}\item 
+virtual bool \mbox{\hyperlink{class_collider_a96da52831351800d25be94893cfaddf0}{Check\+Point\+Collision}} (const glm\+::vec2 \&point) const =0
+\begin{DoxyCompactList}\small\item\em Checks whether a given point lies inside this collider\textquotesingle{}s shape. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_object}{Object}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_collider_a1a1c25108da499b666799d7e8d4c2d5b}{Get\+Owner}} () const
+\begin{DoxyCompactList}\small\item\em Returns the object that owns this collider. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{_collider_8h_a7f138e75fc3cc79e825c39e040690395}{Collider\+Type}} \mbox{\hyperlink{class_collider_a677c9e05fcee3ef2ed94998dc5f2458d}{Get\+Type}} () const =0
+\begin{DoxyCompactList}\small\item\em Returns the type of this collider (e.\+g., Circle or AABB). \end{DoxyCompactList}\item 
+virtual float \mbox{\hyperlink{class_collider_a62c9c123b9a68da3b6eb13c718ccaa27}{Get\+Bounding\+Radius}} () const =0
+\begin{DoxyCompactList}\small\item\em Returns the approximate bounding radius of the collider. \end{DoxyCompactList}\item 
+virtual bool \mbox{\hyperlink{class_collider_a41660505ae4b413d3d4b004162857426}{Check\+Collision}} (const \mbox{\hyperlink{class_collider}{Collider}} \texorpdfstring{$\ast$}{*}other) const =0
+\begin{DoxyCompactList}\small\item\em Performs a collision check against another collider. \end{DoxyCompactList}\item 
+virtual bool \mbox{\hyperlink{class_collider_a6b1071065ccb7ddfc1ff8340a89246d7}{Dispatch\+Against}} (const \mbox{\hyperlink{class_circle_collider}{Circle\+Collider}} \&other) const =0
+\begin{DoxyCompactList}\small\item\em Performs collision resolution between this collider and a \doxylink{class_circle_collider}{Circle\+Collider}. \end{DoxyCompactList}\item 
+virtual bool \mbox{\hyperlink{class_collider_ae6038e89a98d8b252f143ddbc960a484}{Dispatch\+Against}} (const \mbox{\hyperlink{class_a_a_b_b_collider}{AABBCollider}} \&other) const =0
+\begin{DoxyCompactList}\small\item\em Performs collision resolution between this collider and an \doxylink{class_a_a_b_b_collider}{AABBCollider}. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_collider_a188380ff8ece20474e86a662f995887e}{Sync\+With\+Transform\+Scale}} ()=0
+\begin{DoxyCompactList}\small\item\em Updates internal size values based on the owner\textquotesingle{}s transform scale. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_collider_a222e52491ae094943420952fd3182c90}{Draw\+Debug}} (\mbox{\hyperlink{class_render_manager}{Render\+Manager}} \texorpdfstring{$\ast$}{*}rm, \mbox{\hyperlink{class_camera2_d}{Camera2D}} \texorpdfstring{$\ast$}{*}cam, const glm\+::vec4 \&color=\{ 1, 0, 0, 1 \}) const =0
+\begin{DoxyCompactList}\small\item\em Renders a debug visualization of the collider. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_object}{Object}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_collider_ae661027024ee407d042b8672625da377}{owner}}
+\item 
+bool \mbox{\hyperlink{class_collider_a10c23d55e50b048078cddb0f806d5731}{use\+Transform\+Scale}} = true
+\item 
+glm\+::vec2 \mbox{\hyperlink{class_collider_a537ce5f2dcb47a34bbdb3afd308ed4f9}{world\+Position}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+friend \mbox{\hyperlink{class_collider_a936a6c821ef2a9ec2ecbf5f77cd8b0cc}{Object\+Manager}}
+\item 
+friend \mbox{\hyperlink{class_collider_a12cf416c51b48e672ffdfe63e6118f22}{Circle\+Collider}}
+\item 
+friend \mbox{\hyperlink{class_collider_a16567cc4efd54b0d96a21acaf299e5d4}{AABBCollider}}
+\item 
+friend \mbox{\hyperlink{class_collider_a1caafe48decccc01fc2b89fa84498938}{Spatial\+Hash\+Grid}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Base class for all 2D collider shapes (circle, AABB) used in collision detection. 
+
+\doxylink{class_collider}{Collider} is an abstract base class representing a 2D collision component. Each collider is owned by an \doxylink{class_object}{Object} and stores its world position independently from the transform.
+
+Subclasses (\doxylink{class_circle_collider}{Circle\+Collider}, \doxylink{class_a_a_b_b_collider}{AABBCollider}) implement specific shape logic and double dispatch collision resolution. This class supports spatial hashing, debug drawing, and transform scaling.
+
+\doxylink{class_collider}{Collider} instances are managed internally by \doxylink{class_object_manager}{Object\+Manager} and should not be created directly by users.
+
+\begin{DoxyNote}{Note}
+Collision checks use a double dispatch system via Check\+Collision and \doxylink{class_collider_a6b1071065ccb7ddfc1ff8340a89246d7}{Dispatch\+Against()}. 
+\end{DoxyNote}
+
+
+Definition at line \mbox{\hyperlink{_collider_8h_source_l00039}{39}} of file \mbox{\hyperlink{_collider_8h_source}{Collider.\+h}}.
+
+
+
+\label{doc-constructors}
+\Hypertarget{class_collider_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_collider_a02af0adc54359eddcd786735e7d0ce5b}\index{Collider@{Collider}!Collider@{Collider}}
+\index{Collider@{Collider}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{Collider()}{Collider()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_collider_a02af0adc54359eddcd786735e7d0ce5b} 
+Collider\+::\+Collider (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\Hypertarget{class_collider_a5a49c6e929279578b12e7d1c60c50c75}\index{Collider@{Collider}!Collider@{Collider}}
+\index{Collider@{Collider}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{Collider()}{Collider()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_collider_a5a49c6e929279578b12e7d1c60c50c75} 
+Collider\+::\+Collider (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_object}{Object}} \texorpdfstring{$\ast$}{*}}]{owner\+\_\+}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructs a collider and binds it to the specified owner object. 
+
+This constructor initializes the collider and stores a pointer to its owning \doxylink{class_object}{Object}. The world position is initialized to zero. Transform scaling is enabled by default.
+
+Each collider must be associated with exactly one \doxylink{class_object}{Object} at creation.
+
+
+\begin{DoxyParams}{Parameters}
+{\em owner\+\_\+} & Pointer to the \doxylink{class_object}{Object} that owns this collider. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_collider_8h_source_l00059}{59}} of file \mbox{\hyperlink{_collider_8h_source}{Collider.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00059\ :\ \mbox{\hyperlink{class_collider_ae661027024ee407d042b8672625da377}{owner}}(owner\_),\ \mbox{\hyperlink{class_collider_a537ce5f2dcb47a34bbdb3afd308ed4f9}{worldPosition}}()\{\}}
+
+\end{DoxyCode}
+\Hypertarget{class_collider_a7b43c72a6424d8c11dec965d166953d3}\index{Collider@{Collider}!````~Collider@{\texorpdfstring{$\sim$}{\string~}Collider}}
+\index{````~Collider@{\texorpdfstring{$\sim$}{\string~}Collider}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}Collider()}{\string~Collider()}}
+{\footnotesize\ttfamily \label{class_collider_a7b43c72a6424d8c11dec965d166953d3} 
+virtual Collider\+::\texorpdfstring{$\sim$}{\string~}\+Collider (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+
+
+Virtual destructor for the \doxylink{class_collider}{Collider} base class. 
+
+Ensures proper cleanup of derived collider types via base pointer deletion. 
+
+\label{doc-func-members}
+\Hypertarget{class_collider_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_collider_a41660505ae4b413d3d4b004162857426}\index{Collider@{Collider}!CheckCollision@{CheckCollision}}
+\index{CheckCollision@{CheckCollision}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{CheckCollision()}{CheckCollision()}}
+{\footnotesize\ttfamily \label{class_collider_a41660505ae4b413d3d4b004162857426} 
+virtual bool Collider\+::\+Check\+Collision (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_collider}{Collider}} \texorpdfstring{$\ast$}{*}}]{other}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [nodiscard]}, {\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Performs a collision check against another collider. 
+
+This is the primary virtual entry point for collision testing. It uses a double dispatch pattern to resolve the correct collision logic based on the type of the other collider.
+
+The caller should ensure that both colliders are valid and positioned in world space.
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & The other collider to test against. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the colliders intersect; false otherwise. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_a_a_b_b_collider_a8bd480dffa6343fa74035a4df701ca22}{AABBCollider}}, and \mbox{\hyperlink{class_circle_collider_a9598b67bc72342284318d19f3c0cf35b}{Circle\+Collider}}.
+
+\Hypertarget{class_collider_a96da52831351800d25be94893cfaddf0}\index{Collider@{Collider}!CheckPointCollision@{CheckPointCollision}}
+\index{CheckPointCollision@{CheckPointCollision}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{CheckPointCollision()}{CheckPointCollision()}}
+{\footnotesize\ttfamily \label{class_collider_a96da52831351800d25be94893cfaddf0} 
+virtual bool Collider\+::\+Check\+Point\+Collision (\begin{DoxyParamCaption}\item[{const glm\+::vec2 \&}]{point}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Checks whether a given point lies inside this collider\textquotesingle{}s shape. 
+
+This is a pure virtual function implemented by concrete collider types such as \doxylink{class_circle_collider}{Circle\+Collider} and \doxylink{class_a_a_b_b_collider}{AABBCollider}.
+
+Used for point-\/based hit detection, such as mouse clicks or ray hits.
+
+
+\begin{DoxyParams}{Parameters}
+{\em point} & The point to test, in world space. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the point is inside the collider, false otherwise. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_a_a_b_b_collider_a0d2cf23fe7b870bc02605ed78b7d4aba}{AABBCollider}}, and \mbox{\hyperlink{class_circle_collider_a4fa87c8b2fb9204f9d5e9d47dc3a44bc}{Circle\+Collider}}.
+
+\Hypertarget{class_collider_ae6038e89a98d8b252f143ddbc960a484}\index{Collider@{Collider}!DispatchAgainst@{DispatchAgainst}}
+\index{DispatchAgainst@{DispatchAgainst}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{DispatchAgainst()}{DispatchAgainst()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_collider_ae6038e89a98d8b252f143ddbc960a484} 
+virtual bool Collider\+::\+Dispatch\+Against (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_a_a_b_b_collider}{AABBCollider}} \&}]{other}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [nodiscard]}, {\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Performs collision resolution between this collider and an \doxylink{class_a_a_b_b_collider}{AABBCollider}. 
+
+Called as part of the double dispatch system to perform shape-\/specific collision logic between this collider and a rectangular AABB collider.
+
+Invoked internally by \doxylink{class_collider_a41660505ae4b413d3d4b004162857426}{Check\+Collision()} after type resolution.
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & Reference to the \doxylink{class_a_a_b_b_collider}{AABBCollider} to test against. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the shapes intersect; false otherwise. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_a_a_b_b_collider_acab757f9231fa6acb535784d77915600}{AABBCollider}}, and \mbox{\hyperlink{class_circle_collider_a951f365eb24e6e1a286bc7c518e8ab46}{Circle\+Collider}}.
+
+\Hypertarget{class_collider_a6b1071065ccb7ddfc1ff8340a89246d7}\index{Collider@{Collider}!DispatchAgainst@{DispatchAgainst}}
+\index{DispatchAgainst@{DispatchAgainst}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{DispatchAgainst()}{DispatchAgainst()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_collider_a6b1071065ccb7ddfc1ff8340a89246d7} 
+virtual bool Collider\+::\+Dispatch\+Against (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_circle_collider}{Circle\+Collider}} \&}]{other}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [nodiscard]}, {\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Performs collision resolution between this collider and a \doxylink{class_circle_collider}{Circle\+Collider}. 
+
+This function is part of a double dispatch system and is implemented by each collider shape. It determines whether this collider overlaps with a circle-\/shaped collider using precise logic.
+
+Called internally by \doxylink{class_collider_a41660505ae4b413d3d4b004162857426}{Check\+Collision()} after type routing.
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & Reference to the other \doxylink{class_circle_collider}{Circle\+Collider} to test against. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if a collision is detected; false otherwise. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_a_a_b_b_collider_a22a432aea0dae3f7683c338db68f5846}{AABBCollider}}, and \mbox{\hyperlink{class_circle_collider_a69a051ea02a260f7b5c46cb76058cbe5}{Circle\+Collider}}.
+
+\Hypertarget{class_collider_a222e52491ae094943420952fd3182c90}\index{Collider@{Collider}!DrawDebug@{DrawDebug}}
+\index{DrawDebug@{DrawDebug}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{DrawDebug()}{DrawDebug()}}
+{\footnotesize\ttfamily \label{class_collider_a222e52491ae094943420952fd3182c90} 
+virtual void Collider\+::\+Draw\+Debug (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_render_manager}{Render\+Manager}} \texorpdfstring{$\ast$}{*}}]{rm}{, }\item[{\mbox{\hyperlink{class_camera2_d}{Camera2D}} \texorpdfstring{$\ast$}{*}}]{cam}{, }\item[{const glm\+::vec4 \&}]{color}{ = {\ttfamily \{~1,~0,~0,~1~\}}}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Renders a debug visualization of the collider. 
+
+This function draws the collider\textquotesingle{}s shape using a simple outline or fill color, typically for debugging or development purposes.
+
+Called by \doxylink{class_object_manager}{Object\+Manager} when debug draw mode is enabled.
+
+
+\begin{DoxyParams}{Parameters}
+{\em rm} & \doxylink{class_render_manager}{Render\+Manager} pointer to handle drawing. \\
+\hline
+{\em cam} & Active camera for projection. \\
+\hline
+{\em color} & Optional color for debug lines (default\+: red). \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_a_a_b_b_collider_ac436555bab262272195f5081b33db006}{AABBCollider}}, and \mbox{\hyperlink{class_circle_collider_ae67885becfba36118e3ed5fc7a35d252}{Circle\+Collider}}.
+
+\Hypertarget{class_collider_a62c9c123b9a68da3b6eb13c718ccaa27}\index{Collider@{Collider}!GetBoundingRadius@{GetBoundingRadius}}
+\index{GetBoundingRadius@{GetBoundingRadius}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{GetBoundingRadius()}{GetBoundingRadius()}}
+{\footnotesize\ttfamily \label{class_collider_a62c9c123b9a68da3b6eb13c718ccaa27} 
+virtual float Collider\+::\+Get\+Bounding\+Radius (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [nodiscard]}, {\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Returns the approximate bounding radius of the collider. 
+
+This radius is used as a coarse heuristic for early rejection in collision testing. For a circle collider, it returns the actual radius. For an AABB, it returns the diagonal extent.
+
+\begin{DoxyReturn}{Returns}
+Bounding radius in world units. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_a_a_b_b_collider_a0a0f0dcd7d52ac0ef8d11953424a752a}{AABBCollider}}, and \mbox{\hyperlink{class_circle_collider_afc46297adb83cfaab9487e89d7a25298}{Circle\+Collider}}.
+
+\Hypertarget{class_collider_a1a1c25108da499b666799d7e8d4c2d5b}\index{Collider@{Collider}!GetOwner@{GetOwner}}
+\index{GetOwner@{GetOwner}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{GetOwner()}{GetOwner()}}
+{\footnotesize\ttfamily \label{class_collider_a1a1c25108da499b666799d7e8d4c2d5b} 
+\mbox{\hyperlink{class_object}{Object}} \texorpdfstring{$\ast$}{*} Collider\+::\+Get\+Owner (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [nodiscard]}, {\ttfamily [protected]}}
+
+
+
+Returns the object that owns this collider. 
+
+Each collider is attached to a single \doxylink{class_object}{Object} instance. This is used internally for resolving collisions, retrieving transform data, or invoking callbacks.
+
+\begin{DoxyReturn}{Returns}
+Pointer to the \doxylink{class_object}{Object} that owns this collider. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_collider_8h_source_l00132}{132}} of file \mbox{\hyperlink{_collider_8h_source}{Collider.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00132\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_collider_ae661027024ee407d042b8672625da377}{owner}};\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_collider_a677c9e05fcee3ef2ed94998dc5f2458d}\index{Collider@{Collider}!GetType@{GetType}}
+\index{GetType@{GetType}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{GetType()}{GetType()}}
+{\footnotesize\ttfamily \label{class_collider_a677c9e05fcee3ef2ed94998dc5f2458d} 
+virtual \mbox{\hyperlink{_collider_8h_a7f138e75fc3cc79e825c39e040690395}{Collider\+Type}} Collider\+::\+Get\+Type (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [nodiscard]}, {\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Returns the type of this collider (e.\+g., Circle or AABB). 
+
+This pure virtual function is implemented by derived classes to identify their collider shape type. Used in the double-\/dispatch collision resolution system.
+
+\begin{DoxyReturn}{Returns}
+The \doxylink{_collider_8h_a7f138e75fc3cc79e825c39e040690395}{Collider\+Type} enum value indicating the shape. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_a_a_b_b_collider_a02a5aef8ae047a6e77dea4d9ee3bdc91}{AABBCollider}}, and \mbox{\hyperlink{class_circle_collider_ac2513ad483f0fc9789afe8e25f4797c1}{Circle\+Collider}}.
+
+\Hypertarget{class_collider_a46820df1f15ac4124525f6f0fe7667ff}\index{Collider@{Collider}!GetWorldPosition@{GetWorldPosition}}
+\index{GetWorldPosition@{GetWorldPosition}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{GetWorldPosition()}{GetWorldPosition()}}
+{\footnotesize\ttfamily \label{class_collider_a46820df1f15ac4124525f6f0fe7667ff} 
+const glm\+::vec2 \& Collider\+::\+Get\+World\+Position (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the current world-\/space center position of the collider. 
+
+\begin{DoxyReturn}{Returns}
+A reference to the collider\textquotesingle{}s world position vector. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_collider_8h_source_l00106}{106}} of file \mbox{\hyperlink{_collider_8h_source}{Collider.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00106\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_collider_a537ce5f2dcb47a34bbdb3afd308ed4f9}{worldPosition}};\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_collider_a9f9dd44c772f34a84789018f59df905a}\index{Collider@{Collider}!IsUsingTransformScale@{IsUsingTransformScale}}
+\index{IsUsingTransformScale@{IsUsingTransformScale}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{IsUsingTransformScale()}{IsUsingTransformScale()}}
+{\footnotesize\ttfamily \label{class_collider_a9f9dd44c772f34a84789018f59df905a} 
+bool Collider\+::\+Is\+Using\+Transform\+Scale (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [nodiscard]}}
+
+
+
+Checks whether transform scaling is enabled for this collider. 
+
+\begin{DoxyReturn}{Returns}
+true if transform scale affects the collider size, false otherwise. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_collider_8h_source_l00086}{86}} of file \mbox{\hyperlink{_collider_8h_source}{Collider.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00086\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_collider_a10c23d55e50b048078cddb0f806d5731}{useTransformScale}};\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_collider_abcbc7a880210f872f2704035940f243c}\index{Collider@{Collider}!SetUseTransformScale@{SetUseTransformScale}}
+\index{SetUseTransformScale@{SetUseTransformScale}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{SetUseTransformScale()}{SetUseTransformScale()}}
+{\footnotesize\ttfamily \label{class_collider_abcbc7a880210f872f2704035940f243c} 
+void Collider\+::\+Set\+Use\+Transform\+Scale (\begin{DoxyParamCaption}\item[{bool}]{use}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Enables or disables transform scaling for this collider. 
+
+When enabled (default), the collider will scale its shape (e.\+g., radius or size) based on the owner\textquotesingle{}s transform scale. When disabled, the collider maintains a fixed size regardless of transform.
+
+
+\begin{DoxyParams}{Parameters}
+{\em use} & Whether to apply transform scaling to the collider. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_collider_8h_source_l00079}{79}} of file \mbox{\hyperlink{_collider_8h_source}{Collider.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00079\ \{\ \mbox{\hyperlink{class_collider_a10c23d55e50b048078cddb0f806d5731}{useTransformScale}}\ =\ use;\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_collider_a41b2de089e3faf27bd0ac87d923f9203}\index{Collider@{Collider}!SetWorldPosition@{SetWorldPosition}}
+\index{SetWorldPosition@{SetWorldPosition}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{SetWorldPosition()}{SetWorldPosition()}}
+{\footnotesize\ttfamily \label{class_collider_a41b2de089e3faf27bd0ac87d923f9203} 
+void Collider\+::\+Set\+World\+Position (\begin{DoxyParamCaption}\item[{const glm\+::vec2 \&}]{pos}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the world-\/space center position of the collider. 
+
+This position determines where the collider is located in the game world and is typically synchronized with the object\textquotesingle{}s transform position each frame.
+
+For scale-\/dependent colliders, this position should be updated after scaling.
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos} & World-\/space position (in pixels or units). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_collider_8h_source_l00099}{99}} of file \mbox{\hyperlink{_collider_8h_source}{Collider.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00099\ \{\ \mbox{\hyperlink{class_collider_a537ce5f2dcb47a34bbdb3afd308ed4f9}{worldPosition}}\ =\ pos;\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_collider_a188380ff8ece20474e86a662f995887e}\index{Collider@{Collider}!SyncWithTransformScale@{SyncWithTransformScale}}
+\index{SyncWithTransformScale@{SyncWithTransformScale}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{SyncWithTransformScale()}{SyncWithTransformScale()}}
+{\footnotesize\ttfamily \label{class_collider_a188380ff8ece20474e86a662f995887e} 
+virtual void Collider\+::\+Sync\+With\+Transform\+Scale (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Updates internal size values based on the owner\textquotesingle{}s transform scale. 
+
+If transform scaling is enabled, this function recalculates the collider\textquotesingle{}s effective radius (for \doxylink{class_circle_collider}{Circle\+Collider}) or size (for \doxylink{class_a_a_b_b_collider}{AABBCollider}) using the owner\textquotesingle{}s current scale.
+
+Called automatically during collider update cycles. 
+
+Implemented in \mbox{\hyperlink{class_a_a_b_b_collider_a66dc8ecf507a6f3de51fb56f7cd0aa67}{AABBCollider}}, and \mbox{\hyperlink{class_circle_collider_a8f00aeea30fb3ffb45ebbcaab0d96fdd}{Circle\+Collider}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{class_collider_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_collider_a16567cc4efd54b0d96a21acaf299e5d4}\index{Collider@{Collider}!AABBCollider@{AABBCollider}}
+\index{AABBCollider@{AABBCollider}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{AABBCollider}{AABBCollider}}
+{\footnotesize\ttfamily \label{class_collider_a16567cc4efd54b0d96a21acaf299e5d4} 
+friend Collider\+::\+AABBCollider\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_collider_8h_source_l00043}{43}} of file \mbox{\hyperlink{_collider_8h_source}{Collider.\+h}}.
+
+\Hypertarget{class_collider_a12cf416c51b48e672ffdfe63e6118f22}\index{Collider@{Collider}!CircleCollider@{CircleCollider}}
+\index{CircleCollider@{CircleCollider}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{CircleCollider}{CircleCollider}}
+{\footnotesize\ttfamily \label{class_collider_a12cf416c51b48e672ffdfe63e6118f22} 
+friend Collider\+::\+Circle\+Collider\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_collider_8h_source_l00042}{42}} of file \mbox{\hyperlink{_collider_8h_source}{Collider.\+h}}.
+
+\Hypertarget{class_collider_a936a6c821ef2a9ec2ecbf5f77cd8b0cc}\index{Collider@{Collider}!ObjectManager@{ObjectManager}}
+\index{ObjectManager@{ObjectManager}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{ObjectManager}{ObjectManager}}
+{\footnotesize\ttfamily \label{class_collider_a936a6c821ef2a9ec2ecbf5f77cd8b0cc} 
+friend Collider\+::\+Object\+Manager\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_collider_8h_source_l00041}{41}} of file \mbox{\hyperlink{_collider_8h_source}{Collider.\+h}}.
+
+\Hypertarget{class_collider_ae661027024ee407d042b8672625da377}\index{Collider@{Collider}!owner@{owner}}
+\index{owner@{owner}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{owner}{owner}}
+{\footnotesize\ttfamily \label{class_collider_ae661027024ee407d042b8672625da377} 
+\mbox{\hyperlink{class_object}{Object}}\texorpdfstring{$\ast$}{*} Collider\+::owner\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_collider_8h_source_l00226}{226}} of file \mbox{\hyperlink{_collider_8h_source}{Collider.\+h}}.
+
+\Hypertarget{class_collider_a1caafe48decccc01fc2b89fa84498938}\index{Collider@{Collider}!SpatialHashGrid@{SpatialHashGrid}}
+\index{SpatialHashGrid@{SpatialHashGrid}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{SpatialHashGrid}{SpatialHashGrid}}
+{\footnotesize\ttfamily \label{class_collider_a1caafe48decccc01fc2b89fa84498938} 
+friend Collider\+::\+Spatial\+Hash\+Grid\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_collider_8h_source_l00044}{44}} of file \mbox{\hyperlink{_collider_8h_source}{Collider.\+h}}.
+
+\Hypertarget{class_collider_a10c23d55e50b048078cddb0f806d5731}\index{Collider@{Collider}!useTransformScale@{useTransformScale}}
+\index{useTransformScale@{useTransformScale}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{useTransformScale}{useTransformScale}}
+{\footnotesize\ttfamily \label{class_collider_a10c23d55e50b048078cddb0f806d5731} 
+bool Collider\+::use\+Transform\+Scale = true\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_collider_8h_source_l00227}{227}} of file \mbox{\hyperlink{_collider_8h_source}{Collider.\+h}}.
+
+\Hypertarget{class_collider_a537ce5f2dcb47a34bbdb3afd308ed4f9}\index{Collider@{Collider}!worldPosition@{worldPosition}}
+\index{worldPosition@{worldPosition}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{worldPosition}{worldPosition}}
+{\footnotesize\ttfamily \label{class_collider_a537ce5f2dcb47a34bbdb3afd308ed4f9} 
+glm\+::vec2 Collider\+::world\+Position\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_collider_8h_source_l00228}{228}} of file \mbox{\hyperlink{_collider_8h_source}{Collider.\+h}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Project/\+SNAKE\+\_\+\+Engine/\+Public/\mbox{\hyperlink{_collider_8h}{Collider.\+h}}\end{DoxyCompactItemize}

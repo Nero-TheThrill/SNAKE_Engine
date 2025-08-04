@@ -1,10 +1,9 @@
 var searchData=
 [
-  ['width_0',['width',['../class_texture.html#a06a0246cb31343557c3441c5733349cd',1,'Texture']]],
-  ['window_1',['window',['../class_input_manager.html#a77079cf480ee8e1eb232b9685a7c5431',1,'InputManager::window'],['../class_window_manager.html#a6e43767214a47577fb721a6407fccf83',1,'WindowManager::window']]],
-  ['windowheight_2',['windowHeight',['../class_window_manager.html#a4c7712cdc2f3ac47f02d0e3cbdf63d70',1,'WindowManager']]],
-  ['windowmanager_3',['windowManager',['../struct_engine_context.html#ab6fa006055c2a224931059f7ed840bed',1,'EngineContext::windowManager'],['../class_s_n_a_k_e___engine.html#ae837d579ccaad44987a40d5580e683cf',1,'SNAKE_Engine::windowManager']]],
-  ['windowwidth_4',['windowWidth',['../class_window_manager.html#a42b88c6c3ab344ca4cb29d7e79892af5',1,'WindowManager']]],
-  ['wraps_5',['wrapS',['../struct_texture_settings.html#a3b54cb18a7fd881b2f7e01d1dd29db3a',1,'TextureSettings']]],
-  ['wrapt_6',['wrapT',['../struct_texture_settings.html#a89e689b4de2e7f2a7c856d091a19632c',1,'TextureSettings']]]
+  ['uniforms_0',['uniforms',['../class_material.html#ac18d1c428804aef46a8ec751989e0677',1,'Material']]],
+  ['useindex_1',['useIndex',['../class_mesh.html#a3153eeca2bbde0037c365662bbeb52f1',1,'Mesh']]],
+  ['usetransformscale_2',['useTransformScale',['../class_collider.html#a10c23d55e50b048078cddb0f806d5731',1,'Collider']]],
+  ['uv_3',['uv',['../struct_vertex.html#a8d5cc8548016889746f251d98377ec8a',1,'Vertex']]],
+  ['uvbottomright_4',['uvBottomRight',['../struct_sprite_frame.html#acceeda89842d01cc0a6a042c37d0eeb1',1,'SpriteFrame::uvBottomRight'],['../struct_glyph.html#ae5a6124bbab282e4263439dd0a30634f',1,'Glyph::uvBottomRight']]],
+  ['uvtopleft_5',['uvTopLeft',['../struct_sprite_frame.html#a664f4e5144e2577acd35c8c8e1d60a5f',1,'SpriteFrame::uvTopLeft'],['../struct_glyph.html#a34a9c2f5bb4db32834e6bfbd67914f99',1,'Glyph::uvTopLeft']]]
 ];

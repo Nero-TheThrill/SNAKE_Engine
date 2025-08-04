@@ -2,7 +2,7 @@
 \hypertarget{class_state_manager}{}\label{class_state_manager}\index{StateManager@{StateManager}}
 
 
-Manages the current and next game states.  
+Manages the active game state and transitions between states.  
 
 
 
@@ -13,18 +13,18 @@ Manages the current and next game states.
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{class_game_state}{Game\+State}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_state_manager_aeb24049cbe185fe0faec5c771e34c2bb}{Get\+Current\+State}} () const
-\begin{DoxyCompactList}\small\item\em Returns the currently active \doxylink{class_game_state}{Game\+State}. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Returns the currently active game state. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_state_manager_a5337ecd1c035794817b1de05f961d352}{Change\+State}} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_game_state}{Game\+State}} $>$ new\+State)
-\begin{DoxyCompactList}\small\item\em Schedules a new \doxylink{class_game_state}{Game\+State} to be activated. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Schedules a transition to a new game state. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{class_state_manager_ab4ebd3189a4623e805d95f768b314acb}{Update}} (float dt, const \mbox{\hyperlink{struct_engine_context}{Engine\+Context}} \&engine\+Context)
-\begin{DoxyCompactList}\small\item\em Updates the active state and performs pending transitions. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Updates the current game state and handles state transitions. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_state_manager_ae161e57265af366c58b0e2b5d936553d}{Draw}} (const \mbox{\hyperlink{struct_engine_context}{Engine\+Context}} \&engine\+Context)
-\begin{DoxyCompactList}\small\item\em Draws the currently active state. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Renders the current game state. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_state_manager_aa8e5c183bf725b7132f7e4bc800deaab}{Free}} (const \mbox{\hyperlink{struct_engine_context}{Engine\+Context}} \&engine\+Context)
-\begin{DoxyCompactList}\small\item\em Releases memory of both current and next states. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Unloads and frees the current game state. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -37,27 +37,23 @@ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_game_state}{Game\+State}} $>$ \
 
 
 \doxysubsection{Detailed Description}
-Manages the current and next game states. 
+Manages the active game state and transitions between states. 
 
-\doxylink{class_state_manager}{State\+Manager} owns the active \doxylink{class_game_state}{Game\+State} and handles transitions to the next one. It allows only one active state at a time, but supports scheduling a new state to be swapped in at the beginning of the next update cycle.
+\doxylink{class_state_manager}{State\+Manager} holds the current and next \doxylink{class_game_state}{Game\+State} instances. It is responsible for handling state transitions, per-\/frame updates, and rendering. When a new state is set via \doxylink{class_state_manager_a5337ecd1c035794817b1de05f961d352}{Change\+State()}, the current state is properly unloaded and freed. The manager ensures that only one state is active at a time.
 
-State transitions are deferred to avoid accessing deleted states during execution.
+This class is internally used by the engine and is typically accessed via \doxylink{struct_engine_context}{Engine\+Context}.
 
-This class is updated every frame by the engine.
+\begin{DoxyNote}{Note}
+Game states must inherit from \doxylink{class_game_state}{Game\+State} and implement the virtual system lifecycle methods. 
+\end{DoxyNote}
 
 
-\begin{DoxyCode}{0}
-\DoxyCodeLine{engineContext.stateManager-\/>ChangeState(std::make\_unique<MainMenuState>());}
-\DoxyCodeLine{engineContext.stateManager-\/>Update(dt,\ engineContext);}
-\DoxyCodeLine{engineContext.stateManager-\/>Draw(engineContext);}
-
-\end{DoxyCode}
- 
-
-Definition at line \mbox{\hyperlink{_state_manager_8h_source_l00026}{26}} of file \mbox{\hyperlink{_state_manager_8h_source}{State\+Manager.\+h}}.
+Definition at line \mbox{\hyperlink{_state_manager_8h_source_l00021}{21}} of file \mbox{\hyperlink{_state_manager_8h_source}{State\+Manager.\+h}}.
 
 
 
+\label{doc-func-members}
+\Hypertarget{class_state_manager_doc-func-members}
 \doxysubsection{Member Function Documentation}
 \Hypertarget{class_state_manager_a5337ecd1c035794817b1de05f961d352}\index{StateManager@{StateManager}!ChangeState@{ChangeState}}
 \index{ChangeState@{ChangeState}!StateManager@{StateManager}}
@@ -67,29 +63,33 @@ void State\+Manager\+::\+Change\+State (\begin{DoxyParamCaption}\item[{std\+::un
 
 
 
-Schedules a new \doxylink{class_game_state}{Game\+State} to be activated. 
+Schedules a transition to a new game state. 
 
-The switch does not happen immediately. Instead, the new state is stored internally and the swap occurs at the start of the next call to \doxylink{class_state_manager_ab4ebd3189a4623e805d95f768b314acb}{Update()}. This avoids modifying the state mid-\/frame.
+The current state will be unloaded and freed on the next update cycle. The provided state will be initialized and become the new active state. Use this to switch between menus, levels, or scenes.
 
 
 \begin{DoxyParams}{Parameters}
-{\em new\+State} & A unique\+\_\+ptr to the new \doxylink{class_game_state}{Game\+State} to use next frame.\\
+{\em new\+State} & The new game state to activate.\\
 \hline
 \end{DoxyParams}
+\begin{DoxyNote}{Note}
+The transition is deferred; it occurs during the next call to \doxylink{class_state_manager_ab4ebd3189a4623e805d95f768b314acb}{Update()}.
+\end{DoxyNote}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{stateManager-\/>ChangeState(std::make\_unique<PlayState>());}
+\DoxyCodeLine{\textcolor{keyword}{auto}\ mainMenu\ =\ std::make\_unique<MainMenuState>();}
+\DoxyCodeLine{engineContext.stateManager-\/>ChangeState(std::move(mainMenu));}
 
 \end{DoxyCode}
  
 
-Definition at line \mbox{\hyperlink{_state_manager_8cpp_source_l00011}{11}} of file \mbox{\hyperlink{_state_manager_8cpp_source}{State\+Manager.\+cpp}}.
+Definition at line \mbox{\hyperlink{_state_manager_8cpp_source_l00012}{12}} of file \mbox{\hyperlink{_state_manager_8cpp_source}{State\+Manager.\+cpp}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00012\ \{}
-\DoxyCodeLine{00013\ \ \ \ \ \mbox{\hyperlink{class_state_manager_a598a8e8b997a38333b28dbbe9c87cfe6}{nextState}}\ =\ std::move(newState);}
-\DoxyCodeLine{00014\ \}}
+\DoxyCodeLine{00013\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{class_state_manager_a598a8e8b997a38333b28dbbe9c87cfe6}{nextState}}\ =\ std::move(newState);}
+\DoxyCodeLine{00015\ \}}
 
 \end{DoxyCode}
 \Hypertarget{class_state_manager_ae161e57265af366c58b0e2b5d936553d}\index{StateManager@{StateManager}!Draw@{Draw}}
@@ -100,28 +100,33 @@ void State\+Manager\+::\+Draw (\begin{DoxyParamCaption}\item[{const \mbox{\hyper
 
 
 
-Draws the currently active state. 
+Renders the current game state. 
 
-Invokes \doxylink{class_state_manager_ae161e57265af366c58b0e2b5d936553d}{Draw()} on the current \doxylink{class_game_state}{Game\+State}, if any is loaded.
+Calls the current state\textquotesingle{}s \doxylink{class_state_manager_ae161e57265af366c58b0e2b5d936553d}{Draw()} function and flushes all draw commands. If debug draw mode is enabled in the engine, it also flushes debug lines.
 
 
 \begin{DoxyParams}{Parameters}
-{\em engine\+Context} & Provides rendering and resource access. \\
+{\em engine\+Context} & The current engine context.\\
 \hline
 \end{DoxyParams}
+\begin{DoxyNote}{Note}
+This is invoked once per frame after \doxylink{class_state_manager_ab4ebd3189a4623e805d95f768b314acb}{Update()}. 
+\end{DoxyNote}
 
 
-Definition at line \mbox{\hyperlink{_state_manager_8cpp_source_l00036}{36}} of file \mbox{\hyperlink{_state_manager_8cpp_source}{State\+Manager.\+cpp}}.
+Definition at line \mbox{\hyperlink{_state_manager_8cpp_source_l00038}{38}} of file \mbox{\hyperlink{_state_manager_8cpp_source}{State\+Manager.\+cpp}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00037\ \{}
-\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_state_manager_a23b9db8ba856509ed476ed1144247b83}{currentState}}\ !=\ \textcolor{keyword}{nullptr})}
-\DoxyCodeLine{00039\ \ \ \ \ \{}
-\DoxyCodeLine{00040\ \ \ \ \ \mbox{\hyperlink{class_state_manager_a23b9db8ba856509ed476ed1144247b83}{currentState}}-\/>Draw(engineContext);}
-\DoxyCodeLine{00041\ \ \ \ \ engineContext.\mbox{\hyperlink{struct_engine_context_a8f4c861adc4684975fa767ae4723e095}{renderManager}}-\/>\mbox{\hyperlink{class_render_manager_aff85070eef9769739f2478fd5b86da87}{FlushDrawCommands}}();}
-\DoxyCodeLine{00042\ \ \ \ \ \}}
-\DoxyCodeLine{00043\ \}}
+\DoxyCodeLine{00039\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_state_manager_a23b9db8ba856509ed476ed1144247b83}{currentState}}\ !=\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{00041\ \ \ \ \ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_state_manager_a23b9db8ba856509ed476ed1144247b83}{currentState}}-\/>Draw(engineContext);}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ engineContext.\mbox{\hyperlink{struct_engine_context_a8f4c861adc4684975fa767ae4723e095}{renderManager}}-\/>\mbox{\hyperlink{class_render_manager_a620231f7f4119dbf26ef416478578cde}{FlushDrawCommands}}(engineContext);}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (engineContext.\mbox{\hyperlink{struct_engine_context_ad9836cdfc607ba27f100f5e0e892987f}{engine}}-\/>\mbox{\hyperlink{class_s_n_a_k_e___engine_a54039eae5badaa378973ccbe973713ee}{ShouldRenderDebugDraws}}())}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ engineContext.\mbox{\hyperlink{struct_engine_context_a8f4c861adc4684975fa767ae4723e095}{renderManager}}-\/>\mbox{\hyperlink{class_render_manager_a7c058729d4929a4295ebee1c6d324001}{FlushDebugLineDrawCommands}}(engineContext);}
+\DoxyCodeLine{00046\ \ \ \ \ \}}
+\DoxyCodeLine{00047\ \}}
 
 \end{DoxyCode}
 \Hypertarget{class_state_manager_aa8e5c183bf725b7132f7e4bc800deaab}\index{StateManager@{StateManager}!Free@{Free}}
@@ -132,28 +137,31 @@ void State\+Manager\+::\+Free (\begin{DoxyParamCaption}\item[{const \mbox{\hyper
 
 
 
-Releases memory of both current and next states. 
+Unloads and frees the current game state. 
 
-Called when shutting down the engine to clean up any loaded Game\+States.
+Calls the current state\textquotesingle{}s System\+Free() and System\+Unload() methods to properly shut down the active state before engine termination.
 
 
 \begin{DoxyParams}{Parameters}
-{\em engine\+Context} & Used for cleanup calls to each \doxylink{class_game_state}{Game\+State}. \\
+{\em engine\+Context} & The current engine context.\\
 \hline
 \end{DoxyParams}
+\begin{DoxyNote}{Note}
+Called by the engine during shutdown. 
+\end{DoxyNote}
 
 
-Definition at line \mbox{\hyperlink{_state_manager_8cpp_source_l00045}{45}} of file \mbox{\hyperlink{_state_manager_8cpp_source}{State\+Manager.\+cpp}}.
+Definition at line \mbox{\hyperlink{_state_manager_8cpp_source_l00049}{49}} of file \mbox{\hyperlink{_state_manager_8cpp_source}{State\+Manager.\+cpp}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00046\ \{}
-\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_state_manager_a23b9db8ba856509ed476ed1144247b83}{currentState}}\ !=\ \textcolor{keyword}{nullptr})}
-\DoxyCodeLine{00048\ \ \ \ \ \{}
-\DoxyCodeLine{00049\ \ \ \ \ \mbox{\hyperlink{class_state_manager_a23b9db8ba856509ed476ed1144247b83}{currentState}}-\/>SystemFree(engineContext);}
-\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{class_state_manager_a23b9db8ba856509ed476ed1144247b83}{currentState}}-\/>SystemUnload(engineContext);}
-\DoxyCodeLine{00051\ \ \ \ \ \}}
-\DoxyCodeLine{00052\ \}}
+\DoxyCodeLine{00050\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_state_manager_a23b9db8ba856509ed476ed1144247b83}{currentState}}\ !=\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{00052\ \ \ \ \ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_state_manager_a23b9db8ba856509ed476ed1144247b83}{currentState}}-\/>SystemFree(engineContext);}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_state_manager_a23b9db8ba856509ed476ed1144247b83}{currentState}}-\/>SystemUnload(engineContext);}
+\DoxyCodeLine{00055\ \ \ \ \ \}}
+\DoxyCodeLine{00056\ \}}
 
 \end{DoxyCode}
 \Hypertarget{class_state_manager_aeb24049cbe185fe0faec5c771e34c2bb}\index{StateManager@{StateManager}!GetCurrentState@{GetCurrentState}}
@@ -164,22 +172,28 @@ Definition at line \mbox{\hyperlink{_state_manager_8cpp_source_l00045}{45}} of f
 
 
 
-Returns the currently active \doxylink{class_game_state}{Game\+State}. 
+Returns the currently active game state. 
 
-Used to query the state currently being updated and rendered. May return nullptr if no state is loaded.
+If no state has been set yet, returns nullptr. This function is useful for querying the current state, such as accessing its camera manager or checking which scene is loaded.
 
 \begin{DoxyReturn}{Returns}
-Raw pointer to the active \doxylink{class_game_state}{Game\+State}. 
+Pointer to the currently active \doxylink{class_game_state}{Game\+State}, or nullptr if none.
 \end{DoxyReturn}
 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{GameState*\ state\ =\ engineContext.stateManager-\/>GetCurrentState();}
+\DoxyCodeLine{\textcolor{keywordflow}{if}\ (state)\ \{\ state-\/>\mbox{\hyperlink{class_game_state_a116bca1d8804cda67f37e199eb470dfd}{GetCameraManager}}().SetZoom(2.0f);\ \}}
 
-Definition at line \mbox{\hyperlink{_state_manager_8cpp_source_l00006}{6}} of file \mbox{\hyperlink{_state_manager_8cpp_source}{State\+Manager.\+cpp}}.
+\end{DoxyCode}
+ 
+
+Definition at line \mbox{\hyperlink{_state_manager_8cpp_source_l00007}{7}} of file \mbox{\hyperlink{_state_manager_8cpp_source}{State\+Manager.\+cpp}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00007\ \{}
-\DoxyCodeLine{00008\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_state_manager_a23b9db8ba856509ed476ed1144247b83}{currentState}}\ ?\ \mbox{\hyperlink{class_state_manager_a23b9db8ba856509ed476ed1144247b83}{currentState}}.get()\ :\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00009\ \}}
+\DoxyCodeLine{00008\ \{}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_state_manager_a23b9db8ba856509ed476ed1144247b83}{currentState}}\ ?\ \mbox{\hyperlink{class_state_manager_a23b9db8ba856509ed476ed1144247b83}{currentState}}.get()\ :\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00010\ \}}
 
 \end{DoxyCode}
 \Hypertarget{class_state_manager_ab4ebd3189a4623e805d95f768b314acb}\index{StateManager@{StateManager}!Update@{Update}}
@@ -190,45 +204,51 @@ void State\+Manager\+::\+Update (\begin{DoxyParamCaption}\item[{float}]{dt}{, }\
 
 
 
-Updates the active state and performs pending transitions. 
+Updates the current game state and handles state transitions. 
 
-If a new state has been queued via \doxylink{class_state_manager_a5337ecd1c035794817b1de05f961d352}{Change\+State()}, it is swapped in here. Then the current state\textquotesingle{}s \doxylink{class_state_manager_ab4ebd3189a4623e805d95f768b314acb}{Update()} is called.
+If a new state was scheduled using \doxylink{class_state_manager_a5337ecd1c035794817b1de05f961d352}{Change\+State()}, the current state is properly unloaded and the new one is loaded and initialized. After transition, the current state\textquotesingle{}s System\+Update() function is called with the provided delta time and engine context.
 
 
 \begin{DoxyParams}{Parameters}
-{\em dt} & Delta time since the last frame. \\
+{\em dt} & Delta time in seconds. \\
 \hline
-{\em engine\+Context} & Engine services and system access. \\
+{\em engine\+Context} & The current engine context.\\
 \hline
 \end{DoxyParams}
+\begin{DoxyNote}{Note}
+This function is called once per frame by \doxylink{class_s_n_a_k_e___engine_a46b7d591e84ba5746e8b00b7139f650b}{SNAKE\+\_\+\+Engine\+::\+Run()}. 
+\end{DoxyNote}
 
 
-Definition at line \mbox{\hyperlink{_state_manager_8cpp_source_l00016}{16}} of file \mbox{\hyperlink{_state_manager_8cpp_source}{State\+Manager.\+cpp}}.
+Definition at line \mbox{\hyperlink{_state_manager_8cpp_source_l00017}{17}} of file \mbox{\hyperlink{_state_manager_8cpp_source}{State\+Manager.\+cpp}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00017\ \{}
-\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_state_manager_a598a8e8b997a38333b28dbbe9c87cfe6}{nextState}}\ !=\ \textcolor{keyword}{nullptr})}
-\DoxyCodeLine{00019\ \ \ \ \ \{}
-\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_state_manager_a23b9db8ba856509ed476ed1144247b83}{currentState}}\ !=\ \textcolor{keyword}{nullptr})}
-\DoxyCodeLine{00021\ \ \ \ \ \{}
-\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_state_manager_a23b9db8ba856509ed476ed1144247b83}{currentState}}-\/>SystemFree(engineContext);}
-\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_state_manager_a23b9db8ba856509ed476ed1144247b83}{currentState}}-\/>SystemUnload(engineContext);}
-\DoxyCodeLine{00024\ \ \ \ \ \}}
-\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{class_state_manager_a23b9db8ba856509ed476ed1144247b83}{currentState}}\ =\ std::move(\mbox{\hyperlink{class_state_manager_a598a8e8b997a38333b28dbbe9c87cfe6}{nextState}});}
-\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{class_state_manager_a23b9db8ba856509ed476ed1144247b83}{currentState}}-\/>SystemLoad(engineContext);}
-\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{class_state_manager_a23b9db8ba856509ed476ed1144247b83}{currentState}}-\/>SystemInit(engineContext);}
-\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{class_state_manager_a23b9db8ba856509ed476ed1144247b83}{currentState}}-\/>GetCameraManager().SetScreenSizeForAll(engineContext.\mbox{\hyperlink{struct_engine_context_ab6fa006055c2a224931059f7ed840bed}{windowManager}}-\/>\mbox{\hyperlink{class_window_manager_ad8e16ad88c8eb3e3889d5c3dbe7891cb}{GetWidth}}(),\ engineContext.\mbox{\hyperlink{struct_engine_context_ab6fa006055c2a224931059f7ed840bed}{windowManager}}-\/>\mbox{\hyperlink{class_window_manager_a50c9f12a67f69e822b4e70077773c9ca}{GetHeight}}());}
-\DoxyCodeLine{00029\ \ \ \ \ \}}
-\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_state_manager_a23b9db8ba856509ed476ed1144247b83}{currentState}}\ !=\ \textcolor{keyword}{nullptr})}
-\DoxyCodeLine{00031\ \ \ \ \ \{}
-\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{class_state_manager_a23b9db8ba856509ed476ed1144247b83}{currentState}}-\/>SystemUpdate(dt,\ engineContext);}
-\DoxyCodeLine{00033\ \ \ \ \ \}}
-\DoxyCodeLine{00034\ \}}
+\DoxyCodeLine{00018\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_state_manager_a598a8e8b997a38333b28dbbe9c87cfe6}{nextState}}\ !=\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{00020\ \ \ \ \ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_state_manager_a23b9db8ba856509ed476ed1144247b83}{currentState}}\ !=\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_state_manager_a23b9db8ba856509ed476ed1144247b83}{currentState}}-\/>SystemFree(engineContext);}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_state_manager_a23b9db8ba856509ed476ed1144247b83}{currentState}}-\/>SystemUnload(engineContext);}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ engineContext.\mbox{\hyperlink{struct_engine_context_aa5985216cfd74ab389769abc5a5fdfb6}{soundManager}}-\/>\mbox{\hyperlink{class_sound_manager_ad78be412f57622826d4d7bf5f46378a8}{ControlAll}}(\mbox{\hyperlink{class_sound_manager_a3c4fde85dedc1019d025b016b60c81eda11a755d598c0c417f9a36758c3da7481}{SoundManager::SoundControlType::Stop}});}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_state_manager_a23b9db8ba856509ed476ed1144247b83}{currentState}}\ =\ std::move(\mbox{\hyperlink{class_state_manager_a598a8e8b997a38333b28dbbe9c87cfe6}{nextState}});}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_state_manager_a23b9db8ba856509ed476ed1144247b83}{currentState}}-\/>SystemLoad(engineContext);}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_state_manager_a23b9db8ba856509ed476ed1144247b83}{currentState}}-\/>SystemInit(engineContext);}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_state_manager_a23b9db8ba856509ed476ed1144247b83}{currentState}}-\/>GetCameraManager().SetScreenSizeForAll(engineContext.\mbox{\hyperlink{struct_engine_context_ab6fa006055c2a224931059f7ed840bed}{windowManager}}-\/>\mbox{\hyperlink{class_window_manager_ad8e16ad88c8eb3e3889d5c3dbe7891cb}{GetWidth}}(),\ engineContext.\mbox{\hyperlink{struct_engine_context_ab6fa006055c2a224931059f7ed840bed}{windowManager}}-\/>\mbox{\hyperlink{class_window_manager_a50c9f12a67f69e822b4e70077773c9ca}{GetHeight}}());}
+\DoxyCodeLine{00031\ \ \ \ \ \}}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_state_manager_a23b9db8ba856509ed476ed1144247b83}{currentState}}\ !=\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{00033\ \ \ \ \ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_state_manager_a23b9db8ba856509ed476ed1144247b83}{currentState}}-\/>SystemUpdate(dt,\ engineContext);}
+\DoxyCodeLine{00035\ \ \ \ \ \}}
+\DoxyCodeLine{00036\ \}}
 
 \end{DoxyCode}
 
 
+\label{doc-variable-members}
+\Hypertarget{class_state_manager_doc-variable-members}
 \doxysubsection{Member Data Documentation}
 \Hypertarget{class_state_manager_a23b9db8ba856509ed476ed1144247b83}\index{StateManager@{StateManager}!currentState@{currentState}}
 \index{currentState@{currentState}!StateManager@{StateManager}}
@@ -238,7 +258,7 @@ std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{class_game_state}{Game\+State}}$>$ Sta
 
 
 
-Definition at line \mbox{\hyperlink{_state_manager_8h_source_l00090}{90}} of file \mbox{\hyperlink{_state_manager_8h_source}{State\+Manager.\+h}}.
+Definition at line \mbox{\hyperlink{_state_manager_8h_source_l00103}{103}} of file \mbox{\hyperlink{_state_manager_8h_source}{State\+Manager.\+h}}.
 
 \Hypertarget{class_state_manager_a598a8e8b997a38333b28dbbe9c87cfe6}\index{StateManager@{StateManager}!nextState@{nextState}}
 \index{nextState@{nextState}!StateManager@{StateManager}}
@@ -248,7 +268,7 @@ std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{class_game_state}{Game\+State}}$>$ Sta
 
 
 
-Definition at line \mbox{\hyperlink{_state_manager_8h_source_l00091}{91}} of file \mbox{\hyperlink{_state_manager_8h_source}{State\+Manager.\+h}}.
+Definition at line \mbox{\hyperlink{_state_manager_8h_source_l00104}{104}} of file \mbox{\hyperlink{_state_manager_8h_source}{State\+Manager.\+h}}.
 
 \Hypertarget{class_state_manager_a2d51b51c9cf169dca9ae37291ad26a39}\index{StateManager@{StateManager}!SNAKE\_Engine@{SNAKE\_Engine}}
 \index{SNAKE\_Engine@{SNAKE\_Engine}!StateManager@{StateManager}}
@@ -258,7 +278,7 @@ friend State\+Manager\+::\+SNAKE\+\_\+\+Engine\hspace{0.3cm}{\ttfamily [private]
 
 
 
-Definition at line \mbox{\hyperlink{_state_manager_8h_source_l00028}{28}} of file \mbox{\hyperlink{_state_manager_8h_source}{State\+Manager.\+h}}.
+Definition at line \mbox{\hyperlink{_state_manager_8h_source_l00023}{23}} of file \mbox{\hyperlink{_state_manager_8h_source}{State\+Manager.\+h}}.
 
 
 

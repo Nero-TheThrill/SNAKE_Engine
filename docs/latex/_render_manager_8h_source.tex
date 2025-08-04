@@ -12,112 +12,136 @@
 \DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <vector>}}
 \DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <array>}}
 \DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00010}00010\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_material_8h}{Material.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00012}00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_mesh_8h}{Mesh.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00013}00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_shader_8h}{Shader.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00014}00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_texture_8h}{Texture.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00015}00015\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_camera2_d_8h}{Camera2D.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00016}00016\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_game_object_8h}{GameObject.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00017}00017\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_render_layer_manager_8h}{RenderLayerManager.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00018}00018\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00019}00019\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_instance_batch_key}{InstanceBatchKey}};}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00020}00020\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_state_manager}{StateManager}};}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_animation_8h}{Animation.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00012}00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_material_8h}{Material.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00013}00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_mesh_8h}{Mesh.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00014}00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_shader_8h}{Shader.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00015}00015\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_texture_8h}{Texture.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00016}00016\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_camera2_d_8h}{Camera2D.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00017}00017\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_font_8h}{Font.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00018}00018\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_game_object_8h}{GameObject.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00019}00019\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_instance_batch_key_8h}{InstanceBatchKey.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00020}00020\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_render_layer_manager_8h}{RenderLayerManager.h}}"{}}}
 \DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00021}00021\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00022}\mbox{\hyperlink{_render_manager_8h_ae4e6e1a3e9edc17c8fd355b231eebc82}{00022}}\ \textcolor{keyword}{using\ }\mbox{\hyperlink{_render_manager_8h_ae4e6e1a3e9edc17c8fd355b231eebc82}{TextureTag}}\ =\ std::string;}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00023}\mbox{\hyperlink{_render_manager_8h_abe8cf4755d44c6997e2dc40d1ee0c797}{00023}}\ \textcolor{keyword}{using\ }\mbox{\hyperlink{_render_manager_8h_abe8cf4755d44c6997e2dc40d1ee0c797}{UniformName}}\ =\ std::string;}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00024}\mbox{\hyperlink{_render_manager_8h_a1db05f4e4bd57f5e7db00f908dab03be}{00024}}\ \textcolor{keyword}{using\ }\mbox{\hyperlink{_render_manager_8h_a1db05f4e4bd57f5e7db00f908dab03be}{FilePath}}\ =\ std::string;}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00025}\mbox{\hyperlink{_render_manager_8h_ab1dda4d750e0cc5f202e4ebd8172bef6}{00025}}\ \textcolor{keyword}{using\ }\mbox{\hyperlink{_render_manager_8h_ab1dda4d750e0cc5f202e4ebd8172bef6}{RenderCommand}}\ =\ std::function<void()>;}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00026}00026\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00027}00027\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00028}00028\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00022}00022\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_text_instance}{TextInstance}};}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00023}00023\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_s_n_a_k_e___engine}{SNAKE\_Engine}};}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00024}00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_state_manager}{StateManager}};}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00026}\mbox{\hyperlink{_render_manager_8h_ae4e6e1a3e9edc17c8fd355b231eebc82}{00026}}\ \textcolor{keyword}{using\ }\mbox{\hyperlink{_render_manager_8h_ae4e6e1a3e9edc17c8fd355b231eebc82}{TextureTag}}\ =\ std::string;}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00027}\mbox{\hyperlink{_render_manager_8h_abe8cf4755d44c6997e2dc40d1ee0c797}{00027}}\ \textcolor{keyword}{using\ }\mbox{\hyperlink{_render_manager_8h_abe8cf4755d44c6997e2dc40d1ee0c797}{UniformName}}\ =\ std::string;}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00028}\mbox{\hyperlink{_render_manager_8h_a1db05f4e4bd57f5e7db00f908dab03be}{00028}}\ \textcolor{keyword}{using\ }\mbox{\hyperlink{_render_manager_8h_a1db05f4e4bd57f5e7db00f908dab03be}{FilePath}}\ =\ std::string;}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00029}\mbox{\hyperlink{_render_manager_8h_ab1dda4d750e0cc5f202e4ebd8172bef6}{00029}}\ \textcolor{keyword}{using\ }\mbox{\hyperlink{_render_manager_8h_ab1dda4d750e0cc5f202e4ebd8172bef6}{RenderCommand}}\ =\ std::function<void()>;}
 \DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00030}00030\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00038}\mbox{\hyperlink{_render_manager_8h_af06c6289a6847d547d7480421d34e14b}{00038}}\ \textcolor{keyword}{using\ }\mbox{\hyperlink{_render_manager_8h_af06c6289a6847d547d7480421d34e14b}{ShaderMap}}\ =\ std::map<Shader*,\ std::map<InstanceBatchKey,\ std::vector<GameObject*>>>;}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00039}00039\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00049}\mbox{\hyperlink{_render_manager_8h_aff65631d564da184ff5b1625aee3df0a}{00049}}\ \textcolor{keyword}{using\ }\mbox{\hyperlink{_render_manager_8h_aff65631d564da184ff5b1625aee3df0a}{RenderMap}}\ =\ std::array<ShaderMap,\ RenderLayerManager::MAX\_LAYERS>;}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00050}00050\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00051}00051\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00064}\mbox{\hyperlink{class_render_manager}{00064}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_render_manager}{RenderManager}}}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00065}00065\ \{}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00066}\mbox{\hyperlink{class_render_manager_a7042c6ff67962075d3a4dab2bec2c9f1}{00066}}\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_render_manager_a7042c6ff67962075d3a4dab2bec2c9f1}{ObjectManager}};}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00067}\mbox{\hyperlink{class_render_manager_af2ef4f86575ce11bfd14ce11725f3a2f}{00067}}\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_render_manager_af2ef4f86575ce11bfd14ce11725f3a2f}{StateManager}};}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00068}00068\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00069}00069\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00088}00088\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_a3ad25e59a96852a1685a0eba9898d11d}{RegisterShader}}(\textcolor{keyword}{const}\ std::string\&\ tag,\ \textcolor{keyword}{const}\ std::vector<std::pair<ShaderStage,\ FilePath>>\&\ sources);}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00089}00089\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00096}00096\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_a3ad25e59a96852a1685a0eba9898d11d}{RegisterShader}}(\textcolor{keyword}{const}\ std::string\&\ tag,\ std::unique\_ptr<Shader>\ shader);}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00097}00097\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00109}00109\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_af93785c56505bee5bf8d6793b14ad862}{RegisterTexture}}(\textcolor{keyword}{const}\ std::string\&\ tag,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{_render_manager_8h_a1db05f4e4bd57f5e7db00f908dab03be}{FilePath}}\&\ path,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_texture_settings}{TextureSettings}}\&\ settings);}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00110}00110\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00117}00117\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_af93785c56505bee5bf8d6793b14ad862}{RegisterTexture}}(\textcolor{keyword}{const}\ std::string\&\ tag,\ std::unique\_ptr<Texture>\ texture);}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00118}00118\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00126}00126\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_a0c653bad0572ea65efe1cea470d319ab}{RegisterMesh}}(\textcolor{keyword}{const}\ std::string\&\ tag,\ \textcolor{keyword}{const}\ std::vector<float>\&\ vertices,\ \textcolor{keyword}{const}\ std::vector<unsigned\ int>\&\ indices\ =\ \{\});}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00127}00127\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00134}00134\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_a0c653bad0572ea65efe1cea470d319ab}{RegisterMesh}}(\textcolor{keyword}{const}\ std::string\&\ tag,\ std::unique\_ptr<Mesh>\ mesh);}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00135}00135\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00147}00147\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_af4915e57d6c66fb2f5a16646fccf67e3}{RegisterMaterial}}(\textcolor{keyword}{const}\ std::string\&\ tag,\ \textcolor{keyword}{const}\ std::string\&\ shaderTag,\ \textcolor{keyword}{const}\ std::unordered\_map<UniformName,\ TextureTag>\&\ textureBindings);}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00148}00148\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00155}00155\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_af4915e57d6c66fb2f5a16646fccf67e3}{RegisterMaterial}}(\textcolor{keyword}{const}\ std::string\&\ tag,\ std::unique\_ptr<Material>\ material);}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00156}00156\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00172}00172\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_ae665a48a358691f878caf513fc37e0fa}{RegisterRenderLayer}}(\textcolor{keyword}{const}\ std::string\&\ tag);}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00173}00173\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00180}\mbox{\hyperlink{class_render_manager_a67c1df4d0a8b98e45b56f0d58874c8d2}{00180}}\ \ \ \ \ [[nodiscard]]\ \mbox{\hyperlink{class_shader}{Shader}}*\ \mbox{\hyperlink{class_render_manager_a67c1df4d0a8b98e45b56f0d58874c8d2}{GetShaderByTag}}(\textcolor{keyword}{const}\ std::string\&\ tag)\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_render_manager_a0bbf3f0fa486af058946484deb28e225}{shaderMap}}[tag].get();\ \}}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00181}00181\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00188}\mbox{\hyperlink{class_render_manager_a2b5ba5cf131ebc7c9d6a1d4d59e68fce}{00188}}\ \ \ \ \ [[nodiscard]]\ \mbox{\hyperlink{class_texture}{Texture}}*\ \mbox{\hyperlink{class_render_manager_a2b5ba5cf131ebc7c9d6a1d4d59e68fce}{GetTextureByTag}}(\textcolor{keyword}{const}\ std::string\&\ tag)\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_render_manager_abe4e30c3165baa0304fe8e196ffac510}{textureMap}}[tag].get();\ \}}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00189}00189\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00196}\mbox{\hyperlink{class_render_manager_a499160c2c55c9da2db17bb372e8159b7}{00196}}\ \ \ \ \ [[nodiscard]]\ \mbox{\hyperlink{class_mesh}{Mesh}}*\ \mbox{\hyperlink{class_render_manager_a499160c2c55c9da2db17bb372e8159b7}{GetMeshByTag}}(\textcolor{keyword}{const}\ std::string\&\ tag)\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_render_manager_a38415ded934cd5ed4ff0da4a14cb84eb}{meshMap}}[tag].get();\ \}}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00197}00197\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00204}\mbox{\hyperlink{class_render_manager_a529409768d03b2cf0638f07eadefaa5e}{00204}}\ \ \ \ \ [[nodiscard]]\ \mbox{\hyperlink{class_material}{Material}}*\ \mbox{\hyperlink{class_render_manager_a529409768d03b2cf0638f07eadefaa5e}{GetMaterialByTag}}(\textcolor{keyword}{const}\ std::string\&\ tag)\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_render_manager_abab1e694fabb0d1ac10fd119770e4f4f}{materialMap}}[tag].get();\ \}}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00205}00205\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00214}00214\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_a5906c7d7d3fbcece5fe4851c520d3154}{Submit}}(std::function<\textcolor{keywordtype}{void}()>\&\&\ drawFunc);}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00215}00215\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00222}00222\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_a4ae16c75da8bb89c1c888986632c7afb}{ClearDrawCommands}}();}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00223}00223\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00227}00227\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_aff85070eef9769739f2478fd5b86da87}{FlushDrawCommands}}();}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00228}00228\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00240}00240\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_a87231d2b7a22851bea34593c85692209}{SetViewport}}(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height);}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00241}00241\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00255}00255\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_a80b5e6df0bbbb276abb3a2da87bb2007}{ClearBackground}}(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ glm::vec4\ color);}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00256}00256\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00270}00270\ \ \ \ \ \mbox{\hyperlink{class_render_layer_manager}{RenderLayerManager}}\&\ \mbox{\hyperlink{class_render_manager_afe4736fe1b7f460ead4712e08b74389e}{GetRenderLayerManager}}();}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00271}00271\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00272}00272\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00273}00273\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00288}00288\ \ \ \ \ [[nodiscard]]\ \mbox{\hyperlink{_render_manager_8h_aff65631d564da184ff5b1625aee3df0a}{RenderMap}}\ \mbox{\hyperlink{class_render_manager_af1394bd9d08d89807bce189c6e55c01d}{BuildRenderMap}}(\textcolor{keyword}{const}\ std::vector<GameObject*>\&\ source);}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00289}00289\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00303}00303\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_abf264f9130cd7944511a4c4ba348ff08}{SubmitRenderMap}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_engine_context}{EngineContext}}\&\ engineContext,\ \mbox{\hyperlink{class_camera2_d}{Camera2D}}*\ camera,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{_render_manager_8h_aff65631d564da184ff5b1625aee3df0a}{RenderMap}}\&\ renderMap);}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00304}00304\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00320}00320\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_a5906c7d7d3fbcece5fe4851c520d3154}{Submit}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_engine_context}{EngineContext}}\&\ engineContext,\ \textcolor{keyword}{const}\ std::vector<GameObject*>\&\ allObjects,\ \mbox{\hyperlink{class_camera2_d}{Camera2D}}*\ camera);}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00321}00321\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00322}\mbox{\hyperlink{class_render_manager_a0bbf3f0fa486af058946484deb28e225}{00322}}\ \ \ \ \ std::unordered\_map<std::string,\ std::unique\_ptr<Shader>>\ \mbox{\hyperlink{class_render_manager_a0bbf3f0fa486af058946484deb28e225}{shaderMap}};}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00323}\mbox{\hyperlink{class_render_manager_abe4e30c3165baa0304fe8e196ffac510}{00323}}\ \ \ \ \ std::unordered\_map<std::string,\ std::unique\_ptr<Texture>>\ \mbox{\hyperlink{class_render_manager_abe4e30c3165baa0304fe8e196ffac510}{textureMap}};}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00324}\mbox{\hyperlink{class_render_manager_a38415ded934cd5ed4ff0da4a14cb84eb}{00324}}\ \ \ \ \ std::unordered\_map<std::string,\ std::unique\_ptr<Mesh>>\ \mbox{\hyperlink{class_render_manager_a38415ded934cd5ed4ff0da4a14cb84eb}{meshMap}};}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00325}\mbox{\hyperlink{class_render_manager_abab1e694fabb0d1ac10fd119770e4f4f}{00325}}\ \ \ \ \ std::unordered\_map<std::string,\ std::unique\_ptr<Material>>\ \mbox{\hyperlink{class_render_manager_abab1e694fabb0d1ac10fd119770e4f4f}{materialMap}};}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00326}\mbox{\hyperlink{class_render_manager_a38351db8b0eb65397ece072ea4324566}{00326}}\ \ \ \ \ std::vector<RenderCommand>\ \mbox{\hyperlink{class_render_manager_a38351db8b0eb65397ece072ea4324566}{renderQueue}};}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00327}00327\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00328}\mbox{\hyperlink{class_render_manager_a5f281747995cce653d8c1c29664985d7}{00328}}\ \ \ \ \ \mbox{\hyperlink{class_render_layer_manager}{RenderLayerManager}}\ \mbox{\hyperlink{class_render_manager_a5f281747995cce653d8c1c29664985d7}{renderLayerManager}};}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00329}00329\ \};}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00330}00330\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00331}00331\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00340}\mbox{\hyperlink{class_frustum_culler}{00340}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_frustum_culler}{FrustumCuller}}}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00341}00341\ \{}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00342}00342\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00362}\mbox{\hyperlink{class_frustum_culler_aa4192022ba99e757949f6aa20fb60085}{00362}}\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_frustum_culler_aa4192022ba99e757949f6aa20fb60085}{CullVisible}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_camera2_d}{Camera2D}}\&\ camera,\ \textcolor{keyword}{const}\ std::vector<GameObject*>\&\ allObjects,}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00363}00363\ \ \ \ \ \ \ \ \ std::vector<GameObject*>\&\ outVisibleList,\ glm::vec2\ viewportSize)}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00364}00364\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00365}00365\ \ \ \ \ \ \ \ \ outVisibleList.clear();}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00366}00366\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\mbox{\hyperlink{class_game_object}{GameObject}}*\ obj\ :\ allObjects)}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00367}00367\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00368}00368\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!obj-\/>IsAlive()\ \&\&\ !obj-\/>IsVisible())}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00369}00369\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00370}00370\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00371}00371\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ glm::vec2\&\ pos\ =\ obj-\/>GetTransform2D().GetPosition();}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00372}00372\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ radius\ =\ obj-\/>GetBoundingRadius();}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00373}00373\ }
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00374}00374\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (camera.\mbox{\hyperlink{class_camera2_d_ac59db8b285e9e7c9646b6e369cfda825}{IsInView}}(pos,\ radius,\ viewportSize\ /\ camera.\mbox{\hyperlink{class_camera2_d_af8d9ff1e06b780cc2917b9559ab4a369}{GetZoom}}()))}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00375}00375\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ outVisibleList.push\_back(obj);}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00376}00376\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00377}00377\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00378}00378\ \};}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00031}\mbox{\hyperlink{_render_manager_8h_a916de8109c07d35d93f21fd4567f051e}{00031}}\ \textcolor{keyword}{using\ }\mbox{\hyperlink{_render_manager_8h_a916de8109c07d35d93f21fd4567f051e}{ShaderMap}}\ =\ std::map<Shader*,\ std::map<InstanceBatchKey,\ std::vector<std::pair<Object*,\ Camera2D*>>>>;}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00032}\mbox{\hyperlink{_render_manager_8h_aff65631d564da184ff5b1625aee3df0a}{00032}}\ \textcolor{keyword}{using\ }\mbox{\hyperlink{_render_manager_8h_aff65631d564da184ff5b1625aee3df0a}{RenderMap}}\ =\ std::array<ShaderMap,\ RenderLayerManager::MAX\_LAYERS>;}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00034}\mbox{\hyperlink{struct_line_instance}{00034}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_line_instance}{LineInstance}}}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00035}00035\ \{}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00036}\mbox{\hyperlink{struct_line_instance_ae6aa6b9f64b6314607208e45dc1e2cd1}{00036}}\ \ \ \ \ glm::vec2\ \mbox{\hyperlink{struct_line_instance_ae6aa6b9f64b6314607208e45dc1e2cd1}{from}}\ =\ \{\ 0,0\ \};}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00037}\mbox{\hyperlink{struct_line_instance_a5ea8c2e98a856fa13e9dd1c8b60a9c34}{00037}}\ \ \ \ \ glm::vec2\ \mbox{\hyperlink{struct_line_instance_a5ea8c2e98a856fa13e9dd1c8b60a9c34}{to}}\ =\ \{\ 0,0\ \};}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00038}\mbox{\hyperlink{struct_line_instance_ae499492ef256243e41402daadbca4a9c}{00038}}\ \ \ \ \ glm::vec4\ \mbox{\hyperlink{struct_line_instance_ae499492ef256243e41402daadbca4a9c}{color}}\ =\ \{\ 1,1,1,1\ \};}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00039}\mbox{\hyperlink{struct_line_instance_afbfacbe7c80cdac4ef6da4e274169100}{00039}}\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct_line_instance_afbfacbe7c80cdac4ef6da4e274169100}{lineWidth}}\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00040}00040\ \};}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00058}\mbox{\hyperlink{class_render_manager}{00058}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_render_manager}{RenderManager}}}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00059}00059\ \{}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00060}\mbox{\hyperlink{class_render_manager_a7042c6ff67962075d3a4dab2bec2c9f1}{00060}}\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_render_manager_a7042c6ff67962075d3a4dab2bec2c9f1}{ObjectManager}};}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00061}\mbox{\hyperlink{class_render_manager_af2ef4f86575ce11bfd14ce11725f3a2f}{00061}}\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_render_manager_af2ef4f86575ce11bfd14ce11725f3a2f}{StateManager}};}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00062}\mbox{\hyperlink{class_render_manager_a9325f33d41574a5f96f84e0993e7ff70}{00062}}\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_render_manager_a9325f33d41574a5f96f84e0993e7ff70}{SNAKE\_Engine}};}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00064}00064\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00085}00085\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_a3ad25e59a96852a1685a0eba9898d11d}{RegisterShader}}(\textcolor{keyword}{const}\ std::string\&\ tag,\ \textcolor{keyword}{const}\ std::vector<std::pair<ShaderStage,\ FilePath>>\&\ sources);}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00107}00107\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_a3ad25e59a96852a1685a0eba9898d11d}{RegisterShader}}(\textcolor{keyword}{const}\ std::string\&\ tag,\ std::unique\_ptr<Shader>\ shader);}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00125}00125\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_a8645efdc911bde8ae83409d18a2d9cfd}{RegisterTexture}}(\textcolor{keyword}{const}\ std::string\&\ tag,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{_render_manager_8h_a1db05f4e4bd57f5e7db00f908dab03be}{FilePath}}\&\ path,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_texture_settings}{TextureSettings}}\&\ settings\ =\ \{\});}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00126}00126\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00145}00145\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_a8645efdc911bde8ae83409d18a2d9cfd}{RegisterTexture}}(\textcolor{keyword}{const}\ std::string\&\ tag,\ std::unique\_ptr<Texture>\ texture);}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00146}00146\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00165}00165\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_aea6cf341304c728c076947a11e326935}{RegisterMesh}}(\textcolor{keyword}{const}\ std::string\&\ tag,\ \textcolor{keyword}{const}\ std::vector<Vertex>\&\ vertices,\ \textcolor{keyword}{const}\ std::vector<unsigned\ int>\&\ indices\ =\ \{\},\ \mbox{\hyperlink{_mesh_8h_a240c1924416689e5700ff0d9f30539d9}{PrimitiveType}}\ primitiveType\ =\ \mbox{\hyperlink{_mesh_8h_a240c1924416689e5700ff0d9f30539d9a7ca66fdfaad3eb33fc65d7490178f856}{PrimitiveType::Triangles}});}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00166}00166\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00185}00185\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_aea6cf341304c728c076947a11e326935}{RegisterMesh}}(\textcolor{keyword}{const}\ std::string\&\ tag,\ std::unique\_ptr<Mesh>\ mesh);}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00186}00186\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00206}00206\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_af4915e57d6c66fb2f5a16646fccf67e3}{RegisterMaterial}}(\textcolor{keyword}{const}\ std::string\&\ tag,\ \textcolor{keyword}{const}\ std::string\&\ shaderTag,\ \textcolor{keyword}{const}\ std::unordered\_map<UniformName,\ TextureTag>\&\ textureBindings);}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00207}00207\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00225}00225\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_af4915e57d6c66fb2f5a16646fccf67e3}{RegisterMaterial}}(\textcolor{keyword}{const}\ std::string\&\ tag,\ std::unique\_ptr<Material>\ material);}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00226}00226\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00244}00244\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_a0762465f3bfa7573ec3261767a68eb16}{RegisterFont}}(\textcolor{keyword}{const}\ std::string\&\ tag,\ \textcolor{keyword}{const}\ std::string\&\ ttfPath,\ uint32\_t\ pixelSize);}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00245}00245\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00262}00262\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_a0762465f3bfa7573ec3261767a68eb16}{RegisterFont}}(\textcolor{keyword}{const}\ std::string\&\ tag,\ std::unique\_ptr<Font>\ font);}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00263}00263\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00280}00280\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_ae665a48a358691f878caf513fc37e0fa}{RegisterRenderLayer}}(\textcolor{keyword}{const}\ std::string\&\ tag);}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00281}00281\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00300}00300\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_aa4409ba1753efb08c9eac3d18153a120}{RegisterSpriteSheet}}(\textcolor{keyword}{const}\ std::string\&\ tag,\ \textcolor{keyword}{const}\ std::string\&\ textureTag,\ \textcolor{keywordtype}{int}\ frameW,\ \textcolor{keywordtype}{int}\ frameH);}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00301}00301\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00302}00302\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00313}00313\ \ \ \ \ [[nodiscard]]\ Shader*\ \mbox{\hyperlink{class_render_manager_a67c1df4d0a8b98e45b56f0d58874c8d2}{GetShaderByTag}}(\textcolor{keyword}{const}\ std::string\&\ tag);}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00314}00314\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00325}00325\ \ \ \ \ [[nodiscard]]\ Texture*\ \mbox{\hyperlink{class_render_manager_a2b5ba5cf131ebc7c9d6a1d4d59e68fce}{GetTextureByTag}}(\textcolor{keyword}{const}\ std::string\&\ tag);}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00326}00326\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00337}00337\ \ \ \ \ [[nodiscard]]\ Mesh*\ \mbox{\hyperlink{class_render_manager_a499160c2c55c9da2db17bb372e8159b7}{GetMeshByTag}}(\textcolor{keyword}{const}\ std::string\&\ tag);}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00338}00338\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00349}00349\ \ \ \ \ [[nodiscard]]\ Material*\ \mbox{\hyperlink{class_render_manager_a529409768d03b2cf0638f07eadefaa5e}{GetMaterialByTag}}(\textcolor{keyword}{const}\ std::string\&\ tag);}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00350}00350\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00361}00361\ \ \ \ \ [[nodiscard]]\ Font*\ \mbox{\hyperlink{class_render_manager_a1db9a464555a13cecb1a865f92eae85c}{GetFontByTag}}(\textcolor{keyword}{const}\ std::string\&\ tag);}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00362}00362\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00373}00373\ \ \ \ \ SpriteSheet*\ \mbox{\hyperlink{class_render_manager_a3391d4c210306eeaa38a7844e7092632}{GetSpriteSheetByTag}}(\textcolor{keyword}{const}\ std::string\&\ tag);}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00374}00374\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00394}00394\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_a5906c7d7d3fbcece5fe4851c520d3154}{Submit}}(std::function<\textcolor{keywordtype}{void}()>\&\&\ drawFunc);}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00395}00395\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00408}00408\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_a620231f7f4119dbf26ef416478578cde}{FlushDrawCommands}}(\textcolor{keyword}{const}\ EngineContext\&\ engineContext);}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00409}00409\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00428}00428\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_a87231d2b7a22851bea34593c85692209}{SetViewport}}(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height);}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00429}00429\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00449}00449\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_a80b5e6df0bbbb276abb3a2da87bb2007}{ClearBackground}}(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ glm::vec4\ color);}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00450}00450\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00469}00469\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_a30299b0394f71c9ac4d924a24addbf26}{DrawDebugLine}}(\textcolor{keyword}{const}\ glm::vec2\&\ from,\ \textcolor{keyword}{const}\ glm::vec2\&\ to,\ Camera2D*\ camera\ =\ \textcolor{keyword}{nullptr},\ \textcolor{keyword}{const}\ glm::vec4\&\ color\ =\ \{\ 1,1,1,1\ \},\ \textcolor{keywordtype}{float}\ lineWidth\ =\ 1.0f);}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00470}00470\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00485}00485\ \ \ \ \ [[nodiscard]]\ RenderLayerManager\&\ \mbox{\hyperlink{class_render_manager_afe4736fe1b7f460ead4712e08b74389e}{GetRenderLayerManager}}();}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00486}00486\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00499}00499\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_a609c5c837826585acabe5e0dcdbe6d91}{Init}}(\textcolor{keyword}{const}\ EngineContext\&\ engineContext);}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00500}00500\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00514}00514\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_a8e033cb685d2619f9b5dfec8a165e387}{BuildRenderMap}}(\textcolor{keyword}{const}\ std::vector<Object*>\&\ source,\ Camera2D*\ camera);}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00515}00515\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00528}00528\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_aad2baa2c9bfc7ba1036219f6a9a915c5}{SubmitRenderMap}}(\textcolor{keyword}{const}\ EngineContext\&\ engineContext);}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00529}00529\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00544}00544\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_a5906c7d7d3fbcece5fe4851c520d3154}{Submit}}(\textcolor{keyword}{const}\ EngineContext\&\ engineContext,\ \textcolor{keyword}{const}\ std::vector<Object*>\&\ objects,\ Camera2D*\ camera);}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00545}00545\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00558}00558\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_render_manager_a7c058729d4929a4295ebee1c6d324001}{FlushDebugLineDrawCommands}}(\textcolor{keyword}{const}\ EngineContext\&\ engineContext);}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00559}00559\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00560}\mbox{\hyperlink{class_render_manager_a0bbf3f0fa486af058946484deb28e225}{00560}}\ \ \ \ \ std::unordered\_map<std::string,\ std::unique\_ptr<Shader>>\ \mbox{\hyperlink{class_render_manager_a0bbf3f0fa486af058946484deb28e225}{shaderMap}};}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00561}\mbox{\hyperlink{class_render_manager_abe4e30c3165baa0304fe8e196ffac510}{00561}}\ \ \ \ \ std::unordered\_map<std::string,\ std::unique\_ptr<Texture>>\ \mbox{\hyperlink{class_render_manager_abe4e30c3165baa0304fe8e196ffac510}{textureMap}};}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00562}\mbox{\hyperlink{class_render_manager_a38415ded934cd5ed4ff0da4a14cb84eb}{00562}}\ \ \ \ \ std::unordered\_map<std::string,\ std::unique\_ptr<Mesh>>\ \mbox{\hyperlink{class_render_manager_a38415ded934cd5ed4ff0da4a14cb84eb}{meshMap}};}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00563}\mbox{\hyperlink{class_render_manager_abab1e694fabb0d1ac10fd119770e4f4f}{00563}}\ \ \ \ \ std::unordered\_map<std::string,\ std::unique\_ptr<Material>>\ \mbox{\hyperlink{class_render_manager_abab1e694fabb0d1ac10fd119770e4f4f}{materialMap}};}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00564}\mbox{\hyperlink{class_render_manager_a145dcb31356551fe1e19ac87953cd2e8}{00564}}\ \ \ \ \ std::unordered\_map<std::string,\ std::unique\_ptr<Font>>\ \mbox{\hyperlink{class_render_manager_a145dcb31356551fe1e19ac87953cd2e8}{fontMap}};}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00565}\mbox{\hyperlink{class_render_manager_a848cf03bda34a255eab451a7a3a0fc82}{00565}}\ \ \ \ \ std::unordered\_map<std::string,\ std::unique\_ptr<SpriteSheet>>\ \mbox{\hyperlink{class_render_manager_a848cf03bda34a255eab451a7a3a0fc82}{spritesheetMap}};}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00566}\mbox{\hyperlink{class_render_manager_a38351db8b0eb65397ece072ea4324566}{00566}}\ \ \ \ \ std::vector<RenderCommand>\ \mbox{\hyperlink{class_render_manager_a38351db8b0eb65397ece072ea4324566}{renderQueue}};}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00567}00567\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00568}00568\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00569}\mbox{\hyperlink{class_render_manager_a5a098c2d7e968765c5821403453b00e0}{00569}}\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{class_render_manager_a5a098c2d7e968765c5821403453b00e0}{CameraAndWidth}}\ =\ std::pair<Camera2D*,\ float>;}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00570}00570\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00572}\mbox{\hyperlink{struct_render_manager_1_1_camera_and_width_hash}{00572}}\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_render_manager_1_1_camera_and_width_hash}{CameraAndWidthHash}}}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00573}00573\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00574}\mbox{\hyperlink{struct_render_manager_1_1_camera_and_width_hash_afd0fb1104c3122fb53a5f1ff35a7b621}{00574}}\ \ \ \ \ \ \ \ \ std::size\_t\ \mbox{\hyperlink{struct_render_manager_1_1_camera_and_width_hash_afd0fb1104c3122fb53a5f1ff35a7b621}{operator()}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_render_manager_a5a098c2d7e968765c5821403453b00e0}{CameraAndWidth}}\&\ key)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00575}00575\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00576}00576\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::hash<Camera2D*>()(key.first)\ \string^\ std::hash<float>()(key.second);}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00577}00577\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00578}00578\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00579}\mbox{\hyperlink{class_render_manager_a352022713056e30b4f0df779a9e086cc}{00579}}\ \ \ \ \ std::unordered\_map<CameraAndWidth,\ std::vector<LineInstance>,\ \mbox{\hyperlink{struct_render_manager_1_1_camera_and_width_hash}{CameraAndWidthHash}}>\ \mbox{\hyperlink{class_render_manager_a352022713056e30b4f0df779a9e086cc}{debugLineMap}};}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00580}\mbox{\hyperlink{class_render_manager_a266dbe35bee57f3e38c681a900c6eaf8}{00580}}\ \ \ \ \ \mbox{\hyperlink{_material_8h_a9b79d6d8dc8627e68412974748f1c08c}{GLuint}}\ \mbox{\hyperlink{class_render_manager_a266dbe35bee57f3e38c681a900c6eaf8}{debugLineVAO}}\ =\ 0,\ \mbox{\hyperlink{class_render_manager_a19a8f6d0d22b7315692ecbaa3380856c}{debugLineVBO}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00581}\mbox{\hyperlink{class_render_manager_ad145558e8d901f8e973d56b4659a3ac9}{00581}}\ \ \ \ \ \mbox{\hyperlink{class_shader}{Shader}}*\ \mbox{\hyperlink{class_render_manager_ad145558e8d901f8e973d56b4659a3ac9}{debugLineShader}};}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00582}00582\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00583}\mbox{\hyperlink{class_render_manager_a6eee21536816190e6f0ac34aecb55b2c}{00583}}\ \ \ \ \ \mbox{\hyperlink{_render_manager_8h_aff65631d564da184ff5b1625aee3df0a}{RenderMap}}\ \mbox{\hyperlink{class_render_manager_a6eee21536816190e6f0ac34aecb55b2c}{renderMap}};}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00584}\mbox{\hyperlink{class_render_manager_a5f281747995cce653d8c1c29664985d7}{00584}}\ \ \ \ \ \mbox{\hyperlink{class_render_layer_manager}{RenderLayerManager}}\ \mbox{\hyperlink{class_render_manager_a5f281747995cce653d8c1c29664985d7}{renderLayerManager}};}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00585}00585\ \};}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00586}00586\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00587}00587\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00588}00588\ }
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00589}\mbox{\hyperlink{class_frustum_culler}{00589}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_frustum_culler}{FrustumCuller}}}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00590}00590\ \{}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00591}00591\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00608}00608\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_frustum_culler_a81c3d9c4516d7695b6988c64badf824d}{CullVisible}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_camera2_d}{Camera2D}}\&\ camera,\ \textcolor{keyword}{const}\ std::vector<Object*>\&\ allObjects,}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00609}00609\ \ \ \ \ \ \ \ \ std::vector<Object*>\&\ outVisibleList,\ glm::vec2\ viewportSize);}
+\DoxyCodeLine{\Hypertarget{_render_manager_8h_source_l00610}00610\ \};}
 
 \end{DoxyCode}

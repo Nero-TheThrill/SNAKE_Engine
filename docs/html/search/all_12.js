@@ -6,9 +6,15 @@ var searchData=
   ['uniformvalue_3',['UniformValue',['../_material_8h.html#a06229a425f27fcb99ce02ae045b56e0d',1,'Material.h']]],
   ['unload_4',['Unload',['../class_game_state.html#ab9a398de72a4201a69093dfd574220c6',1,'GameState']]],
   ['unuse_5',['Unuse',['../class_shader.html#a9429b4a4f790f9de8e5476ee65ed0dc9',1,'Shader']]],
-  ['update_6',['Update',['../class_game_object.html#a5e5d39ae8bf189946dc372a5b8895006',1,'GameObject::Update()'],['../class_game_state.html#a6d11e92e629e2d4cbba792faeb75a71f',1,'GameState::Update()'],['../class_input_manager.html#aa5480931dba2720e7d80dd00a53adae0',1,'InputManager::Update()'],['../class_state_manager.html#ab4ebd3189a4623e805d95f768b314acb',1,'StateManager::Update()']]],
+  ['update_6',['Update',['../class_sprite_animator.html#a23f9880b2fdbbd23fe48f25526cafb07',1,'SpriteAnimator::Update()'],['../class_game_object.html#a2af113da2569ef4e651ad8cfb3be50d8',1,'GameObject::Update()'],['../class_game_state.html#a6d11e92e629e2d4cbba792faeb75a71f',1,'GameState::Update()'],['../class_input_manager.html#aa5480931dba2720e7d80dd00a53adae0',1,'InputManager::Update()'],['../class_object.html#a6184ab2516fed16398670b75a2360859',1,'Object::Update()'],['../class_sound_manager.html#aaf241621221cdbefeba78e8b6bc29240',1,'SoundManager::Update()'],['../class_state_manager.html#ab4ebd3189a4623e805d95f768b314acb',1,'StateManager::Update()'],['../class_text_object.html#aff767a41326a8242063743e15bfb28d7',1,'TextObject::Update()']]],
   ['updateall_7',['UpdateAll',['../class_object_manager.html#a00c892376f4874c2f033a69526e18111',1,'ObjectManager']]],
-  ['updateinstancebuffer_8',['UpdateInstanceBuffer',['../class_material.html#a68598fd0aa4da2c7db0e045b2352204d',1,'Material']]],
-  ['use_9',['Use',['../class_shader.html#a11a2de17d1d077ec34acd4f7cd57f6b1',1,'Shader']]],
-  ['useindex_10',['useIndex',['../class_mesh.html#a3153eeca2bbde0037c365662bbeb52f1',1,'Mesh']]]
+  ['updateinstancebuffer_8',['UpdateInstanceBuffer',['../class_material.html#ad7313b02ebe64e9423c894e8ab4152b6',1,'Material']]],
+  ['updatemesh_9',['UpdateMesh',['../class_text_object.html#a0705bf6f2f40788da1c9fb60368c183b',1,'TextObject']]],
+  ['use_10',['Use',['../class_shader.html#a11a2de17d1d077ec34acd4f7cd57f6b1',1,'Shader']]],
+  ['useindex_11',['useIndex',['../class_mesh.html#a3153eeca2bbde0037c365662bbeb52f1',1,'Mesh']]],
+  ['usetransformscale_12',['useTransformScale',['../class_collider.html#a10c23d55e50b048078cddb0f806d5731',1,'Collider']]],
+  ['utf8tocodepoints_13',['UTF8ToCodepoints',['../_font_8cpp.html#a534c79683973e3a230bdaa108ef8ee9f',1,'Font.cpp']]],
+  ['uv_14',['uv',['../struct_vertex.html#a8d5cc8548016889746f251d98377ec8a',1,'Vertex']]],
+  ['uvbottomright_15',['uvBottomRight',['../struct_sprite_frame.html#acceeda89842d01cc0a6a042c37d0eeb1',1,'SpriteFrame::uvBottomRight'],['../struct_glyph.html#ae5a6124bbab282e4263439dd0a30634f',1,'Glyph::uvBottomRight']]],
+  ['uvtopleft_16',['uvTopLeft',['../struct_sprite_frame.html#a664f4e5144e2577acd35c8c8e1d60a5f',1,'SpriteFrame::uvTopLeft'],['../struct_glyph.html#a34a9c2f5bb4db32834e6bfbd67914f99',1,'Glyph::uvTopLeft']]]
 ];

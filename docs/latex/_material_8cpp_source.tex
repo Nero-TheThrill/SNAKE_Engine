@@ -2,7 +2,7 @@
 \hypertarget{_material_8cpp_source}{}\label{_material_8cpp_source}\index{Project/SNAKE\_Engine/Private/Material.cpp@{Project/SNAKE\_Engine/Private/Material.cpp}}
 \mbox{\hyperlink{_material_8cpp}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}glad/gl.h"{}}}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}gl.h"{}}}
 \DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_material_8h}{Material.h}}"{}}}
 \DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_mesh_8h}{Mesh.h}}"{}}}
 \DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_shader_8h}{Shader.h}}"{}}}
@@ -26,54 +26,64 @@
 \DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00022}00022\ \ \ \ \ \mbox{\hyperlink{class_material_abaac6082ee6cf042b2d4da4f6e6fe403}{shader}}-\/>Unuse();}
 \DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00023}00023\ \}}
 \DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00024}00024\ }
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00025}\mbox{\hyperlink{class_material_a68598fd0aa4da2c7db0e045b2352204d}{00025}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_material_a68598fd0aa4da2c7db0e045b2352204d}{Material::UpdateInstanceBuffer}}(\textcolor{keyword}{const}\ std::vector<glm::mat4>\&\ transforms)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00025}\mbox{\hyperlink{class_material_a7a9c710b2d7a286c1349315b6fd6ab7a}{00025}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_material_a7a9c710b2d7a286c1349315b6fd6ab7a}{Material::IsInstancingSupported}}()\textcolor{keyword}{\ const}}
 \DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00026}00026\ \textcolor{keyword}{}\{}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00027}00027\ \ \ \ \ glBindBuffer(GL\_ARRAY\_BUFFER,\ \mbox{\hyperlink{class_material_aacc07f549272b14fdd1471b897d38150}{instanceVBO}});}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00028}00028\ \ \ \ \ glBufferData(GL\_ARRAY\_BUFFER,\ transforms.size()\ *\ \textcolor{keyword}{sizeof}(glm::mat4),\ transforms.data(),\ GL\_DYNAMIC\_DRAW);}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00029}00029\ \ \ \ \ glBindBuffer(GL\_ARRAY\_BUFFER,\ 0);}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00030}00030\ \}}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00031}00031\ }
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00032}\mbox{\hyperlink{class_material_a7a9c710b2d7a286c1349315b6fd6ab7a}{00032}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_material_a7a9c710b2d7a286c1349315b6fd6ab7a}{Material::IsInstancingSupported}}()\textcolor{keyword}{\ const}}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00033}00033\ \textcolor{keyword}{}\{}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00034}00034\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_material_a88e57329587a1d1d2852d926890e2c4f}{isInstancingEnabled}}\ \&\&\ \mbox{\hyperlink{class_material_abaac6082ee6cf042b2d4da4f6e6fe403}{shader}}\ \&\&\ \mbox{\hyperlink{class_material_abaac6082ee6cf042b2d4da4f6e6fe403}{shader}}-\/>SupportsInstancing();}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00035}00035\ \}}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00036}\mbox{\hyperlink{class_material_ae790a5b6e8836e871f6e01f4431350dd}{00036}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_material_ae790a5b6e8836e871f6e01f4431350dd}{Material::EnableInstancing}}(\textcolor{keywordtype}{bool}\ enable,\ \mbox{\hyperlink{class_mesh}{Mesh}}*\ mesh)}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00037}00037\ \{}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00038}00038\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_material_abaac6082ee6cf042b2d4da4f6e6fe403}{shader}}\ \&\&\ !\mbox{\hyperlink{class_material_abaac6082ee6cf042b2d4da4f6e6fe403}{shader}}-\/>SupportsInstancing())}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00039}00039\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00040}00040\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_debug_8h_a76dcc2dada341abb94ed74214eca553a}{SNAKE\_WRN}}(\textcolor{stringliteral}{"{}Enable\ Instancing\ skipped:\ Tried\ enable\ instancing,\ but\ shader\ does\ not\ support\ 'i\_Model'."{}});}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00041}00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00042}00042\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00043}00043\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{class_material_a88e57329587a1d1d2852d926890e2c4f}{isInstancingEnabled}})}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00044}00044\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00045}00045\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_material_a88e57329587a1d1d2852d926890e2c4f}{isInstancingEnabled}}\ =\ enable;}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00046}00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (mesh)}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00047}00047\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{class_material_aacc07f549272b14fdd1471b897d38150}{instanceVBO}})}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ glGenBuffers(1,\ \&\mbox{\hyperlink{class_material_aacc07f549272b14fdd1471b897d38150}{instanceVBO}});}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ mesh-\/>\mbox{\hyperlink{class_mesh_aded7f91ba518a9599070b78b892791ec}{SetupInstanceAttributes}}(\mbox{\hyperlink{class_material_aacc07f549272b14fdd1471b897d38150}{instanceVBO}});}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00051}00051\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00052}00052\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00053}00053\ \}}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00054}00054\ }
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00055}\mbox{\hyperlink{class_material_a39001e95de2408283f42efa7e8657a05}{00055}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_material_a39001e95de2408283f42efa7e8657a05}{Material::SendUniforms}}()}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00056}00056\ \{}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00057}00057\ \ \ \ \ \textcolor{keywordtype}{int}\ unit\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00058}00058\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ [uniformName,\ tex]\ :\ \mbox{\hyperlink{class_material_a73c44b66bc920571726bfd6dbdeeec26}{textures}})}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00059}00059\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00060}00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!tex)\ \textcolor{keywordflow}{continue};}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00061}00061\ \ \ \ \ \ \ \ \ tex-\/>BindToUnit(unit);}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00062}00062\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_material_abaac6082ee6cf042b2d4da4f6e6fe403}{shader}}-\/>SendUniform(uniformName,\ unit);}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00063}00063\ \ \ \ \ \ \ \ \ unit++;}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00064}00064\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00065}00065\ }
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00066}00066\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ [name,\ value]\ :\ \mbox{\hyperlink{class_material_ac18d1c428804aef46a8ec751989e0677}{uniforms}})}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00067}00067\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00068}00068\ \ \ \ \ \ \ \ \ std::visit([\&](\textcolor{keyword}{auto}\&\&\ val)}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_material_abaac6082ee6cf042b2d4da4f6e6fe403}{shader}}-\/>SendUniform(name,\ val);}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \},\ value);}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00072}00072\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00073}00073\ \}}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00027}00027\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_material_a88e57329587a1d1d2852d926890e2c4f}{isInstancingEnabled}}\ \&\&\ \mbox{\hyperlink{class_material_abaac6082ee6cf042b2d4da4f6e6fe403}{shader}}\ \&\&\ \mbox{\hyperlink{class_material_abaac6082ee6cf042b2d4da4f6e6fe403}{shader}}-\/>SupportsInstancing();}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00028}00028\ \}}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00029}\mbox{\hyperlink{class_material_ae790a5b6e8836e871f6e01f4431350dd}{00029}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_material_ae790a5b6e8836e871f6e01f4431350dd}{Material::EnableInstancing}}(\textcolor{keywordtype}{bool}\ enable,\ \mbox{\hyperlink{class_mesh}{Mesh}}*\ mesh)}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00030}00030\ \{}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00031}00031\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_material_abaac6082ee6cf042b2d4da4f6e6fe403}{shader}}\ \&\&\ !\mbox{\hyperlink{class_material_abaac6082ee6cf042b2d4da4f6e6fe403}{shader}}-\/>SupportsInstancing())}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00032}00032\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00033}00033\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_debug_8h_a76dcc2dada341abb94ed74214eca553a}{SNAKE\_WRN}}(\textcolor{stringliteral}{"{}Enable\ Instancing\ skipped:\ Tried\ enable\ instancing,\ but\ shader\ does\ not\ support\ 'i\_Model'."{}});}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00034}00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00035}00035\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00036}00036\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{class_material_a88e57329587a1d1d2852d926890e2c4f}{isInstancingEnabled}})}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00037}00037\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00038}00038\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_material_a88e57329587a1d1d2852d926890e2c4f}{isInstancingEnabled}}\ =\ enable;}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00039}00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (mesh)}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00040}00040\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{class_material_ab1f9559d30658a368da424b51896316c}{instanceVBO}}[0])}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ glGenBuffers(4,\ \mbox{\hyperlink{class_material_ab1f9559d30658a368da424b51896316c}{instanceVBO}});}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ mesh-\/>\mbox{\hyperlink{class_mesh_a98c855cf26a5ad8dc6e30a7a6753b7a2}{SetupInstanceAttributes}}(\mbox{\hyperlink{class_material_ab1f9559d30658a368da424b51896316c}{instanceVBO}});}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00044}00044\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00045}00045\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00046}00046\ \}}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00048}\mbox{\hyperlink{class_material_a39001e95de2408283f42efa7e8657a05}{00048}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_material_a39001e95de2408283f42efa7e8657a05}{Material::SendUniforms}}()}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00049}00049\ \{}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00050}00050\ \ \ \ \ \textcolor{keywordtype}{int}\ unit\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00051}00051\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ [uniformName,\ tex]\ :\ \mbox{\hyperlink{class_material_a73c44b66bc920571726bfd6dbdeeec26}{textures}})}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00052}00052\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00053}00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!tex)\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00054}00054\ \ \ \ \ \ \ \ \ tex-\/>BindToUnit(unit);}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00055}00055\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_material_abaac6082ee6cf042b2d4da4f6e6fe403}{shader}}-\/>SendUniform(uniformName,\ unit);}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00056}00056\ \ \ \ \ \ \ \ \ unit++;}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00057}00057\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00059}00059\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ [name,\ value]\ :\ \mbox{\hyperlink{class_material_ac18d1c428804aef46a8ec751989e0677}{uniforms}})}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00060}00060\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00061}00061\ \ \ \ \ \ \ \ \ std::visit([\&](\textcolor{keyword}{auto}\&\&\ val)}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_material_abaac6082ee6cf042b2d4da4f6e6fe403}{shader}}-\/>SendUniform(name,\ val);}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \},\ value);}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00065}00065\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00066}00066\ \}}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00068}\mbox{\hyperlink{class_material_ad7313b02ebe64e9423c894e8ab4152b6}{00068}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_material_ad7313b02ebe64e9423c894e8ab4152b6}{Material::UpdateInstanceBuffer}}(\textcolor{keyword}{const}\ std::vector<glm::mat4>\&\ transforms,\ \textcolor{keyword}{const}\ std::vector<glm::vec4>\&\ colors,\ \textcolor{keyword}{const}\ std::vector<glm::vec2>\&\ uvOffsets,\ \textcolor{keyword}{const}\ std::vector<glm::vec2>\&\ uvScales)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00069}00069\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00070}00070\ \ \ \ \ glBindBuffer(GL\_ARRAY\_BUFFER,\ \mbox{\hyperlink{class_material_ab1f9559d30658a368da424b51896316c}{instanceVBO}}[0]);}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00071}00071\ \ \ \ \ glBufferData(GL\_ARRAY\_BUFFER,\ transforms.size()\ *\ \textcolor{keyword}{sizeof}(glm::mat4),\ transforms.data(),\ GL\_DYNAMIC\_DRAW);}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00073}00073\ \ \ \ \ glBindBuffer(GL\_ARRAY\_BUFFER,\ \mbox{\hyperlink{class_material_ab1f9559d30658a368da424b51896316c}{instanceVBO}}[1]);}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00074}00074\ \ \ \ \ glBufferData(GL\_ARRAY\_BUFFER,\ colors.size()\ *\ \textcolor{keyword}{sizeof}(glm::vec4),\ colors.data(),\ GL\_DYNAMIC\_DRAW);}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00076}00076\ \ \ \ \ glBindBuffer(GL\_ARRAY\_BUFFER,\ \mbox{\hyperlink{class_material_ab1f9559d30658a368da424b51896316c}{instanceVBO}}[2]);}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00077}00077\ \ \ \ \ glBufferData(GL\_ARRAY\_BUFFER,\ uvOffsets.size()\ *\ \textcolor{keyword}{sizeof}(glm::vec2),\ uvOffsets.data(),\ GL\_DYNAMIC\_DRAW);}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00079}00079\ \ \ \ \ glBindBuffer(GL\_ARRAY\_BUFFER,\ \mbox{\hyperlink{class_material_ab1f9559d30658a368da424b51896316c}{instanceVBO}}[3]);}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00080}00080\ \ \ \ \ glBufferData(GL\_ARRAY\_BUFFER,\ uvScales.size()\ *\ \textcolor{keyword}{sizeof}(glm::vec2),\ uvScales.data(),\ GL\_DYNAMIC\_DRAW);}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00082}00082\ \ \ \ \ glBindBuffer(GL\_ARRAY\_BUFFER,\ 0);}
+\DoxyCodeLine{\Hypertarget{_material_8cpp_source_l00083}00083\ \}}
 
 \end{DoxyCode}
