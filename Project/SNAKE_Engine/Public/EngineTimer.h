@@ -9,18 +9,6 @@
  *
  * The timer should be started once at the beginning of the game loop using Start(),
  * and Tick() should be called once per frame to get delta time.
- *
- * @code
- * EngineTimer timer;
- * timer.Start();
- *
- * while (running)
- * {
- *     float dt = timer.Tick();
- *     if (timer.ShouldUpdateFPS(fps))
- *         std::cout << "FPS: " << fps << std::endl;
- * }
- * @endcode
  */
 struct EngineTimer
 {
