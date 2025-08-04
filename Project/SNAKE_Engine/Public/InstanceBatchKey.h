@@ -4,27 +4,46 @@
 #include "Material.h"
 
 /**
- * @brief Represents a unique pair of mesh and material for batching.
+ * @brief Represents a unique key for grouping objects by mesh and material.
  *
  * @details
- * This struct is used as a key when grouping GameObjects that share both a Mesh and a Material.
- * Such groups can be rendered together efficiently using instancing.
- * Comparison and ordering operators are provided for use in maps and sets.
+ * This struct is used to group GameObjects that share the same Mesh and Material.
+ * It serves as a key in containers such as std::map or std::unordered_map,
+ * allowing instanced rendering to efficiently batch draw calls with minimal GPU state changes.
+ *
+ * The comparison operators ('==' and '<') allow it to be used in both hashed and ordered containers.
+ * Note that pointer identity is used for comparison-objects must share exact Mesh and Material instances.
+ *
+ * @note Used internally in RenderManager's instanced rendering pipeline.
  */
 struct InstanceBatchKey
 {
-    Mesh* mesh;         ///< Pointer to the mesh used by a group of objects.
-    Material* material; ///< Pointer to the material shared by the same group.
+    Mesh* mesh;
+    Material* material;
 
     /**
-     * @brief Equality comparison used in hash-based containers.
+     * @brief Checks whether two batch keys refer to the exact same mesh and material.
+     *
+     * @details
+     * Used in hash-based containers like std::unordered_map to determine key equality.
+     * Comparison is performed using raw pointer equality, not value comparison.
+     *
+     * @param other Another InstanceBatchKey to compare with.
+     * @return true if both mesh and material pointers are identical.
      */
     bool operator==(const InstanceBatchKey& other) const {
         return mesh == other.mesh && material == other.material;
     }
 
     /**
-     * @brief Ordering comparison used in sorted containers like std::map.
+     * @brief Defines a strict ordering of batch keys for use in ordered containers.
+     *
+     * @details
+     * Compares mesh pointers first; if equal, compares material pointers.
+     * This allows use of InstanceBatchKey as a key in std::map or std::set.
+     *
+     * @param other Another InstanceBatchKey to compare with.
+     * @return true if this key is ordered before the other.
      */
     bool operator<(const InstanceBatchKey& other) const {
         if (mesh != other.mesh)
@@ -33,11 +52,18 @@ struct InstanceBatchKey
     }
 };
 
-/**
- * @brief Custom hash function for InstanceBatchKey to support use in unordered_map.
- */
+
 namespace std
 {
+    /**
+     * @brief Custom hash function to support using InstanceBatchKey in unordered_map.
+     *
+     * @details
+     * Combines the hash values of the mesh and material pointers.
+     * This hash function allows InstanceBatchKey to be used as a key in std::unordered_map.
+     *
+     * @note Uses XOR and left shift to mix two pointer hashes.
+     */
     template<>
     struct hash<InstanceBatchKey>
     {
@@ -49,11 +75,18 @@ namespace std
 }
 
 /**
- * @brief Type alias for a two-level map used to group objects for instanced rendering.
+ * @brief Type alias for organizing GameObjects into instancing-compatible groups.
  *
  * @details
- * Groups objects by:
- * - Render layer (int)
- * - Batch key (mesh + material)
+ * This two-level map groups GameObjects first by render layer (int),
+ * then by unique mesh-material pair (InstanceBatchKey).
+ * Used by RenderManager to batch render instances efficiently.
+ *
+ * Structure:
+ * - outer key: render layer (e.g., UI, Background)
+ * - inner key: InstanceBatchKey (mesh + material)
+ * - value: list of GameObject pointers to render
+ *
+ * @note This structure is rebuilt every frame before instanced draw calls.
  */
 using InstancedBatchMap = std::unordered_map<int, std::unordered_map<InstanceBatchKey, std::vector<GameObject*>>>;

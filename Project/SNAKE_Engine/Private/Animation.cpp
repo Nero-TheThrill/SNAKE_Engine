@@ -58,9 +58,9 @@ SpriteAnimator::SpriteAnimator(SpriteSheet* sheet_, float frameTime_, bool loop_
 void SpriteAnimator::PlayClip(int start, int end, bool loop_)
 {
     playingClip = nullptr;
-    this->startFrame = start;
-    this->endFrame = end;
-    this->loop = loop_;
+    startFrame = start;
+    endFrame = end;
+    loop = loop_;
     currentFrame = start;
     elapsed = 0.0f;
 }
