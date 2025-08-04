@@ -253,7 +253,12 @@ Mesh* Font::GenerateTextMesh(const std::string& text, TextAlignH alignH, TextAli
         std::vector<char32_t> u32Line = UTF8ToCodepoints(lineText);
         //pre-bake for calculating width
         for (char32_t c : u32Line)
-            TryBakeGlyph(c);
+        {
+            if (!TryBakeGlyph(c))
+            {
+                SNAKE_WRN("Failed to bake glyph");
+            }
+        }
 
         float lineWidth = 0.0f;
         for (char32_t c : u32Line)
@@ -288,7 +293,10 @@ Mesh* Font::GenerateTextMesh(const std::string& text, TextAlignH alignH, TextAli
         std::vector<char32_t> u32 = UTF8ToCodepoints(lineText);
         for (char32_t c : u32)
         {
-            TryBakeGlyph(c);
+            if (!TryBakeGlyph(c))
+            {
+                SNAKE_WRN("Failed to bake glyph");
+            }
             const Glyph& glyph = GetGlyph(c);
             float xpos = xCursor + (float)glyph.bearing.x;
             float ypos = yCursor - (float)(glyph.size.y - glyph.bearing.y);
