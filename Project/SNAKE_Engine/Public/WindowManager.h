@@ -24,6 +24,10 @@ public:
 
     void SetBackgroundColor(glm::vec4 color) { backgroundColor = color; }
 
+    void SetFullScreen(bool enable);
+
+    bool IsFullScreen() const { return isFullscreen; }
+
 private:
     bool Init(int _windowWidth, int _windowHeight, SNAKE_Engine& engine);
 
@@ -43,4 +47,8 @@ private:
     int windowWidth;
     int windowHeight;
     glm::vec4 backgroundColor;
+
+    bool isFullscreen = false;
+    int windowedPosX = 100, windowedPosY = 100;
+    int windowedWidth = 800, windowedHeight = 600;
 };

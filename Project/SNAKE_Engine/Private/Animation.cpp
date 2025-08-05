@@ -1,5 +1,7 @@
 #include "Animation.h"
 
+#include "Debug.h"
+
 SpriteSheet::SpriteSheet(Texture* texture_, int frameW, int frameH)
     : texture(texture_), frameWidth(frameW), frameHeight(frameH)
 {
@@ -66,10 +68,17 @@ void SpriteAnimator::PlayClip(int start, int end, bool loop_)
 }
 void SpriteAnimator::PlayClip(const std::string& clipName)
 {
+    if (!sheet)
+    {
+        SNAKE_ERR("Can't play clip: Sprite sheet is nullptr");
+        return;
+    }
     const auto* clip = sheet->GetClip(clipName);
     if (!clip || clip->frameIndices.empty())
+    {
+        SNAKE_WRN("Can't play clip: There is no clip named \"" <<clipName<< "\".");
         return;
-
+    }
     playingClip = clip;
     clipFrameIndex = 0;
     elapsed = 0.0f;

@@ -53,6 +53,15 @@ void MainMenu::LateInit(const EngineContext& engineContext)
 
 void MainMenu::Update(float dt, const EngineContext& engineContext)
 {
+    if (engineContext.inputManager->IsKeyReleased(KEY_F))
+    {
+        engineContext.windowManager->SetFullScreen(true);
+    }
+    if (engineContext.inputManager->IsKeyReleased(KEY_G))
+    {
+        engineContext.windowManager->SetFullScreen(false);
+    }
+
     if (engineContext.inputManager->IsKeyReleased(KEY_N))
     {
         engineContext.stateManager->ChangeState(std::make_unique<Level1>());

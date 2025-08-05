@@ -17,7 +17,6 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
         snakeEngine->GetEngineContext().inputManager->Reset();
         SNAKE_LOG("changed: " << snakeEngine->GetEngineContext().windowManager->GetWidth() << " " << snakeEngine->GetEngineContext().windowManager->GetHeight());
     }
-
 }
 bool WindowManager::Init(int _windowWidth, int _windowHeight, SNAKE_Engine& engine)
 {
@@ -73,6 +72,31 @@ void WindowManager::SetTitle(const std::string& title) const
     glfwSetWindowTitle(window, title.c_str());
 }
 
+void WindowManager::SetFullScreen(bool enable)
+{
+    if (!window || isFullscreen == enable)
+        return;
+
+    GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+    const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+
+    if (enable)
+    {
+        glfwGetWindowPos(window, &windowedPosX, &windowedPosY);
+        glfwGetWindowSize(window, &windowedWidth, &windowedHeight);
+
+        glfwSetWindowMonitor(window, monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
+    }
+    else
+    {
+        glfwSetWindowMonitor(window, nullptr, windowedPosX, windowedPosY, windowedWidth, windowedHeight, 0);
+    }
+
+    isFullscreen = enable;
+
+    windowWidth = enable ? mode->width : windowedWidth;
+    windowHeight = enable ? mode->height : windowedHeight;
+}
 void WindowManager::Free() const
 {
     glfwDestroyWindow(window);
