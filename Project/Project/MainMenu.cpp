@@ -38,7 +38,7 @@ void MainMenu::Init(const EngineContext& engineContext)
 
 
     bulletCountText = static_cast<TextObject*>(objectManager.AddObject(
-        std::make_unique<TextObject>(engineContext.renderManager->GetFontByTag("default"), "0", TextAlignH::Center, TextAlignV::Middle), "text"));;
+        std::make_unique<TextObject>(engineContext.renderManager->GetFontByTag("default"), "0", TextAlignH::Center, TextAlignV::Middle), "text"));
     bulletCountText->GetTransform2D().SetScale({ 0.5, 0.5 });
     bulletCountText->SetRenderLayer(engineContext, "UI.Penguin");
 }
