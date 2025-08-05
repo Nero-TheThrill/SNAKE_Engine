@@ -58,9 +58,13 @@ public:
 
     void SetMaterial(const EngineContext& engineContext, const std::string& tag) = delete;
 
+    void SetMaterial(Material* material_) = delete;
+
     [[nodiscard]] Material* GetMaterial() const = delete;
 
     void SetMesh(const EngineContext& engineContext, const std::string& tag) = delete;
+
+    void SetMesh(Mesh* mesh_) = delete;
 
     [[nodiscard]] Mesh* GetMesh() const = delete;
 

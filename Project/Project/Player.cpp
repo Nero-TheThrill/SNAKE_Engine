@@ -12,7 +12,7 @@ void Player::Init(const EngineContext& engineContext)
     transform2D.SetPosition(glm::vec2(0, 0));
     transform2D.SetScale(glm::vec2(50.f));
 
-    SetMesh(engineContext, "default");
+    SetMesh(engineContext.renderManager->GetMeshByTag("default"));
     SetMaterial(engineContext, "m_animation");
     SpriteSheet* sheet = engineContext.renderManager->GetSpriteSheetByTag("animTest");
     sheet->AddClip("sidewalk", { 0,1,2,3,4,5,6,7,8 }, 0.08f, true);

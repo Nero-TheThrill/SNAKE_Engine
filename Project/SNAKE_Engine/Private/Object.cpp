@@ -32,14 +32,14 @@ const std::string& Object::GetTag() const
     return objectTag;
 }
 
-const uint8_t& Object::GetRenderLayer() const
+const std::string& Object::GetRenderLayerTag() const
 {
-    return renderLayer;
+    return renderLayerTag;
 }
 
-void Object::SetRenderLayer(const EngineContext& engineContext, const std::string& tag)
+void Object::SetRenderLayer(const std::string& tag)
 {
-    renderLayer = engineContext.renderManager->GetRenderLayerManager().GetLayerID(tag).value_or(0);
+    renderLayerTag = tag;
 }
 
 void Object::SetMaterial(const EngineContext& engineContext, const std::string& tag)

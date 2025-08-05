@@ -15,7 +15,7 @@ void Bullet::Init(const EngineContext& engineContext)
     SNAKE_LOG("Bullet initialized");
     SetMesh(engineContext, "default");
     SetMaterial(engineContext, "m_instancing");
-    SetRenderLayer(engineContext, "Bullet");
+    SetRenderLayer("Bullet");
     GetMaterial()->EnableInstancing(true, GetMesh());
     AttachAnimator(engineContext.renderManager->GetSpriteSheetByTag("animTest"), 0.08f);
 

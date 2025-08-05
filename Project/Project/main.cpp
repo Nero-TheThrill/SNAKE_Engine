@@ -60,14 +60,14 @@ int main(int argc, char* argv[])
 
     snakeEngine.GetEngineContext().renderManager->RegisterSpriteSheet("animTest", "penguinSpritesheet", 128, 128);
 
-    snakeEngine.GetEngineContext().renderManager->RegisterRenderLayer("Game.Background");
-    snakeEngine.GetEngineContext().renderManager->RegisterRenderLayer("Game");
-    snakeEngine.GetEngineContext().renderManager->RegisterRenderLayer("UI");
-    snakeEngine.GetEngineContext().renderManager->RegisterRenderLayer("UI.Pause");
-    snakeEngine.GetEngineContext().renderManager->RegisterRenderLayer("UI.Pause.Text");
-    snakeEngine.GetEngineContext().renderManager->RegisterRenderLayer("Bullet");
-    snakeEngine.GetEngineContext().renderManager->RegisterRenderLayer("Penguin");
-    snakeEngine.GetEngineContext().renderManager->RegisterRenderLayer("UI.Penguin");
+    snakeEngine.GetEngineContext().renderManager->RegisterRenderLayer("Game.Background",0);
+    snakeEngine.GetEngineContext().renderManager->RegisterRenderLayer("Game",1);
+    snakeEngine.GetEngineContext().renderManager->RegisterRenderLayer("UI",2);
+    snakeEngine.GetEngineContext().renderManager->RegisterRenderLayer("UI.Pause",3);
+    snakeEngine.GetEngineContext().renderManager->RegisterRenderLayer("UI.Pause.Text",4);
+    snakeEngine.GetEngineContext().renderManager->RegisterRenderLayer("Bullet",5);
+    snakeEngine.GetEngineContext().renderManager->RegisterRenderLayer("Penguin",6);
+    snakeEngine.GetEngineContext().renderManager->RegisterRenderLayer("UI.Penguin",7);
 
     snakeEngine.GetEngineContext().soundManager->LoadSound("bgm", "Sounds/test.mp3");
     snakeEngine.GetEngineContext().soundManager->LoadSound("click", "Sounds/mouse.mp3");
@@ -78,6 +78,7 @@ int main(int argc, char* argv[])
     snakeEngine.GetEngineContext().renderManager->RegisterFont("default", "Fonts/NotoSans-VariableFont_wdth,wght.ttf", 50);
     snakeEngine.GetEngineContext().renderManager->RegisterFont("kr", "Fonts/NotoSansKR-VariableFont_wght.ttf", 50);
 
+    snakeEngine.GetEngineContext().windowManager->SetBackgroundColor({ 0.2,0.2,0.4,1 });
     snakeEngine.GetEngineContext().stateManager->ChangeState(std::make_unique<MainMenu>());
 
     snakeEngine.Run();

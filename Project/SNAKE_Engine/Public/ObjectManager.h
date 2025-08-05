@@ -17,7 +17,6 @@ class ObjectManager
     friend GameState;
 public:
     [[maybe_unused]]Object* AddObject(std::unique_ptr<Object> obj, const std::string& tag = "");
-
     void InitAll(const EngineContext& engineContext);
     void UpdateAll(float dt, const EngineContext& engineContext);
     void DrawAll(const EngineContext& engineContext, Camera2D* camera);

@@ -66,11 +66,24 @@ public:
 
     void RegisterFont(const std::string& tag, std::unique_ptr<Font> font);
 
-    void RegisterRenderLayer(const std::string& tag);
+    void RegisterRenderLayer(const std::string& tag, uint8_t layer);
 
     void RegisterSpriteSheet(const std::string& tag, const std::string& textureTag, int frameW, int frameH);
 
+    void UnregisterShader(const std::string& tag);
 
+    void UnregisterTexture(const std::string& tag);
+
+    void UnregisterMesh(const std::string& tag);
+
+    void UnregisterMaterial(const std::string& tag);
+
+    void UnregisterFont(const std::string& tag);
+
+    void UnregisterRenderLayer(const std::string& tag);
+
+    void UnregisterSpriteSheet(const std::string& tag);
+    
 
     [[nodiscard]] Shader* GetShaderByTag(const std::string& tag);
 
@@ -129,6 +142,8 @@ private:
 
     RenderMap renderMap;
     RenderLayerManager renderLayerManager;
+
+    std::unique_ptr<Texture> errorTexture;
 };
 
 

@@ -13,15 +13,14 @@ void MainMenu::Init(const EngineContext& engineContext)
 {
     SNAKE_LOG("[MainMenu] init called");
 
-
-    objectManager.AddObject(std::make_unique<Player>(), "player")->SetRenderLayer(engineContext, "Penguin");
+    objectManager.AddObject(std::make_unique<Player>(), "player")->SetRenderLayer("Penguin");
     objectManager.AddObject(std::make_unique<Enemy>(glm::vec2(200,0)), "enemy");
 
 
     startText = static_cast<TextObject*>(objectManager.AddObject(std::make_unique<TextObject>(engineContext.renderManager->GetFontByTag("default"),"N/A",TextAlignH::Center, TextAlignV::Middle), "StartText"));
     startText->GetTransform2D().SetPosition({ 0,100 });
     startText->SetIgnoreCamera(true, cameraManager.GetActiveCamera());
-    startText->SetRenderLayer(engineContext, "UI");
+    startText->SetRenderLayer("UI");
     startText->SetCollider(std::make_unique<AABBCollider>(startText, glm::vec2(1.f, 1.f)));
     startText->GetCollider()->SetUseTransformScale(true);
     startText->SetCollision(engineContext.stateManager->GetCurrentState()->GetObjectManager(), "button", { "player" });
@@ -34,7 +33,7 @@ void MainMenu::Init(const EngineContext& engineContext)
     quitText = static_cast<TextObject*>(objectManager.AddObject(std::make_unique<TextObject>(engineContext.renderManager->GetFontByTag("default"), "QUIT", TextAlignH::Center, TextAlignV::Middle), "QuitText"));
     quitText->GetTransform2D().SetPosition({ 0,-100 });
     quitText->SetIgnoreCamera(true, cameraManager.GetActiveCamera());
-    quitText->SetRenderLayer(engineContext, "UI");
+    quitText->SetRenderLayer( "UI");
 
     quitButton = static_cast<GameObject*>(objectManager.AddObject(std::make_unique<Button>(), "QuitButton"));
     quitButton->GetTransform2D().SetPosition({ quitText->GetWorldPosition() });
@@ -44,7 +43,8 @@ void MainMenu::Init(const EngineContext& engineContext)
     bulletCountText = static_cast<TextObject*>(objectManager.AddObject(
         std::make_unique<TextObject>(engineContext.renderManager->GetFontByTag("default"), "0", TextAlignH::Center, TextAlignV::Middle), "text"));
     bulletCountText->GetTransform2D().SetScale({ 0.5, 0.5 });
-    bulletCountText->SetRenderLayer(engineContext, "UI.Penguin");
+    bulletCountText->SetRenderLayer("UI.Penguin");
+
 }
 
 void MainMenu::LateInit(const EngineContext& engineContext)
@@ -100,7 +100,6 @@ void MainMenu::Update(float dt, const EngineContext& engineContext)
         startButton->SetColor({ 1.0,1.0,1.0,1.0});
         startText->SetColor({ 1.0,1.0,1.0,1.0 });
     }
-    std::cout << engineContext.inputManager->GetMouseWorldPos(cameraManager.GetActiveCamera()).x << ". " << engineContext.inputManager->GetMouseWorldPos(cameraManager.GetActiveCamera()).y << std::endl;
     if (quitButton->GetCollider()->CheckPointCollision(engineContext.inputManager->GetMouseWorldPos(cameraManager.GetActiveCamera())))
     {
         quitButton->SetColor({ 0.3,0.3,0.3,1.0 });
@@ -141,8 +140,6 @@ void MainMenu::Update(float dt, const EngineContext& engineContext)
     if (input.IsKeyDown(KEY_O)) cam->SetZoom(cam->GetZoom() - 0.1f * dt);
 
 
-
-
     objectManager.UpdateAll(dt, engineContext);
 }
 
@@ -152,7 +149,7 @@ void MainMenu::LateUpdate(float dt, const EngineContext& engineContext)
 
 void MainMenu::Draw(const EngineContext& engineContext)
 {
-    engineContext.renderManager->ClearBackground(0, 0, engineContext.windowManager->GetWidth(), engineContext.windowManager->GetHeight(), { 0.2,0.2,0.5,1 });
+ //   engineContext.renderManager->ClearBackground(0, 0, engineContext.windowManager->GetWidth(), engineContext.windowManager->GetHeight(), { 0.2,0.2,0.5,1 });
     objectManager.DrawAll(engineContext, cameraManager.GetActiveCamera());
 }
 

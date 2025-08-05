@@ -44,13 +44,19 @@ public:
     void SetTag(const std::string& tag);
     [[nodiscard]] const std::string& GetTag() const;
 
-    [[nodiscard]] const uint8_t& GetRenderLayer() const;
-    void SetRenderLayer(const EngineContext& engineContext, const std::string& tag);
+    [[nodiscard]] const std::string& GetRenderLayerTag() const;
+    void SetRenderLayer(const std::string& tag);
 
     void SetMaterial(const EngineContext& engineContext, const std::string& tag);
+
+    void SetMaterial(Material* material_) { material = material_; }
+
     [[nodiscard]] Material* GetMaterial() const;
 
     void SetMesh(const EngineContext& engineContext, const std::string& tag);
+
+    void SetMesh(Mesh* mesh_) { mesh = mesh_; }
+
     [[nodiscard]] Mesh* GetMesh() const;
 
     [[nodiscard]] bool CanBeInstanced() const;
@@ -102,11 +108,12 @@ protected:
     Camera2D* referenceCamera = nullptr;
 
     std::string objectTag;
+    std::string renderLayerTag;
 
     Transform2D transform2D;
     Material* material = nullptr;
     Mesh* mesh = nullptr;
-    uint8_t renderLayer = 0;
+
 
     glm::vec4 color = glm::vec4(1);
 

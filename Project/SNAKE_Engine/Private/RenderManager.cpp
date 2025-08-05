@@ -247,6 +247,27 @@ void RenderManager::Init(const EngineContext& engineContext)
     glBindVertexArray(0);
 
 
+    std::vector<unsigned char> errorTexturePixels;
+    errorTexturePixels.reserve(8 * 8 * 4);
+
+    for (int y = 0; y < 8; ++y)
+    {
+        for (int x = 0; x < 8; ++x)
+        {
+            bool isYellow = (x + y) % 2 == 0;
+            if (isYellow)
+            {
+                errorTexturePixels.insert(errorTexturePixels.end(), { 255, 255, 0, 255 });
+            }
+            else
+            {
+                errorTexturePixels.insert(errorTexturePixels.end(), { 0, 0, 0, 255 });
+            }
+        }
+    }
+
+    errorTexture = std::make_unique<Texture>(errorTexturePixels.data(), 8, 8, 4, TextureSettings{ TextureFilter::Nearest ,TextureFilter::Nearest ,TextureWrap::MirroredRepeat,TextureWrap::MirroredRepeat });
+
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -266,7 +287,7 @@ void RenderManager::BuildRenderMap(const std::vector<Object*>& source, Camera2D*
         if (!material || !mesh || !shader)
             continue;
 
-        uint8_t layer = obj->GetRenderLayer();
+        uint8_t layer = renderLayerManager.GetLayerID(obj->GetRenderLayerTag()).value_or(0);
         if (layer >= RenderLayerManager::MAX_LAYERS)
         {
             SNAKE_WRN("render skipped - invalid layer\n");
@@ -360,6 +381,10 @@ void RenderManager::SubmitRenderMap(const EngineContext& engineContext)
                                     static_cast<float>(engineContext.windowManager->GetHeight()) / 2
                                 );
                             }
+                            if (!material->HasTexture())
+                            {
+                                material->SetTexture("u_Texture", errorTexture.get());
+                            }
                             material->SetUniform("u_View", view);
                             material->SetUniform("u_Projection", projection);
 
@@ -429,6 +454,12 @@ void RenderManager::SubmitRenderMap(const EngineContext& engineContext)
                                         static_cast<float>(engineContext.windowManager->GetHeight()) / 2
                                     );
                                 }
+
+                                if (!mat->HasTexture())
+                                {
+                                    mat->SetTexture("u_Texture", errorTexture.get());
+                                }
+
                                 mat->SetUniform("u_View", view);
                                 mat->SetUniform("u_Projection", projection);
 
@@ -607,9 +638,9 @@ void RenderManager::RegisterFont(const std::string& tag, std::unique_ptr<Font> f
     fontMap[tag] = std::move(font);
 }
 
-void RenderManager::RegisterRenderLayer(const std::string& tag)
+void RenderManager::RegisterRenderLayer(const std::string& tag, uint8_t layer)
 {
-    renderLayerManager.RegisterLayer(tag);
+    renderLayerManager.RegisterLayer(tag, layer);
 }
 
 void RenderManager::RegisterSpriteSheet(const std::string& tag, const std::string& textureTag, int frameW, int frameH)
@@ -628,6 +659,41 @@ void RenderManager::RegisterSpriteSheet(const std::string& tag, const std::strin
     }
 
     spritesheetMap[tag] = std::make_unique<SpriteSheet>(texture, frameW, frameH);
+}
+
+void RenderManager::UnregisterShader(const std::string& tag)
+{
+    shaderMap.erase(tag);
+}
+
+void RenderManager::UnregisterTexture(const std::string& tag)
+{
+    textureMap.erase(tag);
+}
+
+void RenderManager::UnregisterMesh(const std::string& tag)
+{
+    meshMap.erase(tag);
+}
+
+void RenderManager::UnregisterMaterial(const std::string& tag)
+{
+    materialMap.erase(tag);
+}
+
+void RenderManager::UnregisterFont(const std::string& tag)
+{
+    fontMap.erase(tag);
+}
+
+void RenderManager::UnregisterRenderLayer(const std::string& tag)
+{
+    renderLayerManager.UnregisterLayer(tag);
+}
+
+void RenderManager::UnregisterSpriteSheet(const std::string& tag)
+{
+    spritesheetMap.erase(tag);
 }
 
 SpriteSheet* RenderManager::GetSpriteSheetByTag(const std::string& tag)

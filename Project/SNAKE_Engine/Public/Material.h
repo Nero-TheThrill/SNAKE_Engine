@@ -49,6 +49,8 @@ private:
 
     void UpdateInstanceBuffer(const std::vector<glm::mat4>& transforms, const std::vector<glm::vec4>& colors, const std::vector<glm::vec2>& uvOffsets, const std::vector<glm::vec2>& uvScales) const;
 
+    bool HasTexture() const { return !textures.empty(); }
+
     [[nodiscard]] Shader* GetShader() const { return shader; }
 
     Shader* shader;

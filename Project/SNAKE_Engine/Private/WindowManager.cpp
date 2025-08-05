@@ -85,7 +85,7 @@ void WindowManager::SwapBuffers() const
 
 void WindowManager::ClearScreen() const
 {
-    glClearColor(0.4f, 0.4f, 0.4f, 1.0f);
+    glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
