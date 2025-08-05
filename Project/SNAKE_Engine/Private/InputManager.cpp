@@ -79,12 +79,12 @@ glm::vec2 InputManager::GetMousePos() const
 
 double InputManager::GetMouseWorldX(Camera2D* camera) const
 {
-    return camera->GetPosition().x +( GetMouseX() - camera->GetScreenWidth() / 2.f) / camera->GetZoom();
+    return (camera->GetPosition().x + GetMouseX() - camera->GetScreenWidth() / 2.f) / camera->GetZoom();
 }
 
 double InputManager::GetMouseWorldY(Camera2D* camera) const
 {
-    return camera->GetPosition().y + (camera->GetScreenHeight() / 2.f - GetMouseY()) / camera->GetZoom();
+    return (camera->GetPosition().y + camera->GetScreenHeight() / 2.f - GetMouseY()) / camera->GetZoom();
 }
 
 glm::vec2 InputManager::GetMouseWorldPos(Camera2D* camera) const

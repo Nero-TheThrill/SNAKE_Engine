@@ -122,11 +122,8 @@ glm::vec2 Object::GetWorldPosition() const
         glm::vec2 camPos = referenceCamera->GetPosition();
         glm::vec2 screenSpace = transform2D.GetPosition();
 
-        int windowW = referenceCamera->GetScreenWidth();
-        int windowH = referenceCamera->GetScreenHeight();
-
-        glm::vec2 offset = screenSpace * glm::vec2(1.0f / zoom);
-        glm::vec2 corrected = camPos + offset;
+        glm::vec2 offset = glm::vec2(1.0f / zoom);
+        glm::vec2 corrected = (camPos+ screenSpace) * offset;
 
         return corrected;
     }

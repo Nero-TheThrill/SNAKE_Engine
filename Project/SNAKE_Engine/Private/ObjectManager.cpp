@@ -6,6 +6,8 @@
 #include <algorithm>
 #include <unordered_set>
 
+#include "TextObject.h"
+
 Object* ObjectManager::AddObject(std::unique_ptr<Object> obj, const std::string& tag)
 {
     assert(obj != nullptr && "Cannot add null object");
@@ -42,6 +44,10 @@ void ObjectManager::UpdateAll(float dt, const EngineContext& engineContext)
     {
         if (obj->IsAlive())
         {
+            if (obj->GetType()==ObjectType::TEXT)
+            {
+                static_cast<TextObject*>(obj.get())->CheckFontAtlasAndMeshUpdate();
+            }
             obj->Update(dt, engineContext);
             if (obj->HasAnimation())
                 obj->GetAnimator()->Update(dt);

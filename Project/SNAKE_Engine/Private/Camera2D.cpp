@@ -38,16 +38,12 @@ float Camera2D::GetZoom() const
     return zoom;
 }
 
-glm::mat4 Camera2D::GetProjectionMatrix() const
+glm::mat4 Camera2D::GetViewMatrix() const
 {
-    float halfW = static_cast<float>(screenWidth) * 0.5f / zoom;
-    float halfH = static_cast<float>(screenHeight) * 0.5f / zoom;
-
-    return glm::ortho(
-        -halfW + position.x, halfW + position.x,
-        -halfH + position.y, halfH + position.y,
-        -1.0f, 1.0f
-    );
+    glm::mat4 view = glm::mat4(1.0f);
+    view = glm::translate(view, glm::vec3(-position, 0.0f));
+    view = glm::scale(view, glm::vec3(zoom, zoom, 1.0f));
+    return view;
 }
 
 bool Camera2D::IsInView(const glm::vec2& pos, float radius, glm::vec2 viewportSize) const
@@ -55,8 +51,8 @@ bool Camera2D::IsInView(const glm::vec2& pos, float radius, glm::vec2 viewportSi
     glm::vec2 camPos = GetPosition();
     glm::vec2 halfSize = viewportSize * 0.5f;
 
-    return !(pos.x + radius < camPos.x - halfSize.x ||
-        pos.x - radius > camPos.x + halfSize.x ||
-        pos.y + radius < camPos.y - halfSize.y ||
-        pos.y - radius > camPos.y + halfSize.y);
+    return !(pos.x + radius < (camPos.x - halfSize.x) / zoom ||
+        pos.x - radius > (camPos.x + halfSize.x) / zoom ||
+        pos.y + radius < (camPos.y - halfSize.y) / zoom ||
+        pos.y - radius > (camPos.y + halfSize.y)/zoom);
 }

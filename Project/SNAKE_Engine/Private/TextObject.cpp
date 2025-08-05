@@ -118,7 +118,7 @@ glm::vec2 TextObject::GetWorldPosition() const
     {
         float zoom = referenceCamera->GetZoom();
         glm::vec2 camPos = referenceCamera->GetPosition();
-        return camPos + alignedScreenPos / zoom;
+        return (camPos + alignedScreenPos) / zoom;
     }
     else
     {
@@ -132,6 +132,17 @@ glm::vec2 TextObject::GetWorldScale() const
         return transform2D.GetScale()* textInstance.font->GetTextSize(textInstance.text) / referenceCamera->GetZoom();
     else
         return transform2D.GetScale()* textInstance.font->GetTextSize(textInstance.text);
+}
+
+void TextObject::CheckFontAtlasAndMeshUpdate()
+{
+    if (textAtlasVersionTracker == textInstance.font->GetTextAtlasVersion())
+        return;
+
+    textAtlasVersionTracker = textInstance.font->GetTextAtlasVersion();
+    std::unique_ptr<Mesh> newMesh(textInstance.font->GenerateTextMesh(textInstance.text, alignH, alignV));
+    mesh = newMesh.get();
+    textMeshCache[textInstance.GetCacheKey()] = std::move(newMesh);
 }
 
 void TextObject::UpdateMesh()

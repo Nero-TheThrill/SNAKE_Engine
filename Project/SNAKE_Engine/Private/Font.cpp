@@ -355,4 +355,5 @@ void Font::ExpandAtlas()
             SNAKE_WRN("Failed to bake glyph");
         }
     }
+    atlasVersion++;
 }

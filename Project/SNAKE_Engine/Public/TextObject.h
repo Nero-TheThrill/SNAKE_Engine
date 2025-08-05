@@ -54,6 +54,7 @@ public:
 
     [[nodiscard]] glm::vec2 GetWorldScale() const override;
 
+    void CheckFontAtlasAndMeshUpdate();
 
     void SetMaterial(const EngineContext& engineContext, const std::string& tag) = delete;
 
@@ -76,4 +77,6 @@ protected:
 
     TextInstance textInstance;
     std::unordered_map<std::string, std::unique_ptr<Mesh>> textMeshCache;
+
+    int textAtlasVersionTracker = 0;
 };

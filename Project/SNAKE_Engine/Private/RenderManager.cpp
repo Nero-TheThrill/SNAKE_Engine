@@ -11,6 +11,7 @@
 #include "Material.h"
 #include "InstanceBatchKey.h"
 #include "EngineContext.h"
+#include "GameState.h"
 #include "TextObject.h"
 #include "WindowManager.h"
 
@@ -25,7 +26,7 @@ void RenderManager::Submit(const EngineContext& engineContext, const std::vector
     std::vector<Object*> visibleObjects;
     if (camera)
     {
-        FrustumCuller::CullVisible(*camera, objects, visibleObjects, glm::vec2(engineContext.windowManager->GetWidth(), engineContext.windowManager->GetHeight()));
+        FrustumCuller::CullVisible(*camera, objects, visibleObjects, glm::vec2(camera->GetScreenWidth(), camera->GetScreenHeight()));
         BuildRenderMap(visibleObjects, camera);
     }
     else
@@ -47,10 +48,10 @@ void FrustumCuller::CullVisible(const Camera2D& camera, const std::vector<Object
             outVisibleList.push_back(obj);
             continue;
         }
-        const glm::vec2& pos = obj->GetTransform2D().GetPosition();
+        const glm::vec2& pos = obj->GetWorldPosition();
         float radius = obj->GetBoundingRadius();
 
-        if (camera.IsInView(pos, radius, viewportSize / camera.GetZoom()))
+        if (camera.IsInView(pos, radius, viewportSize))
             outVisibleList.push_back(obj);
     }
 }
@@ -114,16 +115,17 @@ void RenderManager::FlushDebugLineDrawCommands(const EngineContext& engineContex
         float lineWidth = camWidth.second;
 
         glLineWidth(lineWidth);
+        glm::mat4 view = camera
+            ? camera->GetViewMatrix()
+            : glm::mat4(1);
+        glm::mat4 proj = glm::ortho(
+            -static_cast<float>(engineContext.windowManager->GetWidth()) / 2,
+            static_cast<float>(engineContext.windowManager->GetWidth()) / 2,
+            -static_cast<float>(engineContext.windowManager->GetHeight()) / 2,
+            static_cast<float>(engineContext.windowManager->GetHeight()) / 2
+        );
 
-        glm::mat4 proj = camera
-            ? camera->GetProjectionMatrix()
-            : glm::ortho(
-                -static_cast<float>(engineContext.windowManager->GetWidth()) / 2,
-                static_cast<float>(engineContext.windowManager->GetWidth()) / 2,
-                -static_cast<float>(engineContext.windowManager->GetHeight()) / 2,
-                static_cast<float>(engineContext.windowManager->GetHeight()) / 2
-            );
-
+        debugLineShader->SendUniform("u_View", view);
         debugLineShader->SendUniform("u_Projection", proj);
 
         std::vector<float> vertexData;
@@ -166,6 +168,7 @@ void RenderManager::Init(const EngineContext& engineContext)
 		layout (location = 1) in vec2 aUV;
 
 		uniform mat4 u_Model;
+		uniform mat4 u_View;
 		uniform mat4 u_Projection;
 
 		out vec2 v_TexCoord;
@@ -173,7 +176,7 @@ void RenderManager::Init(const EngineContext& engineContext)
 		void main()
 		{
 		    v_TexCoord = aUV;
-		    gl_Position = u_Projection * u_Model * vec4(aPos, 0.0, 1.0);
+		    gl_Position = u_Projection * u_View * u_Model * vec4(aPos, 0.0, 1.0);
 		}
     )");
     shader->AttachFromSource(ShaderStage::Fragment, R"(
@@ -202,13 +205,14 @@ void RenderManager::Init(const EngineContext& engineContext)
                 layout (location = 0) in vec2 aPos;
                 layout (location = 1) in vec4 aColor;
 
+				uniform mat4 u_View;
                 uniform mat4 u_Projection;
                 out vec4 vColor;
 
                 void main()
                 {
                     vColor = aColor;
-                    gl_Position = u_Projection * vec4(aPos, 0.0, 1.0);
+                    gl_Position = u_Projection * u_View * vec4(aPos, 0.0, 1.0);
                 }
     )");
     shader->AttachFromSource(ShaderStage::Fragment, R"(
@@ -330,19 +334,45 @@ void RenderManager::SubmitRenderMap(const EngineContext& engineContext)
                         if (currentShader != lastShader)
                         {
                             glm::mat4 projection;
-                            if (batch.front().first->ShouldIgnoreCamera() || batch.front().second == nullptr)
+                            glm::mat4 view;
+
+                            if (batch.front().first->ShouldIgnoreCamera())
+                                view = glm::mat4(1);
+                            else
+                                view = batch.front().second->GetViewMatrix();
+
+
+                            if (batch.front().second)
                             {
                                 projection = glm::ortho(
-                                    -static_cast<float>(batch.front().first->GetReferenceCamera()->GetScreenWidth()) / 2,
-                                    static_cast<float>(batch.front().first->GetReferenceCamera()->GetScreenWidth()) / 2,
-                                    -static_cast<float>(batch.front().first->GetReferenceCamera()->GetScreenHeight()) / 2,
-                                    static_cast<float>(batch.front().first->GetReferenceCamera()->GetScreenHeight()) / 2
+                                    -static_cast<float>(batch.front().second->GetScreenWidth()) / 2,
+                                    static_cast<float>(batch.front().second->GetScreenWidth()) / 2,
+                                    -static_cast<float>(batch.front().second->GetScreenHeight()) / 2,
+                                    static_cast<float>(batch.front().second->GetScreenHeight()) / 2
                                 );
                             }
                             else
-                                projection = batch.front().second->GetProjectionMatrix();
+                            {
+                                projection = glm::ortho(
+                                    -static_cast<float>(engineContext.windowManager->GetWidth()) / 2,
+                                    static_cast<float>(engineContext.windowManager->GetWidth()) / 2,
+                                    -static_cast<float>(engineContext.windowManager->GetHeight()) / 2,
+                                    static_cast<float>(engineContext.windowManager->GetHeight()) / 2
+                                );
+                            }
+                            material->SetUniform("u_View", view);
                             material->SetUniform("u_Projection", projection);
-                            material->SetTexture("u_Texture", batch.front().first->GetAnimator()->GetTexture());
+
+                            glm::mat4 model = batch.front().first->GetTransform2DMatrix();
+                            glm::vec2 flip = batch.front().first->GetUVFlipVector();
+                            model = model * glm::scale(glm::mat4(1.0f), glm::vec3(flip, 1.0f));
+
+                            material->SetUniform("u_Model", model);
+                            material->SetUniform("u_Color", batch.front().first->GetColor());
+                            if (batch.front().first->HasAnimation())
+                            {
+                                material->SetTexture("u_Texture", batch.front().first->GetAnimator()->GetTexture());
+                            }
                             lastShader = currentShader;
                         }
 
@@ -373,17 +403,33 @@ void RenderManager::SubmitRenderMap(const EngineContext& engineContext)
                             if (currentShader != lastShader)
                             {
                                 glm::mat4 projection;
-                                if (obj->ShouldIgnoreCamera() || camera == nullptr)
+                                glm::mat4 view;
+
+                                if (obj->ShouldIgnoreCamera())
+                                    view = glm::mat4(1);
+                                else
+                                    view = camera->GetViewMatrix();
+
+
+                                if (camera)
                                 {
                                     projection = glm::ortho(
-                                        -static_cast<float>(obj->GetReferenceCamera()->GetScreenWidth()) / 2,
-                                        static_cast<float>(obj->GetReferenceCamera()->GetScreenWidth()) / 2,
-                                        -static_cast<float>(obj->GetReferenceCamera()->GetScreenHeight()) / 2,
-                                        static_cast<float>(obj->GetReferenceCamera()->GetScreenHeight()) / 2
+                                        -static_cast<float>(camera->GetScreenWidth()) / 2,
+                                        static_cast<float>(camera->GetScreenWidth()) / 2,
+                                        -static_cast<float>(camera->GetScreenHeight()) / 2,
+                                        static_cast<float>(camera->GetScreenHeight()) / 2
                                     );
                                 }
                                 else
-                                    projection = camera->GetProjectionMatrix();
+                                {
+                                    projection = glm::ortho(
+                                        -static_cast<float>(engineContext.windowManager->GetWidth()) / 2,
+                                        static_cast<float>(engineContext.windowManager->GetWidth()) / 2,
+                                        -static_cast<float>(engineContext.windowManager->GetHeight()) / 2,
+                                        static_cast<float>(engineContext.windowManager->GetHeight()) / 2
+                                    );
+                                }
+                                mat->SetUniform("u_View", view);
                                 mat->SetUniform("u_Projection", projection);
 
                                 glm::mat4 model = obj->GetTransform2DMatrix();
