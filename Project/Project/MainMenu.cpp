@@ -17,7 +17,7 @@ void MainMenu::Init(const EngineContext& engineContext)
     objectManager.AddObject(std::make_unique<Enemy>(glm::vec2(200,0)), "enemy");
 
 
-    startText = static_cast<TextObject*>(objectManager.AddObject(std::make_unique<TextObject>(engineContext.renderManager->GetFontByTag("default"),"N/A",TextAlignH::Center, TextAlignV::Middle), "StartText"));
+    startText = static_cast<TextObject*>(objectManager.AddObject(std::make_unique<TextObject>(engineContext.renderManager->GetFontByTag("default"),"START",TextAlignH::Center, TextAlignV::Middle), "StartText"));
     startText->GetTransform2D().SetPosition({ 0,100 });
     startText->SetIgnoreCamera(true, cameraManager.GetActiveCamera());
     startText->SetRenderLayer("UI");
@@ -53,15 +53,6 @@ void MainMenu::LateInit(const EngineContext& engineContext)
 
 void MainMenu::Update(float dt, const EngineContext& engineContext)
 {
-    if (engineContext.inputManager->IsKeyReleased(KEY_F))
-    {
-        engineContext.windowManager->SetFullScreen(true);
-    }
-    if (engineContext.inputManager->IsKeyReleased(KEY_G))
-    {
-        engineContext.windowManager->SetFullScreen(false);
-    }
-
     if (engineContext.inputManager->IsKeyReleased(KEY_N))
     {
         engineContext.stateManager->ChangeState(std::make_unique<Level1>());

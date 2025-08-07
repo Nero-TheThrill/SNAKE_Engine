@@ -1,10 +1,7 @@
-#include "WindowManager.h"
-
-#include "Debug.h"
 #include "gl.h"
 #include "glfw3.h"
-#include "SNAKE_Engine.h"
-#include "GameState.h"
+#include "Engine.h"
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);

@@ -1,9 +1,5 @@
+#include "Engine.h"
 #include "gl.h"
-#include "Material.h"
-#include "Mesh.h"
-#include "Shader.h"
-#include "Texture.h"
-#include "Debug.h"
 
 void Material::Bind() const
 {

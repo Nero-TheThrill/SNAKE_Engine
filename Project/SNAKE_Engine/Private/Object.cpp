@@ -1,7 +1,5 @@
-#include "Object.h"
-#include "EngineContext.h"
-#include "RenderManager.h"
-#include "ObjectManager.h"
+#include "Engine.h"
+
 const bool& Object::IsAlive() const
 {
     return isAlive;

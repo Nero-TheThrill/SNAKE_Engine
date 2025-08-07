@@ -1,10 +1,9 @@
-#include "Font.h"
+#include "Engine.h"
+
 #include <algorithm>
 #include <sstream>
 #include <unordered_set>
-#include "Debug.h"
-#include "EngineContext.h"
-#include "RenderManager.h"
+
 #include "gl.h"
 
 static std::vector<char32_t> UTF8ToCodepoints(const std::string& text)

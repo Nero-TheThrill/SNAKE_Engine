@@ -1,12 +1,8 @@
-#include "ObjectManager.h"
-#include "EngineContext.h"
-#include "Object.h"
-#include "Debug.h"
+#include "Engine.h"
+
 #include <cassert>
 #include <algorithm>
 #include <unordered_set>
-
-#include "TextObject.h"
 
 Object* ObjectManager::AddObject(std::unique_ptr<Object> obj, const std::string& tag)
 {

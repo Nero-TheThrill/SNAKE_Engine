@@ -1,6 +1,4 @@
-#include "TextObject.h"
-#include "EngineContext.h"
-#include "RenderManager.h"
+#include "Engine.h"
 
 TextObject::TextObject(Font* font, const std::string& text, TextAlignH alignH_, TextAlignV alignV_) : Object(ObjectType::TEXT)
 {

@@ -4,11 +4,7 @@
 #ifdef _DEBUG
 //#include<vld.h>//TODO: remove this and directories before release (VC++ Directories -> Include Directories & Library Directories)
 #endif
-#include "SNAKE_Engine.h"
-
-
-#include "Debug.h"
-#include "EngineTimer.h"
+#include "Engine.h"
 
 
 void SNAKE_Engine::SetEngineContext()

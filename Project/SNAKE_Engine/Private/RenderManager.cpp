@@ -1,19 +1,9 @@
-#include "RenderManager.h"
+#include "Engine.h"
+
 #include <algorithm>
 #include "ext/matrix_clip_space.hpp"
-#include "ext/matrix_transform.hpp"
-
-#include "Camera2D.h"
 #include "gl.h"
 
-#include "Debug.h"
-#include"Object.h"
-#include "Material.h"
-#include "InstanceBatchKey.h"
-#include "EngineContext.h"
-#include "GameState.h"
-#include "TextObject.h"
-#include "WindowManager.h"
 
 
 void RenderManager::Submit(std::function<void()>&& drawFunc)

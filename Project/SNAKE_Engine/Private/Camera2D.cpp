@@ -1,5 +1,4 @@
-#include "Camera2D.h"
-#include "glm.hpp"
+#include "Engine.h"
 #include "gtc/matrix_transform.hpp"
 
 Camera2D::Camera2D(int screenWidth, int screenHeight)
@@ -54,5 +53,5 @@ bool Camera2D::IsInView(const glm::vec2& pos, float radius, glm::vec2 viewportSi
     return !(pos.x + radius < (camPos.x - halfSize.x) / zoom ||
         pos.x - radius > (camPos.x + halfSize.x) / zoom ||
         pos.y + radius < (camPos.y - halfSize.y) / zoom ||
-        pos.y - radius > (camPos.y + halfSize.y)/zoom);
+        pos.y - radius > (camPos.y + halfSize.y) / zoom);
 }

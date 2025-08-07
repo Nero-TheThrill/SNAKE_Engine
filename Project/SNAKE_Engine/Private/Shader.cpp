@@ -1,10 +1,10 @@
-#include "Shader.h"
+#include "Engine.h"
+
 #include <iosfwd>
 #include <sstream>
 #include <fstream>
 #include "gl.h"
 
-#include "Debug.h"
 
 
 namespace

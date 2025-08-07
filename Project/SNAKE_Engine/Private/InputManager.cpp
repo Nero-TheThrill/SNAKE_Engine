@@ -1,6 +1,5 @@
-#include "InputManager.h"
+#include "Engine.h"
 
-#include "Camera2D.h"
 #include "glfw3.h"
 
 void InputManager::Init(GLFWwindow* _window)
