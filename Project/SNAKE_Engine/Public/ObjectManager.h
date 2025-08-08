@@ -19,9 +19,9 @@ public:
     [[maybe_unused]]Object* AddObject(std::unique_ptr<Object> obj, const std::string& tag = "");
     void InitAll(const EngineContext& engineContext);
     void UpdateAll(float dt, const EngineContext& engineContext);
-    void DrawAll(const EngineContext& engineContext, Camera2D* camera);
-    void DrawObjects(const EngineContext& engineContext, Camera2D* camera, const std::vector<Object*>& objects);
-    void DrawObjectsWithTag(const EngineContext& engineContext, Camera2D* camera, const std::string& tag);
+    void DrawAll(const EngineContext& engineContext);
+    void DrawObjects(const EngineContext& engineContext, const std::vector<Object*>& objects);
+    void DrawObjectsWithTag(const EngineContext& engineContext, const std::string& tag);
 
     void FreeAll(const EngineContext& engineContext);
 

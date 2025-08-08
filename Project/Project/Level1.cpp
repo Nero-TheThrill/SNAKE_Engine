@@ -19,12 +19,12 @@ void Level1::Load(const EngineContext& engineContext)
     engineContext.renderManager->RegisterTexture("t_selection_box", "Textures/TransparentSquare.png");
     engineContext.renderManager->RegisterTexture("t_border", "Textures/SquareBorder.png");
     engineContext.renderManager->RegisterTexture("t_fill", "Textures/Square.png");
-    engineContext.renderManager->RegisterMaterial("m_apple", "s_default", { std::pair<std::string, std::string>("u_Texture","t_apple") });
-    engineContext.renderManager->RegisterMaterial("m_apple_highlighted", "s_default", { std::pair<std::string, std::string>("u_Texture","t_apple_selected") });
-    engineContext.renderManager->RegisterMaterial("m_background", "s_default", { std::pair<std::string, std::string>("u_Texture","t_background") });
-    engineContext.renderManager->RegisterMaterial("m_selection_box", "s_default", { std::pair<std::string, std::string>("u_Texture","t_selection_box") });
-    engineContext.renderManager->RegisterMaterial("m_border", "s_default", { std::pair<std::string, std::string>("u_Texture","t_border") });
-    engineContext.renderManager->RegisterMaterial("m_fill", "s_default", { std::pair<std::string, std::string>("u_Texture","t_fill") });
+    engineContext.renderManager->RegisterMaterial("m_apple", "s_default1", { std::pair<std::string, std::string>("u_Texture","t_apple") });
+    engineContext.renderManager->RegisterMaterial("m_apple_highlighted", "s_default1", { std::pair<std::string, std::string>("u_Texture","t_apple_selected") });
+    engineContext.renderManager->RegisterMaterial("m_background", "s_default1", { std::pair<std::string, std::string>("u_Texture","t_background") });
+    engineContext.renderManager->RegisterMaterial("m_selection_box", "s_default1", { std::pair<std::string, std::string>("u_Texture","t_selection_box") });
+    engineContext.renderManager->RegisterMaterial("m_border", "s_default1", { std::pair<std::string, std::string>("u_Texture","t_border") });
+    engineContext.renderManager->RegisterMaterial("m_fill", "s_default1", { std::pair<std::string, std::string>("u_Texture","t_fill") });
 
     engineContext.engine->RenderDebugDraws(false);
 }
@@ -97,7 +97,7 @@ void Level1::Init(const EngineContext& engineContext)
             text->SetRenderLayer("UI");
 
             Apple* apple = (Apple*)objectManager.AddObject(std::make_unique<Apple>(text, value), "apple");
-            apple->GetTransform2D().SetPosition(pos);
+            apple->GetTransform2D().SetPosition({pos});
             apple->GetTransform2D().SetScale({ appleSizeX, appleSizeY });
             apple->SetRenderLayer("Game");
         }
@@ -221,7 +221,7 @@ void Level1::LateUpdate(float dt, const EngineContext& engineContext)
 
 void Level1::Draw(const EngineContext& engineContext)
 {
-    objectManager.DrawAll(engineContext, cameraManager.GetActiveCamera());
+    objectManager.DrawAll(engineContext);
 }
 
 void Level1::Free(const EngineContext& engineContext)

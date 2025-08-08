@@ -149,8 +149,8 @@ void MainMenu::LateUpdate(float dt, const EngineContext& engineContext)
 
 void MainMenu::Draw(const EngineContext& engineContext)
 {
- //   engineContext.renderManager->ClearBackground(0, 0, engineContext.windowManager->GetWidth(), engineContext.windowManager->GetHeight(), { 0.2,0.2,0.5,1 });
-    objectManager.DrawAll(engineContext, cameraManager.GetActiveCamera());
+	engineContext.renderManager->ClearBackground(0, 0, engineContext.windowManager->GetWidth(), engineContext.windowManager->GetHeight(), { 0.2,1.2,0.5,1 });
+	objectManager.DrawAll(engineContext);
 }
 
 

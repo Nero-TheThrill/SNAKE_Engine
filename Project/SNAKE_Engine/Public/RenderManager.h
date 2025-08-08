@@ -97,8 +97,6 @@ public:
 
     SpriteSheet* GetSpriteSheetByTag(const std::string& tag);
 
-    void Submit(std::function<void()>&& drawFunc);
-
     void FlushDrawCommands(const EngineContext& engineContext);
 
     void SetViewport(int x, int y, int width, int height);
@@ -113,9 +111,7 @@ private:
 
     void BuildRenderMap(const std::vector<Object*>& source, Camera2D* camera);
 
-    void SubmitRenderMap(const EngineContext& engineContext);
-
-    void Submit(const EngineContext& engineContext, const std::vector<Object*>& objects, Camera2D* camera);
+    void Submit(const std::vector<Object*>& objects, const EngineContext& engineContext);
 
     void FlushDebugLineDrawCommands(const EngineContext& engineContext);
 
@@ -125,7 +121,6 @@ private:
     std::unordered_map<std::string, std::unique_ptr<Material>> materialMap;
     std::unordered_map<std::string, std::unique_ptr<Font>> fontMap;
     std::unordered_map<std::string, std::unique_ptr<SpriteSheet>> spritesheetMap;
-    std::vector<RenderCommand> renderQueue;
 
 
     using CameraAndWidth = std::pair<Camera2D*, float>;
@@ -138,7 +133,7 @@ private:
     };
     std::unordered_map<CameraAndWidth, std::vector<LineInstance>, CameraAndWidthHash> debugLineMap;
     GLuint debugLineVAO = 0, debugLineVBO = 0;
-    Shader* debugLineShader;
+    Shader* defaultShader, *debugLineShader;
 
     RenderMap renderMap;
     RenderLayerManager renderLayerManager;

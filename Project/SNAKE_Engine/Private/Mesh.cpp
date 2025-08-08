@@ -18,6 +18,7 @@ GLenum ToGL(PrimitiveType type)
 
 Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, PrimitiveType primitiveType_) :vao(0), vbo(0), ebo(0), indexCount(0), useIndex(false), primitiveType(primitiveType_)
 {
+    instanceVBO[0] = instanceVBO[1] = instanceVBO[2] = instanceVBO[3] = 0;
     SetupMesh(vertices, indices);
     ComputeLocalBounds(vertices);
 }
@@ -62,8 +63,10 @@ Mesh::~Mesh()
     if (vao) glDeleteVertexArrays(1, &vao);
 }
 
-void Mesh::SetupInstanceAttributes(GLuint* instanceVBO) const
+void Mesh::SetupInstanceAttributes() 
 {
+    if (!instanceVBO[0])
+        glGenBuffers(4, instanceVBO);
     GLuint loc;
     glVertexArrayVertexBuffer(vao, 1, instanceVBO[0], 0, sizeof(glm::mat4));
 
@@ -129,4 +132,21 @@ void Mesh::SetupMesh(const std::vector<Vertex>& vertices, const std::vector<unsi
         glNamedBufferData(ebo, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
         glVertexArrayElementBuffer(vao, ebo);
     }
+}
+
+void Mesh::UpdateInstanceBuffer(const std::vector<glm::mat4>& transforms, const std::vector<glm::vec4>& colors, const std::vector<glm::vec2>& uvOffsets, const std::vector<glm::vec2>& uvScales) const
+{
+    glBindBuffer(GL_ARRAY_BUFFER, instanceVBO[0]);
+    glBufferData(GL_ARRAY_BUFFER, transforms.size() * sizeof(glm::mat4), transforms.data(), GL_DYNAMIC_DRAW);
+
+    glBindBuffer(GL_ARRAY_BUFFER, instanceVBO[1]);
+    glBufferData(GL_ARRAY_BUFFER, colors.size() * sizeof(glm::vec4), colors.data(), GL_DYNAMIC_DRAW);
+
+    glBindBuffer(GL_ARRAY_BUFFER, instanceVBO[2]);
+    glBufferData(GL_ARRAY_BUFFER, uvOffsets.size() * sizeof(glm::vec2), uvOffsets.data(), GL_DYNAMIC_DRAW);
+
+    glBindBuffer(GL_ARRAY_BUFFER, instanceVBO[3]);
+    glBufferData(GL_ARRAY_BUFFER, uvScales.size() * sizeof(glm::vec2), uvScales.data(), GL_DYNAMIC_DRAW);
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 }

@@ -2,6 +2,7 @@
 #include <random>
 
 #include "Bullet.h"
+#include "Bullet1.h"
 #include "Button.h"
 #include "Debug.h"
 #include "Engine.h"
@@ -91,6 +92,23 @@ void Player::Update(float dt, const EngineContext& engineContext)
         float angle = angleDist(gen);
         std::unique_ptr<Bullet> b = std::make_unique<Bullet>(GetWorldPosition(), glm::vec2(std::cos(angle), std::sin(angle)));
         engineContext.stateManager->GetCurrentState()->GetObjectManager().AddObject(std::move(b), "bullet");
+    }
+
+
+    if (engineContext.inputManager->IsKeyDown(KEY_Z))
+    {
+        SNAKE_LOG("player shot the bullet");
+
+        static std::random_device rd;
+        static std::mt19937 gen(rd());
+        static std::uniform_real_distribution<float> angleDist(0.0f, 2.0f * glm::pi<float>());
+
+        for (int i = 0; i < 100; i++)
+        {
+            float angle = angleDist(gen);
+            std::unique_ptr<Bullet1> b = std::make_unique<Bullet1>(transform2D.GetPosition(), glm::vec2(std::cos(angle), std::sin(angle)));
+            engineContext.stateManager->GetCurrentState()->GetObjectManager().AddObject(std::move(b), "111");
+        }
     }
 }
 

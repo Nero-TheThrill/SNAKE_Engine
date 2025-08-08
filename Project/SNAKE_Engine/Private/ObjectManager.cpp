@@ -99,21 +99,21 @@ void ObjectManager::EraseDeadObjects(const EngineContext& engineContext)
         objects.end());
 }
 
-void ObjectManager::DrawAll(const EngineContext& engineContext, Camera2D* camera)
+void ObjectManager::DrawAll(const EngineContext& engineContext)
 {
-    engineContext.renderManager->Submit(engineContext, rawPtrObjects, camera);
+    engineContext.renderManager->Submit(rawPtrObjects, engineContext);
 }
 
-void ObjectManager::DrawObjects(const EngineContext& engineContext, Camera2D* camera, const std::vector<Object*>& objects)
+void ObjectManager::DrawObjects(const EngineContext& engineContext, const std::vector<Object*>& objects)
 {
-    engineContext.renderManager->Submit(engineContext, objects, camera);
+    engineContext.renderManager->Submit(objects, engineContext);
 }
 
-void ObjectManager::DrawObjectsWithTag(const EngineContext& engineContext, Camera2D* camera, const std::string& tag)
+void ObjectManager::DrawObjectsWithTag(const EngineContext& engineContext, const std::string& tag)
 {
     std::vector<Object*> filteredObjects;
     FindByTag(tag, filteredObjects);
-    engineContext.renderManager->Submit(engineContext, filteredObjects, camera);
+    engineContext.renderManager->Submit(filteredObjects, engineContext);
 }
 
 void ObjectManager::FreeAll(const EngineContext& engineContext)

@@ -116,7 +116,7 @@ void Shader::SendUniform(const std::string& name, int value) const
     GLint location = glGetUniformLocation(programID, name.c_str());
     if (location == -1)
     {
-        SNAKE_ERR("[Shader] Uniform not found: " << name);
+        SNAKE_WRN("[Shader] Uniform not found: " << name);
         return;
     }
     glUniform1i(location, value);

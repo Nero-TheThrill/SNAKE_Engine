@@ -10,7 +10,11 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
     {
         snakeEngine->GetEngineContext().windowManager->SetWidth(width);
         snakeEngine->GetEngineContext().windowManager->SetHeight(height);
-        snakeEngine->GetEngineContext().stateManager->GetCurrentState()->GetCameraManager().SetScreenSizeForAll(width, height);
+        auto* state = snakeEngine->GetEngineContext().stateManager->GetCurrentState();
+        if (state)
+        {
+            state->GetCameraManager().SetScreenSizeForAll(width, height);
+        }
         snakeEngine->GetEngineContext().inputManager->Reset();
         SNAKE_LOG("changed: " << snakeEngine->GetEngineContext().windowManager->GetWidth() << " " << snakeEngine->GetEngineContext().windowManager->GetHeight());
     }
@@ -46,6 +50,19 @@ bool WindowManager::Init(int _windowWidth, int _windowHeight, SNAKE_Engine& engi
         SNAKE_ERR("Failed to initialize GLAD");
         return false;
     }
+    glEnable(GL_DEBUG_OUTPUT);
+    glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+
+    glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DEBUG_SEVERITY_NOTIFICATION,
+        0, nullptr, GL_FALSE);
+    glDebugMessageCallback(
+        [](GLenum /*src*/, GLenum type, GLuint id, GLenum severity, GLsizei, const GLchar* msg, const void*) {
+            if (severity == GL_DEBUG_SEVERITY_NOTIFICATION) return;
+            if (type == GL_DEBUG_TYPE_OTHER) return;
+            if (severity == GL_DEBUG_SEVERITY_HIGH) { SNAKE_ERR(std::string("[GL] ") + msg); }
+            else if (severity == GL_DEBUG_SEVERITY_MEDIUM) { SNAKE_WRN(std::string("[GL] ") + msg); }
+            else { SNAKE_LOG(std::string("[GL] ") + msg); }
+        }, nullptr);
 
     glViewport(0, 0, windowWidth, windowHeight);
     glfwSetWindowUserPointer(window, &engine);

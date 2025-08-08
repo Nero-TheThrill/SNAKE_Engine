@@ -34,7 +34,7 @@ protected:
 
     virtual void Draw([[maybe_unused]] const EngineContext& engineContext)
     {
-        objectManager.DrawAll(engineContext, cameraManager.GetActiveCamera());
+        objectManager.DrawAll(engineContext);
     }
 
     virtual void Free([[maybe_unused]] const EngineContext& engineContext) {}

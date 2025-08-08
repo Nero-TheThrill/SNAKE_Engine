@@ -10,10 +10,6 @@ struct TextInstance
 {
     Font* font = nullptr;
     std::string text = "";
-    std::string GetCacheKey() const
-    {
-        return "|" + text;
-    }
 };
 class TextObject : public Object
 {
@@ -80,7 +76,7 @@ protected:
     TextAlignV alignV;
 
     TextInstance textInstance;
-    std::unordered_map<std::string, std::unique_ptr<Mesh>> textMeshCache;
+    std::unique_ptr<Mesh> textMesh;
 
     int textAtlasVersionTracker = 0;
 };

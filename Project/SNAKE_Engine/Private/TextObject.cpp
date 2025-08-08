@@ -2,9 +2,6 @@
 
 TextObject::TextObject(Font* font, const std::string& text, TextAlignH alignH_, TextAlignV alignV_) : Object(ObjectType::TEXT)
 {
-
-    std::string cacheKey = textInstance.GetCacheKey();
-
     alignH = alignH_;
     alignV = alignV_;
 
@@ -140,23 +137,13 @@ void TextObject::CheckFontAtlasAndMeshUpdate()
     textAtlasVersionTracker = textInstance.font->GetTextAtlasVersion();
     std::unique_ptr<Mesh> newMesh(textInstance.font->GenerateTextMesh(textInstance.text, alignH, alignV));
     mesh = newMesh.get();
-    textMeshCache[textInstance.GetCacheKey()] = std::move(newMesh);
+    textMesh = std::move(newMesh);
 }
 
 void TextObject::UpdateMesh()
 {
-    if (textMeshCache.size() > 500)
-        textMeshCache.clear();
 
-    auto it = textMeshCache.find(textInstance.GetCacheKey());
-    if (it != textMeshCache.end())
-    {
-        mesh = it->second.get();
-    }
-    else
-    {
-        std::unique_ptr<Mesh> newMesh(textInstance.font->GenerateTextMesh(textInstance.text, alignH, alignV));
-        mesh = newMesh.get();
-        textMeshCache[textInstance.GetCacheKey()] = std::move(newMesh);
-    }
+    std::unique_ptr<Mesh> newMesh(textInstance.font->GenerateTextMesh(textInstance.text, alignH, alignV));
+    mesh = newMesh.get();
+    textMesh = std::move(newMesh);
 }

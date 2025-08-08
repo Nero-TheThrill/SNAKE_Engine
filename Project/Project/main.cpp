@@ -9,7 +9,7 @@
 int main(int argc, char* argv[])
 {
     SNAKE_Engine snakeEngine;
-    DebugLogger::SetLogLevel(LogLevel::None);
+    DebugLogger::SetLogLevel(LogLevel::Error);
     float multiplier = 1.5f;
     int width = 800* multiplier;
     int height = 480* multiplier;
@@ -51,12 +51,13 @@ int main(int argc, char* argv[])
     snakeEngine.GetEngineContext().renderManager->RegisterTexture("blueMButton", "Textures/blueMButton.png");
 	snakeEngine.GetEngineContext().renderManager->RegisterTexture("penguinSpritesheet", "Textures/penguin.png");
 
-    snakeEngine.GetEngineContext().renderManager->RegisterShader("s_default", { {ShaderStage::Vertex,"Shaders/Default.vert"},{ShaderStage::Fragment,"Shaders/Default.frag"} });
+    snakeEngine.GetEngineContext().renderManager->RegisterShader("s_default1", { {ShaderStage::Vertex,"Shaders/Default.vert"},{ShaderStage::Fragment,"Shaders/Default.frag"} });
     snakeEngine.GetEngineContext().renderManager->RegisterShader("s_instancing", { {ShaderStage::Vertex,"Shaders/instancing.vert"},{ShaderStage::Fragment,"Shaders/instancing.frag"} });
     snakeEngine.GetEngineContext().renderManager->RegisterShader("s_animation", { {ShaderStage::Vertex,"Shaders/Animation.vert"},{ShaderStage::Fragment,"Shaders/Animation.frag"} });
     snakeEngine.GetEngineContext().renderManager->RegisterMaterial("m_animation", "s_animation", { });
     snakeEngine.GetEngineContext().renderManager->RegisterMaterial("m_instancing", "s_instancing", { std::pair<std::string, std::string>("u_Texture","default") });
-    snakeEngine.GetEngineContext().renderManager->RegisterMaterial("m_blueMButton", "s_default", { std::pair<std::string, std::string>("u_Texture","blueMButton") });
+    snakeEngine.GetEngineContext().renderManager->RegisterMaterial("m_instancing1", "s_instancing", { std::pair<std::string, std::string>("u_Texture","default") });
+    snakeEngine.GetEngineContext().renderManager->RegisterMaterial("m_blueMButton", "s_default1", { std::pair<std::string, std::string>("u_Texture","blueMButton") });
 
     snakeEngine.GetEngineContext().renderManager->RegisterSpriteSheet("animTest", "penguinSpritesheet", 128, 128);
 
