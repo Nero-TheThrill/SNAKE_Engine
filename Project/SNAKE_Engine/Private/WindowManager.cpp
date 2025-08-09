@@ -110,6 +110,7 @@ void WindowManager::SetFullScreen(bool enable)
 
     windowWidth = enable ? mode->width : windowedWidth;
     windowHeight = enable ? mode->height : windowedHeight;
+    framebuffer_size_callback(window, windowWidth, windowHeight);
 }
 void WindowManager::Free() const
 {

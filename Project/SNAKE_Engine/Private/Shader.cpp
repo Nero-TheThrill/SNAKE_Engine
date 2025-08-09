@@ -48,25 +48,54 @@ Shader::~Shader()
     glDeleteProgram(programID);
 }
 
-void Shader::AttachFromFile(ShaderStage stage, const FilePath& path)
+bool Shader::AttachFromFile(ShaderStage stage, const FilePath& path)
 {
-    std::string src = LoadShaderSource(path);
-    GLuint shader = CompileShader(stage, src);
-    glAttachShader(programID, shader);
-    attachedShaders.push_back(shader);
-    attachedStages.push_back(stage);
+    GLint successLoad;
+    std::string src = LoadShaderSource(path, successLoad);
+    if (successLoad)
+    {
+        GLint successCompile;
+        GLuint shader = CompileShader(stage, src, successCompile);
+        if (successCompile)
+        {
+            glAttachShader(programID, shader);
+            attachedShaders.push_back(shader);
+            attachedStages.push_back(stage);
+            return true;
+        }
+        else
+        {
+            SNAKE_ERR("Shader attach failed: shader source from [" << path << "] compile failed");
+            return false;
+        }
+    }
+    else
+    {
+        SNAKE_ERR("Shader attach failed: shader source from [" << path << "] load failed");
+        return false;
+    }
 }
 
-void Shader::AttachFromSource(ShaderStage stage, const std::string& source)
+bool Shader::AttachFromSource(ShaderStage stage, const std::string& source)
 {
-    GLuint shader = CompileShader(stage, source);
-    glAttachShader(programID, shader);
-    attachedShaders.push_back(shader);
-    attachedStages.push_back(stage);
+    GLint success;
+    GLuint shader = CompileShader(stage, source, success);
+    if (success)
+    {
+        glAttachShader(programID, shader);
+        attachedShaders.push_back(shader);
+        attachedStages.push_back(stage);
+        return true;
+    }
+    else
+    {
+        SNAKE_ERR("Shader attach failed: shader source["<< source <<"] compile failed");
+        return false;
+    }
 }
 
 
-void Shader::Link()
+bool Shader::Link()
 {
     bool hasTCS = false;
     bool hasTES = false;
@@ -80,7 +109,7 @@ void Shader::Link()
     if (hasTCS != hasTES)
     {
         SNAKE_ERR("[Shader] Tessellation shaders must come in pairs (TCS + TES).");
-        return;
+        return false;
     }
     glLinkProgram(programID);
 
@@ -91,6 +120,7 @@ void Shader::Link()
         char infoLog[1024];
         glGetProgramInfoLog(programID, 1024, nullptr, infoLog);
         SNAKE_ERR("Shader program link error:\n" << infoLog);
+        return false;
     }
 
     CheckSupportsInstancing();
@@ -99,6 +129,7 @@ void Shader::Link()
     {
         glDetachShader(programID, shader);
     }
+    return true;
 }
 
 void Shader::Use() const
@@ -193,21 +224,22 @@ void Shader::CheckSupportsInstancing()
     isSupportInstancing = loc != -1;
 }
 
-std::string Shader::LoadShaderSource(const FilePath& filepath)
+std::string Shader::LoadShaderSource(const FilePath& filepath, GLint& success)
 {
     std::ifstream file(filepath);
     if (!file.is_open())
     {
         SNAKE_ERR("[Shader] Failed to open shader file: " << filepath);
+        success = GL_FALSE;
         return "";
     }
-
+    success = GL_TRUE;
     std::stringstream buffer;
     buffer << file.rdbuf();
     return buffer.str();
 }
 
-GLuint Shader::CompileShader(ShaderStage stage, const std::string& source)
+GLuint Shader::CompileShader(ShaderStage stage, const std::string& source, GLint& success)
 {
     GLenum glStage = ConvertShaderStageToGLenum(stage);
     GLuint shader = glCreateShader(glStage);
@@ -216,7 +248,6 @@ GLuint Shader::CompileShader(ShaderStage stage, const std::string& source)
     glShaderSource(shader, 1, &src, nullptr);
     glCompileShader(shader);
 
-    GLint success;
     glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
     if (!success)
     {

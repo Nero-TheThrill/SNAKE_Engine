@@ -25,8 +25,8 @@ void InputManager::Update()
 
 void InputManager::Reset()
 {
-    previousKeyState = currentKeyState;
-    previousMouseState = currentMouseState;
+    previousKeyState.reset();
+    previousMouseState.reset();
     currentKeyState.reset();
     currentMouseState.reset();
 }

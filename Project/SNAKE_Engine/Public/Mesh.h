@@ -35,7 +35,7 @@ public:
     [[nodiscard]] glm::vec2 GetLocalBoundsHalfSize() const { return localHalfSize; }
 
 private:
-    void BindVAO() const;
+    void BindVAO(bool instanced) const;
 
     void SetupInstanceAttributes();
 
@@ -79,6 +79,7 @@ private:
     GLuint ebo;
     GLsizei indexCount;
 
+    GLuint instanceVAO;
     GLuint instanceVBO[4];
 
     bool useIndex;

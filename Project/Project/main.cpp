@@ -49,7 +49,9 @@ int main(int argc, char* argv[])
 
     snakeEngine.GetEngineContext().renderManager->RegisterTexture("default", "Textures/Default.jpg");
     snakeEngine.GetEngineContext().renderManager->RegisterTexture("blueMButton", "Textures/blueMButton.png");
-	snakeEngine.GetEngineContext().renderManager->RegisterTexture("penguinSpritesheet", "Textures/penguin.png");
+    TextureSettings ts = { TextureMinFilter::LinearMipmapLinear,TextureMagFilter::Linear,TextureWrap::ClampToEdge,TextureWrap::ClampToEdge };
+    snakeEngine.GetEngineContext().renderManager->RegisterTexture("penguinSpritesheet", "Textures/penguin.png", ts);
+    snakeEngine.GetEngineContext().renderManager->RegisterTexture("animTest1", "Textures/animTest1.png", ts);
 
     snakeEngine.GetEngineContext().renderManager->RegisterShader("s_default1", { {ShaderStage::Vertex,"Shaders/Default.vert"},{ShaderStage::Fragment,"Shaders/Default.frag"} });
     snakeEngine.GetEngineContext().renderManager->RegisterShader("s_instancing", { {ShaderStage::Vertex,"Shaders/instancing.vert"},{ShaderStage::Fragment,"Shaders/instancing.frag"} });
@@ -60,6 +62,7 @@ int main(int argc, char* argv[])
     snakeEngine.GetEngineContext().renderManager->RegisterMaterial("m_blueMButton", "s_default1", { std::pair<std::string, std::string>("u_Texture","blueMButton") });
 
     snakeEngine.GetEngineContext().renderManager->RegisterSpriteSheet("animTest", "penguinSpritesheet", 128, 128);
+    snakeEngine.GetEngineContext().renderManager->RegisterSpriteSheet("animTest1", "animTest1", 64, 64);
 
     snakeEngine.GetEngineContext().renderManager->RegisterRenderLayer("Game.Background",0);
     snakeEngine.GetEngineContext().renderManager->RegisterRenderLayer("Game",1);

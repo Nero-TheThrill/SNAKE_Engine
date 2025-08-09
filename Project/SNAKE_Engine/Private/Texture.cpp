@@ -5,16 +5,26 @@
 
 //used anonymous namespace to hide these functions from other files
 
-static GLint ConvertFilter(TextureFilter filter)
+static GLint ConvertMinFilter(TextureMinFilter filter)
 {
     switch (filter)
     {
-    case TextureFilter::Nearest:              return GL_NEAREST;
-    case TextureFilter::Linear:               return GL_LINEAR;
-    case TextureFilter::NearestMipmapNearest: return GL_NEAREST_MIPMAP_NEAREST;
-    case TextureFilter::LinearMipmapNearest:  return GL_LINEAR_MIPMAP_NEAREST;
-    case TextureFilter::NearestMipmapLinear:  return GL_NEAREST_MIPMAP_LINEAR;
-    case TextureFilter::LinearMipmapLinear:   return GL_LINEAR_MIPMAP_LINEAR;
+    case TextureMinFilter::Nearest:              return GL_NEAREST;
+    case TextureMinFilter::Linear:               return GL_LINEAR;
+    case TextureMinFilter::NearestMipmapNearest: return GL_NEAREST_MIPMAP_NEAREST;
+    case TextureMinFilter::LinearMipmapNearest:  return GL_LINEAR_MIPMAP_NEAREST;
+    case TextureMinFilter::NearestMipmapLinear:  return GL_NEAREST_MIPMAP_LINEAR;
+    case TextureMinFilter::LinearMipmapLinear:   return GL_LINEAR_MIPMAP_LINEAR;
+    }
+    return GL_LINEAR;
+}
+
+static GLint ConvertMagFilter(TextureMagFilter filter)
+{
+    switch (filter)
+    {
+    case TextureMagFilter::Nearest:              return GL_NEAREST;
+    case TextureMagFilter::Linear:               return GL_LINEAR;
     }
     return GL_LINEAR;
 }
@@ -94,14 +104,13 @@ void Texture::GenerateTexture(const unsigned char* data, const TextureSettings& 
     }
 
     glCreateTextures(GL_TEXTURE_2D, 1, &id);
-    glTextureStorage2D(id, 1, internalFormat, width, height);
+    glTextureStorage2D(id, settings.generateMipmap? 1 + floor(log2(std::max(width, height))) : 1, internalFormat, width, height);
     glTextureSubImage2D(id, 0, 0, 0, width, height, pixelFormat, GL_UNSIGNED_BYTE, data);
 
-    glTextureParameteri(id, GL_TEXTURE_MIN_FILTER, ConvertFilter(settings.minFilter));
-    glTextureParameteri(id, GL_TEXTURE_MAG_FILTER, ConvertFilter(settings.magFilter));
+    glTextureParameteri(id, GL_TEXTURE_MIN_FILTER, ConvertMinFilter(settings.minFilter));
+    glTextureParameteri(id, GL_TEXTURE_MAG_FILTER, ConvertMagFilter(settings.magFilter));
     glTextureParameteri(id, GL_TEXTURE_WRAP_S, ConvertWrap(settings.wrapS));
     glTextureParameteri(id, GL_TEXTURE_WRAP_T, ConvertWrap(settings.wrapT));
-
 
     if (settings.generateMipmap)
     {

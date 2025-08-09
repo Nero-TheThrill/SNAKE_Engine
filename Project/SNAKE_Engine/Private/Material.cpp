@@ -23,18 +23,27 @@ bool Material::IsInstancingSupported() const
 }
 void Material::EnableInstancing(bool enable, Mesh* mesh)
 {
-    if (shader && !shader->SupportsInstancing())
+    if (!mesh)
+    {
+        SNAKE_WRN("Enable Instancing skipped: Mesh is nullptr");
+        return;
+    }
+    if (!shader)
+    {
+        SNAKE_WRN("Enable Instancing skipped: Shader is nullptr");
+        return;
+    }
+    if (!shader->SupportsInstancing())
     {
         SNAKE_WRN("Enable Instancing skipped: Tried enable instancing, but shader does not support 'i_Model'.");
         return;
     }
-    if (!isInstancingEnabled)
+
+    isInstancingEnabled = enable;
+
+    if (mesh && isInstancingEnabled)
     {
-        isInstancingEnabled = enable;
-        if (mesh)
-        {
-            mesh->SetupInstanceAttributes();
-        }
+        mesh->SetupInstanceAttributes();
     }
 }
 

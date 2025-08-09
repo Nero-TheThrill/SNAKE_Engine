@@ -18,6 +18,7 @@ class RenderManager;
 class Material;
 
 using GLuint = unsigned int;
+using GLint = int;
 using GLenum = unsigned int;
 using FilePath = std::string;
 
@@ -51,15 +52,15 @@ private:
 
     [[nodiscard]] bool SupportsInstancing() const;
 
-    void Link();
+    bool Link();
 
-    void AttachFromFile(ShaderStage stage, const FilePath& filepath);
+    bool AttachFromFile(ShaderStage stage, const FilePath& filepath);
 
-    void AttachFromSource(ShaderStage stage, const std::string& source);
+    bool AttachFromSource(ShaderStage stage, const std::string& source);
 
-    [[nodiscard]] std::string LoadShaderSource(const FilePath& filepath);
+    [[nodiscard]] std::string LoadShaderSource(const FilePath& filepath, GLint& success);
 
-    [[nodiscard]] GLuint CompileShader(ShaderStage stage, const std::string& source);
+    [[nodiscard]] GLuint CompileShader(ShaderStage stage, const std::string& source, GLint& success);
 
     void CheckSupportsInstancing();
 

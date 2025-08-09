@@ -8,8 +8,11 @@ void RenderManager::Submit(const std::vector<Object*>& objects, const EngineCont
 {
     std::vector<Object*> visibleObjects;
     Camera2D* camera = engineContext.stateManager->GetCurrentState()->GetActiveCamera();
-    FrustumCuller::CullVisible(*camera, objects, visibleObjects, glm::vec2(camera->GetScreenWidth(), camera->GetScreenHeight()));
-    BuildRenderMap(visibleObjects, camera);
+    if (camera)
+    {
+        FrustumCuller::CullVisible(*camera, objects, visibleObjects, glm::vec2(camera->GetScreenWidth(), camera->GetScreenHeight()));
+        BuildRenderMap(visibleObjects, camera);
+    }
 }
 
 void FrustumCuller::CullVisible(const Camera2D& camera, const std::vector<Object*>& allObjects,
@@ -82,7 +85,8 @@ void RenderManager::FlushDrawCommands(const EngineContext& engineContext)
                         material = defaultMaterial;
                     if (material != lastMaterial)
                     {
-                        if (lastMaterial) lastMaterial->UnBind();
+                        if (lastMaterial)
+                            lastMaterial->UnBind();
                         material->Bind();
                         lastMaterial = material;
                     }
@@ -115,7 +119,6 @@ void RenderManager::FlushDrawCommands(const EngineContext& engineContext)
 
                     batch.front().first->Draw(engineContext);
                     material->SendUniforms();
-                    key.mesh->BindVAO();
                     key.mesh->UpdateInstanceBuffer(transforms, colors, uvOffsets, uvScales);
                     key.mesh->DrawInstanced(static_cast<GLsizei>(transforms.size()));
                 }
@@ -129,7 +132,8 @@ void RenderManager::FlushDrawCommands(const EngineContext& engineContext)
                             material = defaultMaterial;
                         if (material != lastMaterial)
                         {
-                            if (lastMaterial) lastMaterial->UnBind();
+                            if (lastMaterial)
+                                lastMaterial->UnBind();
                             material->Bind();
                             lastMaterial = material;
                         }
@@ -264,7 +268,7 @@ void RenderManager::Init(const EngineContext& engineContext)
     auto shader = std::make_unique<Shader>();
 
     shader->AttachFromSource(ShaderStage::Vertex, R"(
-		#version 330 core
+		#version 460 core
 		layout (location = 0) in vec2 aPos;
 		layout (location = 1) in vec2 aUV;
 
@@ -281,7 +285,7 @@ void RenderManager::Init(const EngineContext& engineContext)
 		}
     )");
     shader->AttachFromSource(ShaderStage::Fragment, R"(
-	        #version 330 core
+	        #version 460 core
 	        in vec2 v_TexCoord;
 	        out vec4 FragColor;
 
@@ -300,7 +304,7 @@ void RenderManager::Init(const EngineContext& engineContext)
 
     shader = std::make_unique<Shader>();
     shader->AttachFromSource(ShaderStage::Vertex, R"(
-                #version 330 core
+                #version 460 core
                 layout (location = 0) in vec2 aPos;
                 layout (location = 1) in vec4 aColor;
 
@@ -315,7 +319,7 @@ void RenderManager::Init(const EngineContext& engineContext)
                 }
     )");
     shader->AttachFromSource(ShaderStage::Fragment, R"(
-                #version 330 core
+                #version 460 core
                 in vec4 vColor;
                 out vec4 FragColor;
 
@@ -332,7 +336,7 @@ void RenderManager::Init(const EngineContext& engineContext)
 
     shader = std::make_unique<Shader>();
     shader->AttachFromSource(ShaderStage::Vertex, R"(
-		#version 330 core
+		#version 460 core
 
 		layout (location = 0) in vec3 aPos;
 		layout(location = 1) in vec2 a_UV;
@@ -349,13 +353,13 @@ void RenderManager::Init(const EngineContext& engineContext)
 
     )");
     shader->AttachFromSource(ShaderStage::Fragment, R"(
-                #version 330 core
-                in vec4 vColor;
+                #version 460 core
+	        uniform vec4 u_Color;
                 out vec4 FragColor;
 
                 void main()
                 {
-                    FragColor = vColor;
+                    FragColor = u_Color;
                 }
     )");
     shader->Link();
@@ -381,7 +385,7 @@ void RenderManager::Init(const EngineContext& engineContext)
             }
         }
     }
-    RegisterTexture("[EngineTexture]error", std::make_unique<Texture>(errorTexturePixels.data(), 8, 8, 4, TextureSettings{ TextureFilter::Nearest ,TextureFilter::Nearest ,TextureWrap::MirroredRepeat,TextureWrap::MirroredRepeat }));
+    RegisterTexture("[EngineTexture]error", std::make_unique<Texture>(errorTexturePixels.data(), 8, 8, 4, TextureSettings{ TextureMinFilter::Nearest ,TextureMagFilter::Nearest ,TextureWrap::MirroredRepeat,TextureWrap::MirroredRepeat }));
     errorTexture = GetTextureByTag("[EngineTexture]error");
 
 
@@ -389,7 +393,7 @@ void RenderManager::Init(const EngineContext& engineContext)
 
     shader = std::make_unique<Shader>();
     shader->AttachFromSource(ShaderStage::Vertex, R"(
-                #version 330 core
+                #version 460 core
 
                 layout (location = 0) in vec3 aPos;
                 layout(location = 1) in vec2 a_UV;
@@ -407,7 +411,7 @@ void RenderManager::Init(const EngineContext& engineContext)
                 }
     )");
     shader->AttachFromSource(ShaderStage::Fragment, R"(
-                #version 330 core
+                #version 460 core
 
                 out vec4 FragColor;
                 in vec2 v_UV;
@@ -428,7 +432,7 @@ void RenderManager::Init(const EngineContext& engineContext)
     defaultMaterial = GetMaterialByTag("[EngineMaterial]error");
 
     RegisterMesh("[EngineMesh]default", std::vector<Vertex>{
-        {{-0.5f, -0.5f, 0.f}, { 0.f, 0.f }}, 
+        {{-0.5f, -0.5f, 0.f}, { 0.f, 0.f }},
         { { 0.5f, -0.5f, 0.f }, { 1.f, 0.f } },
         { { 0.5f, 0.5f, 0.f }, { 1.f, 1.f } },
         { { -0.5f, 0.5f, 0.f }, { 0.f, 1.f } }
@@ -467,6 +471,9 @@ void RenderManager::BuildRenderMap(const std::vector<Object*>& source, Camera2D*
 
         Material* material = obj->GetMaterial();
         Mesh* mesh = obj->GetMesh();
+        SpriteAnimator* spriteAnimator = obj->GetSpriteAnimator();
+
+        SpriteSheet* spritesheet = spriteAnimator ? spriteAnimator->GetSpriteSheet() : nullptr;
         Shader* shader = material ? material->GetShader() : nullptr;
 
         if (!material || !mesh || !shader)
@@ -479,7 +486,7 @@ void RenderManager::BuildRenderMap(const std::vector<Object*>& source, Camera2D*
             continue;
         }
 
-        InstanceBatchKey key{ mesh, material };
+        InstanceBatchKey key{ mesh, material, spritesheet };
         renderMap[layer][shader][key].emplace_back(obj, camera);
     }
 }
@@ -502,9 +509,19 @@ void RenderManager::RegisterShader(const std::string& tag, const std::vector<std
     auto shader = std::make_unique<Shader>();
 
     for (const auto& [stage, path] : sources)
-        shader->AttachFromFile(stage, path);
+    {
+        if (!shader->AttachFromFile(stage, path))
+        {
+            SNAKE_ERR("Failed to register shader [" << tag << "].");
+            return;
+        }
+    }
 
-    shader->Link();
+    if (!shader->Link())
+    {
+        SNAKE_ERR("Failed to register shader [" << tag << "].");
+        return;
+    }
     shaderMap[tag] = std::move(shader);
 }
 
@@ -662,16 +679,21 @@ void RenderManager::UnregisterShader(const std::string& tag, const EngineContext
         return;
     }
     Shader* target = it->second.get();
-    std::vector<Object*> objects = engineContext.stateManager->GetCurrentState()->GetObjectManager().GetAllRawPtrObjects();
-    for (auto obj : objects)
+    GameState* gameState = engineContext.stateManager->GetCurrentState();
+    if (gameState)
     {
-        if (obj->GetMaterial()->HasShader(target))
+        std::vector<Object*> objects = gameState->GetObjectManager().GetAllRawPtrObjects();
+        for (auto obj : objects)
         {
-            SNAKE_WRN("Cannot delete the shader [" << tag << "] while there are objects referencing it.");
-            return;
+            Material* material = obj->GetMaterial();
+            if (material && material->HasShader(target))
+            {
+                SNAKE_WRN("Cannot delete the shader [" << tag << "] while there are objects referencing it.");
+                return;
+            }
         }
+        shaderMap.erase(tag);
     }
-    shaderMap.erase(tag);
 }
 
 void RenderManager::UnregisterTexture(const std::string& tag, const EngineContext& engineContext)
@@ -683,16 +705,21 @@ void RenderManager::UnregisterTexture(const std::string& tag, const EngineContex
         return;
     }
     Texture* target = it->second.get();
-    std::vector<Object*> objects = engineContext.stateManager->GetCurrentState()->GetObjectManager().GetAllRawPtrObjects();
-    for (auto obj : objects)
+    GameState* gameState = engineContext.stateManager->GetCurrentState();
+    if (gameState)
     {
-        if (obj->GetMaterial()->HasTexture(target))
+        std::vector<Object*> objects = gameState->GetObjectManager().GetAllRawPtrObjects();
+        for (auto obj : objects)
         {
-            SNAKE_WRN("Cannot delete the texture [" << tag << "] while there are objects referencing it.");
-            return;
+            Material* material = obj->GetMaterial();
+            if (material && material->HasTexture(target))
+            {
+                SNAKE_WRN("Cannot delete the texture [" << tag << "] while there are objects referencing it.");
+                return;
+            }
         }
+        textureMap.erase(tag);
     }
-    textureMap.erase(tag);
 }
 
 void RenderManager::UnregisterMesh(const std::string& tag, const EngineContext& engineContext)
@@ -704,16 +731,20 @@ void RenderManager::UnregisterMesh(const std::string& tag, const EngineContext& 
         return;
     }
     Mesh* target = it->second.get();
-    std::vector<Object*> objects = engineContext.stateManager->GetCurrentState()->GetObjectManager().GetAllRawPtrObjects();
-    for (auto obj : objects)
+    GameState* gameState = engineContext.stateManager->GetCurrentState();
+    if (gameState)
     {
-        if (obj->GetMesh() == target)
+        std::vector<Object*> objects = gameState->GetObjectManager().GetAllRawPtrObjects();
+        for (auto obj : objects)
         {
-            SNAKE_WRN("Cannot delete the mesh [" << tag << "] while there are objects referencing it.");
-            return;
+            if (obj->GetMesh() == target)
+            {
+                SNAKE_WRN("Cannot delete the mesh [" << tag << "] while there are objects referencing it.");
+                return;
+            }
         }
+        meshMap.erase(tag);
     }
-    meshMap.erase(tag);
 }
 
 void RenderManager::UnregisterMaterial(const std::string& tag, const EngineContext& engineContext)
@@ -725,16 +756,20 @@ void RenderManager::UnregisterMaterial(const std::string& tag, const EngineConte
         return;
     }
     Material* target = it->second.get();
-    std::vector<Object*> objects = engineContext.stateManager->GetCurrentState()->GetObjectManager().GetAllRawPtrObjects();
-    for (auto obj : objects)
+    GameState* gameState = engineContext.stateManager->GetCurrentState();
+    if (gameState)
     {
-        if (obj->GetMaterial()== target)
+        std::vector<Object*> objects = gameState->GetObjectManager().GetAllRawPtrObjects();
+        for (auto obj : objects)
         {
-            SNAKE_WRN("Cannot delete the material [" << tag << "] while there are objects referencing it.");
-            return;
+            if (obj->GetMaterial() == target)
+            {
+                SNAKE_WRN("Cannot delete the material [" << tag << "] while there are objects referencing it.");
+                return;
+            }
         }
+        materialMap.erase(tag);
     }
-    materialMap.erase(tag);
 }
 
 void RenderManager::UnregisterFont(const std::string& tag, const EngineContext& engineContext)
@@ -746,16 +781,20 @@ void RenderManager::UnregisterFont(const std::string& tag, const EngineContext& 
         return;
     }
     Font* target = it->second.get();
-    std::vector<Object*> objects = engineContext.stateManager->GetCurrentState()->GetObjectManager().GetAllRawPtrObjects();
-    for (auto obj : objects)
+    GameState* gameState = engineContext.stateManager->GetCurrentState();
+    if (gameState)
     {
-        if (obj->GetType()==ObjectType::TEXT && dynamic_cast<TextObject*>(obj)->GetTextInstance()->font == target)
+        std::vector<Object*> objects = gameState->GetObjectManager().GetAllRawPtrObjects();
+        for (auto obj : objects)
         {
-            SNAKE_WRN("Cannot delete the font [" << tag  <<"] while there are objects referencing it.");
-            return;
+            if (obj->GetType() == ObjectType::TEXT && dynamic_cast<TextObject*>(obj)->GetTextInstance()->font == target)
+            {
+                SNAKE_WRN("Cannot delete the font [" << tag << "] while there are objects referencing it.");
+                return;
+            }
         }
+        fontMap.erase(tag);
     }
-    fontMap.erase(tag);
 }
 
 void RenderManager::UnregisterRenderLayer(const std::string& tag)
@@ -772,17 +811,21 @@ void RenderManager::UnregisterSpriteSheet(const std::string& tag, const EngineCo
         return;
     }
     SpriteSheet* target = it->second.get();
-    std::vector<Object*> objects = engineContext.stateManager->GetCurrentState()->GetObjectManager().GetAllRawPtrObjects();
-    for (auto obj : objects)
+    GameState* gameState = engineContext.stateManager->GetCurrentState();
+    if (gameState)
     {
-        SpriteAnimator* spriteAnim = obj->GetSpriteAnimator();
-        if (spriteAnim && spriteAnim->GetSpriteSheet() == target)
+        std::vector<Object*> objects = gameState->GetObjectManager().GetAllRawPtrObjects();
+        for (auto obj : objects)
         {
-            SNAKE_WRN("Cannot delete the sprite sheet [" << tag << "] while there are objects referencing it.");
-            return;
+            SpriteAnimator* spriteAnim = obj->GetSpriteAnimator();
+            if (spriteAnim && spriteAnim->GetSpriteSheet() == target)
+            {
+                SNAKE_WRN("Cannot delete the sprite sheet [" << tag << "] while there are objects referencing it.");
+                return;
+            }
         }
+        spritesheetMap.erase(tag);
     }
-    spritesheetMap.erase(tag);
 }
 
 SpriteSheet* RenderManager::GetSpriteSheetByTag(const std::string& tag)
