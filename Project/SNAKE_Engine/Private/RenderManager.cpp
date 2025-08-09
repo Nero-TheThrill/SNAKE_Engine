@@ -78,7 +78,8 @@ void RenderManager::FlushDrawCommands(const EngineContext& engineContext)
                     }
 
                     Material* material = key.material;
-
+                    if (!material)
+                        material = defaultMaterial;
                     if (material != lastMaterial)
                     {
                         if (lastMaterial) lastMaterial->UnBind();
@@ -91,9 +92,55 @@ void RenderManager::FlushDrawCommands(const EngineContext& engineContext)
 
                     if (!material->HasTexture())
                     {
-                        material->SetTexture("u_Texture", errorTexture.get());
+                        material->SetTexture("u_Texture", errorTexture);
                     }
 
+                    glm::mat4 view = ignoreCam ? glm::mat4(1.0f)
+                        : (cam ? cam->GetViewMatrix() : glm::mat4(1.0f));
+
+                    int w = cam ? cam->GetScreenWidth() : engineContext.windowManager->GetWidth();
+                    int h = cam ? cam->GetScreenHeight() : engineContext.windowManager->GetHeight();
+                    glm::mat4 projection = glm::ortho(-static_cast<float>(w) / 2.0f,
+                        static_cast<float>(w) / 2.0f,
+                        -static_cast<float>(h) / 2.0f,
+                        static_cast<float>(h) / 2.0f);
+
+                    material->SetUniform("u_View", view);
+                    material->SetUniform("u_Projection", projection);
+
+                    if (batch.front().first->HasAnimation())
+                    {
+                        material->SetTexture("u_Texture", batch.front().first->GetAnimator()->GetTexture());
+                    }
+
+                    batch.front().first->Draw(engineContext);
+                    material->SendUniforms();
+                    key.mesh->BindVAO();
+                    key.mesh->UpdateInstanceBuffer(transforms, colors, uvOffsets, uvScales);
+                    key.mesh->DrawInstanced(static_cast<GLsizei>(transforms.size()));
+                }
+
+                else
+                {
+                    for (const auto& [obj, camera] : batch)
+                    {
+                        Material* material = key.material;
+                        if (!material)
+                            material = defaultMaterial;
+                        if (material != lastMaterial)
+                        {
+                            if (lastMaterial) lastMaterial->UnBind();
+                            material->Bind();
+                            lastMaterial = material;
+                        }
+
+                        bool ignoreCam = obj->ShouldIgnoreCamera();
+                        Camera2D* cam = camera;
+
+                        if (!material->HasTexture())
+                        {
+                            material->SetTexture("u_Texture", errorTexture);
+                        }
 
                         glm::mat4 view = ignoreCam ? glm::mat4(1.0f)
                             : (cam ? cam->GetViewMatrix() : glm::mat4(1.0f));
@@ -108,83 +155,32 @@ void RenderManager::FlushDrawCommands(const EngineContext& engineContext)
                         material->SetUniform("u_View", view);
                         material->SetUniform("u_Projection", projection);
 
-                        if (batch.front().first->HasAnimation())
-                        {
-                            material->SetTexture("u_Texture", batch.front().first->GetAnimator()->GetTexture());
-                        }
-
-
-
-                    batch.front().first->Draw(engineContext);
-                    material->SendUniforms();
-                    key.mesh->BindVAO();
-                    key.mesh->UpdateInstanceBuffer(transforms, colors, uvOffsets, uvScales);
-                    key.mesh->DrawInstanced(static_cast<GLsizei>(transforms.size()));
-                }
-
-                else
-                {
-                    for (const auto& [obj, camera] : batch)
-                    {
-                        Material* mat = key.material;
-                        Shader* currentShader = mat->GetShader();
-
-                        if (mat != lastMaterial)
-                        {
-                            if (lastMaterial) lastMaterial->UnBind();
-                            mat->Bind();
-                            lastMaterial = mat;
-                        }
-
-                        bool ignoreCam = obj->ShouldIgnoreCamera();
-                        Camera2D* cam = camera;
-
-                        if (!mat->HasTexture())
-                        {
-                            mat->SetTexture("u_Texture", errorTexture.get());
-                        }
-
-
-                            glm::mat4 view = ignoreCam ? glm::mat4(1.0f)
-                                : (cam ? cam->GetViewMatrix() : glm::mat4(1.0f));
-
-                            int w = cam ? cam->GetScreenWidth() : engineContext.windowManager->GetWidth();
-                            int h = cam ? cam->GetScreenHeight() : engineContext.windowManager->GetHeight();
-                            glm::mat4 projection = glm::ortho(-static_cast<float>(w) / 2.0f,
-                                static_cast<float>(w) / 2.0f,
-                                -static_cast<float>(h) / 2.0f,
-                                static_cast<float>(h) / 2.0f);
-
-                            mat->SetUniform("u_View", view);
-                            mat->SetUniform("u_Projection", projection);
-
-
-
                         glm::mat4 model = obj->GetTransform2DMatrix();
                         glm::vec2 flip = obj->GetUVFlipVector();
                         model = model * glm::scale(glm::mat4(1.0f), glm::vec3(flip, 1.0f));
 
-                        mat->SetUniform("u_Model", model);
-                        mat->SetUniform("u_Color", obj->GetColor());
+                        material->SetUniform("u_Model", model);
+                        material->SetUniform("u_Color", obj->GetColor());
 
                         if (obj->HasAnimation())
                         {
                             SpriteAnimator* anim = obj->GetAnimator();
-                            mat->SetUniform("u_UVOffset", anim->GetUVOffset());
-                            mat->SetUniform("u_UVScale", anim->GetUVScale());
-                            mat->SetTexture("u_Texture", anim->GetTexture());
+                            material->SetUniform("u_UVOffset", anim->GetUVOffset());
+                            material->SetUniform("u_UVScale", anim->GetUVScale());
+                            material->SetTexture("u_Texture", anim->GetTexture());
                         }
 
                         obj->Draw(engineContext);
-                        mat->SendUniforms();
+                        material->SendUniforms();
                         key.mesh->Draw();
                     }
                 }
             }
         }
     }
-    if (lastMaterial) lastMaterial->UnBind();
 
+    if (lastMaterial)
+        lastMaterial->UnBind();
 
     for (auto& shdrMap : renderMap)
     {
@@ -194,16 +190,16 @@ void RenderManager::FlushDrawCommands(const EngineContext& engineContext)
 
 void RenderManager::SetViewport(int x, int y, int width, int height)
 {
-	glViewport(x, y, width, height);
+    glViewport(x, y, width, height);
 }
 
 void RenderManager::ClearBackground(int x, int y, int width, int height, glm::vec4 color)
 {
-	glEnable(GL_SCISSOR_TEST);
-	glScissor(x, y, width, height);
-	glClearColor(color.r, color.g, color.b, color.a);
-	glClear(GL_COLOR_BUFFER_BIT);
-	glDisable(GL_SCISSOR_TEST);
+    glEnable(GL_SCISSOR_TEST);
+    glScissor(x, y, width, height);
+    glClearColor(color.r, color.g, color.b, color.a);
+    glClear(GL_COLOR_BUFFER_BIT);
+    glDisable(GL_SCISSOR_TEST);
 }
 
 void RenderManager::DrawDebugLine(const glm::vec2& from, const glm::vec2& to, Camera2D* camera, const glm::vec4& color, float lineWidth)
@@ -300,9 +296,7 @@ void RenderManager::Init(const EngineContext& engineContext)
     )");
 
     shader->Link();
-    shaderMap["internal_text"] = std::move(shader);
-    RegisterMaterial("internal_text", "internal_text", {});
-
+    shaderMap["[EngineShader]internal_text"] = std::move(shader);
 
     shader = std::make_unique<Shader>();
     shader->AttachFromSource(ShaderStage::Vertex, R"(
@@ -310,7 +304,7 @@ void RenderManager::Init(const EngineContext& engineContext)
                 layout (location = 0) in vec2 aPos;
                 layout (location = 1) in vec4 aColor;
 
-				uniform mat4 u_View;
+		uniform mat4 u_View;
                 uniform mat4 u_Projection;
                 out vec4 vColor;
 
@@ -332,26 +326,26 @@ void RenderManager::Init(const EngineContext& engineContext)
     )");
     shader->Link();
 
-    shaderMap["internal_debug_line"] = std::move(shader);
-    debugLineShader = GetShaderByTag("internal_debug_line");
+    shaderMap["[EngineShader]internal_debug_line"] = std::move(shader);
+    debugLineShader = GetShaderByTag("[EngineShader]internal_debug_line");
 
 
     shader = std::make_unique<Shader>();
     shader->AttachFromSource(ShaderStage::Vertex, R"(
-				#version 330 core
+		#version 330 core
 
-				layout (location = 0) in vec3 aPos;
-				layout(location = 1) in vec2 a_UV;
+		layout (location = 0) in vec3 aPos;
+		layout(location = 1) in vec2 a_UV;
 
-				uniform mat4 u_Model;
-				uniform mat4 u_View;
-				uniform mat4 u_Projection;
+		uniform mat4 u_Model;
+		uniform mat4 u_View;
+		uniform mat4 u_Projection;
 
 
-				void main()
-				{
-				    gl_Position = u_Projection * u_View * u_Model * vec4(aPos, 1.0);
-				}
+		void main()
+		{
+		    gl_Position = u_Projection * u_View * u_Model * vec4(aPos, 1.0);
+		}
 
     )");
     shader->AttachFromSource(ShaderStage::Fragment, R"(
@@ -366,25 +360,7 @@ void RenderManager::Init(const EngineContext& engineContext)
     )");
     shader->Link();
 
-    shaderMap["s_default"] = std::move(shader);
-
-
-
-
-    glGenVertexArrays(1, &debugLineVAO);
-    glGenBuffers(1, &debugLineVBO);
-
-    glBindVertexArray(debugLineVAO);
-    glBindBuffer(GL_ARRAY_BUFFER, debugLineVBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 10000, nullptr, GL_DYNAMIC_DRAW);
-
-    glEnableVertexAttribArray(0); // vec2 position
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 6, (void*)0);
-
-    glEnableVertexAttribArray(1); // vec4 color
-    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 6, (void*)(sizeof(float) * 2));
-
-    glBindVertexArray(0);
+    shaderMap["[EngineShader]default"] = std::move(shader);
 
 
     std::vector<unsigned char> errorTexturePixels;
@@ -405,8 +381,77 @@ void RenderManager::Init(const EngineContext& engineContext)
             }
         }
     }
+    RegisterTexture("[EngineTexture]error", std::make_unique<Texture>(errorTexturePixels.data(), 8, 8, 4, TextureSettings{ TextureFilter::Nearest ,TextureFilter::Nearest ,TextureWrap::MirroredRepeat,TextureWrap::MirroredRepeat }));
+    errorTexture = GetTextureByTag("[EngineTexture]error");
 
-    errorTexture = std::make_unique<Texture>(errorTexturePixels.data(), 8, 8, 4, TextureSettings{ TextureFilter::Nearest ,TextureFilter::Nearest ,TextureWrap::MirroredRepeat,TextureWrap::MirroredRepeat });
+
+
+
+    shader = std::make_unique<Shader>();
+    shader->AttachFromSource(ShaderStage::Vertex, R"(
+                #version 330 core
+
+                layout (location = 0) in vec3 aPos;
+                layout(location = 1) in vec2 a_UV;
+                out vec2 v_UV;
+
+                uniform mat4 u_Model;
+                uniform mat4 u_View;
+                uniform mat4 u_Projection;
+
+
+                void main()
+                {
+                    gl_Position = u_Projection * u_View * u_Model * vec4(aPos, 1.0);
+                    v_UV = a_UV;
+                }
+    )");
+    shader->AttachFromSource(ShaderStage::Fragment, R"(
+                #version 330 core
+
+                out vec4 FragColor;
+                in vec2 v_UV;
+                uniform vec4 u_Color;
+                uniform sampler2D u_ErrorTexture;
+
+                void main()
+                {
+                    FragColor = texture(u_ErrorTexture, v_UV) * u_Color;
+                }
+    )");
+    shader->Link();
+
+    shaderMap["[EngineShader]default_texture"] = std::move(shader);
+    std::unique_ptr<Material> material = std::make_unique<Material>(GetShaderByTag("[EngineShader]default_texture"));
+    material->SetTexture("u_ErrorTexture", errorTexture);
+    RegisterMaterial("[EngineMaterial]error", std::move(material));
+    defaultMaterial = GetMaterialByTag("[EngineMaterial]error");
+
+    RegisterMesh("[EngineMesh]default", std::vector<Vertex>{
+        {{-0.5f, -0.5f, 0.f}, { 0.f, 0.f }}, 
+        { { 0.5f, -0.5f, 0.f }, { 1.f, 0.f } },
+        { { 0.5f, 0.5f, 0.f }, { 1.f, 1.f } },
+        { { -0.5f, 0.5f, 0.f }, { 0.f, 1.f } }
+    }, std::vector<unsigned int>{0, 1, 2, 2, 3, 0});
+    defaultMesh = GetMeshByTag("[EngineMesh]default");
+
+    RegisterSpriteSheet("[EngineSpriteSheet]default", "[EngineTexture]error", 1, 1);
+    defaultSpriteSheet = GetSpriteSheetByTag("[EngineSpriteSheet]default");
+
+    glGenVertexArrays(1, &debugLineVAO);
+    glGenBuffers(1, &debugLineVBO);
+
+    glBindVertexArray(debugLineVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, debugLineVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 10000, nullptr, GL_DYNAMIC_DRAW);
+
+    glEnableVertexAttribArray(0); // vec2 position
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 6, (void*)0);
+
+    glEnableVertexAttribArray(1); // vec4 color
+    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 6, (void*)(sizeof(float) * 2));
+
+    glBindVertexArray(0);
 
 
     glEnable(GL_BLEND);
@@ -451,7 +496,7 @@ void RenderManager::RegisterShader(const std::string& tag, const std::vector<std
 {
     if (shaderMap.find(tag) != shaderMap.end())
     {
-        SNAKE_WRN("Shader with tag \"" << tag << "\" already registered.");
+        SNAKE_LOG("Shader with tag \"" << tag << "\" already registered.");
         return;
     }
     auto shader = std::make_unique<Shader>();
@@ -467,7 +512,7 @@ void RenderManager::RegisterShader(const std::string& tag, std::unique_ptr<Shade
 {
     if (shaderMap.find(tag) != shaderMap.end())
     {
-        SNAKE_WRN("Shader with tag \"" << tag << "\" already registered.");
+        SNAKE_LOG("Shader with tag \"" << tag << "\" already registered.");
         return;
     }
     shaderMap[tag] = std::move(shader);
@@ -477,7 +522,7 @@ void RenderManager::RegisterTexture(const std::string& tag, const FilePath& path
 {
     if (textureMap.find(tag) != textureMap.end())
     {
-        SNAKE_WRN("Texture with tag \"" << tag << "\" already registered.");
+        SNAKE_LOG("Texture with tag \"" << tag << "\" already registered.");
         return;
     }
     textureMap[tag] = std::make_unique<Texture>(path, settings);
@@ -487,7 +532,7 @@ void RenderManager::RegisterTexture(const std::string& tag, std::unique_ptr<Text
 {
     if (textureMap.find(tag) != textureMap.end())
     {
-        SNAKE_WRN("Texture with tag \"" << tag << "\" already registered.");
+        SNAKE_LOG("Texture with tag \"" << tag << "\" already registered.");
         return;
     }
     textureMap[tag] = std::move(texture);
@@ -498,7 +543,7 @@ void RenderManager::RegisterMesh(const std::string& tag, const std::vector<Verte
 {
     if (meshMap.find(tag) != meshMap.end())
     {
-        SNAKE_WRN("Mesh with tag \"" << tag << "\" already registered.");
+        SNAKE_LOG("Mesh with tag \"" << tag << "\" already registered.");
         return;
     }
     meshMap[tag] = std::make_unique<Mesh>(vertices, indices, primitiveType);
@@ -508,7 +553,7 @@ void RenderManager::RegisterMesh(const std::string& tag, std::unique_ptr<Mesh> m
 {
     if (meshMap.find(tag) != meshMap.end())
     {
-        SNAKE_WRN("Mesh with tag \"" << tag << "\" already registered.");
+        SNAKE_LOG("Mesh with tag \"" << tag << "\" already registered.");
         return;
     }
     meshMap[tag] = std::move(mesh);
@@ -519,7 +564,7 @@ void RenderManager::RegisterMaterial(const std::string& tag, const std::string& 
 {
     if (materialMap.find(tag) != materialMap.end())
     {
-        SNAKE_WRN("Material tag already registered: " << tag);
+        SNAKE_LOG("Material tag already registered: " << tag);
         return;
     }
 
@@ -548,7 +593,7 @@ void RenderManager::RegisterMaterial(const std::string& tag, std::unique_ptr<Mat
 {
     if (materialMap.find(tag) != materialMap.end())
     {
-        SNAKE_WRN("Material tag already registered: " << tag);
+        SNAKE_LOG("Material tag already registered: " << tag);
         return;
     }
     materialMap[tag] = std::move(material);
@@ -558,7 +603,7 @@ void RenderManager::RegisterFont(const std::string& tag, const std::string& ttfP
 {
     if (fontMap.find(tag) != fontMap.end())
     {
-        SNAKE_WRN("Font tag already registered: " << tag);
+        SNAKE_LOG("Font tag already registered: " << tag);
         return;
     }
     const uint32_t minSize = 4;
@@ -579,7 +624,7 @@ void RenderManager::RegisterFont(const std::string& tag, std::unique_ptr<Font> f
 {
     if (fontMap.find(tag) != fontMap.end())
     {
-        SNAKE_WRN("Font tag already registered: " << tag);
+        SNAKE_LOG("Font tag already registered: " << tag);
         return;
     }
     fontMap[tag] = std::move(font);
@@ -594,7 +639,7 @@ void RenderManager::RegisterSpriteSheet(const std::string& tag, const std::strin
 {
     if (spritesheetMap.find(tag) != spritesheetMap.end())
     {
-        SNAKE_WRN("SpriteSheet already registered: " << tag);
+        SNAKE_LOG("SpriteSheet already registered: " << tag);
         return;
     }
 
@@ -608,28 +653,108 @@ void RenderManager::RegisterSpriteSheet(const std::string& tag, const std::strin
     spritesheetMap[tag] = std::make_unique<SpriteSheet>(texture, frameW, frameH);
 }
 
-void RenderManager::UnregisterShader(const std::string& tag)
+void RenderManager::UnregisterShader(const std::string& tag, const EngineContext& engineContext)
 {
+    auto it = shaderMap.find(tag);
+    if (it == shaderMap.end())
+    {
+        SNAKE_LOG("Cannot delete the shader [" << tag << "] because it was not found.");
+        return;
+    }
+    Shader* target = it->second.get();
+    std::vector<Object*> objects = engineContext.stateManager->GetCurrentState()->GetObjectManager().GetAllRawPtrObjects();
+    for (auto obj : objects)
+    {
+        if (obj->GetMaterial()->HasShader(target))
+        {
+            SNAKE_WRN("Cannot delete the shader [" << tag << "] while there are objects referencing it.");
+            return;
+        }
+    }
     shaderMap.erase(tag);
 }
 
-void RenderManager::UnregisterTexture(const std::string& tag)
+void RenderManager::UnregisterTexture(const std::string& tag, const EngineContext& engineContext)
 {
+    auto it = textureMap.find(tag);
+    if (it == textureMap.end())
+    {
+        SNAKE_LOG("Cannot delete the texture [" << tag << "] because it was not found.");
+        return;
+    }
+    Texture* target = it->second.get();
+    std::vector<Object*> objects = engineContext.stateManager->GetCurrentState()->GetObjectManager().GetAllRawPtrObjects();
+    for (auto obj : objects)
+    {
+        if (obj->GetMaterial()->HasTexture(target))
+        {
+            SNAKE_WRN("Cannot delete the texture [" << tag << "] while there are objects referencing it.");
+            return;
+        }
+    }
     textureMap.erase(tag);
 }
 
-void RenderManager::UnregisterMesh(const std::string& tag)
+void RenderManager::UnregisterMesh(const std::string& tag, const EngineContext& engineContext)
 {
+    auto it = meshMap.find(tag);
+    if (it == meshMap.end())
+    {
+        SNAKE_LOG("Cannot delete the mesh [" << tag << "] because it was not found.");
+        return;
+    }
+    Mesh* target = it->second.get();
+    std::vector<Object*> objects = engineContext.stateManager->GetCurrentState()->GetObjectManager().GetAllRawPtrObjects();
+    for (auto obj : objects)
+    {
+        if (obj->GetMesh() == target)
+        {
+            SNAKE_WRN("Cannot delete the mesh [" << tag << "] while there are objects referencing it.");
+            return;
+        }
+    }
     meshMap.erase(tag);
 }
 
-void RenderManager::UnregisterMaterial(const std::string& tag)
+void RenderManager::UnregisterMaterial(const std::string& tag, const EngineContext& engineContext)
 {
+    auto it = materialMap.find(tag);
+    if (it == materialMap.end())
+    {
+        SNAKE_LOG("Cannot delete the material [" << tag << "] because it was not found.");
+        return;
+    }
+    Material* target = it->second.get();
+    std::vector<Object*> objects = engineContext.stateManager->GetCurrentState()->GetObjectManager().GetAllRawPtrObjects();
+    for (auto obj : objects)
+    {
+        if (obj->GetMaterial()== target)
+        {
+            SNAKE_WRN("Cannot delete the material [" << tag << "] while there are objects referencing it.");
+            return;
+        }
+    }
     materialMap.erase(tag);
 }
 
-void RenderManager::UnregisterFont(const std::string& tag)
+void RenderManager::UnregisterFont(const std::string& tag, const EngineContext& engineContext)
 {
+    auto it = fontMap.find(tag);
+    if (it == fontMap.end())
+    {
+        SNAKE_LOG("Cannot delete the font [" << tag << "] because it was not found.");
+        return;
+    }
+    Font* target = it->second.get();
+    std::vector<Object*> objects = engineContext.stateManager->GetCurrentState()->GetObjectManager().GetAllRawPtrObjects();
+    for (auto obj : objects)
+    {
+        if (obj->GetType()==ObjectType::TEXT && dynamic_cast<TextObject*>(obj)->GetTextInstance()->font == target)
+        {
+            SNAKE_WRN("Cannot delete the font [" << tag  <<"] while there are objects referencing it.");
+            return;
+        }
+    }
     fontMap.erase(tag);
 }
 
@@ -638,70 +763,93 @@ void RenderManager::UnregisterRenderLayer(const std::string& tag)
     renderLayerManager.UnregisterLayer(tag);
 }
 
-void RenderManager::UnregisterSpriteSheet(const std::string& tag)
+void RenderManager::UnregisterSpriteSheet(const std::string& tag, const EngineContext& engineContext)
 {
+    auto it = spritesheetMap.find(tag);
+    if (it == spritesheetMap.end())
+    {
+        SNAKE_LOG("Cannot delete the sprite sheet [" << tag << "] because it was not found.");
+        return;
+    }
+    SpriteSheet* target = it->second.get();
+    std::vector<Object*> objects = engineContext.stateManager->GetCurrentState()->GetObjectManager().GetAllRawPtrObjects();
+    for (auto obj : objects)
+    {
+        SpriteAnimator* spriteAnim = obj->GetSpriteAnimator();
+        if (spriteAnim && spriteAnim->GetSpriteSheet() == target)
+        {
+            SNAKE_WRN("Cannot delete the sprite sheet [" << tag << "] while there are objects referencing it.");
+            return;
+        }
+    }
     spritesheetMap.erase(tag);
 }
 
 SpriteSheet* RenderManager::GetSpriteSheetByTag(const std::string& tag)
 {
-    if (spritesheetMap.find(tag) != spritesheetMap.end())
-        return spritesheetMap[tag].get();
+    auto it = spritesheetMap.find(tag);
+    if (it != spritesheetMap.end())
+        return it->second.get();
     else
     {
         SNAKE_ERR("There is no SpriteSheet named '" << tag << "'");
-        return nullptr;
+        return defaultSpriteSheet;
     }
 }
 
 Shader* RenderManager::GetShaderByTag(const std::string& tag)
 {
-    if (shaderMap.find(tag) != shaderMap.end())
-        return shaderMap[tag].get();
+    auto it = shaderMap.find(tag);
+    if (it != shaderMap.end())
+        return it->second.get();
     else
     {
         SNAKE_ERR("There is no Shader named '" << tag << "'");
-        return nullptr;
+        return defaultShader;
     }
 }
 
 Texture* RenderManager::GetTextureByTag(const std::string& tag)
 {
-    if (textureMap.find(tag) != textureMap.end())
-        return textureMap[tag].get();
+    auto it = textureMap.find(tag);
+    if (it != textureMap.end())
+        return it->second.get();
     else
     {
         SNAKE_ERR("There is no Texture named '" << tag << "'");
-        return nullptr;
+        return errorTexture;
     }
 }
 
 Mesh* RenderManager::GetMeshByTag(const std::string& tag)
 {
-    if (meshMap.find(tag) != meshMap.end())
-        return meshMap[tag].get();
+    auto it = meshMap.find(tag);
+    if (it != meshMap.end())
+        return it->second.get();
     else
     {
         SNAKE_ERR("There is no Mesh named '" << tag << "'");
-        return nullptr;
+        return defaultMesh;
     }
 }
 
 Material* RenderManager::GetMaterialByTag(const std::string& tag)
 {
-    if (materialMap.find(tag) != materialMap.end())
-        return materialMap[tag].get();
+    auto it = materialMap.find(tag);
+    if (it != materialMap.end())
+        return it->second.get();
     else
     {
         SNAKE_ERR("There is no Material named '" << tag << "'");
-        return nullptr;
+        return defaultMaterial;
     }
 }
 
 Font* RenderManager::GetFontByTag(const std::string& tag)
 {
-    if (fontMap.find(tag) != fontMap.end())
-        return fontMap[tag].get();
+    auto it = fontMap.find(tag);
+    if (it != fontMap.end())
+        return it->second.get();
     else
     {
         SNAKE_ERR("There is no Font named '" << tag << "'");

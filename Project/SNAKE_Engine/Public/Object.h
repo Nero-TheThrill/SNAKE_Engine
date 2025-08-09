@@ -71,8 +71,11 @@ public:
     [[nodiscard]] virtual bool HasAnimation() const { return spriteAnimator != nullptr; }
     [[nodiscard]] virtual SpriteAnimator* GetAnimator() { return spriteAnimator.get(); }
 
+    [[nodiscard]] virtual SpriteAnimator* GetSpriteAnimator() const { return spriteAnimator.get(); }
+
     void AttachAnimator(std::unique_ptr<SpriteAnimator> anim) { spriteAnimator = std::move(anim); }
     void AttachAnimator(SpriteSheet* sheet, float frameTime, bool loop = true) { spriteAnimator = std::make_unique<SpriteAnimator>(sheet, frameTime, loop); }
+    void DetachAnimator() { spriteAnimator = nullptr; }
 
     void SetCollider(std::unique_ptr<Collider> c) { collider = std::move(c); }
     [[nodiscard]] Collider* GetCollider() const { return collider.get(); }

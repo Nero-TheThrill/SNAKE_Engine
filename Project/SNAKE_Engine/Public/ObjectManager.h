@@ -31,6 +31,9 @@ public:
     void DrawColliderDebug(RenderManager* rm, Camera2D* cam);
 
     [[nodiscard]] CollisionGroupRegistry& GetCollisionGroupRegistry() { return collisionGroupRegistry; }
+
+    [[nodiscard]] std::vector<Object*> GetAllRawPtrObjects() { return rawPtrObjects; }
+
 private:
     void AddAllPendingObjects(const EngineContext& engineContext);
     void EraseDeadObjects(const EngineContext& engineContext);

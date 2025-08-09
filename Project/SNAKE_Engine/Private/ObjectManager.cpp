@@ -13,7 +13,7 @@ Object* ObjectManager::AddObject(std::unique_ptr<Object> obj, const std::string&
     if (!tag.empty())
     {
         if (objectMap.find(tag) != objectMap.end())
-            SNAKE_WRN("Duplicate Object ID");
+            SNAKE_LOG("Duplicate Object ID");
 
         Object* rawPointer = obj.get();
         objectMap[tag] = rawPointer;

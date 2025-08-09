@@ -51,7 +51,7 @@ private:
         auto it = nameToID.find(name);
         if (it == nameToID.end())
         {
-            SNAKE_WRN("Cannot unregister: layer '" << name << "' not found");
+            SNAKE_LOG("Cannot unregister: layer '" << name << "' not found");
             return;
         }
 

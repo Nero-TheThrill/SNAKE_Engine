@@ -12,7 +12,6 @@ void Player::Init(const EngineContext& engineContext)
 {
     transform2D.SetPosition(glm::vec2(0, 0));
     transform2D.SetScale(glm::vec2(50.f));
-
     SetMesh(engineContext.renderManager->GetMeshByTag("default"));
     SetMaterial(engineContext, "m_animation");
     SpriteSheet* sheet = engineContext.renderManager->GetSpriteSheetByTag("animTest");
@@ -58,26 +57,26 @@ void Player::Update(float dt, const EngineContext& engineContext)
         transform2D.AddPosition(glm::vec2(150 * dt, 0));
     }
 
-    if (engineContext.inputManager->IsKeyPressed(KEY_W))
+    if (spriteAnimator && engineContext.inputManager->IsKeyPressed(KEY_W))
     {
         spriteAnimator->PlayClip("backwalk");
     }
-    if (engineContext.inputManager->IsKeyPressed(KEY_A))
+    if (spriteAnimator && engineContext.inputManager->IsKeyPressed(KEY_A))
     {
         SetFlipUV_X(true);
         spriteAnimator->PlayClip("sidewalk");
     }
-    if (engineContext.inputManager->IsKeyPressed(KEY_S))
+    if (spriteAnimator && engineContext.inputManager->IsKeyPressed(KEY_S))
     {
         spriteAnimator->PlayClip("frontwalk");
     }
-    if (engineContext.inputManager->IsKeyPressed(KEY_D))
+    if (spriteAnimator && engineContext.inputManager->IsKeyPressed(KEY_D))
     {
         SetFlipUV_X(false);
         spriteAnimator->PlayClip("sidewalk");
     }
 
-    if (checkIdle)
+    if (spriteAnimator&&checkIdle)
     {
         spriteAnimator->PlayClip("idle");
     }

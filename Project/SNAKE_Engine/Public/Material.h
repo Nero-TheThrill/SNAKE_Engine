@@ -49,6 +49,10 @@ private:
 
     bool HasTexture() const { return !textures.empty(); }
 
+    bool HasTexture(Texture* texture) const;
+
+    bool HasShader(Shader* shader_) const;
+
     [[nodiscard]] Shader* GetShader() const { return shader; }
 
     Shader* shader;

@@ -88,7 +88,7 @@ void Font::BakeAtlas(RenderManager& renderManager)
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
     atlasTexture = std::make_unique<Texture>(pixels.data(), texWidth, texHeight, 1);
 
-    Shader* textShader = renderManager.GetShaderByTag("internal_text");
+    Shader* textShader = renderManager.GetShaderByTag("[EngineShader]internal_text");
     material = std::make_unique<Material>(textShader);
     material->SetTexture("u_FontTexture", atlasTexture.get());
     material->SetUniform("u_Color", glm::vec4(1.0f));

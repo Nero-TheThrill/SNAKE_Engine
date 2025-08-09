@@ -62,6 +62,8 @@ public:
     void SetFrame(int frame) { currentFrame = frame; }
     [[nodiscard]] int GetCurrentFrame() const { return currentFrame; }
 
+    SpriteSheet* GetSpriteSheet() const { return sheet; }
+
 private:
     SpriteSheet* sheet;
     float frameTime;

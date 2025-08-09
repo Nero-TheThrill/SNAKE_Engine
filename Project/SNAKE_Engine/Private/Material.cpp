@@ -57,3 +57,20 @@ void Material::SendUniforms()
             }, value);
     }
 }
+
+bool Material::HasTexture(Texture* texture) const
+{
+    for (const auto& pair : textures)
+    {
+        if (pair.second == texture)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Material::HasShader(Shader* shader_) const
+{
+    return shader == shader_;
+}

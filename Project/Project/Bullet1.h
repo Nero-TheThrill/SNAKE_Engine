@@ -1,5 +1,4 @@
 #pragma once
-#include "ObjectManager.h"
 #include "Engine.h"
 
 class Bullet1 : public GameObject

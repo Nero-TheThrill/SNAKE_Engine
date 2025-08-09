@@ -70,19 +70,19 @@ public:
 
     void RegisterSpriteSheet(const std::string& tag, const std::string& textureTag, int frameW, int frameH);
 
-    void UnregisterShader(const std::string& tag);
+    void UnregisterShader(const std::string& tag, const EngineContext& engineContext);
 
-    void UnregisterTexture(const std::string& tag);
+    void UnregisterTexture(const std::string& tag, const EngineContext& engineContext);
 
-    void UnregisterMesh(const std::string& tag);
+    void UnregisterMesh(const std::string& tag, const EngineContext& engineContext);
 
-    void UnregisterMaterial(const std::string& tag);
+    void UnregisterMaterial(const std::string& tag, const EngineContext& engineContext);
 
-    void UnregisterFont(const std::string& tag);
+    void UnregisterFont(const std::string& tag, const EngineContext& engineContext);
 
     void UnregisterRenderLayer(const std::string& tag);
 
-    void UnregisterSpriteSheet(const std::string& tag);
+    void UnregisterSpriteSheet(const std::string& tag, const EngineContext& engineContext);
     
 
     [[nodiscard]] Shader* GetShaderByTag(const std::string& tag);
@@ -133,12 +133,16 @@ private:
     };
     std::unordered_map<CameraAndWidth, std::vector<LineInstance>, CameraAndWidthHash> debugLineMap;
     GLuint debugLineVAO = 0, debugLineVBO = 0;
+
     Shader* defaultShader, *debugLineShader;
+    Material* defaultMaterial;
+    SpriteSheet* defaultSpriteSheet;
+    Mesh* defaultMesh;
 
     RenderMap renderMap;
     RenderLayerManager renderLayerManager;
 
-    std::unique_ptr<Texture> errorTexture;
+    Texture* errorTexture;
 };
 
 

@@ -46,6 +46,8 @@ public:
 
     [[nodiscard]] SpriteAnimator* GetAnimator() override { return nullptr; }
 
+    [[nodiscard]] SpriteAnimator* GetSpriteAnimator() const override { return nullptr; }
+
     [[nodiscard]] glm::vec2 GetWorldPosition() const override;
 
     [[nodiscard]] glm::vec2 GetWorldScale() const override;
@@ -68,7 +70,7 @@ public:
 
     void AttachAnimator(SpriteSheet* sheet, float frameTime, bool loop = true) = delete;
 
-
+    void DetachAnimator() = delete;
 protected:
 
     void UpdateMesh();

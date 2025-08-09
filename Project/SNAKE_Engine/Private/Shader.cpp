@@ -116,7 +116,7 @@ void Shader::SendUniform(const std::string& name, int value) const
     GLint location = glGetUniformLocation(programID, name.c_str());
     if (location == -1)
     {
-        SNAKE_WRN("[Shader] Uniform not found: " << name);
+        SNAKE_LOG("[Shader] Uniform not found: " << name);
         return;
     }
     glUniform1i(location, value);
@@ -127,7 +127,7 @@ void Shader::SendUniform(const std::string& name, float value) const
     GLint location = glGetUniformLocation(programID, name.c_str());
     if (location == -1)
     {
-        SNAKE_WRN("[Shader] Uniform not found: " << name);
+        SNAKE_LOG("[Shader] Uniform not found: " << name);
         return;
     }
     glUniform1f(location, value);
@@ -138,7 +138,7 @@ void Shader::SendUniform(const std::string& name, const glm::vec2& value) const
     GLint location = glGetUniformLocation(programID, name.c_str());
     if (location == -1)
     {
-        SNAKE_WRN("Uniform not found: " << name);
+        SNAKE_LOG("Uniform not found: " << name);
         return;
     }
 
@@ -150,7 +150,7 @@ void Shader::SendUniform(const std::string& name, const glm::vec3& value) const
     GLint location = glGetUniformLocation(programID, name.c_str());
     if (location == -1)
     {
-        SNAKE_WRN("Uniform not found: " << name);
+        SNAKE_LOG("Uniform not found: " << name);
         return;
     }
 
@@ -162,7 +162,7 @@ void Shader::SendUniform(const std::string& name, const glm::vec4& value) const
     GLint location = glGetUniformLocation(programID, name.c_str());
     if (location == -1)
     {
-        SNAKE_WRN("Uniform not found: " << name);
+        SNAKE_LOG("Uniform not found: " << name);
         return;
     }
 
@@ -174,7 +174,7 @@ void Shader::SendUniform(const std::string& name, const glm::mat4& value) const
     GLint location = glGetUniformLocation(programID, name.c_str());
     if (location == -1)
     {
-        SNAKE_WRN("Uniform not found: " << name);
+        SNAKE_LOG("Uniform not found: " << name);
         return;
     }
 
