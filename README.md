@@ -1,3 +1,7 @@
+[![Latest release](https://img.shields.io/github/v/release/Nero-TheThrill/SNAKE_ENGINE)](https://github.com/Nero-TheThrill/SNAKE_ENGINE/releases)
+[![Changelog](https://img.shields.io/badge/Changelog-keep%20a%20changelog-blue)](./CHANGELOG.md)
+
+
 # SNAKE\_ENGINE
 
 A lightweight C++ game engine (sample framework) that bundles 2D rendering, input, sound, text, collision, and state management in one place. Built on OpenGL 4.6, it supports batched rendering and instancing, and handles text via runtime glyph baking (FreeType). It provides a dependency/tag–based resource system so you can pull in only the modules your project needs.

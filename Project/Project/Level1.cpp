@@ -46,7 +46,7 @@ void Level1::Init(const EngineContext& engineContext)
         });
     cameraManager.GetActiveCamera()->SetZoom(1.0f);
 
-    engineContext.soundManager->Play("bgm", 1, 20);
+    engineContext.soundManager->Play("bgm", 1, 0);
 
     auto* backgroundObj = objectManager.AddObject(std::make_unique<GameObject>(), "background");
     backgroundObj->SetMesh(engineContext, "default");
