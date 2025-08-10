@@ -159,7 +159,10 @@ void MainMenu::Update(float dt, const EngineContext& engineContext)
     }
 
     objectManager.FindByTag("enemyBullet", bullets);
-    bulletCountText->SetText(std::to_string(bullets.size()));
+    auto cnt = bullets.size();
+    objectManager.FindByTag("111", bullets);
+    cnt += bullets.size();
+    bulletCountText->SetText(std::to_string(cnt));
     bulletCountText->GetTransform2D().SetPosition(objectManager.FindByTag("player")->GetTransform2D().GetPosition() + glm::vec2(0, 50));
 
     auto cam = cameraManager.GetActiveCamera();
