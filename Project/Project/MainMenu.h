@@ -27,5 +27,6 @@ public:
 private:
     GameObject* startButton = nullptr, * quitButton = nullptr, *player;
     TextObject* startText = nullptr, * quitText = nullptr, * bulletCountText = nullptr;
+    Camera2D* miniCam = nullptr;
 };
 

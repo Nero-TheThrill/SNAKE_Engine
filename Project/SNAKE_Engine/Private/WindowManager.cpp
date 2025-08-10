@@ -15,7 +15,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
         {
             state->GetCameraManager().SetScreenSizeForAll(width, height);
         }
-        snakeEngine->GetEngineContext().inputManager->Reset();
+        //snakeEngine->GetEngineContext().inputManager->Reset();
         SNAKE_LOG("changed: " << snakeEngine->GetEngineContext().windowManager->GetWidth() << " " << snakeEngine->GetEngineContext().windowManager->GetHeight());
     }
 }
@@ -68,6 +68,34 @@ bool WindowManager::Init(int _windowWidth, int _windowHeight, SNAKE_Engine& engi
     glfwSetWindowUserPointer(window, &engine);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
+    glfwSetScrollCallback(window,
+        [](GLFWwindow* w, double xoff, double yoff)
+        {
+            SNAKE_Engine* snakeEngine = static_cast<SNAKE_Engine*>(glfwGetWindowUserPointer(w));
+            if (snakeEngine)
+                snakeEngine->GetEngineContext().inputManager->AddScroll(xoff, yoff);
+        });
+    glfwSetKeyCallback(window,
+        [](GLFWwindow* w, int key, int sc, int action, int mods)
+        {
+            if (auto* snakeEngine = static_cast<SNAKE_Engine*>(glfwGetWindowUserPointer(w)))
+                snakeEngine->GetEngineContext().inputManager->OnKey(key, sc, action, mods);
+        });
+
+    glfwSetMouseButtonCallback(window,
+        [](GLFWwindow* w, int button, int action, int mods)
+        {
+            if (auto* snakeEngine = static_cast<SNAKE_Engine*>(glfwGetWindowUserPointer(w)))
+                snakeEngine->GetEngineContext().inputManager->OnMouseButton(button, action, mods);
+        });
+
+    glfwSetWindowPosCallback(window,
+        [](GLFWwindow* w, int, int)
+        {
+            //if (auto* snakeEngine = (SNAKE_Engine*)glfwGetWindowUserPointer(w))
+            //    snakeEngine->GetEngineContext().inputManager->Reset();
+        });
+
     return true;
 }
 
@@ -110,7 +138,7 @@ void WindowManager::SetFullScreen(bool enable)
 
     windowWidth = enable ? mode->width : windowedWidth;
     windowHeight = enable ? mode->height : windowedHeight;
-    framebuffer_size_callback(window, windowWidth, windowHeight);
+
 }
 void WindowManager::Free() const
 {

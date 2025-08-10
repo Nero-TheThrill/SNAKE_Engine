@@ -45,6 +45,13 @@ void MainMenu::Init(const EngineContext& engineContext)
     bulletCountText->GetTransform2D().SetScale({ 0.5, 0.5 });
     bulletCountText->SetRenderLayer("UI.Penguin");
 
+    cameraManager.RegisterCamera("minicam", std::make_unique<Camera2D>());
+    miniCam = cameraManager.GetCamera("minicam");
+
+    miniCam->SetZoom(0.5f);
+
+
+
 }
 
 void MainMenu::LateInit(const EngineContext& engineContext)
@@ -61,7 +68,23 @@ void MainMenu::Update(float dt, const EngineContext& engineContext)
     {
         engineContext.windowManager->SetFullScreen(false);
     }
+    if (engineContext.inputManager->IsKeyReleased(KEY_F1))
+    {
+        cameraManager.SetActiveCamera("minicam");
+    }
+    if (engineContext.inputManager->IsKeyPressed(KEY_F2))
+    {
+        cameraManager.SetActiveCamera("main");
+    }
 
+    if (engineContext.inputManager->IsScrolledUp())
+    {
+        cameraManager.GetActiveCamera()->SetZoom(cameraManager.GetActiveCamera()->GetZoom() + 3.f*dt);
+    }
+    if (engineContext.inputManager->IsScrolledDown())
+    {
+        cameraManager.GetActiveCamera()->SetZoom(cameraManager.GetActiveCamera()->GetZoom() + -3.f * dt);
+    }
 
     if (engineContext.inputManager->IsKeyReleased(KEY_N))
     {

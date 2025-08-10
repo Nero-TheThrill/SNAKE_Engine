@@ -12,14 +12,12 @@ void InputManager::Update()
     previousKeyState = currentKeyState;
     previousMouseState = currentMouseState;
 
-    for (int key = 0; key <= GLFW_KEY_LAST; key++)
-    {
-        currentKeyState.set(key, glfwGetKey(window, key) == GLFW_PRESS);
-    }
-    for (int button = 0; button <= GLFW_MOUSE_BUTTON_LAST; button++)
-    {
-        currentMouseState.set(button, glfwGetMouseButton(window, button) == GLFW_PRESS);
-    }
+    scrollDeltaX = scrollAccumX; scrollAccumX = 0.0;
+    scrollDeltaY = scrollAccumY; scrollAccumY = 0.0;
+
+    currentKeyState = stagedKeyState;
+    currentMouseState = stagedMouseState;
+
     glfwGetCursorPos(window, &mouseX, &mouseY);
 }
 
@@ -29,6 +27,8 @@ void InputManager::Reset()
     previousMouseState.reset();
     currentKeyState.reset();
     currentMouseState.reset();
+    stagedKeyState.reset();
+    stagedMouseState.reset();
 }
 
 bool InputManager::IsKeyDown(int key) const
@@ -89,4 +89,62 @@ double InputManager::GetMouseWorldY(Camera2D* camera) const
 glm::vec2 InputManager::GetMouseWorldPos(Camera2D* camera) const
 {
     return glm::vec2(GetMouseWorldX(camera), GetMouseWorldY(camera));
+}
+
+void InputManager::AddScroll(double dx, double dy)
+{
+    scrollAccumX += dx;
+    scrollAccumY += dy;
+}
+
+glm::vec2 InputManager::GetScrollDelta() const
+{
+    return { scrollDeltaX, scrollDeltaY };
+}
+
+double InputManager::GetScrollXDelta() const
+{
+    return scrollDeltaX;
+}
+
+double InputManager::GetScrollYDelta() const
+{
+    return scrollDeltaY;
+}
+
+bool InputManager::IsScrolledUp() const
+{
+    return scrollDeltaY > 0.0;
+}
+
+bool InputManager::IsScrolledDown() const
+{
+    return scrollDeltaY < 0.0;
+}
+
+void InputManager::OnKey(int key, int /*sc*/, int action, int /*mods*/)
+{
+    if (key < 0 || key > GLFW_KEY_LAST)
+        return;
+
+    if (action == GLFW_PRESS)
+        stagedKeyState.set(key, true);
+    else if (action == GLFW_RELEASE)
+        stagedKeyState.set(key, false);
+    else if (action == GLFW_REPEAT)
+    {
+        if (!stagedKeyState.test(key))
+            stagedKeyState.set(key, true);
+    }
+}
+
+void InputManager::OnMouseButton(int button, int action, int /*mods*/)
+{
+    if (button < 0 || button > GLFW_MOUSE_BUTTON_LAST)
+        return;
+
+    if (action == GLFW_PRESS)
+        stagedMouseState.set(button, true);
+    else if (action == GLFW_RELEASE)
+        stagedMouseState.set(button, false);
 }
