@@ -1,7 +1,6 @@
 [![Latest release](https://img.shields.io/github/v/release/Nero-TheThrill/SNAKE_ENGINE)](https://github.com/Nero-TheThrill/SNAKE_ENGINE/releases)
 [![Changelog](https://img.shields.io/badge/Changelog-keep%20a%20changelog-blue)](./CHANGELOG.md)
 
-> Full changes: [CHANGELOG.md](./CHANGELOG.md)
 
 # SNAKE\_ENGINE
 
