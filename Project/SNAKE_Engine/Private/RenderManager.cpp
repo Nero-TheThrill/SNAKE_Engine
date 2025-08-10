@@ -717,6 +717,20 @@ void RenderManager::UnregisterTexture(const std::string& tag, const EngineContex
                 SNAKE_WRN("Cannot delete the texture [" << tag << "] while there are objects referencing it.");
                 return;
             }
+            SpriteAnimator* spriteAnimator = obj->GetSpriteAnimator();
+            if (spriteAnimator)
+            {
+                SpriteSheet* spriteSheet = spriteAnimator->GetSpriteSheet();
+                if (spriteSheet)
+                {
+                    Texture* texture = spriteSheet->GetTexture();
+                    if (texture && texture == target)
+                    {
+                        SNAKE_WRN("Cannot delete the texture [" << tag << "] while there are objects referencing it.");
+                        return;
+                    }
+                }
+            }
         }
         textureMap.erase(tag);
     }
