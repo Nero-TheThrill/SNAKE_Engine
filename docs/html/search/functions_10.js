@@ -1,10 +1,9 @@
 var searchData=
 [
-  ['unbind_0',['UnBind',['../class_material.html#abe3526386e44d6a10fec0e6859dd564a',1,'Material::UnBind()'],['../class_texture.html#a62d394297d5965ea6085378c94b00b0d',1,'Texture::UnBind()']]],
-  ['unload_1',['Unload',['../class_game_state.html#ab9a398de72a4201a69093dfd574220c6',1,'GameState']]],
-  ['unuse_2',['Unuse',['../class_shader.html#a9429b4a4f790f9de8e5476ee65ed0dc9',1,'Shader']]],
-  ['update_3',['Update',['../class_game_object.html#a5e5d39ae8bf189946dc372a5b8895006',1,'GameObject::Update()'],['../class_game_state.html#a6d11e92e629e2d4cbba792faeb75a71f',1,'GameState::Update()'],['../class_input_manager.html#aa5480931dba2720e7d80dd00a53adae0',1,'InputManager::Update()'],['../class_state_manager.html#ab4ebd3189a4623e805d95f768b314acb',1,'StateManager::Update()']]],
-  ['updateall_4',['UpdateAll',['../class_object_manager.html#a00c892376f4874c2f033a69526e18111',1,'ObjectManager']]],
-  ['updateinstancebuffer_5',['UpdateInstanceBuffer',['../class_material.html#a68598fd0aa4da2c7db0e045b2352204d',1,'Material']]],
-  ['use_6',['Use',['../class_shader.html#a11a2de17d1d077ec34acd4f7cd57f6b1',1,'Shader']]]
+  ['textobject_0',['TextObject',['../class_text_object.html#a39e1f9fe9cc0385e10f3c29ac8ab1bfe',1,'TextObject']]],
+  ['texture_1',['Texture',['../class_texture.html#aa475e60a29a6cadbe10a3e8e96bdf6f5',1,'Texture::Texture(const FilePath &amp;path, const TextureSettings &amp;settings={})'],['../class_texture.html#a68a881bb461e4ad7c399c484cbffd82e',1,'Texture::Texture(const unsigned char *data, int width_, int height_, int channels_, const TextureSettings &amp;settings={})']]],
+  ['tick_2',['Tick',['../struct_engine_timer.html#a10ee28d56bb7d30bd29929e870e8e2f1',1,'EngineTimer']]],
+  ['togl_3',['ToGL',['../_mesh_8cpp.html#ab39cc2afcd825e405cee2a083d83b416',1,'Mesh.cpp']]],
+  ['transform2d_4',['Transform2D',['../class_transform2_d.html#a1cd8cbf27214b1b9ddec9e0740d1d52a',1,'Transform2D']]],
+  ['trybakeglyph_5',['TryBakeGlyph',['../class_font.html#aa3f349ce0e57bfabb0ef4cea1431a1d6',1,'Font']]]
 ];

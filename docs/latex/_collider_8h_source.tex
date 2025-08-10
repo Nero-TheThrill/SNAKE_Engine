@@ -1,0 +1,174 @@
+\doxysection{Collider.\+h}
+\hypertarget{_collider_8h_source}{}\label{_collider_8h_source}\index{Project/SNAKE\_Engine/Public/Collider.h@{Project/SNAKE\_Engine/Public/Collider.h}}
+\mbox{\hyperlink{_collider_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00001}00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00007}00007\ \textcolor{preprocessor}{\#include\ "{}glm.hpp"{}}}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00010}00010\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_spatial_hash_grid}{SpatialHashGrid}};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00011}00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_object_manager}{ObjectManager}};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00012}00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_camera2_d}{Camera2D}};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00013}00013\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_render_manager}{RenderManager}};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00014}00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_object}{Object}};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00015}00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_circle_collider}{CircleCollider}};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00016}00016\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_a_a_b_b_collider}{AABBCollider}};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00019}\mbox{\hyperlink{_collider_8h_a7f138e75fc3cc79e825c39e040690395}{00019}}\ \textcolor{keyword}{enum\ class}\ \mbox{\hyperlink{_collider_8h_a7f138e75fc3cc79e825c39e040690395}{ColliderType}}}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00020}00020\ \{}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00021}\mbox{\hyperlink{_collider_8h_a7f138e75fc3cc79e825c39e040690395a6adf97f83acf6453d4a6a4b1070f3754}{00021}}\ \ \ \ \ \mbox{\hyperlink{_collider_8h_a7f138e75fc3cc79e825c39e040690395a6adf97f83acf6453d4a6a4b1070f3754}{None}},}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00022}\mbox{\hyperlink{_collider_8h_a7f138e75fc3cc79e825c39e040690395a30954d90085f6eaaf5817917fc5fecb3}{00022}}\ \ \ \ \ \mbox{\hyperlink{_collider_8h_a7f138e75fc3cc79e825c39e040690395a30954d90085f6eaaf5817917fc5fecb3}{Circle}},}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00023}\mbox{\hyperlink{_collider_8h_a7f138e75fc3cc79e825c39e040690395a4276d50f05d2cac4c98c17337ac30c99}{00023}}\ \ \ \ \ \mbox{\hyperlink{_collider_8h_a7f138e75fc3cc79e825c39e040690395a4276d50f05d2cac4c98c17337ac30c99}{AABB}}}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00024}00024\ \};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00035}\mbox{\hyperlink{class_collider}{00035}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_collider_a02af0adc54359eddcd786735e7d0ce5b}{Collider}}}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00036}00036\ \{}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00037}\mbox{\hyperlink{class_collider_a936a6c821ef2a9ec2ecbf5f77cd8b0cc}{00037}}\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_collider_a936a6c821ef2a9ec2ecbf5f77cd8b0cc}{ObjectManager}};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00038}\mbox{\hyperlink{class_collider_a12cf416c51b48e672ffdfe63e6118f22}{00038}}\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_collider_a12cf416c51b48e672ffdfe63e6118f22}{CircleCollider}};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00039}\mbox{\hyperlink{class_collider_a16567cc4efd54b0d96a21acaf299e5d4}{00039}}\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_collider_a16567cc4efd54b0d96a21acaf299e5d4}{AABBCollider}};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00040}\mbox{\hyperlink{class_collider_a1caafe48decccc01fc2b89fa84498938}{00040}}\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_collider_a1caafe48decccc01fc2b89fa84498938}{SpatialHashGrid}};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00041}00041\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00042}\mbox{\hyperlink{class_collider_a02af0adc54359eddcd786735e7d0ce5b}{00042}}\ \ \ \ \ \mbox{\hyperlink{class_collider_a02af0adc54359eddcd786735e7d0ce5b}{Collider}}()\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00044}\mbox{\hyperlink{class_collider_a5a49c6e929279578b12e7d1c60c50c75}{00044}}\ \ \ \ \ \mbox{\hyperlink{class_collider_a5a49c6e929279578b12e7d1c60c50c75}{Collider}}(\mbox{\hyperlink{class_object}{Object}}*\ owner\_)\ :\ \mbox{\hyperlink{class_collider_ae661027024ee407d042b8672625da377}{owner}}(owner\_),\ \mbox{\hyperlink{class_collider_a537ce5f2dcb47a34bbdb3afd308ed4f9}{worldPosition}}()\ \{\}}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00045}\mbox{\hyperlink{class_collider_a7b43c72a6424d8c11dec965d166953d3}{00045}}\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_collider_a7b43c72a6424d8c11dec965d166953d3}{\string~Collider}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00048}\mbox{\hyperlink{class_collider_abcbc7a880210f872f2704035940f243c}{00048}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_collider_abcbc7a880210f872f2704035940f243c}{SetUseTransformScale}}(\textcolor{keywordtype}{bool}\ use)\ \{\ \mbox{\hyperlink{class_collider_a10c23d55e50b048078cddb0f806d5731}{useTransformScale}}\ =\ use;\ \}}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00050}\mbox{\hyperlink{class_collider_a9f9dd44c772f34a84789018f59df905a}{00050}}\ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_collider_a9f9dd44c772f34a84789018f59df905a}{IsUsingTransformScale}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_collider_a10c23d55e50b048078cddb0f806d5731}{useTransformScale}};\ \}}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00053}\mbox{\hyperlink{class_collider_a41b2de089e3faf27bd0ac87d923f9203}{00053}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_collider_a41b2de089e3faf27bd0ac87d923f9203}{SetWorldPosition}}(\textcolor{keyword}{const}\ glm::vec2\&\ pos)\ \{\ \mbox{\hyperlink{class_collider_a537ce5f2dcb47a34bbdb3afd308ed4f9}{worldPosition}}\ =\ pos;\ \}}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00055}\mbox{\hyperlink{class_collider_a46820df1f15ac4124525f6f0fe7667ff}{00055}}\ \ \ \ \ \textcolor{keyword}{const}\ glm::vec2\&\ \mbox{\hyperlink{class_collider_a46820df1f15ac4124525f6f0fe7667ff}{GetWorldPosition}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_collider_a537ce5f2dcb47a34bbdb3afd308ed4f9}{worldPosition}};\ \}}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00058}\mbox{\hyperlink{class_collider_a96da52831351800d25be94893cfaddf0}{00058}}\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_collider_a96da52831351800d25be94893cfaddf0}{CheckPointCollision}}(\textcolor{keyword}{const}\ glm::vec2\&\ point)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00060}00060\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00062}\mbox{\hyperlink{class_collider_a1a1c25108da499b666799d7e8d4c2d5b}{00062}}\ \ \ \ \ [[nodiscard]]\ \mbox{\hyperlink{class_object}{Object}}*\ \mbox{\hyperlink{class_collider_a1a1c25108da499b666799d7e8d4c2d5b}{GetOwner}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_collider_ae661027024ee407d042b8672625da377}{owner}};\ \}}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00065}\mbox{\hyperlink{class_collider_a677c9e05fcee3ef2ed94998dc5f2458d}{00065}}\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{_collider_8h_a7f138e75fc3cc79e825c39e040690395}{ColliderType}}\ \mbox{\hyperlink{class_collider_a677c9e05fcee3ef2ed94998dc5f2458d}{GetType}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00071}\mbox{\hyperlink{class_collider_a62c9c123b9a68da3b6eb13c718ccaa27}{00071}}\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_collider_a62c9c123b9a68da3b6eb13c718ccaa27}{GetBoundingRadius}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00077}\mbox{\hyperlink{class_collider_a41660505ae4b413d3d4b004162857426}{00077}}\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_collider_a41660505ae4b413d3d4b004162857426}{CheckCollision}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_collider_a02af0adc54359eddcd786735e7d0ce5b}{Collider}}*\ other)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00080}\mbox{\hyperlink{class_collider_a6b1071065ccb7ddfc1ff8340a89246d7}{00080}}\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_collider_a6b1071065ccb7ddfc1ff8340a89246d7}{DispatchAgainst}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_collider_a12cf416c51b48e672ffdfe63e6118f22}{CircleCollider}}\&\ other)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00082}\mbox{\hyperlink{class_collider_ae6038e89a98d8b252f143ddbc960a484}{00082}}\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_collider_ae6038e89a98d8b252f143ddbc960a484}{DispatchAgainst}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_collider_a16567cc4efd54b0d96a21acaf299e5d4}{AABBCollider}}\&\ other)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00088}\mbox{\hyperlink{class_collider_a188380ff8ece20474e86a662f995887e}{00088}}\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_collider_a188380ff8ece20474e86a662f995887e}{SyncWithTransformScale}}()\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00096}\mbox{\hyperlink{class_collider_a222e52491ae094943420952fd3182c90}{00096}}\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_collider_a222e52491ae094943420952fd3182c90}{DrawDebug}}(\mbox{\hyperlink{class_render_manager}{RenderManager}}*\ rm,\ \mbox{\hyperlink{class_camera2_d}{Camera2D}}*\ cam,\ \textcolor{keyword}{const}\ glm::vec4\&\ color\ =\ \{\ 1,0,0,1\ \})\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00098}\mbox{\hyperlink{class_collider_ae661027024ee407d042b8672625da377}{00098}}\ \ \ \ \ \mbox{\hyperlink{class_object}{Object}}*\ \mbox{\hyperlink{class_collider_ae661027024ee407d042b8672625da377}{owner}};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00099}\mbox{\hyperlink{class_collider_a10c23d55e50b048078cddb0f806d5731}{00099}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_collider_a10c23d55e50b048078cddb0f806d5731}{useTransformScale}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00100}\mbox{\hyperlink{class_collider_a537ce5f2dcb47a34bbdb3afd308ed4f9}{00100}}\ \ \ \ \ glm::vec2\ \mbox{\hyperlink{class_collider_a537ce5f2dcb47a34bbdb3afd308ed4f9}{worldPosition}};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00101}00101\ \};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00111}\mbox{\hyperlink{class_circle_collider}{00111}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_circle_collider_a597cd7fc15521b49b7bda1476caaadb4}{CircleCollider}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_collider_a02af0adc54359eddcd786735e7d0ce5b}{Collider}}}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00112}00112\ \{}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00113}\mbox{\hyperlink{class_circle_collider_a1444c449e346513260829327c9617db4}{00113}}\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_circle_collider_a1444c449e346513260829327c9617db4}{AABBCollider}};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00114}\mbox{\hyperlink{class_circle_collider_a8e1da083b202d4fcfe9f3650b0412ccb}{00114}}\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_circle_collider_a8e1da083b202d4fcfe9f3650b0412ccb}{SpatialHashGrid}};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00115}00115\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00121}\mbox{\hyperlink{class_circle_collider_a597cd7fc15521b49b7bda1476caaadb4}{00121}}\ \ \ \ \ \mbox{\hyperlink{class_circle_collider_a597cd7fc15521b49b7bda1476caaadb4}{CircleCollider}}(\mbox{\hyperlink{class_object}{Object}}*\ \mbox{\hyperlink{class_collider_ae661027024ee407d042b8672625da377}{owner}},\ \textcolor{keywordtype}{float}\ size)}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00122}00122\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{class_collider_a02af0adc54359eddcd786735e7d0ce5b}{Collider}}(\mbox{\hyperlink{class_collider_ae661027024ee407d042b8672625da377}{owner}}),\ \mbox{\hyperlink{class_circle_collider_a9ec4c0b866383ac3d9e81afd3fba7d5b}{baseRadius}}(size\ /\ 2.f),\ \mbox{\hyperlink{class_circle_collider_a5309cb556ef23c1eba1c9ffbddffe1d0}{scaledRadius}}(size\ /\ 2.f)\ \{}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00123}00123\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00126}00126\ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_circle_collider_a5679b18c3379fb6303c1f41288a4a5b7}{GetRadius}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00127}00127\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00129}00129\ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_circle_collider_a8bcc2d7586a3380e55317e7671c52d94}{GetSize}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00130}00130\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00132}00132\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_circle_collider_add83b7e1b2eb124b5d065bf96ea4dcd3}{SetRadius}}(\textcolor{keywordtype}{float}\ r);}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00133}00133\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00135}00135\ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_circle_collider_a4fa87c8b2fb9204f9d5e9d47dc3a44bc}{CheckPointCollision}}(\textcolor{keyword}{const}\ glm::vec2\&\ point)\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00136}00136\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00137}00137\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00138}\mbox{\hyperlink{class_circle_collider_ac2513ad483f0fc9789afe8e25f4797c1}{00138}}\ \ \ \ \ [[nodiscard]]\ \mbox{\hyperlink{_collider_8h_a7f138e75fc3cc79e825c39e040690395}{ColliderType}}\ \mbox{\hyperlink{class_circle_collider_ac2513ad483f0fc9789afe8e25f4797c1}{GetType}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{_collider_8h_a7f138e75fc3cc79e825c39e040690395a30954d90085f6eaaf5817917fc5fecb3}{ColliderType::Circle}};\ \}}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00139}00139\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00141}00141\ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_circle_collider_afc46297adb83cfaab9487e89d7a25298}{GetBoundingRadius}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00142}00142\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00144}00144\ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_circle_collider_a9598b67bc72342284318d19f3c0cf35b}{CheckCollision}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_collider}{Collider}}*\ other)\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00145}00145\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00146}00146\ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_circle_collider_a69a051ea02a260f7b5c46cb76058cbe5}{DispatchAgainst}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_circle_collider}{CircleCollider}}\&\ other)\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00147}00147\ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_circle_collider_a69a051ea02a260f7b5c46cb76058cbe5}{DispatchAgainst}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_a_a_b_b_collider}{AABBCollider}}\&\ other)\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00148}00148\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00150}00150\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_circle_collider_a8f00aeea30fb3ffb45ebbcaab0d96fdd}{SyncWithTransformScale}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00151}00151\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00153}00153\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_circle_collider_ae67885becfba36118e3ed5fc7a35d252}{DrawDebug}}(\mbox{\hyperlink{class_render_manager}{RenderManager}}*\ rm,\ \mbox{\hyperlink{class_camera2_d}{Camera2D}}*\ cam,\ \textcolor{keyword}{const}\ glm::vec4\&\ color)\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00154}00154\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00155}\mbox{\hyperlink{class_circle_collider_a9ec4c0b866383ac3d9e81afd3fba7d5b}{00155}}\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_circle_collider_a9ec4c0b866383ac3d9e81afd3fba7d5b}{baseRadius}}\ =\ 0.5f;}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00156}\mbox{\hyperlink{class_circle_collider_a5309cb556ef23c1eba1c9ffbddffe1d0}{00156}}\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_circle_collider_a5309cb556ef23c1eba1c9ffbddffe1d0}{scaledRadius}}\ =\ 0.5f;}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00157}00157\ \};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00158}00158\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00159}00159\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00167}\mbox{\hyperlink{class_a_a_b_b_collider}{00167}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_a_a_b_b_collider_a66beb9e931a00c970020f0d7e0c00b42}{AABBCollider}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_collider_a02af0adc54359eddcd786735e7d0ce5b}{Collider}}}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00168}00168\ \{}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00169}\mbox{\hyperlink{class_a_a_b_b_collider_a4090be2a3f0d7745dbaee9c8e23e327f}{00169}}\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_a_a_b_b_collider_a4090be2a3f0d7745dbaee9c8e23e327f}{CircleCollider}};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00170}\mbox{\hyperlink{class_a_a_b_b_collider_af10e414616e9c15986e9913919d276f3}{00170}}\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_a_a_b_b_collider_af10e414616e9c15986e9913919d276f3}{SpatialHashGrid}};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00171}00171\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00177}\mbox{\hyperlink{class_a_a_b_b_collider_a66beb9e931a00c970020f0d7e0c00b42}{00177}}\ \ \ \ \ \mbox{\hyperlink{class_a_a_b_b_collider_a66beb9e931a00c970020f0d7e0c00b42}{AABBCollider}}(\mbox{\hyperlink{class_object}{Object}}*\ \mbox{\hyperlink{class_collider_ae661027024ee407d042b8672625da377}{owner}},\ \textcolor{keyword}{const}\ glm::vec2\&\ size)}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00178}00178\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{class_collider_a02af0adc54359eddcd786735e7d0ce5b}{Collider}}(\mbox{\hyperlink{class_collider_ae661027024ee407d042b8672625da377}{owner}}),\ \mbox{\hyperlink{class_a_a_b_b_collider_a05331cca718b5168694573eaa6075515}{baseHalfSize}}(size\ /\ glm::vec2(2)),\ \mbox{\hyperlink{class_a_a_b_b_collider_af7d136e399faaf88078aa4f6722f3ee2}{scaledHalfSize}}(size\ /\ glm::vec2(2))\ \{}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00179}00179\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00180}00180\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00182}00182\ \ \ \ \ [[nodiscard]]\ glm::vec2\ \mbox{\hyperlink{class_a_a_b_b_collider_aafbb031b5f15094c94044f7460b2b0f8}{GetHalfSize}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00183}00183\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00185}00185\ \ \ \ \ [[nodiscard]]\ glm::vec2\ \mbox{\hyperlink{class_a_a_b_b_collider_af9bceaa7452b9aab8b0cf8d9236c718d}{GetSize}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00187}00187\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_a_a_b_b_collider_af414f7035bc0799350ab8d34b4489b53}{SetSize}}(\textcolor{keyword}{const}\ glm::vec2\&\ hs);}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00188}00188\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00190}00190\ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_a_a_b_b_collider_a0d2cf23fe7b870bc02605ed78b7d4aba}{CheckPointCollision}}(\textcolor{keyword}{const}\ glm::vec2\&\ point)\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00191}00191\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00192}00192\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00193}\mbox{\hyperlink{class_a_a_b_b_collider_a02a5aef8ae047a6e77dea4d9ee3bdc91}{00193}}\ \ \ \ \ [[nodiscard]]\ \mbox{\hyperlink{_collider_8h_a7f138e75fc3cc79e825c39e040690395}{ColliderType}}\ \mbox{\hyperlink{class_a_a_b_b_collider_a02a5aef8ae047a6e77dea4d9ee3bdc91}{GetType}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{_collider_8h_a7f138e75fc3cc79e825c39e040690395a4276d50f05d2cac4c98c17337ac30c99}{ColliderType::AABB}};\ \}}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00194}00194\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00196}00196\ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_a_a_b_b_collider_a0a0f0dcd7d52ac0ef8d11953424a752a}{GetBoundingRadius}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00197}00197\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00199}00199\ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_a_a_b_b_collider_a8bd480dffa6343fa74035a4df701ca22}{CheckCollision}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_collider}{Collider}}*\ other)\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00200}00200\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00201}00201\ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_a_a_b_b_collider_a22a432aea0dae3f7683c338db68f5846}{DispatchAgainst}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_circle_collider}{CircleCollider}}\&\ other)\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00202}00202\ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_a_a_b_b_collider_a22a432aea0dae3f7683c338db68f5846}{DispatchAgainst}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_a_a_b_b_collider}{AABBCollider}}\&\ other)\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00203}00203\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00205}00205\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_a_a_b_b_collider_a66dc8ecf507a6f3de51fb56f7cd0aa67}{SyncWithTransformScale}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00206}00206\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00208}00208\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_a_a_b_b_collider_ac436555bab262272195f5081b33db006}{DrawDebug}}(\mbox{\hyperlink{class_render_manager}{RenderManager}}*\ rm,\ \mbox{\hyperlink{class_camera2_d}{Camera2D}}*\ cam,\ \textcolor{keyword}{const}\ glm::vec4\&\ color)\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00209}00209\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00210}\mbox{\hyperlink{class_a_a_b_b_collider_a05331cca718b5168694573eaa6075515}{00210}}\ \ \ \ \ glm::vec2\ \mbox{\hyperlink{class_a_a_b_b_collider_a05331cca718b5168694573eaa6075515}{baseHalfSize}}\ =\ \{\ 0.5f,\ 0.5f\ \};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00211}\mbox{\hyperlink{class_a_a_b_b_collider_af7d136e399faaf88078aa4f6722f3ee2}{00211}}\ \ \ \ \ glm::vec2\ \mbox{\hyperlink{class_a_a_b_b_collider_af7d136e399faaf88078aa4f6722f3ee2}{scaledHalfSize}}\ =\ \{\ 0.5f,\ 0.5f\ \};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00212}00212\ \};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00213}00213\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00215}\mbox{\hyperlink{struct_vec2_hash}{00215}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_vec2_hash}{Vec2Hash}}}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00216}00216\ \{}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00217}\mbox{\hyperlink{struct_vec2_hash_a25ef08f20bd5a5d76a22d33941f9852b}{00217}}\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{struct_vec2_hash_a25ef08f20bd5a5d76a22d33941f9852b}{operator()}}(\textcolor{keyword}{const}\ glm::ivec2\&\ v)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00218}00218\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00219}00219\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::hash<int>()(v.x\ *\ 73856093\ \string^\ v.y\ *\ 19349663);}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00220}00220\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00221}00221\ \};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00222}00222\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00231}\mbox{\hyperlink{class_spatial_hash_grid}{00231}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_spatial_hash_grid}{SpatialHashGrid}}}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00232}00232\ \{}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00233}\mbox{\hyperlink{class_spatial_hash_grid_a3d562af33d1ca962af83cc51d27a162a}{00233}}\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_spatial_hash_grid_a3d562af33d1ca962af83cc51d27a162a}{ObjectManager}};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00234}00234\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00236}00236\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_spatial_hash_grid_a8d21ff387048e7157ab590150d6da4df}{Clear}}();}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00238}00238\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_spatial_hash_grid_a3beecc4cb4fe0ba6ac6d99eca08f7fb9}{Insert}}(\mbox{\hyperlink{class_object}{Object}}*\ obj);}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00243}00243\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_spatial_hash_grid_a7cf87def6c3ae48e96b8569f8e58ff56}{ComputeCollisions}}(std::function<\textcolor{keywordtype}{void}(\mbox{\hyperlink{class_object}{Object}}*,\ \mbox{\hyperlink{class_object}{Object}}*)>\ onCollision);}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00245}00245\ \ \ \ \ [[nodiscard]]\ glm::ivec2\ \mbox{\hyperlink{class_spatial_hash_grid_a3e3dfa8216d3b5379bf3fda5ae962923}{GetCell}}(\textcolor{keyword}{const}\ glm::vec2\&\ pos)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00247}00247\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_spatial_hash_grid_a6303f1125394feeef151f935672eb2cf}{InsertToCell}}(\mbox{\hyperlink{class_object}{Object}}*\ obj,\ \textcolor{keyword}{const}\ glm::ivec2\&\ cell);}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00248}00248\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00249}\mbox{\hyperlink{class_spatial_hash_grid_af3d8a474161e4f52e06fadd344cfe891}{00249}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_spatial_hash_grid_af3d8a474161e4f52e06fadd344cfe891}{cellSize}}\ =\ 50;}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00250}\mbox{\hyperlink{class_spatial_hash_grid_af796e0341b4f105ee2b500e38563901a}{00250}}\ \ \ \ \ std::unordered\_map<glm::ivec2,\ std::vector<Object*>,\ \mbox{\hyperlink{struct_vec2_hash}{Vec2Hash}}>\ \mbox{\hyperlink{class_spatial_hash_grid_af796e0341b4f105ee2b500e38563901a}{grid}};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00251}00251\ \};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00252}00252\ }
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00260}\mbox{\hyperlink{class_collision_group_registry}{00260}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_collision_group_registry}{CollisionGroupRegistry}}}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00261}00261\ \{}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00262}\mbox{\hyperlink{class_collision_group_registry_aaf200e4026f673a79f1c2bf29459de07}{00262}}\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_collision_group_registry_aaf200e4026f673a79f1c2bf29459de07}{Collider}};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00263}\mbox{\hyperlink{class_collision_group_registry_a2405835d5f56a936e902751d7ab3dbd8}{00263}}\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_collision_group_registry_a2405835d5f56a936e902751d7ab3dbd8}{Object}};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00264}00264\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00265}00265\ \ \ \ \ [[nodiscard]]\ uint32\_t\ \mbox{\hyperlink{class_collision_group_registry_ac68cd443ab9e050383111ffd46dad625}{GetGroupBit}}(\textcolor{keyword}{const}\ std::string\&\ tag);}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00266}00266\ \ \ \ \ [[nodiscard]]\ std::string\ \mbox{\hyperlink{class_collision_group_registry_adeb0ee190820fb34f8acc1474921cab5}{GetGroupTag}}(uint32\_t\ bit)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00267}\mbox{\hyperlink{class_collision_group_registry_ab95c6214265044dd64b94eede30bf228}{00267}}\ \ \ \ \ std::unordered\_map<std::string,\ uint32\_t>\ \mbox{\hyperlink{class_collision_group_registry_ab95c6214265044dd64b94eede30bf228}{tagToBit}};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00268}\mbox{\hyperlink{class_collision_group_registry_a03eaa11789a579244d7352b9bbdf07f1}{00268}}\ \ \ \ \ std::unordered\_map<uint32\_t,\ std::string>\ \mbox{\hyperlink{class_collision_group_registry_a03eaa11789a579244d7352b9bbdf07f1}{bitToTag}};}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00269}\mbox{\hyperlink{class_collision_group_registry_a56e97b092b3b9a4872dc4ad796d00443}{00269}}\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{class_collision_group_registry_a56e97b092b3b9a4872dc4ad796d00443}{currentBit}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_collider_8h_source_l00270}00270\ \};}
+
+\end{DoxyCode}

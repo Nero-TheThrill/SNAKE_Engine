@@ -3,21 +3,23 @@
 {\ttfamily \#include $<$string$>$}\newline
 {\ttfamily \#include $<$unordered\+\_\+map$>$}\newline
 {\ttfamily \#include $<$variant$>$}\newline
-{\ttfamily \#include "{}../\+Third\+Party/glm/glm.\+hpp"{}}\newline
+{\ttfamily \#include "{}glm.\+hpp"{}}\newline
 \doxysubsubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
 class \mbox{\hyperlink{class_material}{Material}}
-\begin{DoxyCompactList}\small\item\em Represents a GPU-\/bound material used to render objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em \doxylink{class_material}{Material} binds a \doxylink{class_shader}{Shader} with named textures and cached uniform values. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
 using \mbox{\hyperlink{_material_8h_a9b79d6d8dc8627e68412974748f1c08c}{GLuint}} = unsigned int
 \item 
 using \mbox{\hyperlink{_material_8h_a06229a425f27fcb99ce02ae045b56e0d}{Uniform\+Value}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Variant of supported uniform value types. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
+\label{doc-typedef-members}
+\Hypertarget{_material_8h_doc-typedef-members}
 \doxysubsection{Typedef Documentation}
 \Hypertarget{_material_8h_a9b79d6d8dc8627e68412974748f1c08c}\index{Material.h@{Material.h}!GLuint@{GLuint}}
 \index{GLuint@{GLuint}!Material.h@{Material.h}}
@@ -49,5 +51,9 @@ using \mbox{\hyperlink{_material_8h_a06229a425f27fcb99ce02ae045b56e0d}{Uniform\+
 \end{DoxyCode}
 
 
-Definition at line \mbox{\hyperlink{_material_8h_source_l00014}{14}} of file \mbox{\hyperlink{_material_8h_source}{Material.\+h}}.
+Variant of supported uniform value types. 
+
+Supported\+: int, float, vec2, vec3, vec4, mat4. 
+
+Definition at line \mbox{\hyperlink{_material_8h_source_l00018}{18}} of file \mbox{\hyperlink{_material_8h_source}{Material.\+h}}.
 

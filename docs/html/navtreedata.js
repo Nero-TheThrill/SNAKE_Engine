@@ -31,10 +31,13 @@ var NAVTREE =
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
+      [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", "functions_dup" ],
-        [ "Functions", "functions_func.html", null ],
-        [ "Variables", "functions_vars.html", null ],
+        [ "Functions", "functions_func.html", "functions_func" ],
+        [ "Variables", "functions_vars.html", "functions_vars" ],
+        [ "Typedefs", "functions_type.html", null ],
+        [ "Enumerations", "functions_enum.html", null ],
         [ "Related Symbols", "functions_rela.html", null ]
       ] ]
     ] ],
@@ -54,10 +57,13 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_camera2_d_8cpp.html",
-"class_game_object.html#a6ec65a8b875cfcf7d9155390579fcaab",
-"dir_ffd1f789ec7bd0a45fc6ad92579c5070.html"
+"_animation_8cpp.html",
+"_texture_8h.html#ae99e0f833ccd2a830a871dba98d1c5bfa74556551231333c36debc3d373261134",
+"class_object.html#a1905fc7497de984a176acdcf8ecb81be",
+"class_sprite_animator.html#af0127d4a6d5804580ed0bdc749e48fe6",
+"struct_sprite_frame.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';
 var SYNCOFFMSG = 'click to enable panel synchronization';
+var LISTOFALLMEMBERS = 'List of all members';

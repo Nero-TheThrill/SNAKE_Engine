@@ -5,81 +5,119 @@
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{struct_texture_settings}{Texture\+Settings}}
-\begin{DoxyCompactList}\small\item\em Stores texture sampling behavior including filter and wrap modes. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Runtime-\/configurable texture parameters with sensible defaults. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{class_texture}{Texture}}
-\begin{DoxyCompactList}\small\item\em Represents an Open\+GL 2D texture loaded from file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
-enum class \mbox{\hyperlink{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74}{Texture\+Filter}} \{ \newline
-\mbox{\hyperlink{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74a60494f02d440f316319dd0fad40ad007}{Nearest}}
-, \mbox{\hyperlink{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74a32a843da6ea40ab3b17a3421ccdf671b}{Linear}}
-, \mbox{\hyperlink{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74a35d97e4a37fa3a0d76c692f3e318599b}{Nearest\+Mipmap\+Nearest}}
-, \mbox{\hyperlink{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74ac164897273ad7f6d61626f5610d86425}{Linear\+Mipmap\+Nearest}}
+enum class \mbox{\hyperlink{_texture_8h_a5085aa1953bce0fe12fbdb71e56333c6}{Texture\+Min\+Filter}} \{ \newline
+\mbox{\hyperlink{_texture_8h_a5085aa1953bce0fe12fbdb71e56333c6a60494f02d440f316319dd0fad40ad007}{Nearest}}
+, \mbox{\hyperlink{_texture_8h_a5085aa1953bce0fe12fbdb71e56333c6a32a843da6ea40ab3b17a3421ccdf671b}{Linear}}
+, \mbox{\hyperlink{_texture_8h_a5085aa1953bce0fe12fbdb71e56333c6a35d97e4a37fa3a0d76c692f3e318599b}{Nearest\+Mipmap\+Nearest}}
+, \mbox{\hyperlink{_texture_8h_a5085aa1953bce0fe12fbdb71e56333c6ac164897273ad7f6d61626f5610d86425}{Linear\+Mipmap\+Nearest}}
 , \newline
-\mbox{\hyperlink{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74a9a79df5c07e4d2a2875689f608b50529}{Nearest\+Mipmap\+Linear}}
-, \mbox{\hyperlink{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74a1173bd3987b1e185d86b9c3fe1b8bd72}{Linear\+Mipmap\+Linear}}
+\mbox{\hyperlink{_texture_8h_a5085aa1953bce0fe12fbdb71e56333c6a9a79df5c07e4d2a2875689f608b50529}{Nearest\+Mipmap\+Linear}}
+, \mbox{\hyperlink{_texture_8h_a5085aa1953bce0fe12fbdb71e56333c6a1173bd3987b1e185d86b9c3fe1b8bd72}{Linear\+Mipmap\+Linear}}
  \}
-\begin{DoxyCompactList}\small\item\em Enumerates filtering strategies for texture magnification and minification. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Minification filter options for textures. \end{DoxyCompactList}\item 
+enum class \mbox{\hyperlink{_texture_8h_aee79dc6a68e22c98941b4a3e1489e915}{Texture\+Mag\+Filter}} \{ \mbox{\hyperlink{_texture_8h_aee79dc6a68e22c98941b4a3e1489e915a60494f02d440f316319dd0fad40ad007}{Nearest}}
+, \mbox{\hyperlink{_texture_8h_aee79dc6a68e22c98941b4a3e1489e915a32a843da6ea40ab3b17a3421ccdf671b}{Linear}}
+ \}
+\begin{DoxyCompactList}\small\item\em Magnification filter options for textures. \end{DoxyCompactList}\item 
 enum class \mbox{\hyperlink{_texture_8h_ae99e0f833ccd2a830a871dba98d1c5bf}{Texture\+Wrap}} \{ \mbox{\hyperlink{_texture_8h_ae99e0f833ccd2a830a871dba98d1c5bfa74556551231333c36debc3d373261134}{Clamp\+To\+Edge}}
 , \mbox{\hyperlink{_texture_8h_ae99e0f833ccd2a830a871dba98d1c5bfa7020426cfb0a204051be4b3053d2acc8}{Repeat}}
 , \mbox{\hyperlink{_texture_8h_ae99e0f833ccd2a830a871dba98d1c5bfa12ce4a5977988214a6b098b8cb0bf695}{Mirrored\+Repeat}}
 , \mbox{\hyperlink{_texture_8h_ae99e0f833ccd2a830a871dba98d1c5bfafb07f88f6f11cc5ab9c951290716f147}{Clamp\+To\+Border}}
  \}
-\begin{DoxyCompactList}\small\item\em Enumerates how texture coordinates outside the \mbox{[}0,1\mbox{]} range are handled. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em \doxylink{class_texture}{Texture} wrap modes for S and T axes. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
+\label{doc-enum-members}
+\Hypertarget{_texture_8h_doc-enum-members}
 \doxysubsection{Enumeration Type Documentation}
-\Hypertarget{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74}\index{Texture.h@{Texture.h}!TextureFilter@{TextureFilter}}
-\index{TextureFilter@{TextureFilter}!Texture.h@{Texture.h}}
-\doxysubsubsection{\texorpdfstring{TextureFilter}{TextureFilter}}
-{\footnotesize\ttfamily \label{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74} 
-enum class \mbox{\hyperlink{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74}{Texture\+Filter}}\hspace{0.3cm}{\ttfamily [strong]}}
+\Hypertarget{_texture_8h_aee79dc6a68e22c98941b4a3e1489e915}\index{Texture.h@{Texture.h}!TextureMagFilter@{TextureMagFilter}}
+\index{TextureMagFilter@{TextureMagFilter}!Texture.h@{Texture.h}}
+\doxysubsubsection{\texorpdfstring{TextureMagFilter}{TextureMagFilter}}
+{\footnotesize\ttfamily \label{_texture_8h_aee79dc6a68e22c98941b4a3e1489e915} 
+enum class \mbox{\hyperlink{_texture_8h_aee79dc6a68e22c98941b4a3e1489e915}{Texture\+Mag\+Filter}}\hspace{0.3cm}{\ttfamily [strong]}}
 
 
 
-Enumerates filtering strategies for texture magnification and minification. 
+Magnification filter options for textures. 
 
-Used to determine how pixel colors are sampled when a texture is scaled. Options include nearest-\/neighbor and linear filtering, with or without mipmapping. \begin{DoxyEnumFields}[2]{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{Nearest@{Nearest}!Texture.h@{Texture.h}}\index{Texture.h@{Texture.h}!Nearest@{Nearest}}}\Hypertarget{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74a60494f02d440f316319dd0fad40ad007}\label{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74a60494f02d440f316319dd0fad40ad007} 
+Mapped to GL constants via internal helpers (Convert\+Mag\+Filter). \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Nearest@{Nearest}!Texture.h@{Texture.h}}\index{Texture.h@{Texture.h}!Nearest@{Nearest}}}\Hypertarget{_texture_8h_aee79dc6a68e22c98941b4a3e1489e915a60494f02d440f316319dd0fad40ad007}\label{_texture_8h_aee79dc6a68e22c98941b4a3e1489e915a60494f02d440f316319dd0fad40ad007} 
 Nearest&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{Linear@{Linear}!Texture.h@{Texture.h}}\index{Texture.h@{Texture.h}!Linear@{Linear}}}\Hypertarget{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74a32a843da6ea40ab3b17a3421ccdf671b}\label{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74a32a843da6ea40ab3b17a3421ccdf671b} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Linear@{Linear}!Texture.h@{Texture.h}}\index{Texture.h@{Texture.h}!Linear@{Linear}}}\Hypertarget{_texture_8h_aee79dc6a68e22c98941b4a3e1489e915a32a843da6ea40ab3b17a3421ccdf671b}\label{_texture_8h_aee79dc6a68e22c98941b4a3e1489e915a32a843da6ea40ab3b17a3421ccdf671b} 
 Linear&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{NearestMipmapNearest@{NearestMipmapNearest}!Texture.h@{Texture.h}}\index{Texture.h@{Texture.h}!NearestMipmapNearest@{NearestMipmapNearest}}}\Hypertarget{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74a35d97e4a37fa3a0d76c692f3e318599b}\label{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74a35d97e4a37fa3a0d76c692f3e318599b} 
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{_texture_8h_source_l00026}{26}} of file \mbox{\hyperlink{_texture_8h_source}{Texture.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00027\ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{_texture_8h_aee79dc6a68e22c98941b4a3e1489e915a60494f02d440f316319dd0fad40ad007}{Nearest}},}
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{_texture_8h_aee79dc6a68e22c98941b4a3e1489e915a32a843da6ea40ab3b17a3421ccdf671b}{Linear}},}
+\DoxyCodeLine{00030\ \};}
+
+\end{DoxyCode}
+\Hypertarget{_texture_8h_a5085aa1953bce0fe12fbdb71e56333c6}\index{Texture.h@{Texture.h}!TextureMinFilter@{TextureMinFilter}}
+\index{TextureMinFilter@{TextureMinFilter}!Texture.h@{Texture.h}}
+\doxysubsubsection{\texorpdfstring{TextureMinFilter}{TextureMinFilter}}
+{\footnotesize\ttfamily \label{_texture_8h_a5085aa1953bce0fe12fbdb71e56333c6} 
+enum class \mbox{\hyperlink{_texture_8h_a5085aa1953bce0fe12fbdb71e56333c6}{Texture\+Min\+Filter}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Minification filter options for textures. 
+
+Mapped to GL constants via internal helpers (Convert\+Min\+Filter). \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Nearest@{Nearest}!Texture.h@{Texture.h}}\index{Texture.h@{Texture.h}!Nearest@{Nearest}}}\Hypertarget{_texture_8h_a5085aa1953bce0fe12fbdb71e56333c6a60494f02d440f316319dd0fad40ad007}\label{_texture_8h_a5085aa1953bce0fe12fbdb71e56333c6a60494f02d440f316319dd0fad40ad007} 
+Nearest&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Linear@{Linear}!Texture.h@{Texture.h}}\index{Texture.h@{Texture.h}!Linear@{Linear}}}\Hypertarget{_texture_8h_a5085aa1953bce0fe12fbdb71e56333c6a32a843da6ea40ab3b17a3421ccdf671b}\label{_texture_8h_a5085aa1953bce0fe12fbdb71e56333c6a32a843da6ea40ab3b17a3421ccdf671b} 
+Linear&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NearestMipmapNearest@{NearestMipmapNearest}!Texture.h@{Texture.h}}\index{Texture.h@{Texture.h}!NearestMipmapNearest@{NearestMipmapNearest}}}\Hypertarget{_texture_8h_a5085aa1953bce0fe12fbdb71e56333c6a35d97e4a37fa3a0d76c692f3e318599b}\label{_texture_8h_a5085aa1953bce0fe12fbdb71e56333c6a35d97e4a37fa3a0d76c692f3e318599b} 
 Nearest\+Mipmap\+Nearest&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{LinearMipmapNearest@{LinearMipmapNearest}!Texture.h@{Texture.h}}\index{Texture.h@{Texture.h}!LinearMipmapNearest@{LinearMipmapNearest}}}\Hypertarget{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74ac164897273ad7f6d61626f5610d86425}\label{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74ac164897273ad7f6d61626f5610d86425} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LinearMipmapNearest@{LinearMipmapNearest}!Texture.h@{Texture.h}}\index{Texture.h@{Texture.h}!LinearMipmapNearest@{LinearMipmapNearest}}}\Hypertarget{_texture_8h_a5085aa1953bce0fe12fbdb71e56333c6ac164897273ad7f6d61626f5610d86425}\label{_texture_8h_a5085aa1953bce0fe12fbdb71e56333c6ac164897273ad7f6d61626f5610d86425} 
 Linear\+Mipmap\+Nearest&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{NearestMipmapLinear@{NearestMipmapLinear}!Texture.h@{Texture.h}}\index{Texture.h@{Texture.h}!NearestMipmapLinear@{NearestMipmapLinear}}}\Hypertarget{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74a9a79df5c07e4d2a2875689f608b50529}\label{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74a9a79df5c07e4d2a2875689f608b50529} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NearestMipmapLinear@{NearestMipmapLinear}!Texture.h@{Texture.h}}\index{Texture.h@{Texture.h}!NearestMipmapLinear@{NearestMipmapLinear}}}\Hypertarget{_texture_8h_a5085aa1953bce0fe12fbdb71e56333c6a9a79df5c07e4d2a2875689f608b50529}\label{_texture_8h_a5085aa1953bce0fe12fbdb71e56333c6a9a79df5c07e4d2a2875689f608b50529} 
 Nearest\+Mipmap\+Linear&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{LinearMipmapLinear@{LinearMipmapLinear}!Texture.h@{Texture.h}}\index{Texture.h@{Texture.h}!LinearMipmapLinear@{LinearMipmapLinear}}}\Hypertarget{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74a1173bd3987b1e185d86b9c3fe1b8bd72}\label{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74a1173bd3987b1e185d86b9c3fe1b8bd72} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LinearMipmapLinear@{LinearMipmapLinear}!Texture.h@{Texture.h}}\index{Texture.h@{Texture.h}!LinearMipmapLinear@{LinearMipmapLinear}}}\Hypertarget{_texture_8h_a5085aa1953bce0fe12fbdb71e56333c6a1173bd3987b1e185d86b9c3fe1b8bd72}\label{_texture_8h_a5085aa1953bce0fe12fbdb71e56333c6a1173bd3987b1e185d86b9c3fe1b8bd72} 
 Linear\+Mipmap\+Linear&\\
 \hline
 
 \end{DoxyEnumFields}
 
 
-Definition at line \mbox{\hyperlink{_texture_8h_source_l00012}{12}} of file \mbox{\hyperlink{_texture_8h_source}{Texture.\+h}}.
+Definition at line \mbox{\hyperlink{_texture_8h_source_l00011}{11}} of file \mbox{\hyperlink{_texture_8h_source}{Texture.\+h}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00013\ \{}
-\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74a60494f02d440f316319dd0fad40ad007}{Nearest}},}
-\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74a32a843da6ea40ab3b17a3421ccdf671b}{Linear}},}
-\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74a35d97e4a37fa3a0d76c692f3e318599b}{NearestMipmapNearest}},}
-\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74ac164897273ad7f6d61626f5610d86425}{LinearMipmapNearest}},}
-\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74a9a79df5c07e4d2a2875689f608b50529}{NearestMipmapLinear}},}
-\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74a1173bd3987b1e185d86b9c3fe1b8bd72}{LinearMipmapLinear}}}
-\DoxyCodeLine{00020\ \};}
+\DoxyCodeLine{00012\ \{}
+\DoxyCodeLine{00013\ \ \ \ \ \mbox{\hyperlink{_texture_8h_a5085aa1953bce0fe12fbdb71e56333c6a60494f02d440f316319dd0fad40ad007}{Nearest}},}
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{_texture_8h_a5085aa1953bce0fe12fbdb71e56333c6a32a843da6ea40ab3b17a3421ccdf671b}{Linear}},}
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{_texture_8h_a5085aa1953bce0fe12fbdb71e56333c6a35d97e4a37fa3a0d76c692f3e318599b}{NearestMipmapNearest}},}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{_texture_8h_a5085aa1953bce0fe12fbdb71e56333c6ac164897273ad7f6d61626f5610d86425}{LinearMipmapNearest}},}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{_texture_8h_a5085aa1953bce0fe12fbdb71e56333c6a9a79df5c07e4d2a2875689f608b50529}{NearestMipmapLinear}},}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{_texture_8h_a5085aa1953bce0fe12fbdb71e56333c6a1173bd3987b1e185d86b9c3fe1b8bd72}{LinearMipmapLinear}}}
+\DoxyCodeLine{00019\ \};}
 
 \end{DoxyCode}
 \Hypertarget{_texture_8h_ae99e0f833ccd2a830a871dba98d1c5bf}\index{Texture.h@{Texture.h}!TextureWrap@{TextureWrap}}
@@ -90,9 +128,9 @@ enum class \mbox{\hyperlink{_texture_8h_ae99e0f833ccd2a830a871dba98d1c5bf}{Textu
 
 
 
-Enumerates how texture coordinates outside the \mbox{[}0,1\mbox{]} range are handled. 
+\doxylink{class_texture}{Texture} wrap modes for S and T axes. 
 
-Used to define how textures repeat or clamp on the horizontal (S) and vertical (T) axes. \begin{DoxyEnumFields}[2]{Enumerator}
+Mapped to GL constants via internal helpers (Convert\+Wrap). \begin{DoxyEnumFields}[2]{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{ClampToEdge@{ClampToEdge}!Texture.h@{Texture.h}}\index{Texture.h@{Texture.h}!ClampToEdge@{ClampToEdge}}}\Hypertarget{_texture_8h_ae99e0f833ccd2a830a871dba98d1c5bfa74556551231333c36debc3d373261134}\label{_texture_8h_ae99e0f833ccd2a830a871dba98d1c5bfa74556551231333c36debc3d373261134} 
 Clamp\+To\+Edge&\\
 \hline
@@ -112,15 +150,15 @@ Clamp\+To\+Border&\\
 \end{DoxyEnumFields}
 
 
-Definition at line \mbox{\hyperlink{_texture_8h_source_l00028}{28}} of file \mbox{\hyperlink{_texture_8h_source}{Texture.\+h}}.
+Definition at line \mbox{\hyperlink{_texture_8h_source_l00037}{37}} of file \mbox{\hyperlink{_texture_8h_source}{Texture.\+h}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00029\ \{}
-\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{_texture_8h_ae99e0f833ccd2a830a871dba98d1c5bfa74556551231333c36debc3d373261134}{ClampToEdge}},}
-\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{_texture_8h_ae99e0f833ccd2a830a871dba98d1c5bfa7020426cfb0a204051be4b3053d2acc8}{Repeat}},}
-\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{_texture_8h_ae99e0f833ccd2a830a871dba98d1c5bfa12ce4a5977988214a6b098b8cb0bf695}{MirroredRepeat}},}
-\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{_texture_8h_ae99e0f833ccd2a830a871dba98d1c5bfafb07f88f6f11cc5ab9c951290716f147}{ClampToBorder}}}
-\DoxyCodeLine{00034\ \};}
+\DoxyCodeLine{00038\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{_texture_8h_ae99e0f833ccd2a830a871dba98d1c5bfa74556551231333c36debc3d373261134}{ClampToEdge}},}
+\DoxyCodeLine{00040\ \ \ \ \ \mbox{\hyperlink{_texture_8h_ae99e0f833ccd2a830a871dba98d1c5bfa7020426cfb0a204051be4b3053d2acc8}{Repeat}},}
+\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{_texture_8h_ae99e0f833ccd2a830a871dba98d1c5bfa12ce4a5977988214a6b098b8cb0bf695}{MirroredRepeat}},}
+\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{_texture_8h_ae99e0f833ccd2a830a871dba98d1c5bfafb07f88f6f11cc5ab9c951290716f147}{ClampToBorder}}}
+\DoxyCodeLine{00043\ \};}
 
 \end{DoxyCode}

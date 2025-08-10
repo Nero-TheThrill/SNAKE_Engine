@@ -6,71 +6,73 @@
 \DoxyCodeLine{\Hypertarget{_shader_8h_source_l00002}00002\ }
 \DoxyCodeLine{\Hypertarget{_shader_8h_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <string>}}
 \DoxyCodeLine{\Hypertarget{_shader_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <vector>}}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}../ThirdParty/glm/glm.hpp"{}}}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}glm.hpp"{}}}
 \DoxyCodeLine{\Hypertarget{_shader_8h_source_l00006}00006\ }
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00013}\mbox{\hyperlink{_shader_8h_a22fa67f5720e9bfbd075bd088285c531}{00013}}\ \textcolor{keyword}{enum\ class}\ \mbox{\hyperlink{_shader_8h_a22fa67f5720e9bfbd075bd088285c531}{ShaderStage}}}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00014}00014\ \{}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00015}\mbox{\hyperlink{_shader_8h_a22fa67f5720e9bfbd075bd088285c531ab22b929ba52471a02d18bb3a4e4472e6}{00015}}\ \ \ \ \ \mbox{\hyperlink{_shader_8h_a22fa67f5720e9bfbd075bd088285c531ab22b929ba52471a02d18bb3a4e4472e6}{Vertex}},}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00016}\mbox{\hyperlink{_shader_8h_a22fa67f5720e9bfbd075bd088285c531a37d01b98065725fe3a1d30acf3a0064a}{00016}}\ \ \ \ \ \mbox{\hyperlink{_shader_8h_a22fa67f5720e9bfbd075bd088285c531a37d01b98065725fe3a1d30acf3a0064a}{Fragment}},}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00017}\mbox{\hyperlink{_shader_8h_a22fa67f5720e9bfbd075bd088285c531ad9c6333623e6357515fcbf17be806273}{00017}}\ \ \ \ \ \mbox{\hyperlink{_shader_8h_a22fa67f5720e9bfbd075bd088285c531ad9c6333623e6357515fcbf17be806273}{Geometry}},}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00018}\mbox{\hyperlink{_shader_8h_a22fa67f5720e9bfbd075bd088285c531a6c2ab859b54837522f9f738ef3bf846d}{00018}}\ \ \ \ \ \mbox{\hyperlink{_shader_8h_a22fa67f5720e9bfbd075bd088285c531a6c2ab859b54837522f9f738ef3bf846d}{TessControl}},}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00019}\mbox{\hyperlink{_shader_8h_a22fa67f5720e9bfbd075bd088285c531aa554dab289074ae03dda3280d0f7feb0}{00019}}\ \ \ \ \ \mbox{\hyperlink{_shader_8h_a22fa67f5720e9bfbd075bd088285c531aa554dab289074ae03dda3280d0f7feb0}{TessEval}},}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00020}\mbox{\hyperlink{_shader_8h_a22fa67f5720e9bfbd075bd088285c531aa623a8d0366bf079411aa30be45b2d10}{00020}}\ \ \ \ \ \mbox{\hyperlink{_shader_8h_a22fa67f5720e9bfbd075bd088285c531aa623a8d0366bf079411aa30be45b2d10}{Compute}}}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00021}00021\ \};}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00022}00022\ }
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00023}00023\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_render_manager}{RenderManager}};}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00024}00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_material}{Material}};}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00025}00025\ }
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00026}00026\ \textcolor{keyword}{using\ }\mbox{\hyperlink{_material_8h_a9b79d6d8dc8627e68412974748f1c08c}{GLuint}}\ =\ \textcolor{keywordtype}{unsigned}\ int;}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00027}\mbox{\hyperlink{_shader_8h_aabcf3e059d4bfe03f96c378d2533c3ba}{00027}}\ \textcolor{keyword}{using\ }\mbox{\hyperlink{_shader_8h_aabcf3e059d4bfe03f96c378d2533c3ba}{GLenum}}\ =\ \textcolor{keywordtype}{unsigned}\ int;}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00028}00028\ \textcolor{keyword}{using\ }\mbox{\hyperlink{_render_manager_8h_a1db05f4e4bd57f5e7db00f908dab03be}{FilePath}}\ =\ std::string;}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00029}00029\ }
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00040}\mbox{\hyperlink{class_shader}{00040}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_shader_a0d654ebaca4e0555197c0724c6d30610}{Shader}}\ \{}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00041}\mbox{\hyperlink{class_shader_abd90567f8b213f3bf1b40200a4257ae1}{00041}}\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_shader_abd90567f8b213f3bf1b40200a4257ae1}{Material}};}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00042}\mbox{\hyperlink{class_shader_a2cbf5adc5d868219094df11bab36009b}{00042}}\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_shader_a2cbf5adc5d868219094df11bab36009b}{RenderManager}};}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00043}00043\ }
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00044}00044\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00048}00048\ \ \ \ \ \mbox{\hyperlink{class_shader_a0d654ebaca4e0555197c0724c6d30610}{Shader}}();}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00049}00049\ }
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00053}00053\ \ \ \ \ \mbox{\hyperlink{class_shader_aff01df87e8a102f270b5b135a295e59d}{\string~Shader}}();}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00054}00054\ }
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00065}00065\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_shader_a4729e93872d7483b6d5ec1680ec5f35f}{SendUniform}}(\textcolor{keyword}{const}\ std::string\&\ name,\ \textcolor{keywordtype}{int}\ value)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00007}\mbox{\hyperlink{_shader_8h_a22fa67f5720e9bfbd075bd088285c531}{00007}}\ \textcolor{keyword}{enum\ class}\ \mbox{\hyperlink{_shader_8h_a22fa67f5720e9bfbd075bd088285c531}{ShaderStage}}}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00008}00008\ \{}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00009}\mbox{\hyperlink{_shader_8h_a22fa67f5720e9bfbd075bd088285c531ab22b929ba52471a02d18bb3a4e4472e6}{00009}}\ \ \ \ \ \mbox{\hyperlink{struct_vertex}{Vertex}},}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00010}\mbox{\hyperlink{_shader_8h_a22fa67f5720e9bfbd075bd088285c531a37d01b98065725fe3a1d30acf3a0064a}{00010}}\ \ \ \ \ \mbox{\hyperlink{_shader_8h_a22fa67f5720e9bfbd075bd088285c531a37d01b98065725fe3a1d30acf3a0064a}{Fragment}},}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00011}\mbox{\hyperlink{_shader_8h_a22fa67f5720e9bfbd075bd088285c531ad9c6333623e6357515fcbf17be806273}{00011}}\ \ \ \ \ \mbox{\hyperlink{_shader_8h_a22fa67f5720e9bfbd075bd088285c531ad9c6333623e6357515fcbf17be806273}{Geometry}},}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00012}\mbox{\hyperlink{_shader_8h_a22fa67f5720e9bfbd075bd088285c531a6c2ab859b54837522f9f738ef3bf846d}{00012}}\ \ \ \ \ \mbox{\hyperlink{_shader_8h_a22fa67f5720e9bfbd075bd088285c531a6c2ab859b54837522f9f738ef3bf846d}{TessControl}},}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00013}\mbox{\hyperlink{_shader_8h_a22fa67f5720e9bfbd075bd088285c531aa554dab289074ae03dda3280d0f7feb0}{00013}}\ \ \ \ \ \mbox{\hyperlink{_shader_8h_a22fa67f5720e9bfbd075bd088285c531aa554dab289074ae03dda3280d0f7feb0}{TessEval}},}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00014}\mbox{\hyperlink{_shader_8h_a22fa67f5720e9bfbd075bd088285c531aa623a8d0366bf079411aa30be45b2d10}{00014}}\ \ \ \ \ \mbox{\hyperlink{_shader_8h_a22fa67f5720e9bfbd075bd088285c531aa623a8d0366bf079411aa30be45b2d10}{Compute}}}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00015}00015\ \};}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00017}00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_render_manager}{RenderManager}};}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00018}00018\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_material}{Material}};}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00020}00020\ \textcolor{keyword}{using\ }\mbox{\hyperlink{_material_8h_a9b79d6d8dc8627e68412974748f1c08c}{GLuint}}\ =\ \textcolor{keywordtype}{unsigned}\ int;}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00021}\mbox{\hyperlink{_shader_8h_ac64cb152838786587bfafa749c3f2018}{00021}}\ \textcolor{keyword}{using\ }\mbox{\hyperlink{_shader_8h_ac64cb152838786587bfafa749c3f2018}{GLint}}\ =\ int;}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00022}\mbox{\hyperlink{_shader_8h_aabcf3e059d4bfe03f96c378d2533c3ba}{00022}}\ \textcolor{keyword}{using\ }\mbox{\hyperlink{_shader_8h_aabcf3e059d4bfe03f96c378d2533c3ba}{GLenum}}\ =\ \textcolor{keywordtype}{unsigned}\ int;}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00023}00023\ \textcolor{keyword}{using\ }\mbox{\hyperlink{_render_manager_8h_a1db05f4e4bd57f5e7db00f908dab03be}{FilePath}}\ =\ std::string;}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00035}\mbox{\hyperlink{class_shader}{00035}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_shader_a0d654ebaca4e0555197c0724c6d30610}{Shader}}\ \{}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00036}\mbox{\hyperlink{class_shader_abd90567f8b213f3bf1b40200a4257ae1}{00036}}\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_shader_abd90567f8b213f3bf1b40200a4257ae1}{Material}};}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00037}\mbox{\hyperlink{class_shader_a2cbf5adc5d868219094df11bab36009b}{00037}}\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_shader_a2cbf5adc5d868219094df11bab36009b}{RenderManager}};}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00039}00039\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00044}00044\ \ \ \ \ \mbox{\hyperlink{class_shader_a0d654ebaca4e0555197c0724c6d30610}{Shader}}();}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00049}00049\ \ \ \ \ \mbox{\hyperlink{class_shader_aff01df87e8a102f270b5b135a295e59d}{\string~Shader}}();}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00057}00057\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_shader_a4729e93872d7483b6d5ec1680ec5f35f}{SendUniform}}(\textcolor{keyword}{const}\ std::string\&\ name,\ \textcolor{keywordtype}{int}\ value)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00065}00065\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_shader_a4729e93872d7483b6d5ec1680ec5f35f}{SendUniform}}(\textcolor{keyword}{const}\ std::string\&\ name,\ \textcolor{keywordtype}{float}\ value)\ \textcolor{keyword}{const};}
 \DoxyCodeLine{\Hypertarget{_shader_8h_source_l00066}00066\ }
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00077}00077\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_shader_a4729e93872d7483b6d5ec1680ec5f35f}{SendUniform}}(\textcolor{keyword}{const}\ std::string\&\ name,\ \textcolor{keywordtype}{float}\ value)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00078}00078\ }
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00089}00089\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_shader_a4729e93872d7483b6d5ec1680ec5f35f}{SendUniform}}(\textcolor{keyword}{const}\ std::string\&\ name,\ \textcolor{keyword}{const}\ glm::vec2\&\ value)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00073}00073\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_shader_a4729e93872d7483b6d5ec1680ec5f35f}{SendUniform}}(\textcolor{keyword}{const}\ std::string\&\ name,\ \textcolor{keyword}{const}\ glm::vec2\&\ value)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00081}00081\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_shader_a4729e93872d7483b6d5ec1680ec5f35f}{SendUniform}}(\textcolor{keyword}{const}\ std::string\&\ name,\ \textcolor{keyword}{const}\ glm::vec3\&\ value)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00089}00089\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_shader_a4729e93872d7483b6d5ec1680ec5f35f}{SendUniform}}(\textcolor{keyword}{const}\ std::string\&\ name,\ \textcolor{keyword}{const}\ glm::vec4\&\ value)\ \textcolor{keyword}{const};}
 \DoxyCodeLine{\Hypertarget{_shader_8h_source_l00090}00090\ }
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00101}00101\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_shader_a4729e93872d7483b6d5ec1680ec5f35f}{SendUniform}}(\textcolor{keyword}{const}\ std::string\&\ name,\ \textcolor{keyword}{const}\ glm::vec3\&\ value)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00102}00102\ }
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00113}00113\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_shader_a4729e93872d7483b6d5ec1680ec5f35f}{SendUniform}}(\textcolor{keyword}{const}\ std::string\&\ name,\ \textcolor{keyword}{const}\ glm::vec4\&\ value)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00114}00114\ }
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00125}00125\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_shader_a4729e93872d7483b6d5ec1680ec5f35f}{SendUniform}}(\textcolor{keyword}{const}\ std::string\&\ name,\ \textcolor{keyword}{const}\ glm::mat4\&\ value)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00126}00126\ }
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00132}\mbox{\hyperlink{class_shader_a42e83255c9c5851bf48c0c207a0f086c}{00132}}\ \ \ \ \ [[nodiscard]]\ \mbox{\hyperlink{_material_8h_a9b79d6d8dc8627e68412974748f1c08c}{GLuint}}\ \mbox{\hyperlink{class_shader_a42e83255c9c5851bf48c0c207a0f086c}{GetProgramID}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_shader_afce507f5013e82f7a62b47bbfb2fb048}{programID}};\ \}}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00133}00133\ }
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00134}00134\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00140}00140\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_shader_a11a2de17d1d077ec34acd4f7cd57f6b1}{Use}}()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00141}00141\ }
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00147}00147\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_shader_a9429b4a4f790f9de8e5476ee65ed0dc9}{Unuse}}()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00148}00148\ }
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00154}00154\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_shader_a4b4b3ee126f9f81076917e0e7ec2d1c1}{SupportsInstancing}}()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00155}00155\ }
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00166}00166\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_shader_af8f02a3a21176e8c9b728661038212eb}{Link}}();}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00167}00167\ }
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00180}00180\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_shader_a3c3f209170f257de08119a1a1735e042}{AttachFromFile}}(\mbox{\hyperlink{_shader_8h_a22fa67f5720e9bfbd075bd088285c531}{ShaderStage}}\ stage,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{_render_manager_8h_a1db05f4e4bd57f5e7db00f908dab03be}{FilePath}}\&\ filepath);}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00181}00181\ }
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00192}00192\ \ \ \ \ [[nodiscard]]\ std::string\ \mbox{\hyperlink{class_shader_a0c101a970453ff3e82574ec8a86f889d}{LoadShaderSource}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{_render_manager_8h_a1db05f4e4bd57f5e7db00f908dab03be}{FilePath}}\&\ filepath);}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00193}00193\ }
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00194}00194\ }
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00206}00206\ \ \ \ \ [[nodiscard]]\ \mbox{\hyperlink{_material_8h_a9b79d6d8dc8627e68412974748f1c08c}{GLuint}}\ \mbox{\hyperlink{class_shader_ab291bb28e453118aaa10d21e0bdf4606}{CompileShader}}(\mbox{\hyperlink{_shader_8h_a22fa67f5720e9bfbd075bd088285c531}{ShaderStage}}\ stage,\ \textcolor{keyword}{const}\ std::string\&\ source);}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00207}00207\ }
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00215}00215\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_shader_a146efb0490cd023c6e6f332317357393}{CheckSupportsInstancing}}();}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00216}00216\ }
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00217}\mbox{\hyperlink{class_shader_afce507f5013e82f7a62b47bbfb2fb048}{00217}}\ \ \ \ \ \mbox{\hyperlink{_material_8h_a9b79d6d8dc8627e68412974748f1c08c}{GLuint}}\ \mbox{\hyperlink{class_shader_afce507f5013e82f7a62b47bbfb2fb048}{programID}};}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00218}\mbox{\hyperlink{class_shader_abee5659be2adbe034550900126e911b0}{00218}}\ \ \ \ \ std::vector<GLuint>\ \mbox{\hyperlink{class_shader_abee5659be2adbe034550900126e911b0}{attachedShaders}};}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00219}\mbox{\hyperlink{class_shader_a200490ae8ee22f7b9cf8553cb78576d6}{00219}}\ \ \ \ \ std::vector<ShaderStage>\ \mbox{\hyperlink{class_shader_a200490ae8ee22f7b9cf8553cb78576d6}{attachedStages}};}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00220}00220\ }
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00221}\mbox{\hyperlink{class_shader_a821763f22b88dfc27ef72c0eec1a8b8c}{00221}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_shader_a821763f22b88dfc27ef72c0eec1a8b8c}{isSupportInstancing}};}
-\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00222}00222\ \};}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00097}00097\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_shader_a4729e93872d7483b6d5ec1680ec5f35f}{SendUniform}}(\textcolor{keyword}{const}\ std::string\&\ name,\ \textcolor{keyword}{const}\ glm::mat4\&\ value)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00102}\mbox{\hyperlink{class_shader_a42e83255c9c5851bf48c0c207a0f086c}{00102}}\ \ \ \ \ [[nodiscard]]\ \mbox{\hyperlink{_material_8h_a9b79d6d8dc8627e68412974748f1c08c}{GLuint}}\ \mbox{\hyperlink{class_shader_a42e83255c9c5851bf48c0c207a0f086c}{GetProgramID}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_shader_afce507f5013e82f7a62b47bbfb2fb048}{programID}};\ \}}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00104}00104\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00109}00109\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_shader_a11a2de17d1d077ec34acd4f7cd57f6b1}{Use}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00115}00115\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_shader_a9429b4a4f790f9de8e5476ee65ed0dc9}{Unuse}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00116}00116\ }
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00126}00126\ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_shader_a4b4b3ee126f9f81076917e0e7ec2d1c1}{SupportsInstancing}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00127}00127\ }
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00137}00137\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_shader_a4d19cc34a5294ae473d624bd86630cbf}{Link}}();}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00138}00138\ }
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00145}00145\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_shader_acd40c71c775e000ad4fb2e2a4f741d5a}{AttachFromFile}}(\mbox{\hyperlink{_shader_8h_a22fa67f5720e9bfbd075bd088285c531}{ShaderStage}}\ stage,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{_render_manager_8h_a1db05f4e4bd57f5e7db00f908dab03be}{FilePath}}\&\ filepath);}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00146}00146\ }
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00153}00153\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_shader_aa2b27fbbc321f7f1a81b5c183580baa7}{AttachFromSource}}(\mbox{\hyperlink{_shader_8h_a22fa67f5720e9bfbd075bd088285c531}{ShaderStage}}\ stage,\ \textcolor{keyword}{const}\ std::string\&\ source);}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00154}00154\ }
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00162}00162\ \ \ \ \ [[nodiscard]]\ std::string\ \mbox{\hyperlink{class_shader_a315dc994889feb0bf3fc5a16d03d6b5c}{LoadShaderSource}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{_render_manager_8h_a1db05f4e4bd57f5e7db00f908dab03be}{FilePath}}\&\ filepath,\ \mbox{\hyperlink{_shader_8h_ac64cb152838786587bfafa749c3f2018}{GLint}}\&\ success);}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00163}00163\ }
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00172}00172\ \ \ \ \ [[nodiscard]]\ \mbox{\hyperlink{_material_8h_a9b79d6d8dc8627e68412974748f1c08c}{GLuint}}\ \mbox{\hyperlink{class_shader_a002a4be9c74371c53fcd7a1610595400}{CompileShader}}(\mbox{\hyperlink{_shader_8h_a22fa67f5720e9bfbd075bd088285c531}{ShaderStage}}\ stage,\ \textcolor{keyword}{const}\ std::string\&\ source,\ \mbox{\hyperlink{_shader_8h_ac64cb152838786587bfafa749c3f2018}{GLint}}\&\ success);}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00173}00173\ }
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00178}00178\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_shader_a146efb0490cd023c6e6f332317357393}{CheckSupportsInstancing}}();}
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00179}00179\ }
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00180}\mbox{\hyperlink{class_shader_afce507f5013e82f7a62b47bbfb2fb048}{00180}}\ \ \ \ \ \mbox{\hyperlink{_material_8h_a9b79d6d8dc8627e68412974748f1c08c}{GLuint}}\ \mbox{\hyperlink{class_shader_afce507f5013e82f7a62b47bbfb2fb048}{programID}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00181}\mbox{\hyperlink{class_shader_abee5659be2adbe034550900126e911b0}{00181}}\ \ \ \ \ std::vector<GLuint>\ \mbox{\hyperlink{class_shader_abee5659be2adbe034550900126e911b0}{attachedShaders}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00182}\mbox{\hyperlink{class_shader_a200490ae8ee22f7b9cf8553cb78576d6}{00182}}\ \ \ \ \ std::vector<ShaderStage>\ \mbox{\hyperlink{class_shader_a200490ae8ee22f7b9cf8553cb78576d6}{attachedStages}};\ \ \ }
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00183}00183\ }
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00184}\mbox{\hyperlink{class_shader_a821763f22b88dfc27ef72c0eec1a8b8c}{00184}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_shader_a821763f22b88dfc27ef72c0eec1a8b8c}{isSupportInstancing}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_shader_8h_source_l00185}00185\ \};}
 
 \end{DoxyCode}

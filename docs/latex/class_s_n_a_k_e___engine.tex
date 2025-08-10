@@ -2,33 +2,32 @@
 \hypertarget{class_s_n_a_k_e___engine}{}\label{class_s_n_a_k_e___engine}\index{SNAKE\_Engine@{SNAKE\_Engine}}
 
 
-Main entry point and system coordinator for the entire engine lifecycle.  
-
-
-
-
 {\ttfamily \#include $<$SNAKE\+\_\+\+Engine.\+h$>$}
 
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{class_s_n_a_k_e___engine_a6876d766738c47b7f07a67793fb1a349}{SNAKE\+\_\+\+Engine}} ()=default
-\begin{DoxyCompactList}\small\item\em Constructs the engine and allocates all core systems. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{class_s_n_a_k_e___engine_af5d0b5a08cbe7d74150b64571e51e6e3}{Init}} (int window\+Width, int window\+Height)
-\begin{DoxyCompactList}\small\item\em Initializes window, input, rendering, and all engine subsystems. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Initializes core systems and creates the window. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_s_n_a_k_e___engine_a46b7d591e84ba5746e8b00b7139f650b}{Run}} ()
-\begin{DoxyCompactList}\small\item\em Starts and runs the main game loop. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Runs the main loop until \doxylink{class_s_n_a_k_e___engine_abc2c17ba271c262a62bf2f06ec8334d4}{Request\+Quit()} is called. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_s_n_a_k_e___engine_abc2c17ba271c262a62bf2f06ec8334d4}{Request\+Quit}} ()
-\begin{DoxyCompactList}\small\item\em Requests to exit the main loop after the current frame. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Requests the main loop to exit at the next opportunity. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{struct_engine_context}{Engine\+Context}} \& \mbox{\hyperlink{class_s_n_a_k_e___engine_a0e199889c920470b908d9cee49f25a15}{Get\+Engine\+Context}} ()
-\begin{DoxyCompactList}\small\item\em Returns the centralized engine context. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Returns the shared \doxylink{struct_engine_context}{Engine\+Context}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_s_n_a_k_e___engine_a41df6745de6f84837b22fcae923017a5}{Render\+Debug\+Draws}} (bool should\+Show)
+\begin{DoxyCompactList}\small\item\em Enables or disables debug-\/line rendering. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_s_n_a_k_e___engine_a54039eae5badaa378973ccbe973713ee}{Should\+Render\+Debug\+Draws}} () const
+\begin{DoxyCompactList}\small\item\em Returns whether debug-\/line rendering is enabled. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{class_s_n_a_k_e___engine_a1d4c98eabd373d6b9cb3e7e5ffa24e3e}{Free}} () const
-\begin{DoxyCompactList}\small\item\em Cleans up engine subsystems and releases resources. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Final shutdown of GLFW. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_s_n_a_k_e___engine_aa6891c4512199870f8ee25cc6d82e45a}{Set\+Engine\+Context}} ()
-\begin{DoxyCompactList}\small\item\em Registers all subsystems into the \doxylink{struct_engine_context}{Engine\+Context}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Fills \doxylink{struct_engine_context}{Engine\+Context} pointers to subsystems. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -42,30 +41,23 @@ void \mbox{\hyperlink{class_s_n_a_k_e___engine_aa6891c4512199870f8ee25cc6d82e45a
 \item 
 \mbox{\hyperlink{class_render_manager}{Render\+Manager}} \mbox{\hyperlink{class_s_n_a_k_e___engine_a57df097ca018981295adb9d2e53f9c42}{render\+Manager}}
 \item 
+\mbox{\hyperlink{class_sound_manager}{Sound\+Manager}} \mbox{\hyperlink{class_s_n_a_k_e___engine_a6986afeddc00b86f4bea5f390ae733e2}{sound\+Manager}}
+\item 
 bool \mbox{\hyperlink{class_s_n_a_k_e___engine_a44bd8a38c62bb97cc07d8d7bdcffc2ea}{should\+Run}} = true
+\item 
+bool \mbox{\hyperlink{class_s_n_a_k_e___engine_aeff44033f4930b04dd02dec8e0870dda}{show\+Debug\+Draw}} = false
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-Main entry point and system coordinator for the entire engine lifecycle. 
-
-\doxylink{class_s_n_a_k_e___engine}{SNAKE\+\_\+\+Engine} initializes all subsystems, maintains the main game loop, and provides access to the centralized \doxylink{struct_engine_context}{Engine\+Context}. This class must be created and executed by the user.
 
 
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\mbox{\hyperlink{class_s_n_a_k_e___engine_a6876d766738c47b7f07a67793fb1a349}{SNAKE\_Engine}}\ engine;}
-\DoxyCodeLine{\textcolor{keywordflow}{if}\ (engine.\mbox{\hyperlink{class_s_n_a_k_e___engine_af5d0b5a08cbe7d74150b64571e51e6e3}{Init}}(1280,\ 720))}
-\DoxyCodeLine{\{}
-\DoxyCodeLine{\ \ \ \ engine.\mbox{\hyperlink{class_s_n_a_k_e___engine_a46b7d591e84ba5746e8b00b7139f650b}{Run}}();}
-\DoxyCodeLine{\}}
-
-\end{DoxyCode}
- 
-
-Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source_l00019}{19}} of file \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source}{SNAKE\+\_\+\+Engine.\+h}}.
+Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source_l00004}{4}} of file \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source}{SNAKE\+\_\+\+Engine.\+h}}.
 
 
 
+\label{doc-constructors}
+\Hypertarget{class_s_n_a_k_e___engine_doc-constructors}
 \doxysubsection{Constructor \& Destructor Documentation}
 \Hypertarget{class_s_n_a_k_e___engine_a6876d766738c47b7f07a67793fb1a349}\index{SNAKE\_Engine@{SNAKE\_Engine}!SNAKE\_Engine@{SNAKE\_Engine}}
 \index{SNAKE\_Engine@{SNAKE\_Engine}!SNAKE\_Engine@{SNAKE\_Engine}}
@@ -75,10 +67,12 @@ SNAKE\+\_\+\+Engine\+::\+SNAKE\+\_\+\+Engine (\begin{DoxyParamCaption}{}{}\end{D
 
 
 
-Constructs the engine and allocates all core systems. 
+Default constructor. 
 
-This constructor only allocates internal members. You must call \doxylink{class_s_n_a_k_e___engine_af5d0b5a08cbe7d74150b64571e51e6e3}{Init()} before \doxylink{class_s_n_a_k_e___engine_a46b7d591e84ba5746e8b00b7139f650b}{Run()}. 
 
+
+\label{doc-func-members}
+\Hypertarget{class_s_n_a_k_e___engine_doc-func-members}
 \doxysubsection{Member Function Documentation}
 \Hypertarget{class_s_n_a_k_e___engine_a1d4c98eabd373d6b9cb3e7e5ffa24e3e}\index{SNAKE\_Engine@{SNAKE\_Engine}!Free@{Free}}
 \index{Free@{Free}!SNAKE\_Engine@{SNAKE\_Engine}}
@@ -88,17 +82,20 @@ void SNAKE\+\_\+\+Engine\+::\+Free (\begin{DoxyParamCaption}{}{}\end{DoxyParamCa
 
 
 
-Cleans up engine subsystems and releases resources. 
+Final shutdown of GLFW. 
 
-Automatically called when the engine stops or is destroyed. 
+\begin{DoxyNote}{Note}
+Internal. Called at the end of \doxylink{class_s_n_a_k_e___engine_a46b7d591e84ba5746e8b00b7139f650b}{Run()}. 
+\end{DoxyNote}
 
-Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8cpp_source_l00067}{67}} of file \mbox{\hyperlink{_s_n_a_k_e___engine_8cpp_source}{SNAKE\+\_\+\+Engine.\+cpp}}.
+
+Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8cpp_source_l00069}{69}} of file \mbox{\hyperlink{_s_n_a_k_e___engine_8cpp_source}{SNAKE\+\_\+\+Engine.\+cpp}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00068\ \{}
-\DoxyCodeLine{00069\ \ \ \ \ glfwTerminate();}
-\DoxyCodeLine{00070\ \}}
+\DoxyCodeLine{00070\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ glfwTerminate();}
+\DoxyCodeLine{00072\ \}}
 
 \end{DoxyCode}
 \Hypertarget{class_s_n_a_k_e___engine_a0e199889c920470b908d9cee49f25a15}\index{SNAKE\_Engine@{SNAKE\_Engine}!GetEngineContext@{GetEngineContext}}
@@ -109,26 +106,15 @@ Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8cpp_source_l00067}{67}}
 
 
 
-Returns the centralized engine context. 
+Returns the shared \doxylink{struct_engine_context}{Engine\+Context}. 
 
-\doxylink{struct_engine_context}{Engine\+Context} provides access to subsystems like input, state, window, and renderer.
+Used by subsystems and callbacks (e.\+g., framebuffer resize). 
 
-\begin{DoxyReturn}{Returns}
-Reference to the \doxylink{struct_engine_context}{Engine\+Context}.
-\end{DoxyReturn}
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{EngineContext\&\ ctx\ =\ engine.GetEngineContext();}
-\DoxyCodeLine{\textcolor{keywordflow}{if}\ (ctx.\mbox{\hyperlink{struct_engine_context_a9c8f61ef311c6f84a93d342eaaa1864a}{inputManager}}-\/>\mbox{\hyperlink{class_input_manager_ac052ac0d0831d40848031aca922a00ef}{IsKeyPressed}}(\mbox{\hyperlink{_input_manager_8h_a3a1ad9c72a28e97d9440d4cf7072b6d9a01d2889f9a7550008ad6140c41e733de}{KEY\_SPACE}}))\ \{\ ...\ \}}
-
-\end{DoxyCode}
- 
-
-Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source_l00077}{77}} of file \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source}{SNAKE\+\_\+\+Engine.\+h}}.
+Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source_l00049}{49}} of file \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source}{SNAKE\+\_\+\+Engine.\+h}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00077\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_s_n_a_k_e___engine_aee0757b5b1d709f1da33ea5fc9b7bf18}{engineContext}};\ \}}
+\DoxyCodeLine{00049\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_s_n_a_k_e___engine_aee0757b5b1d709f1da33ea5fc9b7bf18}{engineContext}};\ \}}
 
 \end{DoxyCode}
 \Hypertarget{class_s_n_a_k_e___engine_af5d0b5a08cbe7d74150b64571e51e6e3}\index{SNAKE\_Engine@{SNAKE\_Engine}!Init@{Init}}
@@ -139,41 +125,70 @@ bool SNAKE\+\_\+\+Engine\+::\+Init (\begin{DoxyParamCaption}\item[{int}]{window\
 
 
 
-Initializes window, input, rendering, and all engine subsystems. 
+Initializes core systems and creates the window. 
 
-Sets up Open\+GL context and links all systems into the \doxylink{struct_engine_context}{Engine\+Context}.
+
+\begin{DoxyItemize}
+\item Calls Window\+Manager\+::\+Init(window\+Width, window\+Height, \texorpdfstring{$\ast$}{*}this).
+\item Populates \doxylink{struct_engine_context}{Engine\+Context} via \doxylink{class_s_n_a_k_e___engine_aa6891c4512199870f8ee25cc6d82e45a}{Set\+Engine\+Context()}.
+\item Initializes \doxylink{class_input_manager}{Input\+Manager} with the window handle.
+\item Initializes \doxylink{class_sound_manager}{Sound\+Manager}.
+\item Initializes \doxylink{class_render_manager}{Render\+Manager} with \doxylink{struct_engine_context}{Engine\+Context}.
+\end{DoxyItemize}
 
 
 \begin{DoxyParams}{Parameters}
-{\em window\+Width} & Width of the application window. \\
+{\em window\+Width} & Initial window width (pixels). \\
 \hline
-{\em window\+Height} & Height of the application window. \\
+{\em window\+Height} & Initial window height (pixels). \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-True if initialization succeeds.
+true on success; false if window initialization fails. 
 \end{DoxyReturn}
 
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keywordflow}{if}\ (!engine.Init(1280,\ 720))\ \textcolor{keywordflow}{return}\ -\/1;}
 
-\end{DoxyCode}
- 
-
-Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8cpp_source_l00024}{24}} of file \mbox{\hyperlink{_s_n_a_k_e___engine_8cpp_source}{SNAKE\+\_\+\+Engine.\+cpp}}.
+Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8cpp_source_l00021}{21}} of file \mbox{\hyperlink{_s_n_a_k_e___engine_8cpp_source}{SNAKE\+\_\+\+Engine.\+cpp}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00025\ \{}
-\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{class_s_n_a_k_e___engine_ae837d579ccaad44987a40d5580e683cf}{windowManager}}.Init(windowWidth,\ windowHeight,*\textcolor{keyword}{this}))}
-\DoxyCodeLine{00027\ \ \ \ \ \{}
-\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_debug_8h_a4bea2ba782ca7e8f40195f8827c71ecf}{SNAKE\_ERR}}(\textcolor{stringliteral}{"{}Window\ Initialization\ failed."{}});}
-\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00030\ \ \ \ \ \}}
-\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_a13554a7b74f0ceb548e942dba80133d9}{inputManager}}.Init(\mbox{\hyperlink{class_s_n_a_k_e___engine_ae837d579ccaad44987a40d5580e683cf}{windowManager}}.GetHandle());}
-\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_aa6891c4512199870f8ee25cc6d82e45a}{SetEngineContext}}();}
+\DoxyCodeLine{00022\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{class_s_n_a_k_e___engine_ae837d579ccaad44987a40d5580e683cf}{windowManager}}.Init(windowWidth,\ windowHeight,\ *\textcolor{keyword}{this}))}
+\DoxyCodeLine{00024\ \ \ \ \ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ SNAKE\_ERR(\textcolor{stringliteral}{"{}Window\ Initialization\ failed."{}});}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00027\ \ \ \ \ \}}
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_aa6891c4512199870f8ee25cc6d82e45a}{SetEngineContext}}();}
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_a13554a7b74f0ceb548e942dba80133d9}{inputManager}}.Init(\mbox{\hyperlink{class_s_n_a_k_e___engine_ae837d579ccaad44987a40d5580e683cf}{windowManager}}.GetHandle());}
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_a6986afeddc00b86f4bea5f390ae733e2}{soundManager}}.Init();}
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_a57df097ca018981295adb9d2e53f9c42}{renderManager}}.Init(\mbox{\hyperlink{class_s_n_a_k_e___engine_aee0757b5b1d709f1da33ea5fc9b7bf18}{engineContext}});}
+\DoxyCodeLine{00032\ }
 \DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
 \DoxyCodeLine{00034\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_s_n_a_k_e___engine_a41df6745de6f84837b22fcae923017a5}\index{SNAKE\_Engine@{SNAKE\_Engine}!RenderDebugDraws@{RenderDebugDraws}}
+\index{RenderDebugDraws@{RenderDebugDraws}!SNAKE\_Engine@{SNAKE\_Engine}}
+\doxysubsubsection{\texorpdfstring{RenderDebugDraws()}{RenderDebugDraws()}}
+{\footnotesize\ttfamily \label{class_s_n_a_k_e___engine_a41df6745de6f84837b22fcae923017a5} 
+void SNAKE\+\_\+\+Engine\+::\+Render\+Debug\+Draws (\begin{DoxyParamCaption}\item[{bool}]{should\+Show}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Enables or disables debug-\/line rendering. 
+
+Queried in \doxylink{class_state_manager_ae161e57265af366c58b0e2b5d936553d}{State\+Manager\+::\+Draw()} to flush debug draw commands. 
+\begin{DoxyParams}{Parameters}
+{\em should\+Show} & true to enable debug draws; false to disable. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source_l00056}{56}} of file \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source}{SNAKE\+\_\+\+Engine.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00056\ \{\ \mbox{\hyperlink{class_s_n_a_k_e___engine_aeff44033f4930b04dd02dec8e0870dda}{showDebugDraw}}\ =\ shouldShow;\ \}}
 
 \end{DoxyCode}
 \Hypertarget{class_s_n_a_k_e___engine_abc2c17ba271c262a62bf2f06ec8334d4}\index{SNAKE\_Engine@{SNAKE\_Engine}!RequestQuit@{RequestQuit}}
@@ -184,17 +199,17 @@ void SNAKE\+\_\+\+Engine\+::\+Request\+Quit (\begin{DoxyParamCaption}{}{}\end{Do
 
 
 
-Requests to exit the main loop after the current frame. 
+Requests the main loop to exit at the next opportunity. 
 
-This flag is checked each frame to determine whether to continue running. Typically used when pressing ESC or closing the window. 
+Sets an internal flag checked by \doxylink{class_s_n_a_k_e___engine_a46b7d591e84ba5746e8b00b7139f650b}{Run()}. 
 
-Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8cpp_source_l00072}{72}} of file \mbox{\hyperlink{_s_n_a_k_e___engine_8cpp_source}{SNAKE\+\_\+\+Engine.\+cpp}}.
+Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8cpp_source_l00074}{74}} of file \mbox{\hyperlink{_s_n_a_k_e___engine_8cpp_source}{SNAKE\+\_\+\+Engine.\+cpp}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00073\ \{}
-\DoxyCodeLine{00074\ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_a44bd8a38c62bb97cc07d8d7bdcffc2ea}{shouldRun}}\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00075\ \}}
+\DoxyCodeLine{00075\ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_a44bd8a38c62bb97cc07d8d7bdcffc2ea}{shouldRun}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00077\ \}}
 
 \end{DoxyCode}
 \Hypertarget{class_s_n_a_k_e___engine_a46b7d591e84ba5746e8b00b7139f650b}\index{SNAKE\_Engine@{SNAKE\_Engine}!Run@{Run}}
@@ -205,9 +220,9 @@ void SNAKE\+\_\+\+Engine\+::\+Run (\begin{DoxyParamCaption}{}{}\end{DoxyParamCap
 
 
 
-Starts and runs the main game loop. 
+Runs the main loop until \doxylink{class_s_n_a_k_e___engine_abc2c17ba271c262a62bf2f06ec8334d4}{Request\+Quit()} is called. 
 
-Handles input polling, game logic updates, rendering, and buffer swapping until the window is closed or \doxylink{class_s_n_a_k_e___engine_abc2c17ba271c262a62bf2f06ec8334d4}{Request\+Quit()} is called. 
+Per-\/frame, processes events, updates input/state/sound, clears the screen, draws the active state, and swaps buffers. Updates the window title with an FPS readout during the loop. On exit, frees Sound/\+State/\+Window and then calls \doxylink{class_s_n_a_k_e___engine_a1d4c98eabd373d6b9cb3e7e5ffa24e3e}{Free()} for final shutdown. 
 
 Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8cpp_source_l00037}{37}} of file \mbox{\hyperlink{_s_n_a_k_e___engine_8cpp_source}{SNAKE\+\_\+\+Engine.\+cpp}}.
 
@@ -216,31 +231,33 @@ Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8cpp_source_l00037}{37}}
 \DoxyCodeLine{00038\ \{}
 \DoxyCodeLine{00039\ \ \ \ \ EngineTimer\ timer;}
 \DoxyCodeLine{00040\ \ \ \ \ timer.\mbox{\hyperlink{struct_engine_timer_ad25e0e9f721178342c6f3c7b953befd9}{Start}}();}
-\DoxyCodeLine{00041\ }
-\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordflow}{while}\ (\mbox{\hyperlink{class_s_n_a_k_e___engine_a44bd8a38c62bb97cc07d8d7bdcffc2ea}{shouldRun}}\ \&\&\ !glfwWindowShouldClose(\mbox{\hyperlink{class_s_n_a_k_e___engine_ae837d579ccaad44987a40d5580e683cf}{windowManager}}.GetHandle()))}
-\DoxyCodeLine{00043\ \ \ \ \ \{}
-\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ dt\ =\ timer.\mbox{\hyperlink{struct_engine_timer_a10ee28d56bb7d30bd29929e870e8e2f1}{Tick}}();}
-\DoxyCodeLine{00045\ }
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ fps\ =\ 0.0f;}
-\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (timer.\mbox{\hyperlink{struct_engine_timer_aaf262d9972999ca9e988923b79c7c9eb}{ShouldUpdateFPS}}(fps))}
-\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_ae837d579ccaad44987a40d5580e683cf}{windowManager}}.SetTitle(\textcolor{stringliteral}{"{}SNAKE\_Engine\ -\/\ FPS:\ "{}}\ +\ std::to\_string(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(fps)));}
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00051\ }
-\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_ae837d579ccaad44987a40d5580e683cf}{windowManager}}.PollEvents();}
-\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_a13554a7b74f0ceb548e942dba80133d9}{inputManager}}.Update();}
-\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_ae837d579ccaad44987a40d5580e683cf}{windowManager}}.ClearScreen();}
-\DoxyCodeLine{00055\ }
-\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_a76b32f34f8f0e7607c1047a77877bca6}{stateManager}}.Update(dt,\ \mbox{\hyperlink{class_s_n_a_k_e___engine_aee0757b5b1d709f1da33ea5fc9b7bf18}{engineContext}});}
-\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_a76b32f34f8f0e7607c1047a77877bca6}{stateManager}}.Draw(\mbox{\hyperlink{class_s_n_a_k_e___engine_aee0757b5b1d709f1da33ea5fc9b7bf18}{engineContext}});}
-\DoxyCodeLine{00058\ }
-\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_ae837d579ccaad44987a40d5580e683cf}{windowManager}}.SwapBuffers();}
-\DoxyCodeLine{00060\ \ \ \ \ \}}
-\DoxyCodeLine{00061\ }
-\DoxyCodeLine{00062\ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_a76b32f34f8f0e7607c1047a77877bca6}{stateManager}}.Free(\mbox{\hyperlink{class_s_n_a_k_e___engine_aee0757b5b1d709f1da33ea5fc9b7bf18}{engineContext}});}
-\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_ae837d579ccaad44987a40d5580e683cf}{windowManager}}.Free();}
-\DoxyCodeLine{00064\ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_a1d4c98eabd373d6b9cb3e7e5ffa24e3e}{Free}}();}
-\DoxyCodeLine{00065\ \}}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordflow}{while}\ (\mbox{\hyperlink{class_s_n_a_k_e___engine_a44bd8a38c62bb97cc07d8d7bdcffc2ea}{shouldRun}}\ \&\&\ !glfwWindowShouldClose(\mbox{\hyperlink{class_s_n_a_k_e___engine_ae837d579ccaad44987a40d5580e683cf}{windowManager}}.GetHandle()))}
+\DoxyCodeLine{00042\ \ \ \ \ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ dt\ =\ timer.\mbox{\hyperlink{struct_engine_timer_a10ee28d56bb7d30bd29929e870e8e2f1}{Tick}}();}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ fps\ =\ 0.0f;}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (timer.\mbox{\hyperlink{struct_engine_timer_aaf262d9972999ca9e988923b79c7c9eb}{ShouldUpdateFPS}}(fps))}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_ae837d579ccaad44987a40d5580e683cf}{windowManager}}.SetTitle(\textcolor{stringliteral}{"{}SNAKE\_Engine\ -\/\ FPS:\ "{}}\ +\ std::to\_string(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(fps)));}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_ae837d579ccaad44987a40d5580e683cf}{windowManager}}.PollEvents();}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_a13554a7b74f0ceb548e942dba80133d9}{inputManager}}.Update();}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_ae837d579ccaad44987a40d5580e683cf}{windowManager}}.ClearScreen();}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_a76b32f34f8f0e7607c1047a77877bca6}{stateManager}}.Update(dt,\ \mbox{\hyperlink{class_s_n_a_k_e___engine_aee0757b5b1d709f1da33ea5fc9b7bf18}{engineContext}});}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_a76b32f34f8f0e7607c1047a77877bca6}{stateManager}}.Draw(\mbox{\hyperlink{class_s_n_a_k_e___engine_aee0757b5b1d709f1da33ea5fc9b7bf18}{engineContext}});}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_a6986afeddc00b86f4bea5f390ae733e2}{soundManager}}.Update();}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_ae837d579ccaad44987a40d5580e683cf}{windowManager}}.SwapBuffers();}
+\DoxyCodeLine{00061\ \ \ \ \ \}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_a6986afeddc00b86f4bea5f390ae733e2}{soundManager}}.Free();}
+\DoxyCodeLine{00064\ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_a76b32f34f8f0e7607c1047a77877bca6}{stateManager}}.Free(\mbox{\hyperlink{class_s_n_a_k_e___engine_aee0757b5b1d709f1da33ea5fc9b7bf18}{engineContext}});}
+\DoxyCodeLine{00065\ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_ae837d579ccaad44987a40d5580e683cf}{windowManager}}.Free();}
+\DoxyCodeLine{00066\ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_a1d4c98eabd373d6b9cb3e7e5ffa24e3e}{Free}}();}
+\DoxyCodeLine{00067\ \}}
 
 \end{DoxyCode}
 \Hypertarget{class_s_n_a_k_e___engine_aa6891c4512199870f8ee25cc6d82e45a}\index{SNAKE\_Engine@{SNAKE\_Engine}!SetEngineContext@{SetEngineContext}}
@@ -251,25 +268,50 @@ void SNAKE\+\_\+\+Engine\+::\+Set\+Engine\+Context (\begin{DoxyParamCaption}{}{}
 
 
 
-Registers all subsystems into the \doxylink{struct_engine_context}{Engine\+Context}. 
+Fills \doxylink{struct_engine_context}{Engine\+Context} pointers to subsystems. 
 
-Called internally by \doxylink{class_s_n_a_k_e___engine_af5d0b5a08cbe7d74150b64571e51e6e3}{Init()}. Connects managers to the context for global access. 
+\begin{DoxyNote}{Note}
+Internal. Called during \doxylink{class_s_n_a_k_e___engine_af5d0b5a08cbe7d74150b64571e51e6e3}{Init()}. 
+\end{DoxyNote}
 
-Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8cpp_source_l00014}{14}} of file \mbox{\hyperlink{_s_n_a_k_e___engine_8cpp_source}{SNAKE\+\_\+\+Engine.\+cpp}}.
+
+Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8cpp_source_l00010}{10}} of file \mbox{\hyperlink{_s_n_a_k_e___engine_8cpp_source}{SNAKE\+\_\+\+Engine.\+cpp}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00015\ \{}
-\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_aee0757b5b1d709f1da33ea5fc9b7bf18}{engineContext}}.stateManager\ =\ \&\mbox{\hyperlink{class_s_n_a_k_e___engine_a76b32f34f8f0e7607c1047a77877bca6}{stateManager}};}
-\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_aee0757b5b1d709f1da33ea5fc9b7bf18}{engineContext}}.windowManager\ =\ \&\mbox{\hyperlink{class_s_n_a_k_e___engine_ae837d579ccaad44987a40d5580e683cf}{windowManager}};}
-\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_aee0757b5b1d709f1da33ea5fc9b7bf18}{engineContext}}.inputManager\ =\ \&\mbox{\hyperlink{class_s_n_a_k_e___engine_a13554a7b74f0ceb548e942dba80133d9}{inputManager}};}
-\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_aee0757b5b1d709f1da33ea5fc9b7bf18}{engineContext}}.renderManager\ =\ \&\mbox{\hyperlink{class_s_n_a_k_e___engine_a57df097ca018981295adb9d2e53f9c42}{renderManager}};}
-\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_aee0757b5b1d709f1da33ea5fc9b7bf18}{engineContext}}.engine\ =\ \textcolor{keyword}{this};}
-\DoxyCodeLine{00021\ \}}
+\DoxyCodeLine{00011\ \{}
+\DoxyCodeLine{00012\ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_aee0757b5b1d709f1da33ea5fc9b7bf18}{engineContext}}.stateManager\ =\ \&\mbox{\hyperlink{class_s_n_a_k_e___engine_a76b32f34f8f0e7607c1047a77877bca6}{stateManager}};}
+\DoxyCodeLine{00013\ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_aee0757b5b1d709f1da33ea5fc9b7bf18}{engineContext}}.windowManager\ =\ \&\mbox{\hyperlink{class_s_n_a_k_e___engine_ae837d579ccaad44987a40d5580e683cf}{windowManager}};}
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_aee0757b5b1d709f1da33ea5fc9b7bf18}{engineContext}}.inputManager\ =\ \&\mbox{\hyperlink{class_s_n_a_k_e___engine_a13554a7b74f0ceb548e942dba80133d9}{inputManager}};}
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_aee0757b5b1d709f1da33ea5fc9b7bf18}{engineContext}}.renderManager\ =\ \&\mbox{\hyperlink{class_s_n_a_k_e___engine_a57df097ca018981295adb9d2e53f9c42}{renderManager}};}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_aee0757b5b1d709f1da33ea5fc9b7bf18}{engineContext}}.soundManager\ =\ \&\mbox{\hyperlink{class_s_n_a_k_e___engine_a6986afeddc00b86f4bea5f390ae733e2}{soundManager}};}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{class_s_n_a_k_e___engine_aee0757b5b1d709f1da33ea5fc9b7bf18}{engineContext}}.engine\ =\ \textcolor{keyword}{this};}
+\DoxyCodeLine{00018\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_s_n_a_k_e___engine_a54039eae5badaa378973ccbe973713ee}\index{SNAKE\_Engine@{SNAKE\_Engine}!ShouldRenderDebugDraws@{ShouldRenderDebugDraws}}
+\index{ShouldRenderDebugDraws@{ShouldRenderDebugDraws}!SNAKE\_Engine@{SNAKE\_Engine}}
+\doxysubsubsection{\texorpdfstring{ShouldRenderDebugDraws()}{ShouldRenderDebugDraws()}}
+{\footnotesize\ttfamily \label{class_s_n_a_k_e___engine_a54039eae5badaa378973ccbe973713ee} 
+bool SNAKE\+\_\+\+Engine\+::\+Should\+Render\+Debug\+Draws (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [nodiscard]}}
+
+
+
+Returns whether debug-\/line rendering is enabled. 
+
+
+
+Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source_l00061}{61}} of file \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source}{SNAKE\+\_\+\+Engine.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00061\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_s_n_a_k_e___engine_aeff44033f4930b04dd02dec8e0870dda}{showDebugDraw}};\ \}}
 
 \end{DoxyCode}
 
 
+\label{doc-variable-members}
+\Hypertarget{class_s_n_a_k_e___engine_doc-variable-members}
 \doxysubsection{Member Data Documentation}
 \Hypertarget{class_s_n_a_k_e___engine_aee0757b5b1d709f1da33ea5fc9b7bf18}\index{SNAKE\_Engine@{SNAKE\_Engine}!engineContext@{engineContext}}
 \index{engineContext@{engineContext}!SNAKE\_Engine@{SNAKE\_Engine}}
@@ -279,7 +321,7 @@ Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8cpp_source_l00014}{14}}
 
 
 
-Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source_l00096}{96}} of file \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source}{SNAKE\+\_\+\+Engine.\+h}}.
+Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source_l00075}{75}} of file \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source}{SNAKE\+\_\+\+Engine.\+h}}.
 
 \Hypertarget{class_s_n_a_k_e___engine_a13554a7b74f0ceb548e942dba80133d9}\index{SNAKE\_Engine@{SNAKE\_Engine}!inputManager@{inputManager}}
 \index{inputManager@{inputManager}!SNAKE\_Engine@{SNAKE\_Engine}}
@@ -289,7 +331,7 @@ Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source_l00096}{96}} o
 
 
 
-Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source_l00099}{99}} of file \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source}{SNAKE\+\_\+\+Engine.\+h}}.
+Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source_l00078}{78}} of file \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source}{SNAKE\+\_\+\+Engine.\+h}}.
 
 \Hypertarget{class_s_n_a_k_e___engine_a57df097ca018981295adb9d2e53f9c42}\index{SNAKE\_Engine@{SNAKE\_Engine}!renderManager@{renderManager}}
 \index{renderManager@{renderManager}!SNAKE\_Engine@{SNAKE\_Engine}}
@@ -299,7 +341,7 @@ Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source_l00099}{99}} o
 
 
 
-Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source_l00100}{100}} of file \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source}{SNAKE\+\_\+\+Engine.\+h}}.
+Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source_l00079}{79}} of file \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source}{SNAKE\+\_\+\+Engine.\+h}}.
 
 \Hypertarget{class_s_n_a_k_e___engine_a44bd8a38c62bb97cc07d8d7bdcffc2ea}\index{SNAKE\_Engine@{SNAKE\_Engine}!shouldRun@{shouldRun}}
 \index{shouldRun@{shouldRun}!SNAKE\_Engine@{SNAKE\_Engine}}
@@ -309,7 +351,27 @@ bool SNAKE\+\_\+\+Engine\+::should\+Run = true\hspace{0.3cm}{\ttfamily [private]
 
 
 
-Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source_l00101}{101}} of file \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source}{SNAKE\+\_\+\+Engine.\+h}}.
+Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source_l00081}{81}} of file \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source}{SNAKE\+\_\+\+Engine.\+h}}.
+
+\Hypertarget{class_s_n_a_k_e___engine_aeff44033f4930b04dd02dec8e0870dda}\index{SNAKE\_Engine@{SNAKE\_Engine}!showDebugDraw@{showDebugDraw}}
+\index{showDebugDraw@{showDebugDraw}!SNAKE\_Engine@{SNAKE\_Engine}}
+\doxysubsubsection{\texorpdfstring{showDebugDraw}{showDebugDraw}}
+{\footnotesize\ttfamily \label{class_s_n_a_k_e___engine_aeff44033f4930b04dd02dec8e0870dda} 
+bool SNAKE\+\_\+\+Engine\+::show\+Debug\+Draw = false\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source_l00082}{82}} of file \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source}{SNAKE\+\_\+\+Engine.\+h}}.
+
+\Hypertarget{class_s_n_a_k_e___engine_a6986afeddc00b86f4bea5f390ae733e2}\index{SNAKE\_Engine@{SNAKE\_Engine}!soundManager@{soundManager}}
+\index{soundManager@{soundManager}!SNAKE\_Engine@{SNAKE\_Engine}}
+\doxysubsubsection{\texorpdfstring{soundManager}{soundManager}}
+{\footnotesize\ttfamily \label{class_s_n_a_k_e___engine_a6986afeddc00b86f4bea5f390ae733e2} 
+\mbox{\hyperlink{class_sound_manager}{Sound\+Manager}} SNAKE\+\_\+\+Engine\+::sound\+Manager\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source_l00080}{80}} of file \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source}{SNAKE\+\_\+\+Engine.\+h}}.
 
 \Hypertarget{class_s_n_a_k_e___engine_a76b32f34f8f0e7607c1047a77877bca6}\index{SNAKE\_Engine@{SNAKE\_Engine}!stateManager@{stateManager}}
 \index{stateManager@{stateManager}!SNAKE\_Engine@{SNAKE\_Engine}}
@@ -319,7 +381,7 @@ Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source_l00101}{101}} 
 
 
 
-Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source_l00097}{97}} of file \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source}{SNAKE\+\_\+\+Engine.\+h}}.
+Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source_l00076}{76}} of file \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source}{SNAKE\+\_\+\+Engine.\+h}}.
 
 \Hypertarget{class_s_n_a_k_e___engine_ae837d579ccaad44987a40d5580e683cf}\index{SNAKE\_Engine@{SNAKE\_Engine}!windowManager@{windowManager}}
 \index{windowManager@{windowManager}!SNAKE\_Engine@{SNAKE\_Engine}}
@@ -329,7 +391,7 @@ Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source_l00097}{97}} o
 
 
 
-Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source_l00098}{98}} of file \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source}{SNAKE\+\_\+\+Engine.\+h}}.
+Definition at line \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source_l00077}{77}} of file \mbox{\hyperlink{_s_n_a_k_e___engine_8h_source}{SNAKE\+\_\+\+Engine.\+h}}.
 
 
 

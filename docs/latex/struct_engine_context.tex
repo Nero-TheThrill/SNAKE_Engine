@@ -2,7 +2,7 @@
 \hypertarget{struct_engine_context}{}\label{struct_engine_context}\index{EngineContext@{EngineContext}}
 
 
-Shared access point to all major engine systems.  
+Lightweight bundle of non-\/owning pointers to core engine systems.  
 
 
 
@@ -13,48 +13,59 @@ Shared access point to all major engine systems.
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{class_state_manager}{State\+Manager}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_engine_context_a67f96c1b09ab0393d4f8434900d7419a}{state\+Manager}} = nullptr
-\begin{DoxyCompactList}\small\item\em Manages active and queued game states. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Pointer to \doxylink{class_state_manager}{State\+Manager}. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{class_window_manager}{Window\+Manager}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_engine_context_ab6fa006055c2a224931059f7ed840bed}{window\+Manager}} = nullptr
-\begin{DoxyCompactList}\small\item\em Manages window size, title, and event polling. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Pointer to \doxylink{class_window_manager}{Window\+Manager}. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{class_input_manager}{Input\+Manager}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_engine_context_a9c8f61ef311c6f84a93d342eaaa1864a}{input\+Manager}} = nullptr
-\begin{DoxyCompactList}\small\item\em Tracks real-\/time keyboard and mouse input. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Pointer to \doxylink{class_input_manager}{Input\+Manager}. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{class_render_manager}{Render\+Manager}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_engine_context_a8f4c861adc4684975fa767ae4723e095}{render\+Manager}} = nullptr
-\begin{DoxyCompactList}\small\item\em Handles draw call submission and batching. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Pointer to \doxylink{class_render_manager}{Render\+Manager}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_sound_manager}{Sound\+Manager}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_engine_context_aa5985216cfd74ab389769abc5a5fdfb6}{sound\+Manager}} = nullptr
+\begin{DoxyCompactList}\small\item\em Pointer to \doxylink{class_sound_manager}{Sound\+Manager}. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{class_s_n_a_k_e___engine}{SNAKE\+\_\+\+Engine}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_engine_context_ad9836cdfc607ba27f100f5e0e892987f}{engine}} = nullptr
-\begin{DoxyCompactList}\small\item\em Root engine instance. Owns all subsystems. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Pointer to the engine instance. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-Shared access point to all major engine systems. 
+Lightweight bundle of non-\/owning pointers to core engine systems. 
 
-Acts as a container that holds pointers to engine-\/wide subsystems\+:
+
 \begin{DoxyItemize}
-\item \doxylink{class_state_manager}{State\+Manager}
-\item \doxylink{class_window_manager}{Window\+Manager}
-\item \doxylink{class_input_manager}{Input\+Manager}
-\item \doxylink{class_render_manager}{Render\+Manager}
-\item Root engine instance (\doxylink{class_s_n_a_k_e___engine}{SNAKE\+\_\+\+Engine})
+\item Populated in \doxylink{class_s_n_a_k_e___engine_aa6891c4512199870f8ee25cc6d82e45a}{SNAKE\+\_\+\+Engine\+::\+Set\+Engine\+Context()}.
+\item Passed to \doxylink{class_state_manager_ab4ebd3189a4623e805d95f768b314acb}{State\+Manager\+::\+Update}/\+Draw/\+Free(const \doxylink{struct_engine_context}{Engine\+Context}\&).
+\begin{DoxyItemize}
+\item In Draw()\+: calls Render\+Manager\+::\+Flush\+Draw\+Commands(engine\+Context) and, if engine.\+Should\+Render\+Debug\+Draws(), calls Render\+Manager\+::\+Flush\+Debug\+Line\+Draw\+Commands(engine\+Context).
+\item In Free()\+: forwards to the current state\textquotesingle{}s System\+Free/\+System\+Unload.
+\end{DoxyItemize}
+\item Used by the GLFW framebuffer-\/size callback (\doxylink{_window_manager_8cpp}{Window\+Manager.\+cpp})\+:
+\begin{DoxyItemize}
+\item Updates \doxylink{class_window_manager_ac822306fe0eb51630f31874ec6c469a4}{Window\+Manager\+::\+Set\+Width}/\+Set\+Height().
+\item Propagates size to the current state\textquotesingle{}s Camera\+Manager\+::\+Set\+Screen\+Size\+For\+All(width, height).
+\end{DoxyItemize}
 \end{DoxyItemize}
 
-This struct is owned and initialized by the engine, and passed to game systems like \doxylink{class_game_state}{Game\+State}, \doxylink{class_game_object}{Game\+Object}, and custom logic that need coordinated access to rendering, input, or state transitions.
+\begin{DoxyNote}{Note}
+This struct has no functions and owns no resources. It only aggregates pointers.
+\end{DoxyNote}
 
-Example usage\+: 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keywordtype}{void}\ Player::Update(\textcolor{keywordtype}{float}\ dt,\ \textcolor{keyword}{const}\ EngineContext\&\ engineContext)}
-\DoxyCodeLine{\{}
-\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (engineContext.\mbox{\hyperlink{struct_engine_context_a9c8f61ef311c6f84a93d342eaaa1864a}{inputManager}}-\/>\mbox{\hyperlink{class_input_manager_ac052ac0d0831d40848031aca922a00ef}{IsKeyPressed}}(\mbox{\hyperlink{_input_manager_8h_a3a1ad9c72a28e97d9440d4cf7072b6d9a01d2889f9a7550008ad6140c41e733de}{KEY\_SPACE}}))}
-\DoxyCodeLine{\ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ Jump();}
-\DoxyCodeLine{\ \ \ \ \}}
-\DoxyCodeLine{\}}
+\DoxyCodeLine{\textcolor{comment}{//\ Filled\ once\ (SNAKE\_Engine::SetEngineContext)}}
+\DoxyCodeLine{engineContext.stateManager\ \ =\ \&\mbox{\hyperlink{struct_engine_context_a67f96c1b09ab0393d4f8434900d7419a}{stateManager}};}
+\DoxyCodeLine{engineContext.windowManager\ =\ \&\mbox{\hyperlink{struct_engine_context_ab6fa006055c2a224931059f7ed840bed}{windowManager}};}
+\DoxyCodeLine{engineContext.inputManager\ \ =\ \&\mbox{\hyperlink{struct_engine_context_a9c8f61ef311c6f84a93d342eaaa1864a}{inputManager}};}
+\DoxyCodeLine{engineContext.renderManager\ =\ \&\mbox{\hyperlink{struct_engine_context_a8f4c861adc4684975fa767ae4723e095}{renderManager}};}
+\DoxyCodeLine{engineContext.soundManager\ \ =\ \&\mbox{\hyperlink{struct_engine_context_aa5985216cfd74ab389769abc5a5fdfb6}{soundManager}};}
+\DoxyCodeLine{engineContext.engine\ \ \ \ \ \ \ \ =\ \textcolor{keyword}{this};}
 
 \end{DoxyCode}
  
 
-Definition at line \mbox{\hyperlink{_engine_context_8h_source_l00036}{36}} of file \mbox{\hyperlink{_engine_context_8h_source}{Engine\+Context.\+h}}.
+Definition at line \mbox{\hyperlink{_engine_context_8h_source_l00039}{39}} of file \mbox{\hyperlink{_engine_context_8h_source}{Engine\+Context.\+h}}.
 
 
 
+\label{doc-variable-members}
+\Hypertarget{struct_engine_context_doc-variable-members}
 \doxysubsection{Member Data Documentation}
 \Hypertarget{struct_engine_context_ad9836cdfc607ba27f100f5e0e892987f}\index{EngineContext@{EngineContext}!engine@{engine}}
 \index{engine@{engine}!EngineContext@{EngineContext}}
@@ -64,11 +75,11 @@ Definition at line \mbox{\hyperlink{_engine_context_8h_source_l00036}{36}} of fi
 
 
 
-Root engine instance. Owns all subsystems. 
+Pointer to the engine instance. 
 
+Queried in \doxylink{class_state_manager_ae161e57265af366c58b0e2b5d936553d}{State\+Manager\+::\+Draw()} (e.\+g., Should\+Render\+Debug\+Draws()). 
 
-
-Definition at line \mbox{\hyperlink{_engine_context_8h_source_l00042}{42}} of file \mbox{\hyperlink{_engine_context_8h_source}{Engine\+Context.\+h}}.
+Definition at line \mbox{\hyperlink{_engine_context_8h_source_l00074}{74}} of file \mbox{\hyperlink{_engine_context_8h_source}{Engine\+Context.\+h}}.
 
 \Hypertarget{struct_engine_context_a9c8f61ef311c6f84a93d342eaaa1864a}\index{EngineContext@{EngineContext}!inputManager@{inputManager}}
 \index{inputManager@{inputManager}!EngineContext@{EngineContext}}
@@ -78,11 +89,11 @@ Definition at line \mbox{\hyperlink{_engine_context_8h_source_l00042}{42}} of fi
 
 
 
-Tracks real-\/time keyboard and mouse input. 
+Pointer to \doxylink{class_input_manager}{Input\+Manager}. 
 
+Window callbacks (scroll/key/mouse) forward into \doxylink{class_input_manager}{Input\+Manager} (see \doxylink{_window_manager_8cpp}{Window\+Manager.\+cpp}). 
 
-
-Definition at line \mbox{\hyperlink{_engine_context_8h_source_l00040}{40}} of file \mbox{\hyperlink{_engine_context_8h_source}{Engine\+Context.\+h}}.
+Definition at line \mbox{\hyperlink{_engine_context_8h_source_l00057}{57}} of file \mbox{\hyperlink{_engine_context_8h_source}{Engine\+Context.\+h}}.
 
 \Hypertarget{struct_engine_context_a8f4c861adc4684975fa767ae4723e095}\index{EngineContext@{EngineContext}!renderManager@{renderManager}}
 \index{renderManager@{renderManager}!EngineContext@{EngineContext}}
@@ -92,11 +103,25 @@ Definition at line \mbox{\hyperlink{_engine_context_8h_source_l00040}{40}} of fi
 
 
 
-Handles draw call submission and batching. 
+Pointer to \doxylink{class_render_manager}{Render\+Manager}. 
+
+Used in \doxylink{class_state_manager_ae161e57265af366c58b0e2b5d936553d}{State\+Manager\+::\+Draw()} to flush draw and debug-\/line commands. 
+
+Definition at line \mbox{\hyperlink{_engine_context_8h_source_l00063}{63}} of file \mbox{\hyperlink{_engine_context_8h_source}{Engine\+Context.\+h}}.
+
+\Hypertarget{struct_engine_context_aa5985216cfd74ab389769abc5a5fdfb6}\index{EngineContext@{EngineContext}!soundManager@{soundManager}}
+\index{soundManager@{soundManager}!EngineContext@{EngineContext}}
+\doxysubsubsection{\texorpdfstring{soundManager}{soundManager}}
+{\footnotesize\ttfamily \label{struct_engine_context_aa5985216cfd74ab389769abc5a5fdfb6} 
+\mbox{\hyperlink{class_sound_manager}{Sound\+Manager}}\texorpdfstring{$\ast$}{*} Engine\+Context\+::sound\+Manager = nullptr}
 
 
 
-Definition at line \mbox{\hyperlink{_engine_context_8h_source_l00041}{41}} of file \mbox{\hyperlink{_engine_context_8h_source}{Engine\+Context.\+h}}.
+Pointer to \doxylink{class_sound_manager}{Sound\+Manager}. 
+
+
+
+Definition at line \mbox{\hyperlink{_engine_context_8h_source_l00068}{68}} of file \mbox{\hyperlink{_engine_context_8h_source}{Engine\+Context.\+h}}.
 
 \Hypertarget{struct_engine_context_a67f96c1b09ab0393d4f8434900d7419a}\index{EngineContext@{EngineContext}!stateManager@{stateManager}}
 \index{stateManager@{stateManager}!EngineContext@{EngineContext}}
@@ -106,11 +131,11 @@ Definition at line \mbox{\hyperlink{_engine_context_8h_source_l00041}{41}} of fi
 
 
 
-Manages active and queued game states. 
+Pointer to \doxylink{class_state_manager}{State\+Manager}. 
 
+Used by \doxylink{class_state_manager_ab4ebd3189a4623e805d95f768b314acb}{State\+Manager\+::\+Update}/\+Draw/\+Free() call chain that operates on the current \doxylink{class_game_state}{Game\+State}. 
 
-
-Definition at line \mbox{\hyperlink{_engine_context_8h_source_l00038}{38}} of file \mbox{\hyperlink{_engine_context_8h_source}{Engine\+Context.\+h}}.
+Definition at line \mbox{\hyperlink{_engine_context_8h_source_l00045}{45}} of file \mbox{\hyperlink{_engine_context_8h_source}{Engine\+Context.\+h}}.
 
 \Hypertarget{struct_engine_context_ab6fa006055c2a224931059f7ed840bed}\index{EngineContext@{EngineContext}!windowManager@{windowManager}}
 \index{windowManager@{windowManager}!EngineContext@{EngineContext}}
@@ -120,11 +145,11 @@ Definition at line \mbox{\hyperlink{_engine_context_8h_source_l00038}{38}} of fi
 
 
 
-Manages window size, title, and event polling. 
+Pointer to \doxylink{class_window_manager}{Window\+Manager}. 
 
+Updated by framebuffer-\/size callback via Set\+Width/\+Set\+Height(). 
 
-
-Definition at line \mbox{\hyperlink{_engine_context_8h_source_l00039}{39}} of file \mbox{\hyperlink{_engine_context_8h_source}{Engine\+Context.\+h}}.
+Definition at line \mbox{\hyperlink{_engine_context_8h_source_l00051}{51}} of file \mbox{\hyperlink{_engine_context_8h_source}{Engine\+Context.\+h}}.
 
 
 

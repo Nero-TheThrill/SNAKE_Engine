@@ -2,6 +2,8 @@ var class_transform2_d =
 [
     [ "Transform2D", "class_transform2_d.html#a1cd8cbf27214b1b9ddec9e0740d1d52a", null ],
     [ "AddPosition", "class_transform2_d.html#aef8029acaabfb6d4e0bd7a8b167cae05", null ],
+    [ "AddRotation", "class_transform2_d.html#a9af872385cf2e30773593ece402da4b6", null ],
+    [ "AddScale", "class_transform2_d.html#a6305424de34e7b008aca1e340810a697", null ],
     [ "GetMatrix", "class_transform2_d.html#a86e9a6ffac2c382a9e3467f8331bf86d", null ],
     [ "GetPosition", "class_transform2_d.html#aa4c38c37820eaa6a4c61ee09f57d5053", null ],
     [ "GetRotation", "class_transform2_d.html#a0b811ac01223cfcf4b9ac7db944ac2ce", null ],

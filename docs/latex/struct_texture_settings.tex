@@ -2,7 +2,7 @@
 \hypertarget{struct_texture_settings}{}\label{struct_texture_settings}\index{TextureSettings@{TextureSettings}}
 
 
-Stores texture sampling behavior including filter and wrap modes.  
+Runtime-\/configurable texture parameters with sensible defaults.  
 
 
 
@@ -12,36 +12,36 @@ Stores texture sampling behavior including filter and wrap modes.
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74}{Texture\+Filter}} \mbox{\hyperlink{struct_texture_settings_a59e9d9364034325e1e23d8d14fe9adbe}{min\+Filter}} = \mbox{\hyperlink{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74a32a843da6ea40ab3b17a3421ccdf671b}{Texture\+Filter\+::\+Linear}}
-\begin{DoxyCompactList}\small\item\em Used when shrinking the texture. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74}{Texture\+Filter}} \mbox{\hyperlink{struct_texture_settings_a0a6c426bd860abc26412f0a2d7469608}{mag\+Filter}} = \mbox{\hyperlink{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74a32a843da6ea40ab3b17a3421ccdf671b}{Texture\+Filter\+::\+Linear}}
-\begin{DoxyCompactList}\small\item\em Used when enlarging the texture. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_texture_8h_a5085aa1953bce0fe12fbdb71e56333c6}{Texture\+Min\+Filter}} \mbox{\hyperlink{struct_texture_settings_a9d30e90e0b8346cad1e6c10a6c543087}{min\+Filter}} = \mbox{\hyperlink{_texture_8h_a5085aa1953bce0fe12fbdb71e56333c6a32a843da6ea40ab3b17a3421ccdf671b}{Texture\+Min\+Filter\+::\+Linear}}
+\item 
+\mbox{\hyperlink{_texture_8h_aee79dc6a68e22c98941b4a3e1489e915}{Texture\+Mag\+Filter}} \mbox{\hyperlink{struct_texture_settings_ae47adc7174dcf5bde39e6f8bd1ffc7a0}{mag\+Filter}} = \mbox{\hyperlink{_texture_8h_aee79dc6a68e22c98941b4a3e1489e915a32a843da6ea40ab3b17a3421ccdf671b}{Texture\+Mag\+Filter\+::\+Linear}}
+\item 
 \mbox{\hyperlink{_texture_8h_ae99e0f833ccd2a830a871dba98d1c5bf}{Texture\+Wrap}} \mbox{\hyperlink{struct_texture_settings_a3b54cb18a7fd881b2f7e01d1dd29db3a}{wrapS}} = \mbox{\hyperlink{_texture_8h_ae99e0f833ccd2a830a871dba98d1c5bfa74556551231333c36debc3d373261134}{Texture\+Wrap\+::\+Clamp\+To\+Edge}}
-\begin{DoxyCompactList}\small\item\em Horizontal wrap behavior. \end{DoxyCompactList}\item 
+\item 
 \mbox{\hyperlink{_texture_8h_ae99e0f833ccd2a830a871dba98d1c5bf}{Texture\+Wrap}} \mbox{\hyperlink{struct_texture_settings_a89e689b4de2e7f2a7c856d091a19632c}{wrapT}} = \mbox{\hyperlink{_texture_8h_ae99e0f833ccd2a830a871dba98d1c5bfa74556551231333c36debc3d373261134}{Texture\+Wrap\+::\+Clamp\+To\+Edge}}
-\begin{DoxyCompactList}\small\item\em Vertical wrap behavior. \end{DoxyCompactList}\item 
+\item 
 bool \mbox{\hyperlink{struct_texture_settings_a7e4fe01f2ced85bd77fedc1ea9e36518}{generate\+Mipmap}} = true
-\begin{DoxyCompactList}\small\item\em Enable mipmap generation after loading. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-Stores texture sampling behavior including filter and wrap modes. 
+Runtime-\/configurable texture parameters with sensible defaults. 
 
-Defines how a texture should be filtered (minification/magnification) and wrapped (for out-\/of-\/bounds coordinates). Passed as a configuration object when loading a \doxylink{class_texture}{Texture}.
+Defaults\+:
+\begin{DoxyItemize}
+\item min\+Filter = Linear
+\item mag\+Filter = Linear
+\item wrapS = Clamp\+To\+Edge
+\item wrapT = Clamp\+To\+Edge
+\item generate\+Mipmap = true (triggers gl\+Generate\+Texture\+Mipmap in Generate\+Texture) 
+\end{DoxyItemize}
 
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{TextureSettings\ settings;}
-\DoxyCodeLine{settings.\mbox{\hyperlink{struct_texture_settings_a3b54cb18a7fd881b2f7e01d1dd29db3a}{wrapS}}\ =\ \mbox{\hyperlink{_texture_8h_ae99e0f833ccd2a830a871dba98d1c5bfa7020426cfb0a204051be4b3053d2acc8}{TextureWrap::Repeat}};}
-\DoxyCodeLine{settings.\mbox{\hyperlink{struct_texture_settings_a59e9d9364034325e1e23d8d14fe9adbe}{minFilter}}\ =\ \mbox{\hyperlink{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74a1173bd3987b1e185d86b9c3fe1b8bd72}{TextureFilter::LinearMipmapLinear}};}
-
-\end{DoxyCode}
- 
-
-Definition at line \mbox{\hyperlink{_texture_8h_source_l00050}{50}} of file \mbox{\hyperlink{_texture_8h_source}{Texture.\+h}}.
+Definition at line \mbox{\hyperlink{_texture_8h_source_l00056}{56}} of file \mbox{\hyperlink{_texture_8h_source}{Texture.\+h}}.
 
 
 
+\label{doc-variable-members}
+\Hypertarget{struct_texture_settings_doc-variable-members}
 \doxysubsection{Member Data Documentation}
 \Hypertarget{struct_texture_settings_a7e4fe01f2ced85bd77fedc1ea9e36518}\index{TextureSettings@{TextureSettings}!generateMipmap@{generateMipmap}}
 \index{generateMipmap@{generateMipmap}!TextureSettings@{TextureSettings}}
@@ -51,39 +51,27 @@ bool Texture\+Settings\+::generate\+Mipmap = true}
 
 
 
-Enable mipmap generation after loading. 
+Definition at line \mbox{\hyperlink{_texture_8h_source_l00062}{62}} of file \mbox{\hyperlink{_texture_8h_source}{Texture.\+h}}.
 
-
-
-Definition at line \mbox{\hyperlink{_texture_8h_source_l00056}{56}} of file \mbox{\hyperlink{_texture_8h_source}{Texture.\+h}}.
-
-\Hypertarget{struct_texture_settings_a0a6c426bd860abc26412f0a2d7469608}\index{TextureSettings@{TextureSettings}!magFilter@{magFilter}}
+\Hypertarget{struct_texture_settings_ae47adc7174dcf5bde39e6f8bd1ffc7a0}\index{TextureSettings@{TextureSettings}!magFilter@{magFilter}}
 \index{magFilter@{magFilter}!TextureSettings@{TextureSettings}}
 \doxysubsubsection{\texorpdfstring{magFilter}{magFilter}}
-{\footnotesize\ttfamily \label{struct_texture_settings_a0a6c426bd860abc26412f0a2d7469608} 
-\mbox{\hyperlink{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74}{Texture\+Filter}} Texture\+Settings\+::mag\+Filter = \mbox{\hyperlink{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74a32a843da6ea40ab3b17a3421ccdf671b}{Texture\+Filter\+::\+Linear}}}
+{\footnotesize\ttfamily \label{struct_texture_settings_ae47adc7174dcf5bde39e6f8bd1ffc7a0} 
+\mbox{\hyperlink{_texture_8h_aee79dc6a68e22c98941b4a3e1489e915}{Texture\+Mag\+Filter}} Texture\+Settings\+::mag\+Filter = \mbox{\hyperlink{_texture_8h_aee79dc6a68e22c98941b4a3e1489e915a32a843da6ea40ab3b17a3421ccdf671b}{Texture\+Mag\+Filter\+::\+Linear}}}
 
 
 
-Used when enlarging the texture. 
+Definition at line \mbox{\hyperlink{_texture_8h_source_l00059}{59}} of file \mbox{\hyperlink{_texture_8h_source}{Texture.\+h}}.
 
-
-
-Definition at line \mbox{\hyperlink{_texture_8h_source_l00053}{53}} of file \mbox{\hyperlink{_texture_8h_source}{Texture.\+h}}.
-
-\Hypertarget{struct_texture_settings_a59e9d9364034325e1e23d8d14fe9adbe}\index{TextureSettings@{TextureSettings}!minFilter@{minFilter}}
+\Hypertarget{struct_texture_settings_a9d30e90e0b8346cad1e6c10a6c543087}\index{TextureSettings@{TextureSettings}!minFilter@{minFilter}}
 \index{minFilter@{minFilter}!TextureSettings@{TextureSettings}}
 \doxysubsubsection{\texorpdfstring{minFilter}{minFilter}}
-{\footnotesize\ttfamily \label{struct_texture_settings_a59e9d9364034325e1e23d8d14fe9adbe} 
-\mbox{\hyperlink{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74}{Texture\+Filter}} Texture\+Settings\+::min\+Filter = \mbox{\hyperlink{_texture_8h_ac4b92e6b8c820ded95490092f8bfff74a32a843da6ea40ab3b17a3421ccdf671b}{Texture\+Filter\+::\+Linear}}}
+{\footnotesize\ttfamily \label{struct_texture_settings_a9d30e90e0b8346cad1e6c10a6c543087} 
+\mbox{\hyperlink{_texture_8h_a5085aa1953bce0fe12fbdb71e56333c6}{Texture\+Min\+Filter}} Texture\+Settings\+::min\+Filter = \mbox{\hyperlink{_texture_8h_a5085aa1953bce0fe12fbdb71e56333c6a32a843da6ea40ab3b17a3421ccdf671b}{Texture\+Min\+Filter\+::\+Linear}}}
 
 
 
-Used when shrinking the texture. 
-
-
-
-Definition at line \mbox{\hyperlink{_texture_8h_source_l00052}{52}} of file \mbox{\hyperlink{_texture_8h_source}{Texture.\+h}}.
+Definition at line \mbox{\hyperlink{_texture_8h_source_l00058}{58}} of file \mbox{\hyperlink{_texture_8h_source}{Texture.\+h}}.
 
 \Hypertarget{struct_texture_settings_a3b54cb18a7fd881b2f7e01d1dd29db3a}\index{TextureSettings@{TextureSettings}!wrapS@{wrapS}}
 \index{wrapS@{wrapS}!TextureSettings@{TextureSettings}}
@@ -93,11 +81,7 @@ Definition at line \mbox{\hyperlink{_texture_8h_source_l00052}{52}} of file \mbo
 
 
 
-Horizontal wrap behavior. 
-
-
-
-Definition at line \mbox{\hyperlink{_texture_8h_source_l00054}{54}} of file \mbox{\hyperlink{_texture_8h_source}{Texture.\+h}}.
+Definition at line \mbox{\hyperlink{_texture_8h_source_l00060}{60}} of file \mbox{\hyperlink{_texture_8h_source}{Texture.\+h}}.
 
 \Hypertarget{struct_texture_settings_a89e689b4de2e7f2a7c856d091a19632c}\index{TextureSettings@{TextureSettings}!wrapT@{wrapT}}
 \index{wrapT@{wrapT}!TextureSettings@{TextureSettings}}
@@ -107,11 +91,7 @@ Definition at line \mbox{\hyperlink{_texture_8h_source_l00054}{54}} of file \mbo
 
 
 
-Vertical wrap behavior. 
-
-
-
-Definition at line \mbox{\hyperlink{_texture_8h_source_l00055}{55}} of file \mbox{\hyperlink{_texture_8h_source}{Texture.\+h}}.
+Definition at line \mbox{\hyperlink{_texture_8h_source_l00061}{61}} of file \mbox{\hyperlink{_texture_8h_source}{Texture.\+h}}.
 
 
 

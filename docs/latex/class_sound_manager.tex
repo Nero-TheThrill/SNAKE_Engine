@@ -1,0 +1,778 @@
+\doxysection{Sound\+Manager Class Reference}
+\hypertarget{class_sound_manager}{}\label{class_sound_manager}\index{SoundManager@{SoundManager}}
+
+
+Loads, plays, and controls sounds; tracks channels and reusable instance IDs.  
+
+
+
+
+{\ttfamily \#include $<$Sound\+Manager.\+h$>$}
+
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{class_sound_manager_a3c4fde85dedc1019d025b016b60c81ed}{Sound\+Control\+Type}} \{ \mbox{\hyperlink{class_sound_manager_a3c4fde85dedc1019d025b016b60c81eda105b296a83f9c105355403f3332af50f}{Pause}}
+, \mbox{\hyperlink{class_sound_manager_a3c4fde85dedc1019d025b016b60c81edaf1cefec9e2196c672a622347f1fbc325}{Resume}}
+, \mbox{\hyperlink{class_sound_manager_a3c4fde85dedc1019d025b016b60c81eda11a755d598c0c417f9a36758c3da7481}{Stop}}
+ \}
+\begin{DoxyCompactList}\small\item\em Simple playback controls used by Control\texorpdfstring{$\ast$}{*} methods. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_sound_manager_a8e52926369f4ff23599507c5e7cf7246}{Load\+Sound}} (const std\+::string \&tag, const std\+::string \&filepath, bool loop=false)
+\begin{DoxyCompactList}\small\item\em Loads a sound file and registers it with a tag. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_sound_manager_8h_a7675718ce8055fa8280410c0d32ad4f3}{Sound\+Instance\+ID}} \mbox{\hyperlink{class_sound_manager_acc7074efb4e8b5c71e85f556769d9b17}{Play}} (const std\+::string \&tag, float volume=1.\+0f, float start\+Time\+Sec=0.\+0f)
+\begin{DoxyCompactList}\small\item\em Plays a sound by tag and returns a \doxylink{_sound_manager_8h_a7675718ce8055fa8280410c0d32ad4f3}{Sound\+Instance\+ID}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_sound_manager_a66c578e6c2850d673ea035870871e6ab}{Set\+Volume\+By\+ID}} (\mbox{\hyperlink{_sound_manager_8h_a7675718ce8055fa8280410c0d32ad4f3}{Sound\+Instance\+ID}} id, float volume)
+\begin{DoxyCompactList}\small\item\em Sets volume for a specific playing instance. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_sound_manager_a8581621afa759742160371f27c31e6fa}{Set\+Volume\+By\+Tag}} (const std\+::string \&tag, float volume)
+\begin{DoxyCompactList}\small\item\em Sets volume for all currently playing instances of a tag. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_sound_manager_a4447c313bba2cdfbac3053a094f66776}{Set\+Volume\+All}} (float volume)
+\begin{DoxyCompactList}\small\item\em Sets volume for all currently playing sounds. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_sound_manager_a8d8a89dcb398e0e51b6853f5aa684280}{Control\+By\+ID}} (\mbox{\hyperlink{class_sound_manager_a3c4fde85dedc1019d025b016b60c81ed}{Sound\+Control\+Type}} control, \mbox{\hyperlink{_sound_manager_8h_a7675718ce8055fa8280410c0d32ad4f3}{Sound\+Instance\+ID}} id)
+\begin{DoxyCompactList}\small\item\em Controls a specific instance by ID. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_sound_manager_aaa6392113f543f2bb32e6811bd010100}{Control\+By\+Tag}} (\mbox{\hyperlink{class_sound_manager_a3c4fde85dedc1019d025b016b60c81ed}{Sound\+Control\+Type}} control, const std\+::string \&tag)
+\begin{DoxyCompactList}\small\item\em Controls all currently playing instances under a tag. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_sound_manager_ad78be412f57622826d4d7bf5f46378a8}{Control\+All}} (\mbox{\hyperlink{class_sound_manager_a3c4fde85dedc1019d025b016b60c81ed}{Sound\+Control\+Type}} control)
+\begin{DoxyCompactList}\small\item\em Controls all currently playing sounds. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_sound_manager_abcc1fbf3488be5788a42c9a4fe56df35}{Sound\+Manager}} ()
+\begin{DoxyCompactList}\small\item\em Constructs with FMOD system pointer null and ID counter set to 1. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_sound_manager_a79cda227ead66f1cc3cd429c8b998b08}{Init}} ()
+\begin{DoxyCompactList}\small\item\em Initializes FMOD system. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_sound_manager_aaf241621221cdbefeba78e8b6bc29240}{Update}} ()
+\begin{DoxyCompactList}\small\item\em Per-\/frame maintenance. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_sound_manager_a4a77d91e2c8257d6c2d02ffffad671ff}{Cleanup}} ()
+\begin{DoxyCompactList}\small\item\em Stops/reclaims finished instances and prunes dead channels. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_sound_manager_af25662c1d0237540686087a080001f9b}{Free}} ()
+\begin{DoxyCompactList}\small\item\em Releases sounds and FMOD system; clears all maps and ID pools. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_sound_manager_8h_a7675718ce8055fa8280410c0d32ad4f3}{Sound\+Instance\+ID}} \mbox{\hyperlink{class_sound_manager_a1e76b08631c0a87462dab75fb0d526ed}{Generate\+ID}} ()
+\begin{DoxyCompactList}\small\item\em Returns a recycled ID if available; otherwise allocates a new one. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+friend \mbox{\hyperlink{class_sound_manager_ac041070b4d7ca98d9588d8c7d20909f0}{SNAKE\+\_\+\+Engine}}
+\item 
+FMOD\+::\+System \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_sound_manager_a1b42e8a68c11d4d6c4b7816181deca32}{system}}
+\item 
+std\+::unordered\+\_\+map$<$ std\+::string, FMOD\+::\+Sound \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_sound_manager_a422a34018863b1660d575e6553536cfe}{sounds}}
+\begin{DoxyCompactList}\small\item\em Loaded sounds indexed by tag. \end{DoxyCompactList}\item 
+std\+::unordered\+\_\+map$<$ std\+::string, std\+::vector$<$ FMOD\+::\+Channel \texorpdfstring{$\ast$}{*} $>$ $>$ \mbox{\hyperlink{class_sound_manager_acec4fb8aed93af7b61b85c89e9d82bcd}{active\+Channels}}
+\begin{DoxyCompactList}\small\item\em Playing channels per tag. \end{DoxyCompactList}\item 
+std\+::unordered\+\_\+map$<$ \mbox{\hyperlink{_sound_manager_8h_a7675718ce8055fa8280410c0d32ad4f3}{Sound\+Instance\+ID}}, FMOD\+::\+Channel \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_sound_manager_acf483991397615ff4c2cde96aa417610}{instance\+Map}}
+\begin{DoxyCompactList}\small\item\em ID ¡æ channel mapping. \end{DoxyCompactList}\item 
+std\+::queue$<$ \mbox{\hyperlink{_sound_manager_8h_a7675718ce8055fa8280410c0d32ad4f3}{Sound\+Instance\+ID}} $>$ \mbox{\hyperlink{class_sound_manager_a2790a08c6ebba08bba3ad5539834ca6b}{reusable\+IDs}}
+\begin{DoxyCompactList}\small\item\em Pool of IDs recycled after Stop/cleanup. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_sound_manager_8h_a7675718ce8055fa8280410c0d32ad4f3}{Sound\+Instance\+ID}} \mbox{\hyperlink{class_sound_manager_a910b1fd3f58c344c1b2185b031d188d0}{next\+Instance\+ID}}
+\begin{DoxyCompactList}\small\item\em Monotonic counter used when no recycled ID is available. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Loads, plays, and controls sounds; tracks channels and reusable instance IDs. 
+
+
+\begin{DoxyItemize}
+\item Public API\+:
+\begin{DoxyItemize}
+\item Load\+Sound(tag, filepath, loop)\+: loads a sound and stores it under {\ttfamily tag}.
+\item Play(tag, volume, start\+Time\+Sec)\+: starts playback; returns a reusable \doxylink{_sound_manager_8h_a7675718ce8055fa8280410c0d32ad4f3}{Sound\+Instance\+ID}.
+\item Set\+Volume\+By\+ID / Set\+Volume\+By\+Tag / Set\+Volume\+All\+: volume control.
+\item Control\+By\+ID / Control\+By\+Tag / Control\+All\+: Pause, Resume, Stop.
+\end{DoxyItemize}
+\item Engine integration\+:
+\begin{DoxyItemize}
+\item \doxylink{class_s_n_a_k_e___engine}{SNAKE\+\_\+\+Engine} calls \doxylink{class_sound_manager_a79cda227ead66f1cc3cd429c8b998b08}{Init()} during startup, \doxylink{class_sound_manager_aaf241621221cdbefeba78e8b6bc29240}{Update()} each frame, and \doxylink{class_sound_manager_af25662c1d0237540686087a080001f9b}{Free()} on shutdown.
+\end{DoxyItemize}
+\item Internals\+:
+\begin{DoxyItemize}
+\item active\+Channels\mbox{[}tag\mbox{]} keeps FMOD\+::\+Channel\texorpdfstring{$\ast$}{*} for currently playing sounds by tag.
+\item instance\+Map maps \doxylink{_sound_manager_8h_a7675718ce8055fa8280410c0d32ad4f3}{Sound\+Instance\+ID} -\/\texorpdfstring{$>$}{>} FMOD\+::\+Channel\texorpdfstring{$\ast$}{*}.
+\item \doxylink{class_sound_manager_aaf241621221cdbefeba78e8b6bc29240}{Update()} calls \doxylink{class_sound_manager_a4a77d91e2c8257d6c2d02ffffad671ff}{Cleanup()} to remove finished channels and recycle IDs via reusable\+IDs. 
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+Definition at line \mbox{\hyperlink{_sound_manager_8h_source_l00029}{29}} of file \mbox{\hyperlink{_sound_manager_8h_source}{Sound\+Manager.\+h}}.
+
+
+
+\label{doc-enum-members}
+\Hypertarget{class_sound_manager_doc-enum-members}
+\doxysubsection{Member Enumeration Documentation}
+\Hypertarget{class_sound_manager_a3c4fde85dedc1019d025b016b60c81ed}\index{SoundManager@{SoundManager}!SoundControlType@{SoundControlType}}
+\index{SoundControlType@{SoundControlType}!SoundManager@{SoundManager}}
+\doxysubsubsection{\texorpdfstring{SoundControlType}{SoundControlType}}
+{\footnotesize\ttfamily \label{class_sound_manager_a3c4fde85dedc1019d025b016b60c81ed} 
+enum class \mbox{\hyperlink{class_sound_manager_a3c4fde85dedc1019d025b016b60c81ed}{Sound\+Manager\+::\+Sound\+Control\+Type}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Simple playback controls used by Control\texorpdfstring{$\ast$}{*} methods. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Pause@{Pause}!SoundManager@{SoundManager}}\index{SoundManager@{SoundManager}!Pause@{Pause}}}\Hypertarget{class_sound_manager_a3c4fde85dedc1019d025b016b60c81eda105b296a83f9c105355403f3332af50f}\label{class_sound_manager_a3c4fde85dedc1019d025b016b60c81eda105b296a83f9c105355403f3332af50f} 
+Pause&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Resume@{Resume}!SoundManager@{SoundManager}}\index{SoundManager@{SoundManager}!Resume@{Resume}}}\Hypertarget{class_sound_manager_a3c4fde85dedc1019d025b016b60c81edaf1cefec9e2196c672a622347f1fbc325}\label{class_sound_manager_a3c4fde85dedc1019d025b016b60c81edaf1cefec9e2196c672a622347f1fbc325} 
+Resume&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Stop@{Stop}!SoundManager@{SoundManager}}\index{SoundManager@{SoundManager}!Stop@{Stop}}}\Hypertarget{class_sound_manager_a3c4fde85dedc1019d025b016b60c81eda11a755d598c0c417f9a36758c3da7481}\label{class_sound_manager_a3c4fde85dedc1019d025b016b60c81eda11a755d598c0c417f9a36758c3da7481} 
+Stop&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{_sound_manager_8h_source_l00085}{85}} of file \mbox{\hyperlink{_sound_manager_8h_source}{Sound\+Manager.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00085\ \{\ Pause,\ Resume,\ Stop\ \};}
+
+\end{DoxyCode}
+
+
+\label{doc-constructors}
+\Hypertarget{class_sound_manager_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_sound_manager_abcc1fbf3488be5788a42c9a4fe56df35}\index{SoundManager@{SoundManager}!SoundManager@{SoundManager}}
+\index{SoundManager@{SoundManager}!SoundManager@{SoundManager}}
+\doxysubsubsection{\texorpdfstring{SoundManager()}{SoundManager()}}
+{\footnotesize\ttfamily \label{class_sound_manager_abcc1fbf3488be5788a42c9a4fe56df35} 
+Sound\+Manager\+::\+Sound\+Manager (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Constructs with FMOD system pointer null and ID counter set to 1. 
+
+\begin{DoxyNote}{Note}
+Internal. Constructed and owned by \doxylink{class_s_n_a_k_e___engine}{SNAKE\+\_\+\+Engine}. 
+\end{DoxyNote}
+
+
+Definition at line \mbox{\hyperlink{_sound_manager_8cpp_source_l00006}{6}} of file \mbox{\hyperlink{_sound_manager_8cpp_source}{Sound\+Manager.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00006\ :\ \mbox{\hyperlink{class_sound_manager_a1b42e8a68c11d4d6c4b7816181deca32}{system}}(\textcolor{keyword}{nullptr}),\ \mbox{\hyperlink{class_sound_manager_a910b1fd3f58c344c1b2185b031d188d0}{nextInstanceID}}(1)\ \{\}}
+
+\end{DoxyCode}
+
+
+\label{doc-func-members}
+\Hypertarget{class_sound_manager_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_sound_manager_a4a77d91e2c8257d6c2d02ffffad671ff}\index{SoundManager@{SoundManager}!Cleanup@{Cleanup}}
+\index{Cleanup@{Cleanup}!SoundManager@{SoundManager}}
+\doxysubsubsection{\texorpdfstring{Cleanup()}{Cleanup()}}
+{\footnotesize\ttfamily \label{class_sound_manager_a4a77d91e2c8257d6c2d02ffffad671ff} 
+void Sound\+Manager\+::\+Cleanup (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Stops/reclaims finished instances and prunes dead channels. 
+
+
+\begin{DoxyItemize}
+\item For instance\+Map\+: stops channels that are invalid/not playing, collects their IDs to remove, and recycles IDs to reusable\+IDs.
+\item For active\+Channels\mbox{[}tag\mbox{]}\+: erases channels that are invalid/not playing. \begin{DoxyNote}{Note}
+Internal. 
+\end{DoxyNote}
+
+\end{DoxyItemize}
+
+Definition at line \mbox{\hyperlink{_sound_manager_8cpp_source_l00188}{188}} of file \mbox{\hyperlink{_sound_manager_8cpp_source}{Sound\+Manager.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00189\ \{}
+\DoxyCodeLine{00190\ \ \ \ \ std::vector<SoundInstanceID>\ toRemove;}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ [\textcolor{keywordtype}{id},\ ch]\ :\ \mbox{\hyperlink{class_sound_manager_acf483991397615ff4c2cde96aa417610}{instanceMap}})}
+\DoxyCodeLine{00193\ \ \ \ \ \{}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ playing\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!ch\ ||\ ch-\/>isPlaying(\&playing)\ !=\ FMOD\_OK\ ||\ !playing)}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ch)\ }
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ch-\/>stop();}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ toRemove.push\_back(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00201\ \ \ \ \ \}}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \ \ \ \ \textcolor{keywordflow}{for}\ (\mbox{\hyperlink{_sound_manager_8h_a7675718ce8055fa8280410c0d32ad4f3}{SoundInstanceID}}\ \textcolor{keywordtype}{id}\ :\ toRemove)}
+\DoxyCodeLine{00204\ \ \ \ \ \{}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sound_manager_acf483991397615ff4c2cde96aa417610}{instanceMap}}.erase(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sound_manager_a2790a08c6ebba08bba3ad5539834ca6b}{reusableIDs}}.push(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00207\ \ \ \ \ \}}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ [tag,\ vec]\ :\ \mbox{\hyperlink{class_sound_manager_acec4fb8aed93af7b61b85c89e9d82bcd}{activeChannels}})}
+\DoxyCodeLine{00210\ \ \ \ \ \{}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ vec.erase(std::remove\_if(vec.begin(),\ vec.end(),\ [](FMOD::Channel*\ ch)}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bool\ playing\ =\ false;}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ !ch\ ||\ ch-\/>isPlaying(\&playing)\ !=\ FMOD\_OK\ ||\ !playing;}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \}),\ vec.end());}
+\DoxyCodeLine{00216\ \ \ \ \ \}}
+\DoxyCodeLine{00217\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_sound_manager_ad78be412f57622826d4d7bf5f46378a8}\index{SoundManager@{SoundManager}!ControlAll@{ControlAll}}
+\index{ControlAll@{ControlAll}!SoundManager@{SoundManager}}
+\doxysubsubsection{\texorpdfstring{ControlAll()}{ControlAll()}}
+{\footnotesize\ttfamily \label{class_sound_manager_ad78be412f57622826d4d7bf5f46378a8} 
+void Sound\+Manager\+::\+Control\+All (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_sound_manager_a3c4fde85dedc1019d025b016b60c81ed}{Sound\+Control\+Type}}}]{control}{}\end{DoxyParamCaption})}
+
+
+
+Controls all currently playing sounds. 
+
+Iterates all tags and forwards to \doxylink{class_sound_manager_aaa6392113f543f2bb32e6811bd010100}{Control\+By\+Tag()}. 
+\begin{DoxyParams}{Parameters}
+{\em control} & Pause / Resume / Stop. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_sound_manager_8cpp_source_l00175}{175}} of file \mbox{\hyperlink{_sound_manager_8cpp_source}{Sound\+Manager.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00176\ \{}
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ [tag,\ \_]\ :\ \mbox{\hyperlink{class_sound_manager_acec4fb8aed93af7b61b85c89e9d82bcd}{activeChannels}})}
+\DoxyCodeLine{00178\ \ \ \ \ \{}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sound_manager_aaa6392113f543f2bb32e6811bd010100}{ControlByTag}}(control,\ tag);}
+\DoxyCodeLine{00180\ \ \ \ \ \}}
+\DoxyCodeLine{00181\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_sound_manager_a8d8a89dcb398e0e51b6853f5aa684280}\index{SoundManager@{SoundManager}!ControlByID@{ControlByID}}
+\index{ControlByID@{ControlByID}!SoundManager@{SoundManager}}
+\doxysubsubsection{\texorpdfstring{ControlByID()}{ControlByID()}}
+{\footnotesize\ttfamily \label{class_sound_manager_a8d8a89dcb398e0e51b6853f5aa684280} 
+void Sound\+Manager\+::\+Control\+By\+ID (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_sound_manager_a3c4fde85dedc1019d025b016b60c81ed}{Sound\+Control\+Type}}}]{control}{, }\item[{\mbox{\hyperlink{_sound_manager_8h_a7675718ce8055fa8280410c0d32ad4f3}{Sound\+Instance\+ID}}}]{id}{}\end{DoxyParamCaption})}
+
+
+
+Controls a specific instance by ID. 
+
+Pause/\+Resume toggle paused state. Stop stops the channel, erases it from instance\+Map, and recycles the ID. 
+\begin{DoxyParams}{Parameters}
+{\em control} & Pause / Resume / Stop. \\
+\hline
+{\em id} & Target instance ID. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_sound_manager_8cpp_source_l00128}{128}} of file \mbox{\hyperlink{_sound_manager_8cpp_source}{Sound\+Manager.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00129\ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keyword}{auto}\ it\ =\ \mbox{\hyperlink{class_sound_manager_acf483991397615ff4c2cde96aa417610}{instanceMap}}.find(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordflow}{if}\ (it\ ==\ \mbox{\hyperlink{class_sound_manager_acf483991397615ff4c2cde96aa417610}{instanceMap}}.end()\ ||\ !it-\/>second)}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \ \ FMOD::Channel*\ ch\ =\ it-\/>second;}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordflow}{switch}\ (control)}
+\DoxyCodeLine{00136\ \ \ \ \ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{class_sound_manager_a3c4fde85dedc1019d025b016b60c81eda105b296a83f9c105355403f3332af50f}{SoundControlType::Pause}}:}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ ch-\/>setPaused(\textcolor{keyword}{true});}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{class_sound_manager_a3c4fde85dedc1019d025b016b60c81edaf1cefec9e2196c672a622347f1fbc325}{SoundControlType::Resume}}:}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ ch-\/>setPaused(\textcolor{keyword}{false});}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{class_sound_manager_a3c4fde85dedc1019d025b016b60c81eda11a755d598c0c417f9a36758c3da7481}{SoundControlType::Stop}}:}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ ch-\/>stop();}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sound_manager_acf483991397615ff4c2cde96aa417610}{instanceMap}}.erase(it);}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sound_manager_a2790a08c6ebba08bba3ad5539834ca6b}{reusableIDs}}.push(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00148\ \ \ \ \ \}}
+\DoxyCodeLine{00149\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_sound_manager_aaa6392113f543f2bb32e6811bd010100}\index{SoundManager@{SoundManager}!ControlByTag@{ControlByTag}}
+\index{ControlByTag@{ControlByTag}!SoundManager@{SoundManager}}
+\doxysubsubsection{\texorpdfstring{ControlByTag()}{ControlByTag()}}
+{\footnotesize\ttfamily \label{class_sound_manager_aaa6392113f543f2bb32e6811bd010100} 
+void Sound\+Manager\+::\+Control\+By\+Tag (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_sound_manager_a3c4fde85dedc1019d025b016b60c81ed}{Sound\+Control\+Type}}}]{control}{, }\item[{const std\+::string \&}]{tag}{}\end{DoxyParamCaption})}
+
+
+
+Controls all currently playing instances under a tag. 
+
+Stop also clears active\+Channels\mbox{[}tag\mbox{]}. 
+\begin{DoxyParams}{Parameters}
+{\em control} & Pause / Resume / Stop. \\
+\hline
+{\em tag} & Target tag. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_sound_manager_8cpp_source_l00151}{151}} of file \mbox{\hyperlink{_sound_manager_8cpp_source}{Sound\+Manager.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00152\ \{}
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keywordflow}{for}\ (FMOD::Channel*\ ch\ :\ \mbox{\hyperlink{class_sound_manager_acec4fb8aed93af7b61b85c89e9d82bcd}{activeChannels}}[tag])}
+\DoxyCodeLine{00154\ \ \ \ \ \{}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!ch)\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (control)}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{class_sound_manager_a3c4fde85dedc1019d025b016b60c81eda105b296a83f9c105355403f3332af50f}{SoundControlType::Pause}}:}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ ch-\/>setPaused(\textcolor{keyword}{true});}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{class_sound_manager_a3c4fde85dedc1019d025b016b60c81edaf1cefec9e2196c672a622347f1fbc325}{SoundControlType::Resume}}:}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ ch-\/>setPaused(\textcolor{keyword}{false});}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{class_sound_manager_a3c4fde85dedc1019d025b016b60c81eda11a755d598c0c417f9a36758c3da7481}{SoundControlType::Stop}}:}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ ch-\/>stop();}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00169\ \ \ \ \ \}}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keywordflow}{if}\ (control\ ==\ \mbox{\hyperlink{class_sound_manager_a3c4fde85dedc1019d025b016b60c81eda11a755d598c0c417f9a36758c3da7481}{SoundControlType::Stop}})}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sound_manager_acec4fb8aed93af7b61b85c89e9d82bcd}{activeChannels}}[tag].clear();}
+\DoxyCodeLine{00173\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_sound_manager_af25662c1d0237540686087a080001f9b}\index{SoundManager@{SoundManager}!Free@{Free}}
+\index{Free@{Free}!SoundManager@{SoundManager}}
+\doxysubsubsection{\texorpdfstring{Free()}{Free()}}
+{\footnotesize\ttfamily \label{class_sound_manager_af25662c1d0237540686087a080001f9b} 
+void Sound\+Manager\+::\+Free (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Releases sounds and FMOD system; clears all maps and ID pools. 
+
+\begin{DoxyNote}{Note}
+Internal. Called by \doxylink{class_s_n_a_k_e___engine}{SNAKE\+\_\+\+Engine} on shutdown. 
+\end{DoxyNote}
+
+
+Definition at line \mbox{\hyperlink{_sound_manager_8cpp_source_l00030}{30}} of file \mbox{\hyperlink{_sound_manager_8cpp_source}{Sound\+Manager.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00031\ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ [tag,\ sound]\ :\ \mbox{\hyperlink{class_sound_manager_a422a34018863b1660d575e6553536cfe}{sounds}})}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ sound-\/>release();}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{class_sound_manager_a422a34018863b1660d575e6553536cfe}{sounds}}.clear();}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{class_sound_manager_acec4fb8aed93af7b61b85c89e9d82bcd}{activeChannels}}.clear();}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{class_sound_manager_acf483991397615ff4c2cde96aa417610}{instanceMap}}.clear();}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordflow}{while}\ (!\mbox{\hyperlink{class_sound_manager_a2790a08c6ebba08bba3ad5539834ca6b}{reusableIDs}}.empty())\ \mbox{\hyperlink{class_sound_manager_a2790a08c6ebba08bba3ad5539834ca6b}{reusableIDs}}.pop();}
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{class_sound_manager_a910b1fd3f58c344c1b2185b031d188d0}{nextInstanceID}}\ =\ 1;}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_sound_manager_a1b42e8a68c11d4d6c4b7816181deca32}{system}})}
+\DoxyCodeLine{00042\ \ \ \ \ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sound_manager_a1b42e8a68c11d4d6c4b7816181deca32}{system}}-\/>close();}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sound_manager_a1b42e8a68c11d4d6c4b7816181deca32}{system}}-\/>release();}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sound_manager_a1b42e8a68c11d4d6c4b7816181deca32}{system}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00046\ \ \ \ \ \}}
+\DoxyCodeLine{00047\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_sound_manager_a1e76b08631c0a87462dab75fb0d526ed}\index{SoundManager@{SoundManager}!GenerateID@{GenerateID}}
+\index{GenerateID@{GenerateID}!SoundManager@{SoundManager}}
+\doxysubsubsection{\texorpdfstring{GenerateID()}{GenerateID()}}
+{\footnotesize\ttfamily \label{class_sound_manager_a1e76b08631c0a87462dab75fb0d526ed} 
+\mbox{\hyperlink{_sound_manager_8h_a7675718ce8055fa8280410c0d32ad4f3}{Sound\+Instance\+ID}} Sound\+Manager\+::\+Generate\+ID (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Returns a recycled ID if available; otherwise allocates a new one. 
+
+\begin{DoxyNote}{Note}
+Internal. Used by \doxylink{class_sound_manager_acc7074efb4e8b5c71e85f556769d9b17}{Play()}. 
+\end{DoxyNote}
+
+
+Definition at line \mbox{\hyperlink{_sound_manager_8cpp_source_l00064}{64}} of file \mbox{\hyperlink{_sound_manager_8cpp_source}{Sound\+Manager.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00065\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{class_sound_manager_a2790a08c6ebba08bba3ad5539834ca6b}{reusableIDs}}.empty())}
+\DoxyCodeLine{00067\ \ \ \ \ \{}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_sound_manager_8h_a7675718ce8055fa8280410c0d32ad4f3}{SoundInstanceID}}\ \textcolor{keywordtype}{id}\ =\ \mbox{\hyperlink{class_sound_manager_a2790a08c6ebba08bba3ad5539834ca6b}{reusableIDs}}.front();}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sound_manager_a2790a08c6ebba08bba3ad5539834ca6b}{reusableIDs}}.pop();}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ id;}
+\DoxyCodeLine{00071\ \ \ \ \ \}}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_sound_manager_a910b1fd3f58c344c1b2185b031d188d0}{nextInstanceID}}++;}
+\DoxyCodeLine{00073\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_sound_manager_a79cda227ead66f1cc3cd429c8b998b08}\index{SoundManager@{SoundManager}!Init@{Init}}
+\index{Init@{Init}!SoundManager@{SoundManager}}
+\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily \label{class_sound_manager_a79cda227ead66f1cc3cd429c8b998b08} 
+void Sound\+Manager\+::\+Init (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Initializes FMOD system. 
+
+Creates the system, configures software channels, and initializes it. \begin{DoxyNote}{Note}
+Internal. Called by \doxylink{class_s_n_a_k_e___engine}{SNAKE\+\_\+\+Engine} at startup. 
+\end{DoxyNote}
+
+
+Definition at line \mbox{\hyperlink{_sound_manager_8cpp_source_l00008}{8}} of file \mbox{\hyperlink{_sound_manager_8cpp_source}{Sound\+Manager.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00009\ \{}
+\DoxyCodeLine{00010\ \ \ \ \ FMOD\_RESULT\ result\ =\ FMOD::System\_Create(\&\mbox{\hyperlink{class_sound_manager_a1b42e8a68c11d4d6c4b7816181deca32}{system}});}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordflow}{if}\ (result\ !=\ FMOD\_OK\ ||\ !\mbox{\hyperlink{class_sound_manager_a1b42e8a68c11d4d6c4b7816181deca32}{system}})}
+\DoxyCodeLine{00012\ \ \ \ \ \{}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ SNAKE\_ERR(\textcolor{stringliteral}{"{}FMOD::System\_Create\ failed:\ "{}}\ <<\ FMOD\_ErrorString(result));}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00015\ \ \ \ \ \}}
+\DoxyCodeLine{00016\ \ \ \ \ result\ =\ \mbox{\hyperlink{class_sound_manager_a1b42e8a68c11d4d6c4b7816181deca32}{system}}-\/>setSoftwareChannels(128);}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordflow}{if}\ (result\ !=\ FMOD\_OK)}
+\DoxyCodeLine{00018\ \ \ \ \ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ SNAKE\_ERR(\textcolor{stringliteral}{"{}setSoftwareChannels\ failed:\ "{}}\ <<\ FMOD\_ErrorString(result));}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00021\ \ \ \ \ \}}
+\DoxyCodeLine{00022\ \ \ \ \ result\ =\ \mbox{\hyperlink{class_sound_manager_a1b42e8a68c11d4d6c4b7816181deca32}{system}}-\/>init(128,\ FMOD\_INIT\_NORMAL,\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordflow}{if}\ (result\ !=\ FMOD\_OK)}
+\DoxyCodeLine{00024\ \ \ \ \ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ SNAKE\_ERR(\textcolor{stringliteral}{"{}FMOD\ system\ init\ failed:\ "{}}\ <<\ FMOD\_ErrorString(result));}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00027\ \ \ \ \ \}}
+\DoxyCodeLine{00028\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_sound_manager_a8e52926369f4ff23599507c5e7cf7246}\index{SoundManager@{SoundManager}!LoadSound@{LoadSound}}
+\index{LoadSound@{LoadSound}!SoundManager@{SoundManager}}
+\doxysubsubsection{\texorpdfstring{LoadSound()}{LoadSound()}}
+{\footnotesize\ttfamily \label{class_sound_manager_a8e52926369f4ff23599507c5e7cf7246} 
+void Sound\+Manager\+::\+Load\+Sound (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{tag}{, }\item[{const std\+::string \&}]{filepath}{, }\item[{bool}]{loop}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+
+
+Loads a sound file and registers it with a tag. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tag} & Logical name used to reference the sound. \\
+\hline
+{\em filepath} & Path to the audio file. \\
+\hline
+{\em loop} & If true, plays in loop mode. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_sound_manager_8cpp_source_l00049}{49}} of file \mbox{\hyperlink{_sound_manager_8cpp_source}{Sound\+Manager.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00050\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ FMOD\_MODE\ mode\ =\ FMOD\_DEFAULT\ |\ FMOD\_2D\ |\ FMOD\_CREATESAMPLE;}
+\DoxyCodeLine{00052\ \ \ \ \ mode\ |=\ loop\ ?\ FMOD\_LOOP\_NORMAL\ :\ FMOD\_LOOP\_OFF;}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ FMOD::Sound*\ sound\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_sound_manager_a1b42e8a68c11d4d6c4b7816181deca32}{system}}-\/>createSound(filepath.c\_str(),\ mode,\ \textcolor{keyword}{nullptr},\ \&sound)\ !=\ FMOD\_OK)}
+\DoxyCodeLine{00056\ \ \ \ \ \{}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ SNAKE\_ERR(\textcolor{stringliteral}{"{}Failed\ to\ load\ sound\ :\ "{}}\ <<\ filepath);}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00059\ \ \ \ \ \}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \mbox{\hyperlink{class_sound_manager_a422a34018863b1660d575e6553536cfe}{sounds}}[tag]\ =\ sound;}
+\DoxyCodeLine{00062\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_sound_manager_acc7074efb4e8b5c71e85f556769d9b17}\index{SoundManager@{SoundManager}!Play@{Play}}
+\index{Play@{Play}!SoundManager@{SoundManager}}
+\doxysubsubsection{\texorpdfstring{Play()}{Play()}}
+{\footnotesize\ttfamily \label{class_sound_manager_acc7074efb4e8b5c71e85f556769d9b17} 
+\mbox{\hyperlink{_sound_manager_8h_a7675718ce8055fa8280410c0d32ad4f3}{Sound\+Instance\+ID}} Sound\+Manager\+::\+Play (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{tag}{, }\item[{float}]{volume}{ = {\ttfamily 1.0f}, }\item[{float}]{start\+Time\+Sec}{ = {\ttfamily 0.0f}}\end{DoxyParamCaption})}
+
+
+
+Plays a sound by tag and returns a \doxylink{_sound_manager_8h_a7675718ce8055fa8280410c0d32ad4f3}{Sound\+Instance\+ID}. 
+
+
+\begin{DoxyItemize}
+\item Starts paused, applies {\ttfamily start\+Time\+Sec} (ms) if \texorpdfstring{$>$}{>} 0, sets volume, then unpauses.
+\item On success\+: pushes the channel into active\+Channels\mbox{[}tag\mbox{]}, assigns an ID from \doxylink{class_sound_manager_a1e76b08631c0a87462dab75fb0d526ed}{Generate\+ID()}, stores in instance\+Map, and returns it.
+\item On failure\+: returns 0.
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em tag} & Tag of a previously loaded sound. \\
+\hline
+{\em volume} & Volume in \mbox{[}0,1\mbox{]}. \\
+\hline
+{\em start\+Time\+Sec} & Start offset in seconds. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{_sound_manager_8h_a7675718ce8055fa8280410c0d32ad4f3}{Sound\+Instance\+ID} (0 if play failed).
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{_sound_manager_8h_a7675718ce8055fa8280410c0d32ad4f3}{SoundInstanceID}}\ \textcolor{keywordtype}{id}\ =\ soundManager.Play(\textcolor{stringliteral}{"{}laser"{}},\ 0.8f);}
+\DoxyCodeLine{soundManager.SetVolumeByID(\textcolor{keywordtype}{id},\ 0.5f);}
+\DoxyCodeLine{soundManager.ControlByID(\mbox{\hyperlink{class_sound_manager_a3c4fde85dedc1019d025b016b60c81eda105b296a83f9c105355403f3332af50f}{SoundManager::SoundControlType::Pause}},\ \textcolor{keywordtype}{id});}
+
+\end{DoxyCode}
+ 
+
+Definition at line \mbox{\hyperlink{_sound_manager_8cpp_source_l00075}{75}} of file \mbox{\hyperlink{_sound_manager_8cpp_source}{Sound\+Manager.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00076\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{class_sound_manager_a1b42e8a68c11d4d6c4b7816181deca32}{system}}\ ||\ \mbox{\hyperlink{class_sound_manager_a422a34018863b1660d575e6553536cfe}{sounds}}.find(tag)\ ==\ \mbox{\hyperlink{class_sound_manager_a422a34018863b1660d575e6553536cfe}{sounds}}.end())\ }
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ FMOD::Channel*\ channel\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_sound_manager_a1b42e8a68c11d4d6c4b7816181deca32}{system}}-\/>playSound(\mbox{\hyperlink{class_sound_manager_a422a34018863b1660d575e6553536cfe}{sounds}}[tag],\ \textcolor{keyword}{nullptr},\ \textcolor{keyword}{true},\ \&channel)\ !=\ FMOD\_OK)}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordflow}{if}\ (channel)}
+\DoxyCodeLine{00085\ \ \ \ \ \{}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (startTimeSec\ >\ 0.0f)}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ channel-\/>setPosition(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\textcolor{keyword}{>}(startTimeSec\ *\ 1000.0f),\ FMOD\_TIMEUNIT\_MS);}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ channel-\/>setVolume(volume);}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ channel-\/>setPaused(\textcolor{keyword}{false});}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sound_manager_acec4fb8aed93af7b61b85c89e9d82bcd}{activeChannels}}[tag].push\_back(channel);}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_sound_manager_8h_a7675718ce8055fa8280410c0d32ad4f3}{SoundInstanceID}}\ \textcolor{keywordtype}{id}\ =\ \mbox{\hyperlink{class_sound_manager_a1e76b08631c0a87462dab75fb0d526ed}{GenerateID}}();}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sound_manager_acf483991397615ff4c2cde96aa417610}{instanceMap}}[id]\ =\ channel;}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ id;}
+\DoxyCodeLine{00098\ \ \ \ \ \}}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00100\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_sound_manager_a4447c313bba2cdfbac3053a094f66776}\index{SoundManager@{SoundManager}!SetVolumeAll@{SetVolumeAll}}
+\index{SetVolumeAll@{SetVolumeAll}!SoundManager@{SoundManager}}
+\doxysubsubsection{\texorpdfstring{SetVolumeAll()}{SetVolumeAll()}}
+{\footnotesize\ttfamily \label{class_sound_manager_a4447c313bba2cdfbac3053a094f66776} 
+void Sound\+Manager\+::\+Set\+Volume\+All (\begin{DoxyParamCaption}\item[{float}]{volume}{}\end{DoxyParamCaption})}
+
+
+
+Sets volume for all currently playing sounds. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em volume} & Volume in \mbox{[}0,1\mbox{]}. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_sound_manager_8cpp_source_l00118}{118}} of file \mbox{\hyperlink{_sound_manager_8cpp_source}{Sound\+Manager.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00119\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ [tag,\ \_]\ :\ \mbox{\hyperlink{class_sound_manager_acec4fb8aed93af7b61b85c89e9d82bcd}{activeChannels}})}
+\DoxyCodeLine{00121\ \ \ \ \ \{}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sound_manager_a8581621afa759742160371f27c31e6fa}{SetVolumeByTag}}(tag,\ volume);}
+\DoxyCodeLine{00123\ \ \ \ \ \}}
+\DoxyCodeLine{00124\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_sound_manager_a66c578e6c2850d673ea035870871e6ab}\index{SoundManager@{SoundManager}!SetVolumeByID@{SetVolumeByID}}
+\index{SetVolumeByID@{SetVolumeByID}!SoundManager@{SoundManager}}
+\doxysubsubsection{\texorpdfstring{SetVolumeByID()}{SetVolumeByID()}}
+{\footnotesize\ttfamily \label{class_sound_manager_a66c578e6c2850d673ea035870871e6ab} 
+void Sound\+Manager\+::\+Set\+Volume\+By\+ID (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_sound_manager_8h_a7675718ce8055fa8280410c0d32ad4f3}{Sound\+Instance\+ID}}}]{id}{, }\item[{float}]{volume}{}\end{DoxyParamCaption})}
+
+
+
+Sets volume for a specific playing instance. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & \doxylink{_sound_manager_8h_a7675718ce8055fa8280410c0d32ad4f3}{Sound\+Instance\+ID} returned by \doxylink{class_sound_manager_acc7074efb4e8b5c71e85f556769d9b17}{Play()}. \\
+\hline
+{\em volume} & Volume in \mbox{[}0,1\mbox{]}. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_sound_manager_8cpp_source_l00102}{102}} of file \mbox{\hyperlink{_sound_manager_8cpp_source}{Sound\+Manager.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00103\ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keyword}{auto}\ it\ =\ \mbox{\hyperlink{class_sound_manager_acf483991397615ff4c2cde96aa417610}{instanceMap}}.find(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordflow}{if}\ (it\ !=\ \mbox{\hyperlink{class_sound_manager_acf483991397615ff4c2cde96aa417610}{instanceMap}}.end()\ \&\&\ it-\/>second)}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ it-\/>second-\/>setVolume(volume);}
+\DoxyCodeLine{00107\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_sound_manager_a8581621afa759742160371f27c31e6fa}\index{SoundManager@{SoundManager}!SetVolumeByTag@{SetVolumeByTag}}
+\index{SetVolumeByTag@{SetVolumeByTag}!SoundManager@{SoundManager}}
+\doxysubsubsection{\texorpdfstring{SetVolumeByTag()}{SetVolumeByTag()}}
+{\footnotesize\ttfamily \label{class_sound_manager_a8581621afa759742160371f27c31e6fa} 
+void Sound\+Manager\+::\+Set\+Volume\+By\+Tag (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{tag}{, }\item[{float}]{volume}{}\end{DoxyParamCaption})}
+
+
+
+Sets volume for all currently playing instances of a tag. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tag} & Tag used with \doxylink{class_sound_manager_a8e52926369f4ff23599507c5e7cf7246}{Load\+Sound()}. \\
+\hline
+{\em volume} & Volume in \mbox{[}0,1\mbox{]}. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_sound_manager_8cpp_source_l00109}{109}} of file \mbox{\hyperlink{_sound_manager_8cpp_source}{Sound\+Manager.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00110\ \{}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordflow}{for}\ (FMOD::Channel*\ ch\ :\ \mbox{\hyperlink{class_sound_manager_acec4fb8aed93af7b61b85c89e9d82bcd}{activeChannels}}[tag])}
+\DoxyCodeLine{00112\ \ \ \ \ \{}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ch)\ }
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ ch-\/>setVolume(volume);}
+\DoxyCodeLine{00115\ \ \ \ \ \}}
+\DoxyCodeLine{00116\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_sound_manager_aaf241621221cdbefeba78e8b6bc29240}\index{SoundManager@{SoundManager}!Update@{Update}}
+\index{Update@{Update}!SoundManager@{SoundManager}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily \label{class_sound_manager_aaf241621221cdbefeba78e8b6bc29240} 
+void Sound\+Manager\+::\+Update (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Per-\/frame maintenance. 
+
+Calls \doxylink{class_sound_manager_a4a77d91e2c8257d6c2d02ffffad671ff}{Cleanup()} to remove finished channels and recycle IDs. \begin{DoxyNote}{Note}
+Internal. Called by \doxylink{class_s_n_a_k_e___engine}{SNAKE\+\_\+\+Engine} each frame. 
+\end{DoxyNote}
+
+
+Definition at line \mbox{\hyperlink{_sound_manager_8cpp_source_l00183}{183}} of file \mbox{\hyperlink{_sound_manager_8cpp_source}{Sound\+Manager.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00184\ \{}
+\DoxyCodeLine{00185\ \ \ \ \ \mbox{\hyperlink{class_sound_manager_a4a77d91e2c8257d6c2d02ffffad671ff}{Cleanup}}();}
+\DoxyCodeLine{00186\ \}}
+
+\end{DoxyCode}
+
+
+\label{doc-variable-members}
+\Hypertarget{class_sound_manager_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_sound_manager_acec4fb8aed93af7b61b85c89e9d82bcd}\index{SoundManager@{SoundManager}!activeChannels@{activeChannels}}
+\index{activeChannels@{activeChannels}!SoundManager@{SoundManager}}
+\doxysubsubsection{\texorpdfstring{activeChannels}{activeChannels}}
+{\footnotesize\ttfamily \label{class_sound_manager_acec4fb8aed93af7b61b85c89e9d82bcd} 
+std\+::unordered\+\_\+map$<$std\+::string, std\+::vector$<$FMOD\+::\+Channel\texorpdfstring{$\ast$}{*}$>$ $>$ Sound\+Manager\+::active\+Channels\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Playing channels per tag. 
+
+
+
+Definition at line \mbox{\hyperlink{_sound_manager_8h_source_l00150}{150}} of file \mbox{\hyperlink{_sound_manager_8h_source}{Sound\+Manager.\+h}}.
+
+\Hypertarget{class_sound_manager_acf483991397615ff4c2cde96aa417610}\index{SoundManager@{SoundManager}!instanceMap@{instanceMap}}
+\index{instanceMap@{instanceMap}!SoundManager@{SoundManager}}
+\doxysubsubsection{\texorpdfstring{instanceMap}{instanceMap}}
+{\footnotesize\ttfamily \label{class_sound_manager_acf483991397615ff4c2cde96aa417610} 
+std\+::unordered\+\_\+map$<$\mbox{\hyperlink{_sound_manager_8h_a7675718ce8055fa8280410c0d32ad4f3}{Sound\+Instance\+ID}}, FMOD\+::\+Channel\texorpdfstring{$\ast$}{*}$>$ Sound\+Manager\+::instance\+Map\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ID ¡æ channel mapping. 
+
+
+
+Definition at line \mbox{\hyperlink{_sound_manager_8h_source_l00151}{151}} of file \mbox{\hyperlink{_sound_manager_8h_source}{Sound\+Manager.\+h}}.
+
+\Hypertarget{class_sound_manager_a910b1fd3f58c344c1b2185b031d188d0}\index{SoundManager@{SoundManager}!nextInstanceID@{nextInstanceID}}
+\index{nextInstanceID@{nextInstanceID}!SoundManager@{SoundManager}}
+\doxysubsubsection{\texorpdfstring{nextInstanceID}{nextInstanceID}}
+{\footnotesize\ttfamily \label{class_sound_manager_a910b1fd3f58c344c1b2185b031d188d0} 
+\mbox{\hyperlink{_sound_manager_8h_a7675718ce8055fa8280410c0d32ad4f3}{Sound\+Instance\+ID}} Sound\+Manager\+::next\+Instance\+ID\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Monotonic counter used when no recycled ID is available. 
+
+
+
+Definition at line \mbox{\hyperlink{_sound_manager_8h_source_l00154}{154}} of file \mbox{\hyperlink{_sound_manager_8h_source}{Sound\+Manager.\+h}}.
+
+\Hypertarget{class_sound_manager_a2790a08c6ebba08bba3ad5539834ca6b}\index{SoundManager@{SoundManager}!reusableIDs@{reusableIDs}}
+\index{reusableIDs@{reusableIDs}!SoundManager@{SoundManager}}
+\doxysubsubsection{\texorpdfstring{reusableIDs}{reusableIDs}}
+{\footnotesize\ttfamily \label{class_sound_manager_a2790a08c6ebba08bba3ad5539834ca6b} 
+std\+::queue$<$\mbox{\hyperlink{_sound_manager_8h_a7675718ce8055fa8280410c0d32ad4f3}{Sound\+Instance\+ID}}$>$ Sound\+Manager\+::reusable\+IDs\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Pool of IDs recycled after Stop/cleanup. 
+
+
+
+Definition at line \mbox{\hyperlink{_sound_manager_8h_source_l00153}{153}} of file \mbox{\hyperlink{_sound_manager_8h_source}{Sound\+Manager.\+h}}.
+
+\Hypertarget{class_sound_manager_ac041070b4d7ca98d9588d8c7d20909f0}\index{SoundManager@{SoundManager}!SNAKE\_Engine@{SNAKE\_Engine}}
+\index{SNAKE\_Engine@{SNAKE\_Engine}!SoundManager@{SoundManager}}
+\doxysubsubsection{\texorpdfstring{SNAKE\_Engine}{SNAKE\_Engine}}
+{\footnotesize\ttfamily \label{class_sound_manager_ac041070b4d7ca98d9588d8c7d20909f0} 
+friend Sound\+Manager\+::\+SNAKE\+\_\+\+Engine\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_sound_manager_8h_source_l00031}{31}} of file \mbox{\hyperlink{_sound_manager_8h_source}{Sound\+Manager.\+h}}.
+
+\Hypertarget{class_sound_manager_a422a34018863b1660d575e6553536cfe}\index{SoundManager@{SoundManager}!sounds@{sounds}}
+\index{sounds@{sounds}!SoundManager@{SoundManager}}
+\doxysubsubsection{\texorpdfstring{sounds}{sounds}}
+{\footnotesize\ttfamily \label{class_sound_manager_a422a34018863b1660d575e6553536cfe} 
+std\+::unordered\+\_\+map$<$std\+::string, FMOD\+::\+Sound\texorpdfstring{$\ast$}{*}$>$ Sound\+Manager\+::sounds\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Loaded sounds indexed by tag. 
+
+
+
+Definition at line \mbox{\hyperlink{_sound_manager_8h_source_l00149}{149}} of file \mbox{\hyperlink{_sound_manager_8h_source}{Sound\+Manager.\+h}}.
+
+\Hypertarget{class_sound_manager_a1b42e8a68c11d4d6c4b7816181deca32}\index{SoundManager@{SoundManager}!system@{system}}
+\index{system@{system}!SoundManager@{SoundManager}}
+\doxysubsubsection{\texorpdfstring{system}{system}}
+{\footnotesize\ttfamily \label{class_sound_manager_a1b42e8a68c11d4d6c4b7816181deca32} 
+FMOD\+::\+System\texorpdfstring{$\ast$}{*} Sound\+Manager\+::system\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_sound_manager_8h_source_l00148}{148}} of file \mbox{\hyperlink{_sound_manager_8h_source}{Sound\+Manager.\+h}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Project/\+SNAKE\+\_\+\+Engine/\+Public/\mbox{\hyperlink{_sound_manager_8h}{Sound\+Manager.\+h}}\item 
+Project/\+SNAKE\+\_\+\+Engine/\+Private/\mbox{\hyperlink{_sound_manager_8cpp}{Sound\+Manager.\+cpp}}\end{DoxyCompactItemize}

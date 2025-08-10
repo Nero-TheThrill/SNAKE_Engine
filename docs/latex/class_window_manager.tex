@@ -2,7 +2,7 @@
 \hypertarget{class_window_manager}{}\label{class_window_manager}\index{WindowManager@{WindowManager}}
 
 
-Handles creation and control of the main GLFW application window.  
+Manages the GLFW window\+: creation, size/title, clear color, fullscreen, per-\/frame ops.  
 
 
 
@@ -13,34 +13,40 @@ Handles creation and control of the main GLFW application window.
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{class_window_manager_a3a283b34c19aaa20296befaabad4d29b}{Window\+Manager}} ()
-\begin{DoxyCompactList}\small\item\em Constructs the \doxylink{class_window_manager}{Window\+Manager} with default dimensions (800x600). \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Constructs with default size (800x600) and background\+Color (0.\+4,0.\+4,0.\+4,1). \end{DoxyCompactList}\item 
 GLFWwindow \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_window_manager_ac706fd9adb665063dbb9cc72006369a1}{Get\+Handle}} () const
-\begin{DoxyCompactList}\small\item\em Returns the raw pointer to the internal GLFWwindow. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Returns the underlying GLFWwindow handle (nullptr if not initialized). \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{class_window_manager_ad8e16ad88c8eb3e3889d5c3dbe7891cb}{Get\+Width}} () const
-\begin{DoxyCompactList}\small\item\em Gets the current window width in pixels. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Returns the cached window width (pixels). \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{class_window_manager_a50c9f12a67f69e822b4e70077773c9ca}{Get\+Height}} () const
-\begin{DoxyCompactList}\small\item\em Gets the current window height in pixels. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Returns the cached window height (pixels). \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_window_manager_a231381ad1948955f29a6702b4a0e2111}{Resize}} (int width, int height)
-\begin{DoxyCompactList}\small\item\em Resizes the actual GLFW window and updates internal dimensions. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Programmatically resize the window. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_window_manager_a29f286d83dbec6ce3ec1b0b6fd11f80d}{Set\+Title}} (const std\+::string \&title) const
-\begin{DoxyCompactList}\small\item\em Sets the title displayed on the GLFW window. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Set the window title. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_window_manager_a07f70a67fdcabe9945f227589aba35ce}{Set\+Background\+Color}} (glm\+::vec4 color)
+\begin{DoxyCompactList}\small\item\em Set the RGBA clear color used by \doxylink{class_window_manager_ac1f44592045972fb10bf4cf991266cb2}{Clear\+Screen()}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_window_manager_ace8ed5c7b820428fc835bbe33a732d4c}{Set\+Full\+Screen}} (bool enable)
+\begin{DoxyCompactList}\small\item\em Toggle fullscreen on/off for the primary monitor. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_window_manager_ae1f28e7be82fb12644c7737316d4b21c}{Is\+Full\+Screen}} () const
+\begin{DoxyCompactList}\small\item\em Returns whether the window is currently fullscreen. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 bool \mbox{\hyperlink{class_window_manager_a2ce03918b6123264cd9013cc4e403f39}{Init}} (int \+\_\+window\+Width, int \+\_\+window\+Height, \mbox{\hyperlink{class_s_n_a_k_e___engine}{SNAKE\+\_\+\+Engine}} \&engine)
-\begin{DoxyCompactList}\small\item\em Initializes the GLFW window and Open\+GL context. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Initialize GLFW window and GL context. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_window_manager_ac822306fe0eb51630f31874ec6c469a4}{Set\+Width}} (int width)
-\begin{DoxyCompactList}\small\item\em Updates the stored internal width value. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Internal setter used by framebuffer\+\_\+size\+\_\+callback. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_window_manager_a1224bd8fbce3dac6125e053422c02380}{Set\+Height}} (int height)
-\begin{DoxyCompactList}\small\item\em Updates the stored internal height value. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Internal setter used by framebuffer\+\_\+size\+\_\+callback. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_window_manager_aef8b4e018e5210b06095779adb68203b}{Swap\+Buffers}} () const
-\begin{DoxyCompactList}\small\item\em Swaps front and back buffers to present the current frame. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Swap front/back buffers (glfw\+Swap\+Buffers). \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_window_manager_ac1f44592045972fb10bf4cf991266cb2}{Clear\+Screen}} () const
-\begin{DoxyCompactList}\small\item\em Clears the screen color buffer. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Clear the color buffer using background\+Color (gl\+Clear\+Color + gl\+Clear(\+GL\+\_\+\+COLOR\+\_\+\+BUFFER\+\_\+\+BIT)). \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_window_manager_aac8852f37e8b30eb90e4ece0279284e6}{Poll\+Events}} () const
-\begin{DoxyCompactList}\small\item\em Polls window system and input events. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Poll window system events (glfw\+Poll\+Events). \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_window_manager_ad476b2084cbbde321623094d616f9427}{Free}} () const
-\begin{DoxyCompactList}\small\item\em Destroys the GLFW window and frees associated resources. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Destroy the window (glfw\+Destroy\+Window). \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -51,6 +57,18 @@ GLFWwindow \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_window_manager_a6e4
 int \mbox{\hyperlink{class_window_manager_a42b88c6c3ab344ca4cb29d7e79892af5}{window\+Width}}
 \item 
 int \mbox{\hyperlink{class_window_manager_a4c7712cdc2f3ac47f02d0e3cbdf63d70}{window\+Height}}
+\item 
+glm\+::vec4 \mbox{\hyperlink{class_window_manager_ae6a6e3845a54918d3c1ebb90b511ada3}{background\+Color}}
+\item 
+bool \mbox{\hyperlink{class_window_manager_a33c7b7c623763a5336fa5b2b835fbd74}{is\+Fullscreen}} = false
+\item 
+int \mbox{\hyperlink{class_window_manager_a20538b93498f90a58eee5caeda18adf2}{windowed\+PosX}} = 100
+\item 
+int \mbox{\hyperlink{class_window_manager_ab1f2a4f9b7cf006e0a16b6013e7c6761}{windowed\+PosY}} = 100
+\item 
+int \mbox{\hyperlink{class_window_manager_ae11cf9d376af70a8a246bcb1f9496780}{windowed\+Width}} = 800
+\item 
+int \mbox{\hyperlink{class_window_manager_acb28e5ac0d82147063513465e0ebde25}{windowed\+Height}} = 600
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Friends}
 \begin{DoxyCompactItemize}
@@ -60,14 +78,26 @@ void \mbox{\hyperlink{class_window_manager_a5180f7bf2b71421af837035824a8c8ac}{fr
 
 
 \doxysubsection{Detailed Description}
-Handles creation and control of the main GLFW application window. 
-
-Provides window initialization, resizing, title setting, buffer swapping, screen clearing, and event polling. Internally used by \doxylink{class_s_n_a_k_e___engine}{SNAKE\+\_\+\+Engine}. 
-
-Definition at line \mbox{\hyperlink{_window_manager_8h_source_l00013}{13}} of file \mbox{\hyperlink{_window_manager_8h_source}{Window\+Manager.\+h}}.
+Manages the GLFW window\+: creation, size/title, clear color, fullscreen, per-\/frame ops. 
 
 
+\begin{DoxyItemize}
+\item Owns the GLFWwindow\texorpdfstring{$\ast$}{*} handle and caches width/height.
+\item Initialized via \doxylink{class_window_manager_a2ce03918b6123264cd9013cc4e403f39}{Init()}; sets GL 4.\+6 core profile hints, creates the window, makes the context current, loads GL with glad, enables Open\+GL debug output, installs a debug message callback, and sets the initial viewport.
+\item Sets the window user pointer to \doxylink{class_s_n_a_k_e___engine}{SNAKE\+\_\+\+Engine} and registers callbacks\+:
+\begin{DoxyItemize}
+\item framebuffer\+\_\+size\+\_\+callback\+: calls gl\+Viewport, updates Set\+Width/\+Set\+Height, and forwards the new size to the current state\textquotesingle{}s Camera\+Manager\+::\+Set\+Screen\+Size\+For\+All(width, height) through \doxylink{class_state_manager}{State\+Manager}.
+\item glfw\+Set\+Scroll\+Callback/glfw\+Set\+Key\+Callback/glfw\+Set\+Mouse\+Button\+Callback\+: forward to \doxylink{class_input_manager_a9a7e6c988123d556523b698ae010cc5b}{Input\+Manager\+::\+Add\+Scroll} / On\+Key / On\+Mouse\+Button.
+\end{DoxyItemize}
+\item Typical per-\/frame calls by the engine\+: \doxylink{class_window_manager_aac8852f37e8b30eb90e4ece0279284e6}{Poll\+Events()}, \doxylink{class_window_manager_ac1f44592045972fb10bf4cf991266cb2}{Clear\+Screen()}, \doxylink{class_window_manager_aef8b4e018e5210b06095779adb68203b}{Swap\+Buffers()}. 
+\end{DoxyItemize}
 
+Definition at line \mbox{\hyperlink{_window_manager_8h_source_l00022}{22}} of file \mbox{\hyperlink{_window_manager_8h_source}{Window\+Manager.\+h}}.
+
+
+
+\label{doc-constructors}
+\Hypertarget{class_window_manager_doc-constructors}
 \doxysubsection{Constructor \& Destructor Documentation}
 \Hypertarget{class_window_manager_a3a283b34c19aaa20296befaabad4d29b}\index{WindowManager@{WindowManager}!WindowManager@{WindowManager}}
 \index{WindowManager@{WindowManager}!WindowManager@{WindowManager}}
@@ -77,19 +107,21 @@ Window\+Manager\+::\+Window\+Manager (\begin{DoxyParamCaption}{}{}\end{DoxyParam
 
 
 
-Constructs the \doxylink{class_window_manager}{Window\+Manager} with default dimensions (800x600). 
+Constructs with default size (800x600) and background\+Color (0.\+4,0.\+4,0.\+4,1). 
 
 
 
-Definition at line \mbox{\hyperlink{_window_manager_8h_source_l00021}{21}} of file \mbox{\hyperlink{_window_manager_8h_source}{Window\+Manager.\+h}}.
+Definition at line \mbox{\hyperlink{_window_manager_8h_source_l00030}{30}} of file \mbox{\hyperlink{_window_manager_8h_source}{Window\+Manager.\+h}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00021\ :\mbox{\hyperlink{class_window_manager_a6e43767214a47577fb721a6407fccf83}{window}}(\textcolor{keyword}{nullptr}),\ \mbox{\hyperlink{class_window_manager_a42b88c6c3ab344ca4cb29d7e79892af5}{windowWidth}}(800),\ \mbox{\hyperlink{class_window_manager_a4c7712cdc2f3ac47f02d0e3cbdf63d70}{windowHeight}}(600)\ \{\}}
+\DoxyCodeLine{00030\ :\mbox{\hyperlink{class_window_manager_a6e43767214a47577fb721a6407fccf83}{window}}(\textcolor{keyword}{nullptr}),\ \mbox{\hyperlink{class_window_manager_a42b88c6c3ab344ca4cb29d7e79892af5}{windowWidth}}(800),\ \mbox{\hyperlink{class_window_manager_a4c7712cdc2f3ac47f02d0e3cbdf63d70}{windowHeight}}(600),\ \mbox{\hyperlink{class_window_manager_ae6a6e3845a54918d3c1ebb90b511ada3}{backgroundColor}}(0.4,\ 0.4,\ 0.4,\ 1)\ \{\}}
 
 \end{DoxyCode}
 
 
+\label{doc-func-members}
+\Hypertarget{class_window_manager_doc-func-members}
 \doxysubsection{Member Function Documentation}
 \Hypertarget{class_window_manager_ac1f44592045972fb10bf4cf991266cb2}\index{WindowManager@{WindowManager}!ClearScreen@{ClearScreen}}
 \index{ClearScreen@{ClearScreen}!WindowManager@{WindowManager}}
@@ -99,18 +131,21 @@ void Window\+Manager\+::\+Clear\+Screen (\begin{DoxyParamCaption}{}{}\end{DoxyPa
 
 
 
-Clears the screen color buffer. 
+Clear the color buffer using background\+Color (gl\+Clear\+Color + gl\+Clear(\+GL\+\_\+\+COLOR\+\_\+\+BUFFER\+\_\+\+BIT)). 
+
+\begin{DoxyNote}{Note}
+Internal. Called each frame by \doxylink{class_s_n_a_k_e___engine}{SNAKE\+\_\+\+Engine}. 
+\end{DoxyNote}
 
 
-
-Definition at line \mbox{\hyperlink{_window_manager_8cpp_source_l00086}{86}} of file \mbox{\hyperlink{_window_manager_8cpp_source}{Window\+Manager.\+cpp}}.
+Definition at line \mbox{\hyperlink{_window_manager_8cpp_source_l00153}{153}} of file \mbox{\hyperlink{_window_manager_8cpp_source}{Window\+Manager.\+cpp}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00087\ \{}
-\DoxyCodeLine{00088\ \ \ \ \ glClearColor(0.f,0.f,0.f,\ 1.0f);}
-\DoxyCodeLine{00089\ \ \ \ \ glClear(GL\_COLOR\_BUFFER\_BIT);}
-\DoxyCodeLine{00090\ \}}
+\DoxyCodeLine{00154\ \{}
+\DoxyCodeLine{00155\ \ \ \ \ glClearColor(\mbox{\hyperlink{class_window_manager_ae6a6e3845a54918d3c1ebb90b511ada3}{backgroundColor}}.r,\ \mbox{\hyperlink{class_window_manager_ae6a6e3845a54918d3c1ebb90b511ada3}{backgroundColor}}.g,\ \mbox{\hyperlink{class_window_manager_ae6a6e3845a54918d3c1ebb90b511ada3}{backgroundColor}}.b,\ \mbox{\hyperlink{class_window_manager_ae6a6e3845a54918d3c1ebb90b511ada3}{backgroundColor}}.a);}
+\DoxyCodeLine{00156\ \ \ \ \ glClear(GL\_COLOR\_BUFFER\_BIT);}
+\DoxyCodeLine{00157\ \}}
 
 \end{DoxyCode}
 \Hypertarget{class_window_manager_ad476b2084cbbde321623094d616f9427}\index{WindowManager@{WindowManager}!Free@{Free}}
@@ -121,17 +156,20 @@ void Window\+Manager\+::\+Free (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaptio
 
 
 
-Destroys the GLFW window and frees associated resources. 
+Destroy the window (glfw\+Destroy\+Window). 
+
+\begin{DoxyNote}{Note}
+Internal. Called by \doxylink{class_s_n_a_k_e___engine}{SNAKE\+\_\+\+Engine} during shutdown. 
+\end{DoxyNote}
 
 
-
-Definition at line \mbox{\hyperlink{_window_manager_8cpp_source_l00076}{76}} of file \mbox{\hyperlink{_window_manager_8cpp_source}{Window\+Manager.\+cpp}}.
+Definition at line \mbox{\hyperlink{_window_manager_8cpp_source_l00143}{143}} of file \mbox{\hyperlink{_window_manager_8cpp_source}{Window\+Manager.\+cpp}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00077\ \{}
-\DoxyCodeLine{00078\ \ \ \ \ glfwDestroyWindow(\mbox{\hyperlink{class_window_manager_a6e43767214a47577fb721a6407fccf83}{window}});}
-\DoxyCodeLine{00079\ \}}
+\DoxyCodeLine{00144\ \{}
+\DoxyCodeLine{00145\ \ \ \ \ glfwDestroyWindow(\mbox{\hyperlink{class_window_manager_a6e43767214a47577fb721a6407fccf83}{window}});}
+\DoxyCodeLine{00146\ \}}
 
 \end{DoxyCode}
 \Hypertarget{class_window_manager_ac706fd9adb665063dbb9cc72006369a1}\index{WindowManager@{WindowManager}!GetHandle@{GetHandle}}
@@ -142,18 +180,15 @@ GLFWwindow \texorpdfstring{$\ast$}{*} Window\+Manager\+::\+Get\+Handle (\begin{D
 
 
 
-Returns the raw pointer to the internal GLFWwindow. 
-
-\begin{DoxyReturn}{Returns}
-Pointer to GLFWwindow instance. 
-\end{DoxyReturn}
+Returns the underlying GLFWwindow handle (nullptr if not initialized). 
 
 
-Definition at line \mbox{\hyperlink{_window_manager_8h_source_l00027}{27}} of file \mbox{\hyperlink{_window_manager_8h_source}{Window\+Manager.\+h}}.
+
+Definition at line \mbox{\hyperlink{_window_manager_8h_source_l00035}{35}} of file \mbox{\hyperlink{_window_manager_8h_source}{Window\+Manager.\+h}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00027\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_window_manager_a6e43767214a47577fb721a6407fccf83}{window}};\ \}}
+\DoxyCodeLine{00035\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_window_manager_a6e43767214a47577fb721a6407fccf83}{window}};\ \}}
 
 \end{DoxyCode}
 \Hypertarget{class_window_manager_a50c9f12a67f69e822b4e70077773c9ca}\index{WindowManager@{WindowManager}!GetHeight@{GetHeight}}
@@ -164,18 +199,15 @@ int Window\+Manager\+::\+Get\+Height (\begin{DoxyParamCaption}{}{}\end{DoxyParam
 
 
 
-Gets the current window height in pixels. 
-
-\begin{DoxyReturn}{Returns}
-Window height. 
-\end{DoxyReturn}
+Returns the cached window height (pixels). 
 
 
-Definition at line \mbox{\hyperlink{_window_manager_8h_source_l00039}{39}} of file \mbox{\hyperlink{_window_manager_8h_source}{Window\+Manager.\+h}}.
+
+Definition at line \mbox{\hyperlink{_window_manager_8h_source_l00045}{45}} of file \mbox{\hyperlink{_window_manager_8h_source}{Window\+Manager.\+h}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00039\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_window_manager_a4c7712cdc2f3ac47f02d0e3cbdf63d70}{windowHeight}};\ \}}
+\DoxyCodeLine{00045\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_window_manager_a4c7712cdc2f3ac47f02d0e3cbdf63d70}{windowHeight}};\ \}}
 
 \end{DoxyCode}
 \Hypertarget{class_window_manager_ad8e16ad88c8eb3e3889d5c3dbe7891cb}\index{WindowManager@{WindowManager}!GetWidth@{GetWidth}}
@@ -186,18 +218,15 @@ int Window\+Manager\+::\+Get\+Width (\begin{DoxyParamCaption}{}{}\end{DoxyParamC
 
 
 
-Gets the current window width in pixels. 
-
-\begin{DoxyReturn}{Returns}
-Window width. 
-\end{DoxyReturn}
+Returns the cached window width (pixels). 
 
 
-Definition at line \mbox{\hyperlink{_window_manager_8h_source_l00033}{33}} of file \mbox{\hyperlink{_window_manager_8h_source}{Window\+Manager.\+h}}.
+
+Definition at line \mbox{\hyperlink{_window_manager_8h_source_l00040}{40}} of file \mbox{\hyperlink{_window_manager_8h_source}{Window\+Manager.\+h}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00033\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_window_manager_a42b88c6c3ab344ca4cb29d7e79892af5}{windowWidth}};\ \}}
+\DoxyCodeLine{00040\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_window_manager_a42b88c6c3ab344ca4cb29d7e79892af5}{windowWidth}};\ \}}
 
 \end{DoxyCode}
 \Hypertarget{class_window_manager_a2ce03918b6123264cd9013cc4e403f39}\index{WindowManager@{WindowManager}!Init@{Init}}
@@ -208,22 +237,33 @@ bool Window\+Manager\+::\+Init (\begin{DoxyParamCaption}\item[{int}]{\+\_\+windo
 
 
 
-Initializes the GLFW window and Open\+GL context. 
+Initialize GLFW window and GL context. 
 
-Loads Open\+GL context, sets viewport, registers callbacks, and associates engine reference.
+
+\begin{DoxyItemize}
+\item glfw\+Init + version/profile hints (4.\+6 core), glfw\+Create\+Window("{}\+SNAKE ENGINE"{}, ...)
+\item glfw\+Make\+Context\+Current, glad\+Load\+GL(glfw\+Get\+Proc\+Address)
+\item Enable GL debug output and set a debug callback (filters notifications/other)
+\item gl\+Viewport(0,0,width,height)
+\item glfw\+Set\+Window\+User\+Pointer(window, \&engine)
+\item Register callbacks\+: framebuffer size / scroll / key / mouse button / window pos
+\end{DoxyItemize}
 
 
 \begin{DoxyParams}{Parameters}
-{\em \+\_\+window\+Width} & Initial window width. \\
+{\em \+\_\+window\+Width} & Initial width in pixels. \\
 \hline
-{\em \+\_\+window\+Height} & Initial window height. \\
+{\em \+\_\+window\+Height} & Initial height in pixels. \\
 \hline
-{\em engine} & Reference to the \doxylink{class_s_n_a_k_e___engine}{SNAKE\+\_\+\+Engine}. \\
+{\em engine} & Engine instance stored as the window user pointer. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-True if initialization is successful. 
+true on success; false on failure (also logs errors). 
 \end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Internal. Called by \doxylink{class_s_n_a_k_e___engine}{SNAKE\+\_\+\+Engine} during initialization. 
+\end{DoxyNote}
 
 
 Definition at line \mbox{\hyperlink{_window_manager_8cpp_source_l00022}{22}} of file \mbox{\hyperlink{_window_manager_8cpp_source}{Window\+Manager.\+cpp}}.
@@ -234,7 +274,7 @@ Definition at line \mbox{\hyperlink{_window_manager_8cpp_source_l00022}{22}} of 
 \DoxyCodeLine{00024\ }
 \DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordflow}{if}\ (!glfwInit())}
 \DoxyCodeLine{00026\ \ \ \ \ \{}
-\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_debug_8h_a4bea2ba782ca7e8f40195f8827c71ecf}{SNAKE\_ERR}}(\textcolor{stringliteral}{"{}Failed\ to\ initialize\ GLFW"{}});}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ SNAKE\_ERR(\textcolor{stringliteral}{"{}Failed\ to\ initialize\ GLFW"{}});}
 \DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
 \DoxyCodeLine{00029\ \ \ \ \ \}}
 \DoxyCodeLine{00030\ }
@@ -248,7 +288,7 @@ Definition at line \mbox{\hyperlink{_window_manager_8cpp_source_l00022}{22}} of 
 \DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{class_window_manager_a6e43767214a47577fb721a6407fccf83}{window}}\ =\ glfwCreateWindow(\mbox{\hyperlink{class_window_manager_a42b88c6c3ab344ca4cb29d7e79892af5}{windowWidth}},\ \mbox{\hyperlink{class_window_manager_a4c7712cdc2f3ac47f02d0e3cbdf63d70}{windowHeight}},\ \textcolor{stringliteral}{"{}SNAKE\ ENGINE"{}},\ \textcolor{keyword}{nullptr},\ \textcolor{keyword}{nullptr});}
 \DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{class_window_manager_a6e43767214a47577fb721a6407fccf83}{window}})}
 \DoxyCodeLine{00040\ \ \ \ \ \{}
-\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_debug_8h_a4bea2ba782ca7e8f40195f8827c71ecf}{SNAKE\_ERR}}(\textcolor{stringliteral}{"{}Failed\ to\ create\ GLFW\ window"{}});}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ SNAKE\_ERR(\textcolor{stringliteral}{"{}Failed\ to\ create\ GLFW\ window"{}});}
 \DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ glfwTerminate();}
 \DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
 \DoxyCodeLine{00044\ \ \ \ \ \}}
@@ -257,16 +297,76 @@ Definition at line \mbox{\hyperlink{_window_manager_8cpp_source_l00022}{22}} of 
 \DoxyCodeLine{00047\ }
 \DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordflow}{if}\ (!gladLoadGL(glfwGetProcAddress))}
 \DoxyCodeLine{00049\ \ \ \ \ \{}
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_debug_8h_a4bea2ba782ca7e8f40195f8827c71ecf}{SNAKE\_ERR}}(\textcolor{stringliteral}{"{}Failed\ to\ initialize\ GLAD"{}});}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ SNAKE\_ERR(\textcolor{stringliteral}{"{}Failed\ to\ initialize\ GLAD"{}});}
 \DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
 \DoxyCodeLine{00052\ \ \ \ \ \}}
-\DoxyCodeLine{00053\ }
-\DoxyCodeLine{00054\ \ \ \ \ glViewport(0,\ 0,\ \mbox{\hyperlink{class_window_manager_a42b88c6c3ab344ca4cb29d7e79892af5}{windowWidth}},\ \mbox{\hyperlink{class_window_manager_a4c7712cdc2f3ac47f02d0e3cbdf63d70}{windowHeight}});}
-\DoxyCodeLine{00055\ \ \ \ \ glfwSetWindowUserPointer(\mbox{\hyperlink{class_window_manager_a6e43767214a47577fb721a6407fccf83}{window}},\ \&engine);}
-\DoxyCodeLine{00056\ \ \ \ \ glfwSetFramebufferSizeCallback(\mbox{\hyperlink{class_window_manager_a6e43767214a47577fb721a6407fccf83}{window}},\ \mbox{\hyperlink{class_window_manager_a5180f7bf2b71421af837035824a8c8ac}{framebuffer\_size\_callback}});}
-\DoxyCodeLine{00057\ }
-\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00059\ \}}
+\DoxyCodeLine{00053\ \ \ \ \ glEnable(GL\_DEBUG\_OUTPUT);}
+\DoxyCodeLine{00054\ \ \ \ \ glEnable(GL\_DEBUG\_OUTPUT\_SYNCHRONOUS);}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ glDebugMessageControl(GL\_DONT\_CARE,\ GL\_DONT\_CARE,\ GL\_DEBUG\_SEVERITY\_NOTIFICATION,}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ 0,\ \textcolor{keyword}{nullptr},\ GL\_FALSE);}
+\DoxyCodeLine{00058\ \ \ \ \ glDebugMessageCallback(}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ [](\mbox{\hyperlink{_shader_8h_aabcf3e059d4bfe03f96c378d2533c3ba}{GLenum}}\ \textcolor{comment}{/*src*/},\ \mbox{\hyperlink{_shader_8h_aabcf3e059d4bfe03f96c378d2533c3ba}{GLenum}}\ type,\ \mbox{\hyperlink{_material_8h_a9b79d6d8dc8627e68412974748f1c08c}{GLuint}}\ \textcolor{keywordtype}{id},\ \mbox{\hyperlink{_shader_8h_aabcf3e059d4bfe03f96c378d2533c3ba}{GLenum}}\ severity,\ \mbox{\hyperlink{_mesh_8h_a2d467e230729e9194068528ee1985327}{GLsizei}},\ \textcolor{keyword}{const}\ GLchar*\ msg,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*)\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (severity\ ==\ GL\_DEBUG\_SEVERITY\_NOTIFICATION)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (type\ ==\ GL\_DEBUG\_TYPE\_OTHER)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (severity\ ==\ GL\_DEBUG\_SEVERITY\_HIGH)\ \{\ SNAKE\_ERR(std::string(\textcolor{stringliteral}{"{}[GL]\ "{}})\ +\ msg);\ \}}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (severity\ ==\ GL\_DEBUG\_SEVERITY\_MEDIUM)\ \{\ SNAKE\_WRN(std::string(\textcolor{stringliteral}{"{}[GL]\ "{}})\ +\ msg);\ \}}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{\ SNAKE\_LOG(std::string(\textcolor{stringliteral}{"{}[GL]\ "{}})\ +\ msg);\ \}}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \},\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ glViewport(0,\ 0,\ \mbox{\hyperlink{class_window_manager_a42b88c6c3ab344ca4cb29d7e79892af5}{windowWidth}},\ \mbox{\hyperlink{class_window_manager_a4c7712cdc2f3ac47f02d0e3cbdf63d70}{windowHeight}});}
+\DoxyCodeLine{00068\ \ \ \ \ glfwSetWindowUserPointer(\mbox{\hyperlink{class_window_manager_a6e43767214a47577fb721a6407fccf83}{window}},\ \&engine);}
+\DoxyCodeLine{00069\ \ \ \ \ glfwSetFramebufferSizeCallback(\mbox{\hyperlink{class_window_manager_a6e43767214a47577fb721a6407fccf83}{window}},\ \mbox{\hyperlink{class_window_manager_a5180f7bf2b71421af837035824a8c8ac}{framebuffer\_size\_callback}});}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ glfwSetScrollCallback(\mbox{\hyperlink{class_window_manager_a6e43767214a47577fb721a6407fccf83}{window}},}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ [](GLFWwindow*\ w,\ \textcolor{keywordtype}{double}\ xoff,\ \textcolor{keywordtype}{double}\ yoff)}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_window_manager_ad0966628ad7a8bcb8334f4b15748668d}{SNAKE\_Engine}}*\ snakeEngine\ =\ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{class_window_manager_ad0966628ad7a8bcb8334f4b15748668d}{SNAKE\_Engine}}*\textcolor{keyword}{>}(glfwGetWindowUserPointer(w));}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (snakeEngine)}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ snakeEngine-\/>\mbox{\hyperlink{class_s_n_a_k_e___engine_a0e199889c920470b908d9cee49f25a15}{GetEngineContext}}().\mbox{\hyperlink{struct_engine_context_a9c8f61ef311c6f84a93d342eaaa1864a}{inputManager}}-\/>\mbox{\hyperlink{class_input_manager_a9a7e6c988123d556523b698ae010cc5b}{AddScroll}}(xoff,\ yoff);}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00078\ \ \ \ \ glfwSetKeyCallback(\mbox{\hyperlink{class_window_manager_a6e43767214a47577fb721a6407fccf83}{window}},}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ [](GLFWwindow*\ w,\ \textcolor{keywordtype}{int}\ key,\ \textcolor{keywordtype}{int}\ sc,\ \textcolor{keywordtype}{int}\ action,\ \textcolor{keywordtype}{int}\ mods)}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}*\ snakeEngine\ =\ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{class_window_manager_ad0966628ad7a8bcb8334f4b15748668d}{SNAKE\_Engine}}*\textcolor{keyword}{>}(glfwGetWindowUserPointer(w)))}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ snakeEngine-\/>\mbox{\hyperlink{class_s_n_a_k_e___engine_a0e199889c920470b908d9cee49f25a15}{GetEngineContext}}().\mbox{\hyperlink{struct_engine_context_a9c8f61ef311c6f84a93d342eaaa1864a}{inputManager}}-\/>\mbox{\hyperlink{class_input_manager_ae569ff5be56bca62b47a7bdfffe2c867}{OnKey}}(key,\ sc,\ action,\ mods);}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ glfwSetMouseButtonCallback(\mbox{\hyperlink{class_window_manager_a6e43767214a47577fb721a6407fccf83}{window}},}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ [](GLFWwindow*\ w,\ \textcolor{keywordtype}{int}\ button,\ \textcolor{keywordtype}{int}\ action,\ \textcolor{keywordtype}{int}\ mods)}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}*\ snakeEngine\ =\ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{class_window_manager_ad0966628ad7a8bcb8334f4b15748668d}{SNAKE\_Engine}}*\textcolor{keyword}{>}(glfwGetWindowUserPointer(w)))}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ snakeEngine-\/>\mbox{\hyperlink{class_s_n_a_k_e___engine_a0e199889c920470b908d9cee49f25a15}{GetEngineContext}}().\mbox{\hyperlink{struct_engine_context_a9c8f61ef311c6f84a93d342eaaa1864a}{inputManager}}-\/>\mbox{\hyperlink{class_input_manager_a84f610e644a2de5cb64b55220d4a4c8e}{OnMouseButton}}(button,\ action,\ mods);}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ glfwSetWindowPosCallback(\mbox{\hyperlink{class_window_manager_a6e43767214a47577fb721a6407fccf83}{window}},}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ [](GLFWwindow*\ w,\ \textcolor{keywordtype}{int},\ \textcolor{keywordtype}{int})}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//if\ (auto*\ snakeEngine\ =\ (SNAKE\_Engine*)glfwGetWindowUserPointer(w))}}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ snakeEngine-\/>GetEngineContext().inputManager-\/>Reset();}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00100\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_window_manager_ae1f28e7be82fb12644c7737316d4b21c}\index{WindowManager@{WindowManager}!IsFullScreen@{IsFullScreen}}
+\index{IsFullScreen@{IsFullScreen}!WindowManager@{WindowManager}}
+\doxysubsubsection{\texorpdfstring{IsFullScreen()}{IsFullScreen()}}
+{\footnotesize\ttfamily \label{class_window_manager_ae1f28e7be82fb12644c7737316d4b21c} 
+bool Window\+Manager\+::\+Is\+Full\+Screen (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns whether the window is currently fullscreen. 
+
+
+
+Definition at line \mbox{\hyperlink{_window_manager_8h_source_l00086}{86}} of file \mbox{\hyperlink{_window_manager_8h_source}{Window\+Manager.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00086\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_window_manager_a33c7b7c623763a5336fa5b2b835fbd74}{isFullscreen}};\ \}}
 
 \end{DoxyCode}
 \Hypertarget{class_window_manager_aac8852f37e8b30eb90e4ece0279284e6}\index{WindowManager@{WindowManager}!PollEvents@{PollEvents}}
@@ -277,17 +377,20 @@ void Window\+Manager\+::\+Poll\+Events (\begin{DoxyParamCaption}{}{}\end{DoxyPar
 
 
 
-Polls window system and input events. 
+Poll window system events (glfw\+Poll\+Events). 
+
+\begin{DoxyNote}{Note}
+Internal. Called each frame by \doxylink{class_s_n_a_k_e___engine}{SNAKE\+\_\+\+Engine}. 
+\end{DoxyNote}
 
 
-
-Definition at line \mbox{\hyperlink{_window_manager_8cpp_source_l00092}{92}} of file \mbox{\hyperlink{_window_manager_8cpp_source}{Window\+Manager.\+cpp}}.
+Definition at line \mbox{\hyperlink{_window_manager_8cpp_source_l00159}{159}} of file \mbox{\hyperlink{_window_manager_8cpp_source}{Window\+Manager.\+cpp}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00093\ \{}
-\DoxyCodeLine{00094\ \ \ \ \ glfwPollEvents();}
-\DoxyCodeLine{00095\ \}}
+\DoxyCodeLine{00160\ \{}
+\DoxyCodeLine{00161\ \ \ \ \ glfwPollEvents();}
+\DoxyCodeLine{00162\ \}}
 
 \end{DoxyCode}
 \Hypertarget{class_window_manager_a231381ad1948955f29a6702b4a0e2111}\index{WindowManager@{WindowManager}!Resize@{Resize}}
@@ -298,7 +401,9 @@ void Window\+Manager\+::\+Resize (\begin{DoxyParamCaption}\item[{int}]{width}{, 
 
 
 
-Resizes the actual GLFW window and updates internal dimensions. 
+Programmatically resize the window. 
+
+Calls glfw\+Set\+Window\+Size(window, width, height) and updates internal width/height.
 
 
 \begin{DoxyParams}{Parameters}
@@ -309,18 +414,100 @@ Resizes the actual GLFW window and updates internal dimensions.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{_window_manager_8cpp_source_l00061}{61}} of file \mbox{\hyperlink{_window_manager_8cpp_source}{Window\+Manager.\+cpp}}.
+Definition at line \mbox{\hyperlink{_window_manager_8cpp_source_l00102}{102}} of file \mbox{\hyperlink{_window_manager_8cpp_source}{Window\+Manager.\+cpp}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00062\ \{}
-\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_window_manager_a6e43767214a47577fb721a6407fccf83}{window}})}
-\DoxyCodeLine{00064\ \ \ \ \ \{}
-\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ glfwSetWindowSize(\mbox{\hyperlink{class_window_manager_a6e43767214a47577fb721a6407fccf83}{window}},\ width,\ height);}
-\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_window_manager_a42b88c6c3ab344ca4cb29d7e79892af5}{windowWidth}}\ =\ width;}
-\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_window_manager_a4c7712cdc2f3ac47f02d0e3cbdf63d70}{windowHeight}}\ =\ height;}
-\DoxyCodeLine{00068\ \ \ \ \ \}}
-\DoxyCodeLine{00069\ \}}
+\DoxyCodeLine{00103\ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_window_manager_a6e43767214a47577fb721a6407fccf83}{window}})}
+\DoxyCodeLine{00105\ \ \ \ \ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ glfwSetWindowSize(\mbox{\hyperlink{class_window_manager_a6e43767214a47577fb721a6407fccf83}{window}},\ width,\ height);}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_window_manager_a42b88c6c3ab344ca4cb29d7e79892af5}{windowWidth}}\ =\ width;}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_window_manager_a4c7712cdc2f3ac47f02d0e3cbdf63d70}{windowHeight}}\ =\ height;}
+\DoxyCodeLine{00109\ \ \ \ \ \}}
+\DoxyCodeLine{00110\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_window_manager_a07f70a67fdcabe9945f227589aba35ce}\index{WindowManager@{WindowManager}!SetBackgroundColor@{SetBackgroundColor}}
+\index{SetBackgroundColor@{SetBackgroundColor}!WindowManager@{WindowManager}}
+\doxysubsubsection{\texorpdfstring{SetBackgroundColor()}{SetBackgroundColor()}}
+{\footnotesize\ttfamily \label{class_window_manager_a07f70a67fdcabe9945f227589aba35ce} 
+void Window\+Manager\+::\+Set\+Background\+Color (\begin{DoxyParamCaption}\item[{glm\+::vec4}]{color}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set the RGBA clear color used by \doxylink{class_window_manager_ac1f44592045972fb10bf4cf991266cb2}{Clear\+Screen()}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em color} & RGBA in \mbox{[}0,1\mbox{]} per channel. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+\doxylink{class_window_manager_ac1f44592045972fb10bf4cf991266cb2}{Clear\+Screen()} applies this via gl\+Clear\+Color. 
+\end{DoxyNote}
+
+
+Definition at line \mbox{\hyperlink{_window_manager_8h_source_l00069}{69}} of file \mbox{\hyperlink{_window_manager_8h_source}{Window\+Manager.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00069\ \{\ \mbox{\hyperlink{class_window_manager_ae6a6e3845a54918d3c1ebb90b511ada3}{backgroundColor}}\ =\ color;\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_window_manager_ace8ed5c7b820428fc835bbe33a732d4c}\index{WindowManager@{WindowManager}!SetFullScreen@{SetFullScreen}}
+\index{SetFullScreen@{SetFullScreen}!WindowManager@{WindowManager}}
+\doxysubsubsection{\texorpdfstring{SetFullScreen()}{SetFullScreen()}}
+{\footnotesize\ttfamily \label{class_window_manager_ace8ed5c7b820428fc835bbe33a732d4c} 
+void Window\+Manager\+::\+Set\+Full\+Screen (\begin{DoxyParamCaption}\item[{bool}]{enable}{}\end{DoxyParamCaption})}
+
+
+
+Toggle fullscreen on/off for the primary monitor. 
+
+
+\begin{DoxyItemize}
+\item Saves windowed position/size on enter, restores them on exit.
+\item Uses glfw\+Set\+Window\+Monitor(...) and updates is\+Fullscreen.
+\item Updates cached width/height to match the new mode.
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em enable} & true to enter fullscreen; false to return to windowed. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_window_manager_8cpp_source_l00117}{117}} of file \mbox{\hyperlink{_window_manager_8cpp_source}{Window\+Manager.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00118\ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{class_window_manager_a6e43767214a47577fb721a6407fccf83}{window}}\ ||\ \mbox{\hyperlink{class_window_manager_a33c7b7c623763a5336fa5b2b835fbd74}{isFullscreen}}\ ==\ enable)}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \ \ GLFWmonitor*\ monitor\ =\ glfwGetPrimaryMonitor();}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keyword}{const}\ GLFWvidmode*\ mode\ =\ glfwGetVideoMode(monitor);}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordflow}{if}\ (enable)}
+\DoxyCodeLine{00126\ \ \ \ \ \{}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ glfwGetWindowPos(\mbox{\hyperlink{class_window_manager_a6e43767214a47577fb721a6407fccf83}{window}},\ \&\mbox{\hyperlink{class_window_manager_a20538b93498f90a58eee5caeda18adf2}{windowedPosX}},\ \&\mbox{\hyperlink{class_window_manager_ab1f2a4f9b7cf006e0a16b6013e7c6761}{windowedPosY}});}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ glfwGetWindowSize(\mbox{\hyperlink{class_window_manager_a6e43767214a47577fb721a6407fccf83}{window}},\ \&\mbox{\hyperlink{class_window_manager_ae11cf9d376af70a8a246bcb1f9496780}{windowedWidth}},\ \&\mbox{\hyperlink{class_window_manager_acb28e5ac0d82147063513465e0ebde25}{windowedHeight}});}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ glfwSetWindowMonitor(\mbox{\hyperlink{class_window_manager_a6e43767214a47577fb721a6407fccf83}{window}},\ monitor,\ 0,\ 0,\ mode-\/>width,\ mode-\/>height,\ mode-\/>refreshRate);}
+\DoxyCodeLine{00131\ \ \ \ \ \}}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00133\ \ \ \ \ \{}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ glfwSetWindowMonitor(\mbox{\hyperlink{class_window_manager_a6e43767214a47577fb721a6407fccf83}{window}},\ \textcolor{keyword}{nullptr},\ \mbox{\hyperlink{class_window_manager_a20538b93498f90a58eee5caeda18adf2}{windowedPosX}},\ \mbox{\hyperlink{class_window_manager_ab1f2a4f9b7cf006e0a16b6013e7c6761}{windowedPosY}},\ \mbox{\hyperlink{class_window_manager_ae11cf9d376af70a8a246bcb1f9496780}{windowedWidth}},\ \mbox{\hyperlink{class_window_manager_acb28e5ac0d82147063513465e0ebde25}{windowedHeight}},\ 0);}
+\DoxyCodeLine{00135\ \ \ \ \ \}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ \mbox{\hyperlink{class_window_manager_a33c7b7c623763a5336fa5b2b835fbd74}{isFullscreen}}\ =\ enable;}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \ \ \mbox{\hyperlink{class_window_manager_a42b88c6c3ab344ca4cb29d7e79892af5}{windowWidth}}\ =\ enable\ ?\ mode-\/>width\ :\ \mbox{\hyperlink{class_window_manager_ae11cf9d376af70a8a246bcb1f9496780}{windowedWidth}};}
+\DoxyCodeLine{00140\ \ \ \ \ \mbox{\hyperlink{class_window_manager_a4c7712cdc2f3ac47f02d0e3cbdf63d70}{windowHeight}}\ =\ enable\ ?\ mode-\/>height\ :\ \mbox{\hyperlink{class_window_manager_acb28e5ac0d82147063513465e0ebde25}{windowedHeight}};}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \}}
 
 \end{DoxyCode}
 \Hypertarget{class_window_manager_a1224bd8fbce3dac6125e053422c02380}\index{WindowManager@{WindowManager}!SetHeight@{SetHeight}}
@@ -331,20 +518,23 @@ void Window\+Manager\+::\+Set\+Height (\begin{DoxyParamCaption}\item[{int}]{heig
 
 
 
-Updates the stored internal height value. 
+Internal setter used by framebuffer\+\_\+size\+\_\+callback. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em height} & New height in pixels. \\
+{\em height} & New height (pixels). \\
 \hline
 \end{DoxyParams}
+\begin{DoxyNote}{Note}
+Internal use only. 
+\end{DoxyNote}
 
 
-Definition at line \mbox{\hyperlink{_window_manager_8h_source_l00078}{78}} of file \mbox{\hyperlink{_window_manager_8h_source}{Window\+Manager.\+h}}.
+Definition at line \mbox{\hyperlink{_window_manager_8h_source_l00120}{120}} of file \mbox{\hyperlink{_window_manager_8h_source}{Window\+Manager.\+h}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00078\ \{\ this-\/>\mbox{\hyperlink{class_window_manager_a4c7712cdc2f3ac47f02d0e3cbdf63d70}{windowHeight}}\ =\ height;\ \}}
+\DoxyCodeLine{00120\ \{\ this-\/>\mbox{\hyperlink{class_window_manager_a4c7712cdc2f3ac47f02d0e3cbdf63d70}{windowHeight}}\ =\ height;\ \}}
 
 \end{DoxyCode}
 \Hypertarget{class_window_manager_a29f286d83dbec6ce3ec1b0b6fd11f80d}\index{WindowManager@{WindowManager}!SetTitle@{SetTitle}}
@@ -355,22 +545,22 @@ void Window\+Manager\+::\+Set\+Title (\begin{DoxyParamCaption}\item[{const std\+
 
 
 
-Sets the title displayed on the GLFW window. 
+Set the window title. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em title} & Title string to set. \\
+{\em title} & UTF-\/8 title string (passed to glfw\+Set\+Window\+Title). \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{_window_manager_8cpp_source_l00071}{71}} of file \mbox{\hyperlink{_window_manager_8cpp_source}{Window\+Manager.\+cpp}}.
+Definition at line \mbox{\hyperlink{_window_manager_8cpp_source_l00112}{112}} of file \mbox{\hyperlink{_window_manager_8cpp_source}{Window\+Manager.\+cpp}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00072\ \{}
-\DoxyCodeLine{00073\ \ \ \ \ glfwSetWindowTitle(\mbox{\hyperlink{class_window_manager_a6e43767214a47577fb721a6407fccf83}{window}},\ title.c\_str());}
-\DoxyCodeLine{00074\ \}}
+\DoxyCodeLine{00113\ \{}
+\DoxyCodeLine{00114\ \ \ \ \ glfwSetWindowTitle(\mbox{\hyperlink{class_window_manager_a6e43767214a47577fb721a6407fccf83}{window}},\ title.c\_str());}
+\DoxyCodeLine{00115\ \}}
 
 \end{DoxyCode}
 \Hypertarget{class_window_manager_ac822306fe0eb51630f31874ec6c469a4}\index{WindowManager@{WindowManager}!SetWidth@{SetWidth}}
@@ -381,20 +571,23 @@ void Window\+Manager\+::\+Set\+Width (\begin{DoxyParamCaption}\item[{int}]{width
 
 
 
-Updates the stored internal width value. 
+Internal setter used by framebuffer\+\_\+size\+\_\+callback. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em width} & New width in pixels. \\
+{\em width} & New width (pixels). \\
 \hline
 \end{DoxyParams}
+\begin{DoxyNote}{Note}
+Internal use only. 
+\end{DoxyNote}
 
 
-Definition at line \mbox{\hyperlink{_window_manager_8h_source_l00072}{72}} of file \mbox{\hyperlink{_window_manager_8h_source}{Window\+Manager.\+h}}.
+Definition at line \mbox{\hyperlink{_window_manager_8h_source_l00113}{113}} of file \mbox{\hyperlink{_window_manager_8h_source}{Window\+Manager.\+h}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00072\ \{\ this-\/>\mbox{\hyperlink{class_window_manager_a42b88c6c3ab344ca4cb29d7e79892af5}{windowWidth}}\ =\ width;\ \}}
+\DoxyCodeLine{00113\ \{\ this-\/>\mbox{\hyperlink{class_window_manager_a42b88c6c3ab344ca4cb29d7e79892af5}{windowWidth}}\ =\ width;\ \}}
 
 \end{DoxyCode}
 \Hypertarget{class_window_manager_aef8b4e018e5210b06095779adb68203b}\index{WindowManager@{WindowManager}!SwapBuffers@{SwapBuffers}}
@@ -405,21 +598,26 @@ void Window\+Manager\+::\+Swap\+Buffers (\begin{DoxyParamCaption}{}{}\end{DoxyPa
 
 
 
-Swaps front and back buffers to present the current frame. 
+Swap front/back buffers (glfw\+Swap\+Buffers). 
+
+\begin{DoxyNote}{Note}
+Internal. Called each frame by \doxylink{class_s_n_a_k_e___engine}{SNAKE\+\_\+\+Engine}. 
+\end{DoxyNote}
 
 
-
-Definition at line \mbox{\hyperlink{_window_manager_8cpp_source_l00081}{81}} of file \mbox{\hyperlink{_window_manager_8cpp_source}{Window\+Manager.\+cpp}}.
+Definition at line \mbox{\hyperlink{_window_manager_8cpp_source_l00148}{148}} of file \mbox{\hyperlink{_window_manager_8cpp_source}{Window\+Manager.\+cpp}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00082\ \{}
-\DoxyCodeLine{00083\ \ \ \ \ glfwSwapBuffers(\mbox{\hyperlink{class_window_manager_a6e43767214a47577fb721a6407fccf83}{window}});}
-\DoxyCodeLine{00084\ \}}
+\DoxyCodeLine{00149\ \{}
+\DoxyCodeLine{00150\ \ \ \ \ glfwSwapBuffers(\mbox{\hyperlink{class_window_manager_a6e43767214a47577fb721a6407fccf83}{window}});}
+\DoxyCodeLine{00151\ \}}
 
 \end{DoxyCode}
 
 
+\label{doc-related-members}
+\Hypertarget{class_window_manager_doc-related-members}
 \doxysubsection{Friends And Related Symbol Documentation}
 \Hypertarget{class_window_manager_a5180f7bf2b71421af837035824a8c8ac}\index{WindowManager@{WindowManager}!framebuffer\_size\_callback@{framebuffer\_size\_callback}}
 \index{framebuffer\_size\_callback@{framebuffer\_size\_callback}!WindowManager@{WindowManager}}
@@ -429,27 +627,53 @@ void framebuffer\+\_\+size\+\_\+callback (\begin{DoxyParamCaption}\item[{GLFWwin
 
 
 
-Definition at line \mbox{\hyperlink{_window_manager_8cpp_source_l00009}{9}} of file \mbox{\hyperlink{_window_manager_8cpp_source}{Window\+Manager.\+cpp}}.
+Definition at line \mbox{\hyperlink{_window_manager_8cpp_source_l00005}{5}} of file \mbox{\hyperlink{_window_manager_8cpp_source}{Window\+Manager.\+cpp}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00010\ \{}
-\DoxyCodeLine{00011\ \ \ \ \ glViewport(0,\ 0,\ width,\ height);}
-\DoxyCodeLine{00012\ \ \ \ \ \mbox{\hyperlink{class_window_manager_ad0966628ad7a8bcb8334f4b15748668d}{SNAKE\_Engine}}*\ snakeEngine\ =\ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{class_window_manager_ad0966628ad7a8bcb8334f4b15748668d}{SNAKE\_Engine}}*\textcolor{keyword}{>}(glfwGetWindowUserPointer(\mbox{\hyperlink{class_window_manager_a6e43767214a47577fb721a6407fccf83}{window}}));}
-\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordflow}{if}\ (snakeEngine)}
-\DoxyCodeLine{00014\ \ \ \ \ \{}
-\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ snakeEngine-\/>\mbox{\hyperlink{class_s_n_a_k_e___engine_a0e199889c920470b908d9cee49f25a15}{GetEngineContext}}().\mbox{\hyperlink{struct_engine_context_ab6fa006055c2a224931059f7ed840bed}{windowManager}}-\/>\mbox{\hyperlink{class_window_manager_ac822306fe0eb51630f31874ec6c469a4}{SetWidth}}(width);}
-\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ snakeEngine-\/>\mbox{\hyperlink{class_s_n_a_k_e___engine_a0e199889c920470b908d9cee49f25a15}{GetEngineContext}}().\mbox{\hyperlink{struct_engine_context_ab6fa006055c2a224931059f7ed840bed}{windowManager}}-\/>\mbox{\hyperlink{class_window_manager_a1224bd8fbce3dac6125e053422c02380}{SetHeight}}(height);}
-\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ snakeEngine-\/>\mbox{\hyperlink{class_s_n_a_k_e___engine_a0e199889c920470b908d9cee49f25a15}{GetEngineContext}}().\mbox{\hyperlink{struct_engine_context_a67f96c1b09ab0393d4f8434900d7419a}{stateManager}}-\/>\mbox{\hyperlink{class_state_manager_aeb24049cbe185fe0faec5c771e34c2bb}{GetCurrentState}}()-\/>\mbox{\hyperlink{class_game_state_a116bca1d8804cda67f37e199eb470dfd}{GetCameraManager}}().\mbox{\hyperlink{class_camera_manager_a2d94c81e097f06d18ffbfd7a38ef8f48}{SetScreenSizeForAll}}(width,\ height);}
-\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_debug_8h_a781ebc1f48f84958e0e53b493206116b}{SNAKE\_LOG}}(\textcolor{stringliteral}{"{}changed:\ "{}}\ <<\ snakeEngine-\/>\mbox{\hyperlink{class_s_n_a_k_e___engine_a0e199889c920470b908d9cee49f25a15}{GetEngineContext}}().\mbox{\hyperlink{struct_engine_context_ab6fa006055c2a224931059f7ed840bed}{windowManager}}-\/>\mbox{\hyperlink{class_window_manager_ad8e16ad88c8eb3e3889d5c3dbe7891cb}{GetWidth}}()\ <<\ \textcolor{stringliteral}{"{}\ "{}}\ <<\ snakeEngine-\/>\mbox{\hyperlink{class_s_n_a_k_e___engine_a0e199889c920470b908d9cee49f25a15}{GetEngineContext}}().\mbox{\hyperlink{struct_engine_context_ab6fa006055c2a224931059f7ed840bed}{windowManager}}-\/>\mbox{\hyperlink{class_window_manager_a50c9f12a67f69e822b4e70077773c9ca}{GetHeight}}());}
-\DoxyCodeLine{00019\ \ \ \ \ \}}
-\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00006\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ glViewport(0,\ 0,\ width,\ height);}
+\DoxyCodeLine{00008\ \ \ \ \ \mbox{\hyperlink{class_window_manager_ad0966628ad7a8bcb8334f4b15748668d}{SNAKE\_Engine}}*\ snakeEngine\ =\ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{class_window_manager_ad0966628ad7a8bcb8334f4b15748668d}{SNAKE\_Engine}}*\textcolor{keyword}{>}(glfwGetWindowUserPointer(\mbox{\hyperlink{class_window_manager_a6e43767214a47577fb721a6407fccf83}{window}}));}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordflow}{if}\ (snakeEngine)}
+\DoxyCodeLine{00010\ \ \ \ \ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ snakeEngine-\/>\mbox{\hyperlink{class_s_n_a_k_e___engine_a0e199889c920470b908d9cee49f25a15}{GetEngineContext}}().\mbox{\hyperlink{struct_engine_context_ab6fa006055c2a224931059f7ed840bed}{windowManager}}-\/>\mbox{\hyperlink{class_window_manager_ac822306fe0eb51630f31874ec6c469a4}{SetWidth}}(width);}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ snakeEngine-\/>\mbox{\hyperlink{class_s_n_a_k_e___engine_a0e199889c920470b908d9cee49f25a15}{GetEngineContext}}().\mbox{\hyperlink{struct_engine_context_ab6fa006055c2a224931059f7ed840bed}{windowManager}}-\/>\mbox{\hyperlink{class_window_manager_a1224bd8fbce3dac6125e053422c02380}{SetHeight}}(height);}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}*\ state\ =\ snakeEngine-\/>\mbox{\hyperlink{class_s_n_a_k_e___engine_a0e199889c920470b908d9cee49f25a15}{GetEngineContext}}().\mbox{\hyperlink{struct_engine_context_a67f96c1b09ab0393d4f8434900d7419a}{stateManager}}-\/>\mbox{\hyperlink{class_state_manager_aeb24049cbe185fe0faec5c771e34c2bb}{GetCurrentState}}();}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (state)}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>GetCameraManager().SetScreenSizeForAll(width,\ height);}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \textcolor{comment}{//snakeEngine-\/>GetEngineContext().inputManager-\/>Reset();}}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ SNAKE\_LOG(\textcolor{stringliteral}{"{}changed:\ "{}}\ <<\ snakeEngine-\/>\mbox{\hyperlink{class_s_n_a_k_e___engine_a0e199889c920470b908d9cee49f25a15}{GetEngineContext}}().\mbox{\hyperlink{struct_engine_context_ab6fa006055c2a224931059f7ed840bed}{windowManager}}-\/>\mbox{\hyperlink{class_window_manager_ad8e16ad88c8eb3e3889d5c3dbe7891cb}{GetWidth}}()\ <<\ \textcolor{stringliteral}{"{}\ "{}}\ <<\ snakeEngine-\/>\mbox{\hyperlink{class_s_n_a_k_e___engine_a0e199889c920470b908d9cee49f25a15}{GetEngineContext}}().\mbox{\hyperlink{struct_engine_context_ab6fa006055c2a224931059f7ed840bed}{windowManager}}-\/>\mbox{\hyperlink{class_window_manager_a50c9f12a67f69e822b4e70077773c9ca}{GetHeight}}());}
+\DoxyCodeLine{00020\ \ \ \ \ \}}
 \DoxyCodeLine{00021\ \}}
 
 \end{DoxyCode}
 
 
+\label{doc-variable-members}
+\Hypertarget{class_window_manager_doc-variable-members}
 \doxysubsection{Member Data Documentation}
+\Hypertarget{class_window_manager_ae6a6e3845a54918d3c1ebb90b511ada3}\index{WindowManager@{WindowManager}!backgroundColor@{backgroundColor}}
+\index{backgroundColor@{backgroundColor}!WindowManager@{WindowManager}}
+\doxysubsubsection{\texorpdfstring{backgroundColor}{backgroundColor}}
+{\footnotesize\ttfamily \label{class_window_manager_ae6a6e3845a54918d3c1ebb90b511ada3} 
+glm\+::vec4 Window\+Manager\+::background\+Color\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_window_manager_8h_source_l00149}{149}} of file \mbox{\hyperlink{_window_manager_8h_source}{Window\+Manager.\+h}}.
+
+\Hypertarget{class_window_manager_a33c7b7c623763a5336fa5b2b835fbd74}\index{WindowManager@{WindowManager}!isFullscreen@{isFullscreen}}
+\index{isFullscreen@{isFullscreen}!WindowManager@{WindowManager}}
+\doxysubsubsection{\texorpdfstring{isFullscreen}{isFullscreen}}
+{\footnotesize\ttfamily \label{class_window_manager_a33c7b7c623763a5336fa5b2b835fbd74} 
+bool Window\+Manager\+::is\+Fullscreen = false\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_window_manager_8h_source_l00151}{151}} of file \mbox{\hyperlink{_window_manager_8h_source}{Window\+Manager.\+h}}.
+
 \Hypertarget{class_window_manager_ad0966628ad7a8bcb8334f4b15748668d}\index{WindowManager@{WindowManager}!SNAKE\_Engine@{SNAKE\_Engine}}
 \index{SNAKE\_Engine@{SNAKE\_Engine}!WindowManager@{WindowManager}}
 \doxysubsubsection{\texorpdfstring{SNAKE\_Engine}{SNAKE\_Engine}}
@@ -458,7 +682,7 @@ friend Window\+Manager\+::\+SNAKE\+\_\+\+Engine\hspace{0.3cm}{\ttfamily [private
 
 
 
-Definition at line \mbox{\hyperlink{_window_manager_8h_source_l00015}{15}} of file \mbox{\hyperlink{_window_manager_8h_source}{Window\+Manager.\+h}}.
+Definition at line \mbox{\hyperlink{_window_manager_8h_source_l00024}{24}} of file \mbox{\hyperlink{_window_manager_8h_source}{Window\+Manager.\+h}}.
 
 \Hypertarget{class_window_manager_a6e43767214a47577fb721a6407fccf83}\index{WindowManager@{WindowManager}!window@{window}}
 \index{window@{window}!WindowManager@{WindowManager}}
@@ -468,7 +692,47 @@ GLFWwindow\texorpdfstring{$\ast$}{*} Window\+Manager\+::window\hspace{0.3cm}{\tt
 
 
 
-Definition at line \mbox{\hyperlink{_window_manager_8h_source_l00100}{100}} of file \mbox{\hyperlink{_window_manager_8h_source}{Window\+Manager.\+h}}.
+Definition at line \mbox{\hyperlink{_window_manager_8h_source_l00146}{146}} of file \mbox{\hyperlink{_window_manager_8h_source}{Window\+Manager.\+h}}.
+
+\Hypertarget{class_window_manager_acb28e5ac0d82147063513465e0ebde25}\index{WindowManager@{WindowManager}!windowedHeight@{windowedHeight}}
+\index{windowedHeight@{windowedHeight}!WindowManager@{WindowManager}}
+\doxysubsubsection{\texorpdfstring{windowedHeight}{windowedHeight}}
+{\footnotesize\ttfamily \label{class_window_manager_acb28e5ac0d82147063513465e0ebde25} 
+int Window\+Manager\+::windowed\+Height = 600\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_window_manager_8h_source_l00153}{153}} of file \mbox{\hyperlink{_window_manager_8h_source}{Window\+Manager.\+h}}.
+
+\Hypertarget{class_window_manager_a20538b93498f90a58eee5caeda18adf2}\index{WindowManager@{WindowManager}!windowedPosX@{windowedPosX}}
+\index{windowedPosX@{windowedPosX}!WindowManager@{WindowManager}}
+\doxysubsubsection{\texorpdfstring{windowedPosX}{windowedPosX}}
+{\footnotesize\ttfamily \label{class_window_manager_a20538b93498f90a58eee5caeda18adf2} 
+int Window\+Manager\+::windowed\+PosX = 100\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_window_manager_8h_source_l00152}{152}} of file \mbox{\hyperlink{_window_manager_8h_source}{Window\+Manager.\+h}}.
+
+\Hypertarget{class_window_manager_ab1f2a4f9b7cf006e0a16b6013e7c6761}\index{WindowManager@{WindowManager}!windowedPosY@{windowedPosY}}
+\index{windowedPosY@{windowedPosY}!WindowManager@{WindowManager}}
+\doxysubsubsection{\texorpdfstring{windowedPosY}{windowedPosY}}
+{\footnotesize\ttfamily \label{class_window_manager_ab1f2a4f9b7cf006e0a16b6013e7c6761} 
+int Window\+Manager\+::windowed\+PosY = 100\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_window_manager_8h_source_l00152}{152}} of file \mbox{\hyperlink{_window_manager_8h_source}{Window\+Manager.\+h}}.
+
+\Hypertarget{class_window_manager_ae11cf9d376af70a8a246bcb1f9496780}\index{WindowManager@{WindowManager}!windowedWidth@{windowedWidth}}
+\index{windowedWidth@{windowedWidth}!WindowManager@{WindowManager}}
+\doxysubsubsection{\texorpdfstring{windowedWidth}{windowedWidth}}
+{\footnotesize\ttfamily \label{class_window_manager_ae11cf9d376af70a8a246bcb1f9496780} 
+int Window\+Manager\+::windowed\+Width = 800\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_window_manager_8h_source_l00153}{153}} of file \mbox{\hyperlink{_window_manager_8h_source}{Window\+Manager.\+h}}.
 
 \Hypertarget{class_window_manager_a4c7712cdc2f3ac47f02d0e3cbdf63d70}\index{WindowManager@{WindowManager}!windowHeight@{windowHeight}}
 \index{windowHeight@{windowHeight}!WindowManager@{WindowManager}}
@@ -478,7 +742,7 @@ int Window\+Manager\+::window\+Height\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line \mbox{\hyperlink{_window_manager_8h_source_l00102}{102}} of file \mbox{\hyperlink{_window_manager_8h_source}{Window\+Manager.\+h}}.
+Definition at line \mbox{\hyperlink{_window_manager_8h_source_l00148}{148}} of file \mbox{\hyperlink{_window_manager_8h_source}{Window\+Manager.\+h}}.
 
 \Hypertarget{class_window_manager_a42b88c6c3ab344ca4cb29d7e79892af5}\index{WindowManager@{WindowManager}!windowWidth@{windowWidth}}
 \index{windowWidth@{windowWidth}!WindowManager@{WindowManager}}
@@ -488,7 +752,7 @@ int Window\+Manager\+::window\+Width\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line \mbox{\hyperlink{_window_manager_8h_source_l00101}{101}} of file \mbox{\hyperlink{_window_manager_8h_source}{Window\+Manager.\+h}}.
+Definition at line \mbox{\hyperlink{_window_manager_8h_source_l00147}{147}} of file \mbox{\hyperlink{_window_manager_8h_source}{Window\+Manager.\+h}}.
 
 
 

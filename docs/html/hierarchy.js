@@ -1,0 +1,46 @@
+var hierarchy =
+[
+    [ "Camera2D", "class_camera2_d.html", null ],
+    [ "RenderManager::CameraAndWidthHash", "struct_render_manager_1_1_camera_and_width_hash.html", null ],
+    [ "CameraManager", "class_camera_manager.html", null ],
+    [ "Collider", "class_collider.html", [
+      [ "AABBCollider", "class_a_a_b_b_collider.html", null ],
+      [ "CircleCollider", "class_circle_collider.html", null ]
+    ] ],
+    [ "CollisionGroupRegistry", "class_collision_group_registry.html", null ],
+    [ "EngineContext", "struct_engine_context.html", null ],
+    [ "EngineTimer", "struct_engine_timer.html", null ],
+    [ "Font", "class_font.html", null ],
+    [ "FrustumCuller", "class_frustum_culler.html", null ],
+    [ "GameState", "class_game_state.html", null ],
+    [ "Glyph", "struct_glyph.html", null ],
+    [ "std::hash< InstanceBatchKey >", "structstd_1_1hash_3_01_instance_batch_key_01_4.html", null ],
+    [ "InputManager", "class_input_manager.html", null ],
+    [ "InstanceBatchKey", "struct_instance_batch_key.html", null ],
+    [ "LineInstance", "struct_line_instance.html", null ],
+    [ "Material", "class_material.html", null ],
+    [ "Mesh", "class_mesh.html", null ],
+    [ "Object", "class_object.html", [
+      [ "GameObject", "class_game_object.html", null ],
+      [ "TextObject", "class_text_object.html", null ]
+    ] ],
+    [ "ObjectManager", "class_object_manager.html", null ],
+    [ "RenderLayerManager", "class_render_layer_manager.html", null ],
+    [ "RenderManager", "class_render_manager.html", null ],
+    [ "Shader", "class_shader.html", null ],
+    [ "SNAKE_Engine", "class_s_n_a_k_e___engine.html", null ],
+    [ "SoundManager", "class_sound_manager.html", null ],
+    [ "SpatialHashGrid", "class_spatial_hash_grid.html", null ],
+    [ "SpriteAnimator", "class_sprite_animator.html", null ],
+    [ "SpriteClip", "struct_sprite_clip.html", null ],
+    [ "SpriteFrame", "struct_sprite_frame.html", null ],
+    [ "SpriteSheet", "class_sprite_sheet.html", null ],
+    [ "StateManager", "class_state_manager.html", null ],
+    [ "TextInstance", "struct_text_instance.html", null ],
+    [ "Texture", "class_texture.html", null ],
+    [ "TextureSettings", "struct_texture_settings.html", null ],
+    [ "Transform2D", "class_transform2_d.html", null ],
+    [ "Vec2Hash", "struct_vec2_hash.html", null ],
+    [ "Vertex", "struct_vertex.html", null ],
+    [ "WindowManager", "class_window_manager.html", null ]
+];
