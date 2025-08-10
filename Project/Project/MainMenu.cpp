@@ -71,10 +71,16 @@ void MainMenu::Update(float dt, const EngineContext& engineContext)
     if (engineContext.inputManager->IsKeyReleased(KEY_F1))
     {
         cameraManager.SetActiveCamera("minicam");
+        startButton->SetIgnoreCamera(true, cameraManager.GetActiveCamera());
+        startText->SetIgnoreCamera(true, cameraManager.GetActiveCamera());
+        quitButton->SetIgnoreCamera(true, cameraManager.GetActiveCamera());
     }
     if (engineContext.inputManager->IsKeyPressed(KEY_F2))
     {
         cameraManager.SetActiveCamera("main");
+        startButton->SetIgnoreCamera(true, cameraManager.GetActiveCamera());
+        startText->SetIgnoreCamera(true, cameraManager.GetActiveCamera());
+        quitButton->SetIgnoreCamera(true, cameraManager.GetActiveCamera());
     }
 
     if (engineContext.inputManager->IsScrolledUp())

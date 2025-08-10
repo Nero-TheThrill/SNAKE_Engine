@@ -19,7 +19,6 @@ void Bullet1::Init(const EngineContext& engineContext)
     GetMaterial()->EnableInstancing(true, GetMesh());
     AttachAnimator(engineContext.renderManager->GetSpriteSheetByTag("animTest1"), 0.08f);
     spriteAnimator->PlayClip(0, 3);
-
     static std::random_device rd;
     static std::mt19937 gen(rd());
     static std::uniform_real_distribution<float> scaleDist(40.0f, 40.0f);

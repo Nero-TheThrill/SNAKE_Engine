@@ -27,7 +27,6 @@ void TextObject::Update(float dt, const EngineContext& engineContext)
 
 void TextObject::Draw(const EngineContext& engineContext)
 {
-    material->SetUniform("u_Color", color);
 }
 
 void TextObject::Free(const EngineContext& engineContext)
@@ -59,7 +58,11 @@ void TextObject::SetText(const std::string& text)
 
 void TextObject::SetTextInstance(const TextInstance& textInstance_)
 {
+    if (textInstance.text == textInstance_.text && textInstance.font == textInstance_.font)
+        return;
     textInstance = textInstance_;
+
+    UpdateMesh();
 }
 
 void TextObject::SetAlignH(TextAlignH alignH_)

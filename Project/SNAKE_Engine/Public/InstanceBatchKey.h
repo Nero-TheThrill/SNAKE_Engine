@@ -7,17 +7,31 @@
 
 class SpriteSheet;
 
+/**
+ * @brief Key used to batch draw calls for instanced rendering.
+ *
+ * @details
+ * Two objects can be batched together when they share the same Mesh,
+ * Material, and SpriteSheet pointers. This key groups such objects.
+ */
 struct InstanceBatchKey
 {
-    Mesh* mesh;
-    Material* material;
-    SpriteSheet* spriteSheet;
+    Mesh* mesh;           ///< Pointer identity used for grouping.
+    Material* material;   ///< Pointer identity used for grouping.
+    SpriteSheet* spriteSheet; ///< Pointer identity used for grouping.
 
+    /**
+     * @brief Equality by pointer identity for all three members.
+     */
     bool operator==(const InstanceBatchKey& other) const
     {
         return mesh == other.mesh && material == other.material && spriteSheet == other.spriteSheet;
     }
 
+    /**
+     * @brief Strict weak ordering for associative containers.
+     * @details Lexicographic compare of (mesh, material, spriteSheet) by pointer value.
+     */
     bool operator<(const InstanceBatchKey& other) const
     {
         if (mesh != other.mesh) return mesh < other.mesh;
@@ -28,6 +42,10 @@ struct InstanceBatchKey
 
 namespace std
 {
+    /**
+     * @brief Hash functor for InstanceBatchKey (pointer-based).
+     * @details Mixes member pointer hashes with shifts/xor for use in unordered containers.
+     */
     template<>
     struct hash<InstanceBatchKey>
     {
@@ -41,4 +59,9 @@ namespace std
     };
 }
 
+/**
+ * @brief Convenience alias for a two-level batch map.
+ * @details
+ * Maps an int(layer) bucket to { InstanceBatchKey -> vector<GameObject*> }.
+ */
 using InstancedBatchMap = std::unordered_map<int, std::unordered_map<InstanceBatchKey, std::vector<GameObject*>>>;

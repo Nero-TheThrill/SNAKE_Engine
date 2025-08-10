@@ -9,7 +9,7 @@
 int main(int argc, char* argv[])
 {
     SNAKE_Engine snakeEngine;
-    DebugLogger::SetLogLevel(LogLevel::Error);
+    DebugLogger::SetLogLevel(LogLevel::Warning);
     float multiplier = 1.5f;
     int width = 800* multiplier;
     int height = 480* multiplier;

@@ -6,61 +6,181 @@ class Camera2D;
 class SNAKE_Engine;
 struct GLFWwindow;
 
+/**
+ * @brief Frame-based keyboard/mouse input tracker backed by bitsets.
+ *
+ * @details
+ * - Per-frame semantics: Update() copies staged->current, current->previous.
+ *   Press/Release queries compare current vs. previous.
+ * - Mouse:
+ *   - Cursor position is sampled each Update() via glfwGetCursorPos().
+ *   - Scroll: AddScroll() accumulates deltas; Update() publishes them as per-frame
+ *     scrollDelta and resets the accumulator.
+ * - World-space mouse helpers project window coordinates using Camera2D
+ *   (position, screen size, zoom).
+ */
 class InputManager
 {
     friend SNAKE_Engine;
 
 public:
 
+    /**
+     * @brief Constructs with null window and zeroed mouse position.
+     */
     InputManager() :window(nullptr), mouseX(0.0), mouseY(0.0) {}
 
+    /**
+     * @brief True while the key is held down (current frame).
+     * @param key Key code (matches GLFW key codes; see InputKey).
+     */
     [[nodiscard]] bool IsKeyDown(int key) const;
 
+    /**
+     * @brief True only on the frame the key transitions up->down.
+     * @param key Key code.
+     * @note Requires per-frame Update() for correct previous/current tracking.
+     */
     [[nodiscard]] bool IsKeyPressed(int key) const;
 
+    /**
+     * @brief True only on the frame the key transitions down->up.
+     * @param key Key code.
+     * @note Requires per-frame Update().
+     */
     [[nodiscard]] bool IsKeyReleased(int key) const;
 
+    /**
+     * @brief True while the mouse button is held down (current frame).
+     * @param button Mouse button (matches GLFW button codes; see InputMouseButton).
+     */
     [[nodiscard]] bool IsMouseButtonDown(int button) const;
 
+    /**
+     * @brief True only on the frame the mouse button goes up->down.
+     * @param button Mouse button.
+     */
     [[nodiscard]] bool IsMouseButtonPressed(int button) const;
 
+    /**
+     * @brief True only on the frame the mouse button goes down->up.
+     * @param button Mouse button.
+     */
     [[nodiscard]] bool IsMouseButtonReleased(int button) const;
 
+    /**
+     * @brief Mouse X in window coordinates (pixels).
+     * @details Sampled in Update() via glfwGetCursorPos().
+     */
     [[nodiscard]] double GetMouseX() const;
 
+    /**
+     * @brief Mouse Y in window coordinates (pixels).
+     * @details Sampled in Update() via glfwGetCursorPos().
+     */
     [[nodiscard]] double GetMouseY() const;
 
+    /**
+     * @brief Mouse position in window coordinates (pixels).
+     */
     [[nodiscard]] glm::vec2 GetMousePos() const;
 
+    /**
+     * @brief Mouse X in world space using Camera2D.
+     * @details (cam.pos.x + mouseX - cam.screenWidth/2) / cam.zoom.
+     */
     [[nodiscard]] double GetMouseWorldX(Camera2D* camera) const;
 
+    /**
+     * @brief Mouse Y in world space using Camera2D.
+     * @details (cam.pos.y + cam.screenHeight/2 - mouseY) / cam.zoom.
+     */
     [[nodiscard]] double GetMouseWorldY(Camera2D* camera) const;
 
+    /**
+     * @brief Mouse position in world space using Camera2D.
+     */
     [[nodiscard]] glm::vec2 GetMouseWorldPos(Camera2D* camera) const;
 
+    /**
+     * @brief Accumulates scroll deltas (usually from the GLFW scroll callback).
+     * @param dx Horizontal scroll delta.
+     * @param dy Vertical scroll delta.
+     * @note Published on the next Update() as per-frame scrollDelta.
+     */
     void AddScroll(double dx, double dy);
 
+    /**
+     * @brief Per-frame scroll delta (dx, dy) since the last Update().
+     */
     glm::vec2 GetScrollDelta() const;
+
+    /**
+     * @brief Per-frame horizontal scroll delta since the last Update().
+     */
     double GetScrollXDelta() const;
+
+    /**
+     * @brief Per-frame vertical scroll delta since the last Update().
+     */
     double GetScrollYDelta() const;
 
+    /**
+     * @brief True if vertical scroll this frame is positive.
+     */
     bool IsScrolledUp() const;
+
+    /**
+     * @brief True if vertical scroll this frame is negative.
+     */
     bool IsScrolledDown() const;
 
+    /**
+     * @brief Key event intake (used by the GLFW key callback).
+     * @param key GLFW key code; ignored if out of range (key<0 || key>GLFW_KEY_LAST).
+     * @param action GLFW_PRESS, GLFW_RELEASE, or GLFW_REPEAT.
+     * @details Updates staged key state; repeat sets pressed if not already set.
+     */
     void OnKey(int key, int, int action, int);
+
+    /**
+     * @brief Mouse button event intake (used by the GLFW mouse button callback).
+     * @param button GLFW button code; ignored if out of range.
+     * @param action GLFW_PRESS or GLFW_RELEASE.
+     * @details Updates staged mouse button state.
+     */
     void OnMouseButton(int button, int action, int);
 
+    /**
+     * @brief Clears all key/mouse bitsets (current/previous/staged).
+     * @note Does not modify mouse position or scroll values.
+     */
     void Reset();
 
 private:
+    /**
+     * @brief Stores the window handle for input sampling.
+     * @note Internal. Called by the engine during initialization.
+     */
     void Init(GLFWwindow* _window);
 
+    /**
+     * @brief Advances input state one frame.
+     *
+     * @details
+     * - previous = current
+     * - scrollDelta = scrollAccum; scrollAccum = 0
+     * - current = staged
+     * - samples mouseX/Y via glfwGetCursorPos(window, ...)
+     *
+     * @note Internal. Called once per frame by the engine.
+     */
     void Update();
 
     GLFWwindow* window;
 
-    static constexpr int MAX_KEYS = 349;
-    static constexpr int MAX_MOUSE_BUTTONS = 9;
+    static constexpr int MAX_KEYS = 349;            ///< Bitset capacity for keys.
+    static constexpr int MAX_MOUSE_BUTTONS = 9;     ///< Bitset capacity for mouse buttons.
 
     std::bitset<MAX_KEYS> currentKeyState;
     std::bitset<MAX_KEYS> previousKeyState;
@@ -80,6 +200,9 @@ private:
 
 };
 
+/**
+ * @brief Key codes compatible with GLFW (pass to InputManager APIs).
+ */
 enum InputKey
 {
     KEY_UNKNOWN = -1,
@@ -177,6 +300,9 @@ enum InputKey
     KEY_MENU = 348
 };
 
+/**
+ * @brief Mouse button codes compatible with GLFW.
+ */
 enum InputMouseButton
 {
     MOUSE_BUTTON_1 = 0,
