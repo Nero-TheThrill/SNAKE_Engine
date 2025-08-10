@@ -27,27 +27,38 @@ public:
     }
 
 private:
-    void RegisterLayer(const std::string& name)
+    [[maybe_unused]] bool RegisterLayer(const std::string& tag, uint8_t layer)
     {
-        auto it = nameToID.find(name);
-        if (it != nameToID.end())
+        if (nameToID.find(tag) != nameToID.end())
         {
-            SNAKE_WRN("Already have '" << name << "' tag.\n");
-            return;
+            SNAKE_WRN("Layer already exists: " << tag);
+            return false;
         }
 
-        if (nextID >= MAX_LAYERS)
+        if (layer >= MAX_LAYERS || !idToName[layer].empty())
         {
-            SNAKE_ERR("Already have max count of layers.\n");
-            return;
+            SNAKE_ERR("Layer ID " << layer << " is already in use or out of range");
+            return false;
         }
 
-        nameToID[name] = nextID;
-        idToName[nextID] = name;
-        nextID++;
+        nameToID[tag] = layer;
+        idToName[layer] = tag;
+        return true;
     }
 
+    void UnregisterLayer(const std::string& name)
+    {
+        auto it = nameToID.find(name);
+        if (it == nameToID.end())
+        {
+            SNAKE_LOG("Cannot unregister: layer '" << name << "' not found");
+            return;
+        }
+
+        uint8_t id = it->second;
+        nameToID.erase(it);
+        idToName[id].clear();
+    }
     std::unordered_map<std::string, uint8_t> nameToID;
     std::array<std::string, MAX_LAYERS> idToName;
-    uint8_t nextID = 0;
 };

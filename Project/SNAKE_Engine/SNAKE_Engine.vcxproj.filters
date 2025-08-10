@@ -152,5 +152,8 @@
     <ClCompile Include="Private\Collider.cpp">
       <Filter>private</Filter>
     </ClCompile>
+    <ClCompile Include="Private\Debug.cpp">
+      <Filter>private</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

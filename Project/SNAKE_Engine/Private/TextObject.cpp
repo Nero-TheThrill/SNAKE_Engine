@@ -1,12 +1,7 @@
-#include "TextObject.h"
-#include "EngineContext.h"
-#include "RenderManager.h"
+#include "Engine.h"
 
 TextObject::TextObject(Font* font, const std::string& text, TextAlignH alignH_, TextAlignV alignV_) : Object(ObjectType::TEXT)
 {
-
-    std::string cacheKey = textInstance.GetCacheKey();
-
     alignH = alignH_;
     alignV = alignV_;
 
@@ -64,7 +59,12 @@ void TextObject::SetText(const std::string& text)
 
 void TextObject::SetTextInstance(const TextInstance& textInstance_)
 {
+    if (textInstance.text == textInstance_.text && textInstance.font == textInstance_.font)
+        return;
+
     textInstance = textInstance_;
+
+    UpdateMesh();
 }
 
 void TextObject::SetAlignH(TextAlignH alignH_)
@@ -118,7 +118,7 @@ glm::vec2 TextObject::GetWorldPosition() const
     {
         float zoom = referenceCamera->GetZoom();
         glm::vec2 camPos = referenceCamera->GetPosition();
-        return camPos + alignedScreenPos / zoom;
+        return (camPos + alignedScreenPos) / zoom;
     }
     else
     {
@@ -134,20 +134,21 @@ glm::vec2 TextObject::GetWorldScale() const
         return transform2D.GetScale()* textInstance.font->GetTextSize(textInstance.text);
 }
 
+void TextObject::CheckFontAtlasAndMeshUpdate()
+{
+    if (textAtlasVersionTracker == textInstance.font->GetTextAtlasVersion())
+        return;
+
+    textAtlasVersionTracker = textInstance.font->GetTextAtlasVersion();
+    std::unique_ptr<Mesh> newMesh(textInstance.font->GenerateTextMesh(textInstance.text, alignH, alignV));
+    mesh = newMesh.get();
+    textMesh = std::move(newMesh);
+}
+
 void TextObject::UpdateMesh()
 {
-    if (textMeshCache.size() > 500)
-        textMeshCache.clear();
 
-    auto it = textMeshCache.find(textInstance.GetCacheKey());
-    if (it != textMeshCache.end())
-    {
-        mesh = it->second.get();
-    }
-    else
-    {
-        std::unique_ptr<Mesh> newMesh(textInstance.font->GenerateTextMesh(textInstance.text, alignH, alignV));
-        mesh = newMesh.get();
-        textMeshCache[textInstance.GetCacheKey()] = std::move(newMesh);
-    }
+    std::unique_ptr<Mesh> newMesh(textInstance.font->GenerateTextMesh(textInstance.text, alignH, alignV));
+    mesh = newMesh.get();
+    textMesh = std::move(newMesh);
 }

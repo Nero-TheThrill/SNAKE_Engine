@@ -1,10 +1,7 @@
-#include "WindowManager.h"
-
-#include "Debug.h"
 #include "gl.h"
 #include "glfw3.h"
-#include "SNAKE_Engine.h"
-#include "GameState.h"
+#include "Engine.h"
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
@@ -13,11 +10,14 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
     {
         snakeEngine->GetEngineContext().windowManager->SetWidth(width);
         snakeEngine->GetEngineContext().windowManager->SetHeight(height);
-        snakeEngine->GetEngineContext().stateManager->GetCurrentState()->GetCameraManager().SetScreenSizeForAll(width, height);
-        snakeEngine->GetEngineContext().inputManager->Reset();
+        auto* state = snakeEngine->GetEngineContext().stateManager->GetCurrentState();
+        if (state)
+        {
+            state->GetCameraManager().SetScreenSizeForAll(width, height);
+        }
+        //snakeEngine->GetEngineContext().inputManager->Reset();
         SNAKE_LOG("changed: " << snakeEngine->GetEngineContext().windowManager->GetWidth() << " " << snakeEngine->GetEngineContext().windowManager->GetHeight());
     }
-
 }
 bool WindowManager::Init(int _windowWidth, int _windowHeight, SNAKE_Engine& engine)
 {
@@ -50,10 +50,51 @@ bool WindowManager::Init(int _windowWidth, int _windowHeight, SNAKE_Engine& engi
         SNAKE_ERR("Failed to initialize GLAD");
         return false;
     }
+    glEnable(GL_DEBUG_OUTPUT);
+    glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+
+    glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DEBUG_SEVERITY_NOTIFICATION,
+        0, nullptr, GL_FALSE);
+    glDebugMessageCallback(
+        [](GLenum /*src*/, GLenum type, GLuint id, GLenum severity, GLsizei, const GLchar* msg, const void*) {
+            if (severity == GL_DEBUG_SEVERITY_NOTIFICATION) return;
+            if (type == GL_DEBUG_TYPE_OTHER) return;
+            if (severity == GL_DEBUG_SEVERITY_HIGH) { SNAKE_ERR(std::string("[GL] ") + msg); }
+            else if (severity == GL_DEBUG_SEVERITY_MEDIUM) { SNAKE_WRN(std::string("[GL] ") + msg); }
+            else { SNAKE_LOG(std::string("[GL] ") + msg); }
+        }, nullptr);
 
     glViewport(0, 0, windowWidth, windowHeight);
     glfwSetWindowUserPointer(window, &engine);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+
+    glfwSetScrollCallback(window,
+        [](GLFWwindow* w, double xoff, double yoff)
+        {
+            SNAKE_Engine* snakeEngine = static_cast<SNAKE_Engine*>(glfwGetWindowUserPointer(w));
+            if (snakeEngine)
+                snakeEngine->GetEngineContext().inputManager->AddScroll(xoff, yoff);
+        });
+    glfwSetKeyCallback(window,
+        [](GLFWwindow* w, int key, int sc, int action, int mods)
+        {
+            if (auto* snakeEngine = static_cast<SNAKE_Engine*>(glfwGetWindowUserPointer(w)))
+                snakeEngine->GetEngineContext().inputManager->OnKey(key, sc, action, mods);
+        });
+
+    glfwSetMouseButtonCallback(window,
+        [](GLFWwindow* w, int button, int action, int mods)
+        {
+            if (auto* snakeEngine = static_cast<SNAKE_Engine*>(glfwGetWindowUserPointer(w)))
+                snakeEngine->GetEngineContext().inputManager->OnMouseButton(button, action, mods);
+        });
+
+    glfwSetWindowPosCallback(window,
+        [](GLFWwindow* w, int, int)
+        {
+            //if (auto* snakeEngine = (SNAKE_Engine*)glfwGetWindowUserPointer(w))
+            //    snakeEngine->GetEngineContext().inputManager->Reset();
+        });
 
     return true;
 }
@@ -73,6 +114,32 @@ void WindowManager::SetTitle(const std::string& title) const
     glfwSetWindowTitle(window, title.c_str());
 }
 
+void WindowManager::SetFullScreen(bool enable)
+{
+    if (!window || isFullscreen == enable)
+        return;
+
+    GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+    const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+
+    if (enable)
+    {
+        glfwGetWindowPos(window, &windowedPosX, &windowedPosY);
+        glfwGetWindowSize(window, &windowedWidth, &windowedHeight);
+
+        glfwSetWindowMonitor(window, monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
+    }
+    else
+    {
+        glfwSetWindowMonitor(window, nullptr, windowedPosX, windowedPosY, windowedWidth, windowedHeight, 0);
+    }
+
+    isFullscreen = enable;
+
+    windowWidth = enable ? mode->width : windowedWidth;
+    windowHeight = enable ? mode->height : windowedHeight;
+
+}
 void WindowManager::Free() const
 {
     glfwDestroyWindow(window);
@@ -85,7 +152,7 @@ void WindowManager::SwapBuffers() const
 
 void WindowManager::ClearScreen() const
 {
-    glClearColor(0.4f, 0.4f, 0.4f, 1.0f);
+    glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
     glClear(GL_COLOR_BUFFER_BIT);
 }
 

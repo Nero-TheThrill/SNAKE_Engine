@@ -17,7 +17,7 @@ public:
     void SetZoom(float z);
     [[nodiscard]] float GetZoom() const;
 
-    [[nodiscard]] glm::mat4 GetProjectionMatrix() const;
+    [[nodiscard]] glm::mat4 GetViewMatrix() const;
 
     [[nodiscard]] bool IsInView(const glm::vec2& pos, float radius, glm::vec2 viewportSize) const;
 

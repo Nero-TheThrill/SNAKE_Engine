@@ -2,6 +2,7 @@
 #include <random>
 
 #include "Bullet.h"
+#include "Bullet1.h"
 #include "Button.h"
 #include "Debug.h"
 #include "Engine.h"
@@ -11,8 +12,7 @@ void Player::Init(const EngineContext& engineContext)
 {
     transform2D.SetPosition(glm::vec2(0, 0));
     transform2D.SetScale(glm::vec2(50.f));
-
-    SetMesh(engineContext, "default");
+    SetMesh(engineContext.renderManager->GetMeshByTag("default"));
     SetMaterial(engineContext, "m_animation");
     SpriteSheet* sheet = engineContext.renderManager->GetSpriteSheetByTag("animTest");
     sheet->AddClip("sidewalk", { 0,1,2,3,4,5,6,7,8 }, 0.08f, true);
@@ -57,26 +57,26 @@ void Player::Update(float dt, const EngineContext& engineContext)
         transform2D.AddPosition(glm::vec2(150 * dt, 0));
     }
 
-    if (engineContext.inputManager->IsKeyPressed(KEY_W))
+    if (spriteAnimator && engineContext.inputManager->IsKeyPressed(KEY_W))
     {
         spriteAnimator->PlayClip("backwalk");
     }
-    if (engineContext.inputManager->IsKeyPressed(KEY_A))
+    if (spriteAnimator && engineContext.inputManager->IsKeyPressed(KEY_A))
     {
         SetFlipUV_X(true);
         spriteAnimator->PlayClip("sidewalk");
     }
-    if (engineContext.inputManager->IsKeyPressed(KEY_S))
+    if (spriteAnimator && engineContext.inputManager->IsKeyPressed(KEY_S))
     {
         spriteAnimator->PlayClip("frontwalk");
     }
-    if (engineContext.inputManager->IsKeyPressed(KEY_D))
+    if (spriteAnimator && engineContext.inputManager->IsKeyPressed(KEY_D))
     {
         SetFlipUV_X(false);
         spriteAnimator->PlayClip("sidewalk");
     }
 
-    if (checkIdle)
+    if (spriteAnimator&&checkIdle)
     {
         spriteAnimator->PlayClip("idle");
     }
@@ -91,6 +91,23 @@ void Player::Update(float dt, const EngineContext& engineContext)
         float angle = angleDist(gen);
         std::unique_ptr<Bullet> b = std::make_unique<Bullet>(GetWorldPosition(), glm::vec2(std::cos(angle), std::sin(angle)));
         engineContext.stateManager->GetCurrentState()->GetObjectManager().AddObject(std::move(b), "bullet");
+    }
+
+
+    if (engineContext.inputManager->IsKeyDown(KEY_Z))
+    {
+        SNAKE_LOG("player shot the bullet");
+
+        static std::random_device rd;
+        static std::mt19937 gen(rd());
+        static std::uniform_real_distribution<float> angleDist(0.0f, 2.0f * glm::pi<float>());
+
+        for (int i = 0; i < 10; i++)
+        {
+            float angle = angleDist(gen);
+            std::unique_ptr<Bullet1> b = std::make_unique<Bullet1>(transform2D.GetPosition(), glm::vec2(std::cos(angle), std::sin(angle)));
+            engineContext.stateManager->GetCurrentState()->GetObjectManager().AddObject(std::move(b), "111");
+        }
     }
 }
 

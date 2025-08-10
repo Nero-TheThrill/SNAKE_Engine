@@ -113,7 +113,7 @@
       <AdditionalUsingDirectories>
       </AdditionalUsingDirectories>
       <AdditionalIncludeDirectories>$(SolutionDir)SNAKE_Engine\public</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -132,7 +132,7 @@
       <AdditionalUsingDirectories>
       </AdditionalUsingDirectories>
       <AdditionalIncludeDirectories>$(SolutionDir)SNAKE_Engine\public</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <SupportJustMyCode>false</SupportJustMyCode>
       <Optimization>MaxSpeed</Optimization>
@@ -157,7 +157,7 @@
       <AdditionalUsingDirectories>
       </AdditionalUsingDirectories>
       <AdditionalIncludeDirectories>$(SolutionDir)SNAKE_Engine\public</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -176,7 +176,7 @@
       <AdditionalUsingDirectories>
       </AdditionalUsingDirectories>
       <AdditionalIncludeDirectories>$(SolutionDir)SNAKE_Engine\public;$(SolutionDir)SNAKE_Engine\ThirdParty\Include</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -196,7 +196,7 @@
       <AdditionalUsingDirectories>
       </AdditionalUsingDirectories>
       <AdditionalIncludeDirectories>$(SolutionDir)SNAKE_Engine\public;$(SolutionDir)SNAKE_Engine\ThirdParty\Include</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <SupportJustMyCode>false</SupportJustMyCode>
       <Optimization>MaxSpeed</Optimization>
@@ -222,7 +222,7 @@
       <AdditionalUsingDirectories>
       </AdditionalUsingDirectories>
       <AdditionalIncludeDirectories>$(SolutionDir)SNAKE_Engine\public;$(SolutionDir)SNAKE_Engine\ThirdParty\Include</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -235,6 +235,7 @@
     <ClCompile Include="Apple.cpp" />
     <ClCompile Include="ApplePlayerController.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="Bullet1.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Level1.cpp" />
@@ -252,6 +253,7 @@
     <ClInclude Include="Apple.h" />
     <ClInclude Include="ApplePlayerController.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="Bullet1.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Level1.h" />

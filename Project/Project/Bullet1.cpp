@@ -1,26 +1,24 @@
-#include "Bullet.h"
+#include "Bullet1.h"
 #include <random>
 
 #include "Debug.h"
 #include "Engine.h"
 
-Bullet::Bullet(glm::vec2 pos, glm::vec2 _dir) : dir(_dir)
+Bullet1::Bullet1(glm::vec2 pos, glm::vec2 _dir) : dir(_dir)
 {
     transform2D.SetPosition(pos);
 
 }
 
-void Bullet::Init(const EngineContext& engineContext)
+void Bullet1::Init(const EngineContext& engineContext)
 {
     SNAKE_LOG("Bullet initialized");
     SetMesh(engineContext, "default");
-    SetMaterial(engineContext, "m_instancing");
+    SetMaterial(engineContext, "m_instancing1");
     SetRenderLayer("Bullet");
     GetMaterial()->EnableInstancing(true, GetMesh());
-    AttachAnimator(engineContext.renderManager->GetSpriteSheetByTag("animTest"), 0.08f);
-
-
-    spriteAnimator->PlayClip("sidewalk");
+    AttachAnimator(engineContext.renderManager->GetSpriteSheetByTag("animTest1"), 0.08f);
+    spriteAnimator->PlayClip(0, 3);
 
     static std::random_device rd;
     static std::mt19937 gen(rd());
@@ -44,17 +42,13 @@ void Bullet::Init(const EngineContext& engineContext)
     rotAmount = rotDist(gen);
 
     transform2D.SetScale(glm::vec2(scale));
-    auto collider = std::make_unique<CircleCollider>(this, 1.f);
-    collider->SetUseTransformScale(true);
-    SetCollider(std::move(collider));
-    SetCollision(engineContext.stateManager->GetCurrentState()->GetObjectManager(), "bullet", { "player"});
 }
 
-void Bullet::LateInit(const EngineContext& engineContext)
+void Bullet1::LateInit(const EngineContext& engineContext)
 {
 }
 
-void Bullet::Update(float dt, const EngineContext& engineContext)
+void Bullet1::Update(float dt, const EngineContext& engineContext)
 {
     transform2D.AddRotation(dt* rotAmount);
     transform2D.AddPosition(glm::vec2(dt*speed* dir.x, dt*speed * dir.y));
@@ -63,17 +57,17 @@ void Bullet::Update(float dt, const EngineContext& engineContext)
         Kill();
 }
 
-void Bullet::Draw(const EngineContext& engineContext)
+void Bullet1::Draw(const EngineContext& engineContext)
 {
    // GetMaterial()->SetUniform("u_Color", glm::vec4(1.0, 1.0, 1.0, 1.0));
 }
 
-void Bullet::Free(const EngineContext& engineContext)
+void Bullet1::Free(const EngineContext& engineContext)
 {
     SNAKE_LOG("Bullet Free Called");
 }
 
-void Bullet::LateFree(const EngineContext& engineContext)
+void Bullet1::LateFree(const EngineContext& engineContext)
 {
     SNAKE_LOG("Bullet LateFree Called");
 }

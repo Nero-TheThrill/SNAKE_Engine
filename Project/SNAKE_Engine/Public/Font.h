@@ -51,6 +51,8 @@ public:
 
     [[nodiscard]] Mesh* GenerateTextMesh(const std::string& text, TextAlignH alignH = TextAlignH::Left, TextAlignV alignV = TextAlignV::Top);
 
+    int GetTextAtlasVersion() { return atlasVersion; }
+
 private:
     void LoadFont(const std::string& path, uint32_t fontSize);
 
@@ -74,4 +76,6 @@ private:
     int nextX = 0;
     int nextY = 0;
     int maxRowHeight = 0;
+
+    int atlasVersion = 0;
 };

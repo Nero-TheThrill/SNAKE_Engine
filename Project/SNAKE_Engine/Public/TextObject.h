@@ -10,10 +10,6 @@ struct TextInstance
 {
     Font* font = nullptr;
     std::string text = "";
-    std::string GetCacheKey() const
-    {
-        return "|" + text;
-    }
 };
 class TextObject : public Object
 {
@@ -50,16 +46,23 @@ public:
 
     [[nodiscard]] SpriteAnimator* GetAnimator() override { return nullptr; }
 
+    [[nodiscard]] SpriteAnimator* GetSpriteAnimator() const override { return nullptr; }
+
     [[nodiscard]] glm::vec2 GetWorldPosition() const override;
 
     [[nodiscard]] glm::vec2 GetWorldScale() const override;
 
+    void CheckFontAtlasAndMeshUpdate();
 
     void SetMaterial(const EngineContext& engineContext, const std::string& tag) = delete;
+
+    void SetMaterial(Material* material_) = delete;
 
     [[nodiscard]] Material* GetMaterial() const = delete;
 
     void SetMesh(const EngineContext& engineContext, const std::string& tag) = delete;
+
+    void SetMesh(Mesh* mesh_) = delete;
 
     [[nodiscard]] Mesh* GetMesh() const = delete;
 
@@ -67,7 +70,7 @@ public:
 
     void AttachAnimator(SpriteSheet* sheet, float frameTime, bool loop = true) = delete;
 
-
+    void DetachAnimator() = delete;
 protected:
 
     void UpdateMesh();
@@ -75,5 +78,7 @@ protected:
     TextAlignV alignV;
 
     TextInstance textInstance;
-    std::unordered_map<std::string, std::unique_ptr<Mesh>> textMeshCache;
+    std::unique_ptr<Mesh> textMesh;
+
+    int textAtlasVersionTracker = 0;
 };

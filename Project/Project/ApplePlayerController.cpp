@@ -39,7 +39,7 @@ void ApplePlayerController::Init(const EngineContext& engineContext)
 {
     SetMesh(engineContext, "default");
     SetMaterial(engineContext, "m_selection_box");
-    SetRenderLayer(engineContext, "UI");
+    SetRenderLayer("UI");
     SetVisibility(false);
     SetCollider(std::make_unique<AABBCollider>(this, glm::vec2(1, 1)));
     SetCollision(engineContext.stateManager->GetCurrentState()->GetObjectManager(), "player_selection", { "apple" });

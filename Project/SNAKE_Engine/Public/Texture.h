@@ -3,7 +3,7 @@
 
 using FilePath = std::string;
 
-enum class TextureFilter
+enum class TextureMinFilter
 {
     Nearest,
     Linear,
@@ -11,6 +11,11 @@ enum class TextureFilter
     LinearMipmapNearest,
     NearestMipmapLinear,
     LinearMipmapLinear
+};
+enum class TextureMagFilter
+{
+    Nearest,
+    Linear,
 };
 
 enum class TextureWrap
@@ -23,8 +28,8 @@ enum class TextureWrap
 
 struct TextureSettings
 {
-    TextureFilter minFilter = TextureFilter::Linear;
-    TextureFilter magFilter = TextureFilter::Linear;
+    TextureMinFilter minFilter = TextureMinFilter::Linear;
+    TextureMagFilter magFilter = TextureMagFilter::Linear;
     TextureWrap wrapS = TextureWrap::ClampToEdge;
     TextureWrap wrapT = TextureWrap::ClampToEdge;
     bool generateMipmap = true;

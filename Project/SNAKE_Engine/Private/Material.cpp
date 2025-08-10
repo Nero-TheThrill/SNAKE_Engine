@@ -1,9 +1,4 @@
-#include "gl.h"
-#include "Material.h"
-#include "Mesh.h"
-#include "Shader.h"
-#include "Texture.h"
-#include "Debug.h"
+#include "Engine.h"
 
 void Material::Bind() const
 {
@@ -28,20 +23,27 @@ bool Material::IsInstancingSupported() const
 }
 void Material::EnableInstancing(bool enable, Mesh* mesh)
 {
-    if (shader && !shader->SupportsInstancing())
+    if (!mesh)
+    {
+        SNAKE_WRN("Enable Instancing skipped: Mesh is nullptr");
+        return;
+    }
+    if (!shader)
+    {
+        SNAKE_WRN("Enable Instancing skipped: Shader is nullptr");
+        return;
+    }
+    if (!shader->SupportsInstancing())
     {
         SNAKE_WRN("Enable Instancing skipped: Tried enable instancing, but shader does not support 'i_Model'.");
         return;
     }
-    if (!isInstancingEnabled)
+
+    isInstancingEnabled = enable;
+
+    if (mesh && isInstancingEnabled)
     {
-        isInstancingEnabled = enable;
-        if (mesh)
-        {
-            if (!instanceVBO[0])
-                glGenBuffers(4, instanceVBO);
-            mesh->SetupInstanceAttributes(instanceVBO);
-        }
+        mesh->SetupInstanceAttributes();
     }
 }
 
@@ -65,19 +67,19 @@ void Material::SendUniforms()
     }
 }
 
-void Material::UpdateInstanceBuffer(const std::vector<glm::mat4>& transforms, const std::vector<glm::vec4>& colors, const std::vector<glm::vec2>& uvOffsets, const std::vector<glm::vec2>& uvScales) const
+bool Material::HasTexture(Texture* texture) const
 {
-    glBindBuffer(GL_ARRAY_BUFFER, instanceVBO[0]);
-    glBufferData(GL_ARRAY_BUFFER, transforms.size() * sizeof(glm::mat4), transforms.data(), GL_DYNAMIC_DRAW);
+    for (const auto& pair : textures)
+    {
+        if (pair.second == texture)
+        {
+            return true;
+        }
+    }
+    return false;
+}
 
-    glBindBuffer(GL_ARRAY_BUFFER, instanceVBO[1]);
-    glBufferData(GL_ARRAY_BUFFER, colors.size() * sizeof(glm::vec4), colors.data(), GL_DYNAMIC_DRAW);
-
-    glBindBuffer(GL_ARRAY_BUFFER, instanceVBO[2]);
-    glBufferData(GL_ARRAY_BUFFER, uvOffsets.size() * sizeof(glm::vec2), uvOffsets.data(), GL_DYNAMIC_DRAW);
-
-    glBindBuffer(GL_ARRAY_BUFFER, instanceVBO[3]);
-    glBufferData(GL_ARRAY_BUFFER, uvScales.size() * sizeof(glm::vec2), uvScales.data(), GL_DYNAMIC_DRAW);
-
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+bool Material::HasShader(Shader* shader_) const
+{
+    return shader == shader_;
 }

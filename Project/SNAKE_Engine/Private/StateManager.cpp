@@ -1,9 +1,5 @@
-#include "StateManager.h"
-#include "GameState.h"
-#include "EngineContext.h"
-#include "WindowManager.h"
-#include "RenderManager.h"
-#include "SNAKE_Engine.h"
+#include "Engine.h"
+
 GameState* StateManager::GetCurrentState() const
 {
 	return currentState ? currentState.get() : nullptr;

@@ -19,12 +19,12 @@ void Level1::Load(const EngineContext& engineContext)
     engineContext.renderManager->RegisterTexture("t_selection_box", "Textures/TransparentSquare.png");
     engineContext.renderManager->RegisterTexture("t_border", "Textures/SquareBorder.png");
     engineContext.renderManager->RegisterTexture("t_fill", "Textures/Square.png");
-    engineContext.renderManager->RegisterMaterial("m_apple", "s_default", { std::pair<std::string, std::string>("u_Texture","t_apple") });
-    engineContext.renderManager->RegisterMaterial("m_apple_highlighted", "s_default", { std::pair<std::string, std::string>("u_Texture","t_apple_selected") });
-    engineContext.renderManager->RegisterMaterial("m_background", "s_default", { std::pair<std::string, std::string>("u_Texture","t_background") });
-    engineContext.renderManager->RegisterMaterial("m_selection_box", "s_default", { std::pair<std::string, std::string>("u_Texture","t_selection_box") });
-    engineContext.renderManager->RegisterMaterial("m_border", "s_default", { std::pair<std::string, std::string>("u_Texture","t_border") });
-    engineContext.renderManager->RegisterMaterial("m_fill", "s_default", { std::pair<std::string, std::string>("u_Texture","t_fill") });
+    engineContext.renderManager->RegisterMaterial("m_apple", "s_default1", { std::pair<std::string, std::string>("u_Texture","t_apple") });
+    engineContext.renderManager->RegisterMaterial("m_apple_highlighted", "s_default1", { std::pair<std::string, std::string>("u_Texture","t_apple_selected") });
+    engineContext.renderManager->RegisterMaterial("m_background", "s_default1", { std::pair<std::string, std::string>("u_Texture","t_background") });
+    engineContext.renderManager->RegisterMaterial("m_selection_box", "s_default1", { std::pair<std::string, std::string>("u_Texture","t_selection_box") });
+    engineContext.renderManager->RegisterMaterial("m_border", "s_default1", { std::pair<std::string, std::string>("u_Texture","t_border") });
+    engineContext.renderManager->RegisterMaterial("m_fill", "s_default1", { std::pair<std::string, std::string>("u_Texture","t_fill") });
 
     engineContext.engine->RenderDebugDraws(false);
 }
@@ -53,7 +53,7 @@ void Level1::Init(const EngineContext& engineContext)
     backgroundObj->SetMaterial(engineContext, "m_background");
     backgroundObj->GetTransform2D().SetScale({ engineContext.windowManager->GetWidth(), engineContext.windowManager->GetHeight() });
     backgroundObj->SetIgnoreCamera(true, cameraManager.GetActiveCamera());
-    backgroundObj->SetRenderLayer(engineContext, "Game.Background");
+    backgroundObj->SetRenderLayer("Game.Background");
 
     auto* scoreUIObj = objectManager.AddObject(std::make_unique<GameObject>(), "score_ui");
     scoreUIObj->SetMesh(engineContext, "default");
@@ -61,7 +61,7 @@ void Level1::Init(const EngineContext& engineContext)
     scoreUIObj->GetTransform2D().SetPosition({ 0, 100 });
     scoreUIObj->GetTransform2D().SetScale({ 300, 300 });
     scoreUIObj->SetIgnoreCamera(true, cameraManager.GetActiveCamera());
-    scoreUIObj->SetRenderLayer(engineContext, "UI.Pause");
+    scoreUIObj->SetRenderLayer("UI.Pause");
     scoreUIObj->SetVisibility(false);
 
     scoreUIText = new TextObject(engineContext.renderManager->GetFontByTag("default"), std::to_string(0), TextAlignH::Center, TextAlignV::Middle);
@@ -69,7 +69,7 @@ void Level1::Init(const EngineContext& engineContext)
     scoreUIText->GetTransform2D().SetPosition(scoreUIObj->GetTransform2D().GetPosition());
     scoreUIText->GetTransform2D().SetScale({ 3, 3 });
     scoreUIText->SetIgnoreCamera(true, cameraManager.GetActiveCamera());
-    scoreUIText->SetRenderLayer(engineContext, "UI.Pause.Text");
+    scoreUIText->SetRenderLayer("UI.Pause.Text");
     scoreUIText->SetVisibility(false);
 
     restartUIText = new TextObject(engineContext.renderManager->GetFontByTag("default"), "press R to restart\npress N to go to mainmenu", TextAlignH::Center, TextAlignV::Middle);
@@ -78,7 +78,7 @@ void Level1::Init(const EngineContext& engineContext)
     restartUIText->GetTransform2D().SetScale({ 0.9,0.9 });
     restartUIText->SetColor({ 0.4,0.4,0.4,1 });
     restartUIText->SetIgnoreCamera(true, cameraManager.GetActiveCamera());
-    restartUIText->SetRenderLayer(engineContext, "UI.Pause.Text");
+    restartUIText->SetRenderLayer("UI.Pause.Text");
     restartUIText->SetVisibility(false);
 
     objectManager.AddObject(std::make_unique<ApplePlayerController>(), "player_controller");
@@ -94,12 +94,12 @@ void Level1::Init(const EngineContext& engineContext)
             objectManager.AddObject(std::unique_ptr<TextObject>(text), "apple_text");
             text->GetTransform2D().SetPosition(pos);
             text->GetTransform2D().SetScale({ 0.5,0.5 });
-            text->SetRenderLayer(engineContext, "UI");
+            text->SetRenderLayer("UI");
 
             Apple* apple = (Apple*)objectManager.AddObject(std::make_unique<Apple>(text, value), "apple");
-            apple->GetTransform2D().SetPosition(pos);
+            apple->GetTransform2D().SetPosition({pos});
             apple->GetTransform2D().SetScale({ appleSizeX, appleSizeY });
-            apple->SetRenderLayer(engineContext, "Game");
+            apple->SetRenderLayer("Game");
         }
     }
 
@@ -112,7 +112,7 @@ void Level1::Init(const EngineContext& engineContext)
     timerBarBackground->SetColor({ 0.0f, 1.0f, 0.12f, 1.0f });
     timerBarBackground->GetTransform2D().SetPosition(pos);
     timerBarBackground->GetTransform2D().SetScale({ appleSizeX, fillInitialScaleY });
-    timerBarBackground->SetRenderLayer(engineContext, "Game");
+    timerBarBackground->SetRenderLayer("Game");
 
     timerBarFill = objectManager.AddObject(std::make_unique<GameObject>(), "timerBarFill");
     timerBarFill->SetMesh(engineContext, "default");
@@ -120,7 +120,7 @@ void Level1::Init(const EngineContext& engineContext)
     timerBarFill->SetColor({ 0.0f, 1.0f, 0.12f, 1.0f });
     timerBarFill->GetTransform2D().SetPosition(pos);
     timerBarFill->GetTransform2D().SetScale({ appleSizeX, fillInitialScaleY });
-    timerBarFill->SetRenderLayer(engineContext, "Game");
+    timerBarFill->SetRenderLayer("Game");
 
     gameTimer.Start(120);
     dokidoki.Start(0);
@@ -221,7 +221,7 @@ void Level1::LateUpdate(float dt, const EngineContext& engineContext)
 
 void Level1::Draw(const EngineContext& engineContext)
 {
-    objectManager.DrawAll(engineContext, cameraManager.GetActiveCamera());
+    objectManager.DrawAll(engineContext);
 }
 
 void Level1::Free(const EngineContext& engineContext)

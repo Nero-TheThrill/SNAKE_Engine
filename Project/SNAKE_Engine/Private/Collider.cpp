@@ -1,6 +1,4 @@
-#include "Collider.h"
-#include "Object.h"
-#include "RenderManager.h"
+#include "Engine.h"
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <unordered_set>

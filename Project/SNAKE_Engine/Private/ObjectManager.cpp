@@ -1,7 +1,5 @@
-#include "ObjectManager.h"
-#include "EngineContext.h"
-#include "Object.h"
-#include "Debug.h"
+#include "Engine.h"
+
 #include <cassert>
 #include <algorithm>
 #include <unordered_set>
@@ -15,7 +13,7 @@ Object* ObjectManager::AddObject(std::unique_ptr<Object> obj, const std::string&
     if (!tag.empty())
     {
         if (objectMap.find(tag) != objectMap.end())
-            SNAKE_WRN("Duplicate Object ID");
+            SNAKE_LOG("Duplicate Object ID");
 
         Object* rawPointer = obj.get();
         objectMap[tag] = rawPointer;
@@ -42,6 +40,10 @@ void ObjectManager::UpdateAll(float dt, const EngineContext& engineContext)
     {
         if (obj->IsAlive())
         {
+            if (obj->GetType()==ObjectType::TEXT)
+            {
+                static_cast<TextObject*>(obj.get())->CheckFontAtlasAndMeshUpdate();
+            }
             obj->Update(dt, engineContext);
             if (obj->HasAnimation())
                 obj->GetAnimator()->Update(dt);
@@ -97,21 +99,21 @@ void ObjectManager::EraseDeadObjects(const EngineContext& engineContext)
         objects.end());
 }
 
-void ObjectManager::DrawAll(const EngineContext& engineContext, Camera2D* camera)
+void ObjectManager::DrawAll(const EngineContext& engineContext)
 {
-    engineContext.renderManager->Submit(engineContext, rawPtrObjects, camera);
+    engineContext.renderManager->Submit(rawPtrObjects, engineContext);
 }
 
-void ObjectManager::DrawObjects(const EngineContext& engineContext, Camera2D* camera, const std::vector<Object*>& objects)
+void ObjectManager::DrawObjects(const EngineContext& engineContext, const std::vector<Object*>& objects)
 {
-    engineContext.renderManager->Submit(engineContext, objects, camera);
+    engineContext.renderManager->Submit(objects, engineContext);
 }
 
-void ObjectManager::DrawObjectsWithTag(const EngineContext& engineContext, Camera2D* camera, const std::string& tag)
+void ObjectManager::DrawObjectsWithTag(const EngineContext& engineContext, const std::string& tag)
 {
     std::vector<Object*> filteredObjects;
     FindByTag(tag, filteredObjects);
-    engineContext.renderManager->Submit(engineContext, filteredObjects, camera);
+    engineContext.renderManager->Submit(filteredObjects, engineContext);
 }
 
 void ObjectManager::FreeAll(const EngineContext& engineContext)

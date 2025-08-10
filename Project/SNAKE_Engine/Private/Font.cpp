@@ -1,10 +1,9 @@
-#include "Font.h"
+#include "Engine.h"
+
 #include <algorithm>
 #include <sstream>
 #include <unordered_set>
-#include "Debug.h"
-#include "EngineContext.h"
-#include "RenderManager.h"
+
 #include "gl.h"
 
 static std::vector<char32_t> UTF8ToCodepoints(const std::string& text)
@@ -82,14 +81,14 @@ void Font::LoadFont(const std::string& path, uint32_t fontSize)
 
 void Font::BakeAtlas(RenderManager& renderManager)
 {
-    int texWidth = 512;
-    int texHeight = 512;
+    int texWidth = 128;
+    int texHeight = 128;
     std::vector<unsigned char> pixels(texWidth * texHeight, 0);
 
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
     atlasTexture = std::make_unique<Texture>(pixels.data(), texWidth, texHeight, 1);
 
-    Shader* textShader = renderManager.GetShaderByTag("internal_text");
+    Shader* textShader = renderManager.GetShaderByTag("[EngineShader]internal_text");
     material = std::make_unique<Material>(textShader);
     material->SetTexture("u_FontTexture", atlasTexture.get());
     material->SetUniform("u_Color", glm::vec4(1.0f));
@@ -330,17 +329,30 @@ Mesh* Font::GenerateTextMesh(const std::string& text, TextAlignH alignH, TextAli
 
 void Font::ExpandAtlas()
 {
-    int newWidth = atlasTexture->GetWidth() * 2;
-    int newHeight = atlasTexture->GetHeight() * 2;
+    int oldWidth = atlasTexture->GetWidth();
+    int oldHeight = atlasTexture->GetHeight();
+
+    int newWidth = oldWidth * 2;
+    int newHeight = oldHeight * 2;
 
     std::vector<unsigned char> newPixels(newWidth * newHeight, 0);
-
     std::unique_ptr<Texture> newAtlas = std::make_unique<Texture>(newPixels.data(), newWidth, newHeight, 1);
-
     material->SetTexture("u_FontTexture", newAtlas.get());
-
     atlasTexture = std::move(newAtlas);
+
     nextX = 0;
     nextY = 0;
     maxRowHeight = 0;
+
+    std::unordered_map<char32_t, Glyph> oldGlyphs = glyphs;
+    glyphs.clear();
+
+    for (const auto& [c, _] : oldGlyphs)
+    {
+        if (!TryBakeGlyph(c))
+        {
+            SNAKE_WRN("Failed to bake glyph");
+        }
+    }
+    atlasVersion++;
 }

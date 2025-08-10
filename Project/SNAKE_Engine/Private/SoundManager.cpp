@@ -1,7 +1,7 @@
-#include "SoundManager.h"
+#include "Engine.h"
+
 #include <algorithm>
 #include "fmod_errors.h"
-#include "Debug.h"
 
 SoundManager::SoundManager() : system(nullptr), nextInstanceID(1) {}
 

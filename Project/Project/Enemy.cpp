@@ -25,7 +25,7 @@ void Enemy::Init(const EngineContext& engineContext)
     AttachAnimator(sheet, 0.08f);
     spriteAnimator->PlayClip("idle");
 
-    SetRenderLayer(engineContext, "Penguin");
+    SetRenderLayer("Penguin");
     SetColor({ 0.6,0.2,0.2,1 });
 
 

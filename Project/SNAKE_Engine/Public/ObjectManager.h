@@ -17,24 +17,26 @@ class ObjectManager
     friend GameState;
 public:
     [[maybe_unused]]Object* AddObject(std::unique_ptr<Object> obj, const std::string& tag = "");
-
     void InitAll(const EngineContext& engineContext);
     void UpdateAll(float dt, const EngineContext& engineContext);
-    void DrawAll(const EngineContext& engineContext, Camera2D* camera);
-    void DrawObjects(const EngineContext& engineContext, Camera2D* camera, const std::vector<Object*>& objects);
-    void DrawObjectsWithTag(const EngineContext& engineContext, Camera2D* camera, const std::string& tag);
+    void DrawAll(const EngineContext& engineContext);
+    void DrawObjects(const EngineContext& engineContext, const std::vector<Object*>& objects);
+    void DrawObjectsWithTag(const EngineContext& engineContext, const std::string& tag);
 
     void FreeAll(const EngineContext& engineContext);
 
     [[nodiscard]] Object* FindByTag(const std::string& tag) const;
     void FindByTag(const std::string& tag, std::vector<Object*>& result);
     void CheckCollision();
-    void DrawColliderDebug(RenderManager* rm, Camera2D* cam);
 
     [[nodiscard]] CollisionGroupRegistry& GetCollisionGroupRegistry() { return collisionGroupRegistry; }
+
+    [[nodiscard]] std::vector<Object*> GetAllRawPtrObjects() { return rawPtrObjects; }
+
 private:
     void AddAllPendingObjects(const EngineContext& engineContext);
     void EraseDeadObjects(const EngineContext& engineContext);
+    void DrawColliderDebug(RenderManager* rm, Camera2D* cam);
 
     std::vector<std::unique_ptr<Object>> objects;
     std::vector<std::unique_ptr<Object>> pendingObjects;

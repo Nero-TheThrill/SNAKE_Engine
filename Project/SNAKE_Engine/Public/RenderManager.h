@@ -66,11 +66,24 @@ public:
 
     void RegisterFont(const std::string& tag, std::unique_ptr<Font> font);
 
-    void RegisterRenderLayer(const std::string& tag);
+    void RegisterRenderLayer(const std::string& tag, uint8_t layer);
 
     void RegisterSpriteSheet(const std::string& tag, const std::string& textureTag, int frameW, int frameH);
 
+    void UnregisterShader(const std::string& tag, const EngineContext& engineContext);
 
+    void UnregisterTexture(const std::string& tag, const EngineContext& engineContext);
+
+    void UnregisterMesh(const std::string& tag, const EngineContext& engineContext);
+
+    void UnregisterMaterial(const std::string& tag, const EngineContext& engineContext);
+
+    void UnregisterFont(const std::string& tag, const EngineContext& engineContext);
+
+    void UnregisterRenderLayer(const std::string& tag);
+
+    void UnregisterSpriteSheet(const std::string& tag, const EngineContext& engineContext);
+    
 
     [[nodiscard]] Shader* GetShaderByTag(const std::string& tag);
 
@@ -83,8 +96,6 @@ public:
     [[nodiscard]] Font* GetFontByTag(const std::string& tag);
 
     SpriteSheet* GetSpriteSheetByTag(const std::string& tag);
-
-    void Submit(std::function<void()>&& drawFunc);
 
     void FlushDrawCommands(const EngineContext& engineContext);
 
@@ -100,9 +111,7 @@ private:
 
     void BuildRenderMap(const std::vector<Object*>& source, Camera2D* camera);
 
-    void SubmitRenderMap(const EngineContext& engineContext);
-
-    void Submit(const EngineContext& engineContext, const std::vector<Object*>& objects, Camera2D* camera);
+    void Submit(const std::vector<Object*>& objects, const EngineContext& engineContext);
 
     void FlushDebugLineDrawCommands(const EngineContext& engineContext);
 
@@ -112,7 +121,6 @@ private:
     std::unordered_map<std::string, std::unique_ptr<Material>> materialMap;
     std::unordered_map<std::string, std::unique_ptr<Font>> fontMap;
     std::unordered_map<std::string, std::unique_ptr<SpriteSheet>> spritesheetMap;
-    std::vector<RenderCommand> renderQueue;
 
 
     using CameraAndWidth = std::pair<Camera2D*, float>;
@@ -125,10 +133,16 @@ private:
     };
     std::unordered_map<CameraAndWidth, std::vector<LineInstance>, CameraAndWidthHash> debugLineMap;
     GLuint debugLineVAO = 0, debugLineVBO = 0;
-    Shader* debugLineShader;
+
+    Shader* defaultShader, *debugLineShader;
+    Material* defaultMaterial;
+    SpriteSheet* defaultSpriteSheet;
+    Mesh* defaultMesh;
 
     RenderMap renderMap;
     RenderLayerManager renderLayerManager;
+
+    Texture* errorTexture;
 };
 
 

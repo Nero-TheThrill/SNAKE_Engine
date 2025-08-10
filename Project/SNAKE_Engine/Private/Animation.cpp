@@ -1,4 +1,4 @@
-#include "Animation.h"
+#include "Engine.h"
 
 SpriteSheet::SpriteSheet(Texture* texture_, int frameW, int frameH)
     : texture(texture_), frameWidth(frameW), frameHeight(frameH)
@@ -7,6 +7,8 @@ SpriteSheet::SpriteSheet(Texture* texture_, int frameW, int frameH)
     texHeight = texture_->GetHeight();
     columns = texWidth / frameWidth;
     rows = texHeight / frameHeight;
+    if (columns == 0) columns = 1;
+    if (rows == 0) rows = 1;
 }
 
 glm::vec2 SpriteSheet::GetUVOffset(int frameIndex) const
@@ -53,6 +55,8 @@ const SpriteClip* SpriteSheet::GetClip(const std::string& name) const
 
 SpriteAnimator::SpriteAnimator(SpriteSheet* sheet_, float frameTime_, bool loop_)
     : sheet(sheet_), frameTime(frameTime_), loop(loop_) {
+    if (frameTime == 0.f) frameTime = 0.001f;
+
 }
 
 void SpriteAnimator::PlayClip(int start, int end, bool loop_)
@@ -66,10 +70,17 @@ void SpriteAnimator::PlayClip(int start, int end, bool loop_)
 }
 void SpriteAnimator::PlayClip(const std::string& clipName)
 {
+    if (!sheet)
+    {
+        SNAKE_ERR("Can't play clip: Sprite sheet is nullptr");
+        return;
+    }
     const auto* clip = sheet->GetClip(clipName);
     if (!clip || clip->frameIndices.empty())
+    {
+        SNAKE_WRN("Can't play clip: There is no clip named \"" <<clipName<< "\".");
         return;
-
+    }
     playingClip = clip;
     clipFrameIndex = 0;
     elapsed = 0.0f;

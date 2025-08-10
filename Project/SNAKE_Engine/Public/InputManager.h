@@ -38,6 +38,18 @@ public:
 
     [[nodiscard]] glm::vec2 GetMouseWorldPos(Camera2D* camera) const;
 
+    void AddScroll(double dx, double dy);
+
+    glm::vec2 GetScrollDelta() const;
+    double GetScrollXDelta() const;
+    double GetScrollYDelta() const;
+
+    bool IsScrolledUp() const;
+    bool IsScrolledDown() const;
+
+    void OnKey(int key, int, int action, int);
+    void OnMouseButton(int button, int action, int);
+
     void Reset();
 
 private:
@@ -57,6 +69,15 @@ private:
 
     double mouseX;
     double mouseY;
+
+    double scrollAccumX = 0.0;
+    double scrollAccumY = 0.0;
+    double scrollDeltaX = 0.0;
+    double scrollDeltaY = 0.0;
+
+    std::bitset<MAX_KEYS> stagedKeyState;
+    std::bitset<MAX_MOUSE_BUTTONS> stagedMouseState;
+
 };
 
 enum InputKey

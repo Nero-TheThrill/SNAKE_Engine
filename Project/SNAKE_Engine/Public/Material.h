@@ -24,7 +24,7 @@ class Material {
     friend RenderManager;
 
 public:
-    Material(Shader* _shader) : shader(_shader), isInstancingEnabled(false), instanceVBO(){}
+    Material(Shader* _shader) : shader(_shader), isInstancingEnabled(false){}
 
     void SetTexture(const std::string& uniformName, Texture* texture)
     {
@@ -47,7 +47,11 @@ private:
 
     void SendUniforms();
 
-    void UpdateInstanceBuffer(const std::vector<glm::mat4>& transforms, const std::vector<glm::vec4>& colors, const std::vector<glm::vec2>& uvOffsets, const std::vector<glm::vec2>& uvScales) const;
+    bool HasTexture() const { return !textures.empty(); }
+
+    bool HasTexture(Texture* texture) const;
+
+    bool HasShader(Shader* shader_) const;
 
     [[nodiscard]] Shader* GetShader() const { return shader; }
 
@@ -55,6 +59,6 @@ private:
     std::unordered_map<std::string, Texture*> textures;
     std::unordered_map<std::string, UniformValue> uniforms;
 
-    GLuint instanceVBO[4];
+
     bool isInstancingEnabled;
 };

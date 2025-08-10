@@ -35,9 +35,9 @@ public:
     [[nodiscard]] glm::vec2 GetLocalBoundsHalfSize() const { return localHalfSize; }
 
 private:
-    void BindVAO() const;
+    void BindVAO(bool instanced) const;
 
-    void SetupInstanceAttributes(GLuint* instanceVBO) const;
+    void SetupInstanceAttributes();
 
     void Draw() const;
 
@@ -72,10 +72,15 @@ private:
         localHalfSize = size * 0.5f;
     }
 
+    void UpdateInstanceBuffer(const std::vector<glm::mat4>& transforms, const std::vector<glm::vec4>& colors, const std::vector<glm::vec2>& uvOffsets, const std::vector<glm::vec2>& uvScales) const;
+
     GLuint vao;
     GLuint vbo;
     GLuint ebo;
     GLsizei indexCount;
+
+    GLuint instanceVAO;
+    GLuint instanceVBO[4];
 
     bool useIndex;
 

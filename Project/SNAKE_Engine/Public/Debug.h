@@ -1,29 +1,34 @@
 #pragma once
-
 #include <iostream>
-#include <cstring>
-
-#define SNAKE_DEBUG
-#define SKIP_LOG
-#define SKIP_WRN
-// #define SKIP_ERR
+#include <sstream>
+#pragma once
 
 #define FILENAME (strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
 
-#if defined(SNAKE_DEBUG) && !defined(SKIP_LOG)
-#define SNAKE_LOG(x) std::cout << "[LOG] " << FILENAME << ":" << __LINE__ << " - " << x << std::endl
-#else
-#define SNAKE_LOG(x) do {} while(0)
-#endif
+#define SNAKE_LOG(x)   do { std::ostringstream oss; oss << x; DebugLogger::Log(oss.str(), FILENAME, __LINE__); } while(0)
+#define SNAKE_WRN(x)   do { std::ostringstream oss; oss << x; DebugLogger::Warn(oss.str(), FILENAME, __LINE__); } while(0)
+#define SNAKE_ERR(x)   do { std::ostringstream oss; oss << x; DebugLogger::Error(oss.str(), FILENAME, __LINE__); } while(0)
 
-#if defined(SNAKE_DEBUG) && !defined(SKIP_WRN)
-#define SNAKE_WRN(x) std::cerr << "[WRN] " << FILENAME << ":" << __LINE__ << " - " << x << std::endl
-#else
-#define SNAKE_WRN(x) do {} while(0)
-#endif
 
-#if defined(SNAKE_DEBUG) && !defined(SKIP_ERR)
-#define SNAKE_ERR(x) std::cerr << "[ERR] " << FILENAME << ":" << __LINE__ << " - " << x << std::endl
-#else
-#define SNAKE_ERR(x) do {} while(0)
-#endif
+enum class LogLevel
+{
+    None,
+    Error,
+    Warning,
+    Log,
+    All
+};
+
+class DebugLogger
+{
+public:
+    static void SetLogLevel(LogLevel level);
+    static LogLevel GetLogLevel();
+
+    static void Log(const std::string& msg, const char* file, int line);
+    static void Warn(const std::string& msg, const char* file, int line);
+    static void Error(const std::string& msg, const char* file, int line);
+
+private:
+    static LogLevel currentLevel;
+};
