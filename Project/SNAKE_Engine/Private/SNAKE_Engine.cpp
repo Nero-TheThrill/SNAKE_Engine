@@ -20,14 +20,18 @@ void SNAKE_Engine::SetEngineContext()
 
 bool SNAKE_Engine::Init(int windowWidth, int windowHeight)
 {
+    SetEngineContext();
     if (!windowManager.Init(windowWidth, windowHeight, *this))
     {
-        SNAKE_ERR("Window Initialization failed.");
+        SNAKE_ERR("WindowManager Initialization failed.");
         return false;
     }
-    SetEngineContext();
     inputManager.Init(windowManager.GetHandle());
-    soundManager.Init();
+    if (!soundManager.Init())
+    {
+        SNAKE_ERR("SoundManager Initialization failed.");
+        return false;
+    }
     renderManager.Init(engineContext);
 
     return true;

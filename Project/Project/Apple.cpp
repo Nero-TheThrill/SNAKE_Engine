@@ -83,5 +83,5 @@ void Apple::SetVelocityAndStartDeadTimer(const glm::vec2& vel)
         return;
     this->vel = vel;
     dead_timer.Start(2.0f);
-    collider.release();
+    collider.reset();
 }

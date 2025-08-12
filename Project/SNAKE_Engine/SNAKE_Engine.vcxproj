@@ -250,11 +250,12 @@
       <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /Y /D "$(ProjectDir)\ThirdParty\fmod\lib\x64\fmodL.dll" "$(OutDir)"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
     <Lib>
-      <AdditionalDependencies>glfw3.lib;fmodL_vc.lib;freetyped.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)ThirdParty\fmod\lib\x64;$(ProjectDir)ThirdParty\glfw3;$(ProjectDir)ThirdParty\glad;$(ProjectDir)ThirdParty\freetype</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;freetyped.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)ThirdParty\glfw3;$(ProjectDir)ThirdParty\glad;$(ProjectDir)ThirdParty\freetype</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='EngineOnly|x64'">
@@ -279,11 +280,12 @@
       <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /Y /D "$(ProjectDir)\ThirdParty\fmod\lib\x64\fmod.dll" "$(OutDir)"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
     <Lib>
-      <AdditionalDependencies>glfw3.lib;fmod_vc.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)ThirdParty\fmod\lib\x64;$(ProjectDir)ThirdParty\glfw3;$(ProjectDir)ThirdParty\glad;$(ProjectDir)ThirdParty\freetype</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)ThirdParty\glfw3;$(ProjectDir)ThirdParty\glad;$(ProjectDir)ThirdParty\freetype</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -304,11 +306,12 @@
       <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /Y /D "$(ProjectDir)\ThirdParty\fmod\lib\x64\fmod.dll" "$(OutDir)"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
     <Lib>
-      <AdditionalDependencies>glfw3.lib;fmod_vc.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)ThirdParty\fmod\lib\x64;$(ProjectDir)ThirdParty\glfw3;$(ProjectDir)ThirdParty\glad;$(ProjectDir)ThirdParty\freetype</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)ThirdParty\glfw3;$(ProjectDir)ThirdParty\glad;$(ProjectDir)ThirdParty\freetype</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

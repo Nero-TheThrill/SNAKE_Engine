@@ -1,64 +1,91 @@
 #include "Engine.h"
 
 #include <algorithm>
-#include "fmod_errors.h"
+#include <memory>
+#include <unordered_map>
+#include <vector>
+#include <queue>
+#include <string>
 
-SoundManager::SoundManager() : system(nullptr), nextInstanceID(1) {}
+#define MINIAUDIO_IMPLEMENTATION
+#include "miniaudio.h"
 
-void SoundManager::Init()
+
+struct SoundManager::SoundInstanceMA
 {
-    FMOD_RESULT result = FMOD::System_Create(&system);
-    if (result != FMOD_OK || !system)
+    ma_sound sound{};
+    std::string tag;
+    bool looping = false;
+
+    bool paused = false;
+    ma_uint64 pausedCursor = 0;
+};
+SoundManager::SoundManager()
+    : engine(nullptr)
+    , nextInstanceID(1)
+{
+}
+
+SoundManager::~SoundManager()
+{
+    Free();
+}
+
+bool SoundManager::Init()
+{
+    if (engine == nullptr)
     {
-        SNAKE_ERR("FMOD::System_Create failed: " << FMOD_ErrorString(result));
-        return;
+        engine = new ma_engine();
     }
-    result = system->setSoftwareChannels(128);
-    if (result != FMOD_OK)
+
+    ma_result res = ma_engine_init(nullptr, engine);
+    if (res != MA_SUCCESS)
     {
-        SNAKE_ERR("setSoftwareChannels failed: " << FMOD_ErrorString(result));
-        return;
+        SNAKE_ERR("miniaudio engine init failed: " << (int)res);
+        delete engine;
+        engine = nullptr;
+        return false;
     }
-    result = system->init(128, FMOD_INIT_NORMAL, nullptr);
-    if (result != FMOD_OK)
-    {
-        SNAKE_ERR("FMOD system init failed: " << FMOD_ErrorString(result));
-        return;
-    }
+    return true;
 }
 
 void SoundManager::Free()
 {
-    for (auto& [tag, sound] : sounds)
-        sound->release();
+    for (auto& [id, instPtr] : instanceMap)
+    {
+        if (instPtr != nullptr)
+        {
+            ma_sound_uninit(&instPtr->sound);
+            delete instPtr;
+        }
+    }
+    instanceMap.clear();
+
+    for (auto& [tag, vec] : activeChannels)
+    {
+        vec.clear();
+    }
+    activeChannels.clear();
 
     sounds.clear();
-    activeChannels.clear();
-    instanceMap.clear();
-    while (!reusableIDs.empty()) reusableIDs.pop();
+
+    while (!reusableIDs.empty())
+    {
+        reusableIDs.pop();
+    }
     nextInstanceID = 1;
 
-    if (system)
+    if (engine != nullptr)
     {
-        system->close();
-        system->release();
-        system = nullptr;
+        ma_engine_uninit(engine);
+        delete engine;
+        engine = nullptr;
     }
 }
 
 void SoundManager::LoadSound(const std::string& tag, const std::string& filepath, bool loop)
 {
-    FMOD_MODE mode = FMOD_DEFAULT | FMOD_2D | FMOD_CREATESAMPLE;
-    mode |= loop ? FMOD_LOOP_NORMAL : FMOD_LOOP_OFF;
-
-    FMOD::Sound* sound = nullptr;
-    if (system->createSound(filepath.c_str(), mode, nullptr, &sound) != FMOD_OK)
-    {
-        SNAKE_ERR("Failed to load sound : " << filepath);
-        return;
-    }
-
-    sounds[tag] = sound;
+    sounds[tag] = SoundInfo{ filepath, loop };
 }
 
 SoundInstanceID SoundManager::GenerateID()
@@ -72,46 +99,92 @@ SoundInstanceID SoundManager::GenerateID()
     return nextInstanceID++;
 }
 
+[[nodiscard]] static bool MA_GetSoundSampleRate(ma_sound* snd, ma_uint32& outSR)
+{
+    ma_format fmt{};
+    ma_uint32 ch{};
+    ma_uint32 sr{};
+    if (ma_sound_get_data_format(snd, &fmt, &ch, &sr, nullptr, 0) == MA_SUCCESS && sr > 0)
+    {
+        outSR = sr;
+        return true;
+    }
+    return false;
+}
+
 SoundInstanceID SoundManager::Play(const std::string& tag, float volume, float startTimeSec)
 {
-    if (!system || sounds.find(tag) == sounds.end()) 
+    if (engine == nullptr)
         return 0;
 
-    FMOD::Channel* channel = nullptr;
-    if (system->playSound(sounds[tag], nullptr, true, &channel) != FMOD_OK)
+    auto it = sounds.find(tag);
+    if (it == sounds.end())
         return 0;
 
-    if (channel)
+    const std::string& path = it->second.filepath;
+    const bool looping = it->second.loop;
+
+    SoundInstanceMA* inst = new SoundInstanceMA();
+    inst->tag = tag;
+    inst->looping = looping;
+
+    ma_result res = ma_sound_init_from_file(engine, path.c_str(), 0, nullptr, nullptr, &inst->sound);
+    if (res != MA_SUCCESS)
     {
-        if (startTimeSec > 0.0f)
-        {
-            channel->setPosition(static_cast<unsigned int>(startTimeSec * 1000.0f), FMOD_TIMEUNIT_MS);
-        }
-
-        channel->setVolume(volume);
-        channel->setPaused(false);
-
-        activeChannels[tag].push_back(channel);
-        SoundInstanceID id = GenerateID();
-        instanceMap[id] = channel;
-        return id;
+        SNAKE_ERR("Failed to load sound: " << path);
+        delete inst;
+        return 0;
     }
-    return 0;
+
+    ma_sound_set_volume(&inst->sound, volume);
+    ma_sound_set_looping(&inst->sound, looping ? MA_TRUE : MA_FALSE);
+
+    if (startTimeSec > 0.0f)
+    {
+        ma_uint32 sr = 0;
+        if (!MA_GetSoundSampleRate(&inst->sound, sr))
+        {
+            sr = ma_engine_get_sample_rate(engine);
+        }
+        const ma_uint64 frame = (ma_uint64)(startTimeSec * (double)sr);
+        ma_sound_seek_to_pcm_frame(&inst->sound, frame);
+    }
+
+    res = ma_sound_start(&inst->sound);
+    if (res != MA_SUCCESS)
+    {
+        ma_sound_uninit(&inst->sound);
+        delete inst;
+        return 0;
+    }
+
+    SoundInstanceID id = GenerateID();
+    instanceMap[id] = inst;
+    activeChannels[tag].push_back(inst);
+    return id;
 }
 
 void SoundManager::SetVolumeByID(SoundInstanceID id, float volume)
 {
     auto it = instanceMap.find(id);
-    if (it != instanceMap.end() && it->second)
-        it->second->setVolume(volume);
+    if (it != instanceMap.end() && it->second != nullptr)
+    {
+        ma_sound_set_volume(&it->second->sound, volume);
+    }
 }
 
 void SoundManager::SetVolumeByTag(const std::string& tag, float volume)
 {
-    for (FMOD::Channel* ch : activeChannels[tag])
+    auto it = activeChannels.find(tag);
+    if (it == activeChannels.end())
+        return;
+
+    for (SoundInstanceMA* inst : it->second)
     {
-        if (ch) 
-            ch->setVolume(volume);
+        if (inst != nullptr)
+        {
+            ma_sound_set_volume(&inst->sound, volume);
+        }
     }
 }
 
@@ -123,60 +196,133 @@ void SoundManager::SetVolumeAll(float volume)
     }
 }
 
-
-
 void SoundManager::ControlByID(SoundControlType control, SoundInstanceID id)
 {
     auto it = instanceMap.find(id);
-    if (it == instanceMap.end() || !it->second)
-        return;
+    if (it == instanceMap.end() || it->second == nullptr) return;
 
-    FMOD::Channel* ch = it->second;
+    SoundInstanceMA* inst = it->second;
+
     switch (control)
     {
     case SoundControlType::Pause:
-        ch->setPaused(true);
-        break;
+    {
+        ma_uint64 cursor = 0;
+        ma_sound_get_cursor_in_pcm_frames(&inst->sound, &cursor); 
+        inst->pausedCursor = cursor;
+        ma_sound_stop(&inst->sound);
+        inst->paused = true;
+    } break;
+
     case SoundControlType::Resume:
-        ch->setPaused(false);
-        break;
+    {
+        if (inst->paused)
+        {
+            ma_sound_seek_to_pcm_frame(&inst->sound, inst->pausedCursor);
+            ma_sound_start(&inst->sound);
+            inst->paused = false;
+        }
+    } break;
+
     case SoundControlType::Stop:
-        ch->stop();
+    {
+        ma_sound_stop(&inst->sound);
+        ma_sound_uninit(&inst->sound);
+
+        auto acIt = activeChannels.find(inst->tag);
+        if (acIt != activeChannels.end())
+        {
+            auto& vec = acIt->second;
+            vec.erase(std::remove(vec.begin(), vec.end(), inst), vec.end());
+        }
+        delete inst;
         instanceMap.erase(it);
         reusableIDs.push(id);
-        break;
+    } break;
     }
 }
 
+
 void SoundManager::ControlByTag(SoundControlType control, const std::string& tag)
 {
-    for (FMOD::Channel* ch : activeChannels[tag])
-    {
-        if (!ch) continue;
+    auto it = activeChannels.find(tag);
+    if (it == activeChannels.end())
+        return;
 
-        switch (control)
+    auto& vec = it->second;
+
+    if (control == SoundControlType::Pause)
+    {
+        for (auto* inst : vec)
         {
-        case SoundControlType::Pause:
-            ch->setPaused(true);
-            break;
-        case SoundControlType::Resume:
-            ch->setPaused(false);
-            break;
-        case SoundControlType::Stop:
-            ch->stop();
-            break;
+            if (!inst) continue;
+            ma_uint64 cursor = 0;
+            ma_sound_get_cursor_in_pcm_frames(&inst->sound, &cursor);
+            inst->pausedCursor = cursor;
+            ma_sound_stop(&inst->sound);
+            inst->paused = true;
         }
+        return;
+    }
+    if (control == SoundControlType::Resume)
+    {
+        for (auto* inst : vec)
+        {
+            if (!inst || !inst->paused) continue;
+            ma_sound_seek_to_pcm_frame(&inst->sound, inst->pausedCursor);
+            ma_sound_start(&inst->sound);
+            inst->paused = false;
+        }
+        return;
     }
 
     if (control == SoundControlType::Stop)
-        activeChannels[tag].clear();
+    {
+        std::vector<SoundInstanceID> toRecycle;
+        toRecycle.reserve(instanceMap.size());
+
+        for (SoundInstanceMA* inst : vec)
+        {
+            if (inst == nullptr)
+                continue;
+
+            ma_sound_stop(&inst->sound);
+            ma_sound_uninit(&inst->sound);
+
+            for (auto& [id, uptr] : instanceMap)
+            {
+                if (uptr == inst)
+                {
+                    toRecycle.push_back(id);
+                    break;
+                }
+            }
+
+            delete inst;
+        }
+
+        for (SoundInstanceID id : toRecycle)
+        {
+            instanceMap.erase(id);
+            reusableIDs.push(id);
+        }
+
+        vec.clear();
+    }
 }
 
 void SoundManager::ControlAll(SoundControlType control)
 {
-    for (const auto& [tag, _] : activeChannels)
+    std::vector<std::string> tags;
+    tags.reserve(activeChannels.size());
+    for (const auto& kv : activeChannels)
     {
-        ControlByTag(control, tag);
+        tags.push_back(kv.first);
+    }
+
+    for (const std::string& t : tags)
+    {
+        ControlByTag(control, t);
     }
 }
 
@@ -187,20 +333,41 @@ void SoundManager::Update()
 
 void SoundManager::Cleanup()
 {
-    std::vector<SoundInstanceID> toRemove;
+    std::vector<SoundInstanceID> finishedIDs;
+    finishedIDs.reserve(instanceMap.size());
 
-    for (auto& [id, ch] : instanceMap)
+    for (auto& [id, inst] : instanceMap)
     {
-        bool playing = false;
-        if (!ch || ch->isPlaying(&playing) != FMOD_OK || !playing)
+        if (inst == nullptr)
         {
-            if (ch) 
-                ch->stop();
-            toRemove.push_back(id);
+            finishedIDs.push_back(id);
+            continue;
+        }
+
+        const ma_bool32 playing = ma_sound_is_playing(&inst->sound);
+        if (!playing)
+        {
+            if (inst->looping)
+                continue;
+
+            if (ma_sound_at_end(&inst->sound))
+            {
+                ma_sound_uninit(&inst->sound);
+
+                auto acIt = activeChannels.find(inst->tag);
+                if (acIt != activeChannels.end())
+                {
+                    auto& vec = acIt->second;
+                    vec.erase(std::remove(vec.begin(), vec.end(), inst), vec.end());
+                }
+
+                delete inst;
+                finishedIDs.push_back(id);
+            }
         }
     }
 
-    for (SoundInstanceID id : toRemove)
+    for (SoundInstanceID id : finishedIDs)
     {
         instanceMap.erase(id);
         reusableIDs.push(id);
@@ -208,10 +375,15 @@ void SoundManager::Cleanup()
 
     for (auto& [tag, vec] : activeChannels)
     {
-        vec.erase(std::remove_if(vec.begin(), vec.end(), [](FMOD::Channel* ch)
-            {
-                bool playing = false;
-                return !ch || ch->isPlaying(&playing) != FMOD_OK || !playing;
-            }), vec.end());
+        vec.erase(
+            std::remove_if(vec.begin(), vec.end(),
+                [](SoundInstanceMA* inst)
+                {
+                    if (inst == nullptr) return true;
+                    if (!inst->looping && !ma_sound_is_playing(&inst->sound) && ma_sound_at_end(&inst->sound))
+                        return true;
+                    return false;
+                }),
+            vec.end());
     }
 }

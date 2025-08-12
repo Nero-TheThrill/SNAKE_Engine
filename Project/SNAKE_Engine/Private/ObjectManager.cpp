@@ -120,13 +120,19 @@ void ObjectManager::FreeAll(const EngineContext& engineContext)
 {
     for (const auto& obj : objects)
         obj->Free(engineContext);
-
+    for (const auto& obj : pendingObjects)
+        obj->Free(engineContext);
+    
     for (const auto& obj : objects)
         obj->LateFree(engineContext);
+    for (const auto& obj : pendingObjects)
+        obj->LateFree(engineContext);
+
 
     objects.clear();
     objectMap.clear();
     rawPtrObjects.clear();
+    pendingObjects.clear();
 }
 
 Object* ObjectManager::FindByTag(const std::string& tag) const
