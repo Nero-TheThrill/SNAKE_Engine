@@ -350,6 +350,39 @@ void SoundManager::ControlAll(SoundControlType control)
     }
 }
 
+size_t SoundManager::GetPlayingCountByTag(const std::string& tag) const
+{
+    auto it = activeChannels.find(tag);
+    if (it == activeChannels.end())
+        return 0;
+
+    size_t count = 0;
+
+    for (SoundInstanceMA* inst : it->second)
+    {
+        if (inst != nullptr && ma_sound_is_playing(&inst->sound))
+        {
+            ++count;
+        }
+    }
+
+    return count;
+}
+
+
+SoundInstanceID SoundManager::PlayLimited(const std::string& tag, size_t maxInstances, float volume, float startTimeSec)
+{
+    Cleanup();
+
+    if (GetPlayingCountByTag(tag) >= maxInstances)
+    {
+        return 0;
+    }
+
+    return Play(tag, volume, startTimeSec);
+}
+
+
 void SoundManager::Update()
 {
     Cleanup();

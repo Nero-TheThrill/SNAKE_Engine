@@ -50,6 +50,9 @@ public:
     void ControlByTag(SoundControlType control, const std::string& tag);
     void ControlAll(SoundControlType control);
 
+    size_t GetPlayingCountByTag(const std::string& tag) const;
+    SoundInstanceID PlayLimited(const std::string& tag, size_t maxInstances, float volume = 1.0f, float startTimeSec = 0.0f);
+
 private:
     bool Init();
     void Update();
